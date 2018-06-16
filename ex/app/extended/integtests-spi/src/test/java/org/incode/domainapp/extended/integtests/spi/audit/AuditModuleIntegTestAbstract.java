@@ -1,19 +1,39 @@
 package org.incode.domainapp.extended.integtests.spi.audit;
 
-import org.junit.BeforeClass;
+import java.util.Set;
 
-import org.apache.isis.core.integtestsupport.IntegrationTestAbstract2;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
-import org.incode.domainapp.extended.integtests.spi.audit.app.AuditSpiAppManifest;
+import com.google.common.collect.Sets;
 
-public abstract class AuditModuleIntegTestAbstract extends IntegrationTestAbstract2 {
+import org.apache.isis.applib.Module;
+import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-    @BeforeClass
-    public static void initClass() {
-        bootstrapUsing(AuditSpiAppManifest.BUILDER
-                .withAdditionalModules(FixturesModuleSharedSubmodule.class)
-        );
+import org.isisaddons.module.fakedata.FakeDataModule;
+
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.FixturesModuleSpiAuditSubmodule;
+
+public abstract class AuditModuleIntegTestAbstract extends IntegrationTestAbstract3 {
+
+    @XmlRootElement(name = "module")
+    public static class MyModule extends ModuleAbstract {
+
+        @Override
+        public Set<Module> getDependencies() {
+            return Sets.newHashSet(
+                    new FixturesModuleSpiAuditSubmodule(),
+                    new FakeDataModule()
+            );
+        }
+    }
+
+    public static ModuleAbstract module() {
+        return new MyModule();
+    }
+
+    protected AuditModuleIntegTestAbstract() {
+        super(module());
     }
 
 }

@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.spi.audit.integtests.audited;
+package org.incode.domainapp.extended.integtests.spi.audit.tests.audited;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -13,21 +13,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.services.audit.AuditingService3;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
-import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.objectstore.jdo.applib.service.DomainChangeJdoAbstract;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
-import org.incode.domainapp.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
 
+import org.incode.domainapp.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObjects;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -43,25 +41,16 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
     }
 
     @Inject
-    private FixtureScripts fixtureScripts;
+    SomeAuditedObjects someAuditedObjects;
 
     @Inject
-    private SomeAuditedObjects someAuditedObjects;
+    IsisJdoSupport isisJdoSupport;
 
     @Inject
-    private IsisJdoSupport isisJdoSupport;
+    AuditingServiceRepository auditingServiceRepository;
 
     @Inject
-    private AuditingService3 auditingService3;
-
-    @Inject
-    private AuditingServiceRepository auditingServiceRepository;
-
-    @Inject
-    private BookmarkService bookmarkService;
-
-    @Inject
-    private TransactionService transactionService;
+    BookmarkService bookmarkService;
 
     @Test
     public void auditEntriesCreatedOnCommit() throws Exception {
@@ -81,7 +70,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         Assert.assertThat(prior.size(), is(0));
 
         // when
-        this.nextTransaction();
+        transactionService.nextTransaction();
 
         // then
         final List<Map<String, Object>> after = isisJdoSupport.executeSql("SELECT * FROM \"isisaudit\".\"AuditEntry\"");
@@ -101,7 +90,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         // currently necessary to ensure that created objects are picked up and enlisted in the transaction as newly created
         transactionService.flushTransaction();
 
-        this.nextTransaction();
+        transactionService.nextTransaction();
 
         // then
         final Bookmark bookmark = bookmarkService.bookmarkFor(newObject);
@@ -162,7 +151,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         someAuditedObject.setName("Bob");
         someAuditedObject.setNumber(123);
 
-        this.nextTransaction();
+        transactionService.nextTransaction();
 
         // then
 

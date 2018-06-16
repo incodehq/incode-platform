@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.spi.audit.integtests.notaudited;
+package org.incode.domainapp.extended.integtests.spi.audit.tests.notaudited;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,19 +11,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.apache.isis.applib.fixturescripts.FixtureScripts;
-import org.apache.isis.applib.services.audit.AuditingService3;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
-import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
+
+import org.incode.domainapp.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited.SomeNotAuditedObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited.SomeNotAuditedObjects;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
-import org.incode.domainapp.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -38,25 +36,16 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
     }
 
     @Inject
-    private FixtureScripts fixtureScripts;
+    SomeNotAuditedObjects someNotAuditedObjects;
 
     @Inject
-    private SomeNotAuditedObjects someNotAuditedObjects;
+    IsisJdoSupport isisJdoSupport;
 
     @Inject
-    private IsisJdoSupport isisJdoSupport;
+    AuditingServiceRepository auditingServiceRepository;
 
     @Inject
-    private AuditingService3 auditingService3;
-
-    @Inject
-    private AuditingServiceRepository auditingServiceRepository;
-
-    @Inject
-    private BookmarkService bookmarkService;
-
-    @Inject
-    private TransactionService transactionService;
+    BookmarkService bookmarkService;
 
     @Test
     public void auditEntriesNotCreatedOnCommit() throws Exception {
@@ -76,7 +65,7 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
         Assert.assertThat(prior.size(), is(0));
 
         // when
-        this.nextTransaction();
+        transactionService.nextTransaction();
 
         // then
         Assert.assertThat(prior.size(), is(0));
@@ -100,7 +89,7 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
         someNotAuditedObject.setName("Bob");
         someNotAuditedObject.setNumber(123);
 
-        this.nextTransaction();
+        transactionService.nextTransaction();
 
         // then
 
@@ -110,12 +99,8 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
     }
 
     private static List<AuditEntry> sorted(List<AuditEntry> auditEntries) {
-        Collections.sort(auditEntries, new Comparator<AuditEntry>() {
-            @Override
-            public int compare(AuditEntry o1, AuditEntry o2) {
-                return o1.getMemberIdentifier().compareTo(o2.getMemberIdentifier());
-            }
-        });
+        Collections.sort(auditEntries,
+                Comparator.comparing(AuditEntry::getMemberIdentifier));
         return auditEntries;
     }
 
