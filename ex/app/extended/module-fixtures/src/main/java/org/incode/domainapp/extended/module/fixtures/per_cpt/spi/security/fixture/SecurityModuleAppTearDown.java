@@ -1,24 +1,26 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-public class SecurityModuleAppTearDown extends FixtureScript {
+import org.isisaddons.module.security.dom.permission.ApplicationPermission;
+import org.isisaddons.module.security.dom.role.ApplicationRole;
+import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
+import org.isisaddons.module.security.dom.user.ApplicationUser;
+
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntity;
+
+public class SecurityModuleAppTearDown extends TeardownFixtureAbstract2 {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"isissecurity\".\"ApplicationPermission\"");
-        isisJdoSupport.executeUpdate("delete from \"isissecurity\".\"ApplicationUserRoles\"");
-        isisJdoSupport.executeUpdate("delete from \"isissecurity\".\"ApplicationRole\"");
-        isisJdoSupport.executeUpdate("delete from \"isissecurity\".\"ApplicationUser\"");
-        isisJdoSupport.executeUpdate("delete from \"isissecurity\".\"ApplicationTenancy\"");
-
-        isisJdoSupport.executeUpdate("delete from \"exampleSpiSecurity\".\"NonTenantedEntity\"");
-        isisJdoSupport.executeUpdate("delete from \"exampleSpiSecurity\".\"TenantedEntity\"");
+        deleteFrom(ApplicationPermission.class);
+        deleteFrom(ApplicationRole.class);
+        deleteFrom(ApplicationUser.class);
+        deleteFrom(ApplicationTenancy.class);
+        deleteFrom(NonTenantedEntity.class);
+        deleteFrom(TenantedEntity.class);
     }
-
-
-    @javax.inject.Inject
-    private IsisJdoSupport isisJdoSupport;
 
 }

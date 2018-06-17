@@ -1,15 +1,20 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.sub;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class SomeAuditedObject_and_SomeNonAuditedObject_and_AuditEntry_tearDown extends FixtureScript {
+import org.isisaddons.module.audit.dom.AuditEntry;
+
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited.SomeNotAuditedObject;
+
+public class SomeAuditedObject_and_SomeNonAuditedObject_and_AuditEntry_tearDown extends TeardownFixtureAbstract2 {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        isisJdoSupport.executeUpdate("delete from \"exampleSpiAudit\".\"SomeAuditedObject\"");
-        isisJdoSupport.executeUpdate("delete from \"exampleSpiAudit\".\"SomeNotAuditedObject\"");
+        deleteFrom(AuditEntry.class);
+        deleteFrom(SomeAuditedObject.class);
+        deleteFrom(SomeNotAuditedObject.class);
     }
 
 

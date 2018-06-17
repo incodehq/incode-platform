@@ -6,8 +6,8 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.example.settings.dom.ApplicationSetting;
-import org.incode.example.settings.dom.UserSetting;
+import org.incode.example.settings.dom.jdo.ApplicationSettingJdo;
+import org.incode.example.settings.dom.jdo.UserSettingJdo;
 
 @XmlRootElement(name = "module")
 public class SettingsModule extends ModuleAbstract {
@@ -15,8 +15,8 @@ public class SettingsModule extends ModuleAbstract {
     @Override public FixtureScript getTeardownFixture() {
         return new TeardownFixtureAbstract2() {
             @Override protected void execute(final ExecutionContext executionContext) {
-                deleteFrom(UserSetting.class);
-                deleteFrom(ApplicationSetting.class);
+                deleteFrom(UserSettingJdo.class);
+                deleteFrom(ApplicationSettingJdo.class);
             }
         };
     }

@@ -10,7 +10,6 @@ public class SimpleModule_tearDown extends FixtureScript {
         isisJdoSupport.executeUpdate("delete from \"simple\".\"SimpleObject\"");
     }
 
-
     @javax.inject.Inject
     private IsisJdoSupport isisJdoSupport;
 

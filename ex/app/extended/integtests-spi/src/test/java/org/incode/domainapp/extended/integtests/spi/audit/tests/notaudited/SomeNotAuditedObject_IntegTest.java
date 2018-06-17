@@ -51,8 +51,7 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
     public void auditEntriesNotCreatedOnCommit() throws Exception {
 
         // given
-        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        transactionService.flushTransaction();
+        deleteFromAuditEntry();
 
         // when
         wrap(someNotAuditedObjects).createSomeNotAuditedObject("Faz");
@@ -82,8 +81,7 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
         assertThat(someNotAuditedObject.getName(), is("Foo"));
         assertThat(someNotAuditedObject.getNumber(), is(nullValue()));
 
-        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        transactionService.flushTransaction();
+        deleteFromAuditEntry();
 
         // when
         someNotAuditedObject.setName("Bob");

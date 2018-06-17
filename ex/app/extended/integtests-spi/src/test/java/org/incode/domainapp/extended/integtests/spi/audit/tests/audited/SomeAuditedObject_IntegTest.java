@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
@@ -56,8 +57,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
     public void auditEntriesCreatedOnCommit() throws Exception {
 
         // given
-        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        transactionService.flushTransaction();
+        deleteFromAuditEntry();
 
         // when
         wrap(someAuditedObjects).createSomeAuditedObject("Faz");
@@ -81,8 +81,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
     public void create() throws Exception {
 
         // given
-        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        transactionService.flushTransaction();
+        deleteFromAuditEntry();
 
         // when
         final SomeAuditedObject newObject = wrap(someAuditedObjects).createSomeAuditedObject("Faz");
@@ -144,8 +143,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         assertThat(someAuditedObject.getName(), is("Foo"));
         assertThat(someAuditedObject.getNumber(), is(nullValue()));
 
-        isisJdoSupport.executeUpdate("delete from \"isisaudit\".\"AuditEntry\"");
-        transactionService.flushTransaction();
+        deleteFromAuditEntry();
 
         // when
         someAuditedObject.setName("Bob");

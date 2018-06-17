@@ -1,18 +1,16 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-public class DemoTaggableObjects_tearDown extends FixtureScript {
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
+import org.incode.example.tags.dom.Tag;
+
+public class DemoTaggableObjects_tearDown extends TeardownFixtureAbstract2 {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"exampleDomTags\".\"DemoTaggableObject\"");
-        isisJdoSupport.executeUpdate("delete from \"isistags\".\"Tag\"");
+        deleteFrom(DemoTaggableObject.class);
+        deleteFrom(Tag.class);
     }
-
-
-    @javax.inject.Inject
-    IsisJdoSupport isisJdoSupport;
 
 }

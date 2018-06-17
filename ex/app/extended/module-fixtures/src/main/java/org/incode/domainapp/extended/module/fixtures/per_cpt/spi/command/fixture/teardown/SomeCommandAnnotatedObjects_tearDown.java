@@ -1,13 +1,15 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.fixture.teardown;
 
-import org.apache.isis.applib.fixturescripts.FixtureScript;
+import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-public class SomeCommandAnnotatedObjects_tearDown extends FixtureScript {
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.SomeCommandAnnotatedObject;
+
+public class SomeCommandAnnotatedObjects_tearDown extends TeardownFixtureAbstract2 {
 
     @Override
     protected void execute(ExecutionContext executionContext) {
-        isisJdoSupport.executeUpdate("delete from \"exampleSpiCommand\".\"SomeCommandAnnotatedObject\"");
+        deleteFrom(SomeCommandAnnotatedObject.class);
     }
 
 
