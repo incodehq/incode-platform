@@ -2,8 +2,8 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.fixtur
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObject;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObjects;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.SomeCommandAnnotatedObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.SomeCommandAnnotatedObjects;
 
 public class SomeCommandAnnotatedObject_create3 extends FixtureScript {
 

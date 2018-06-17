@@ -13,13 +13,12 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.FixturesModuleSpiCommandSubmodule;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObject;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.demo.SomeCommandAnnotatedObjects;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.fixture.SomeCommandAnnotatedObject_recreate3;
-
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.FixturesModuleSpiCommandSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.SomeCommandAnnotatedObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.dom.SomeCommandAnnotatedObjects;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.fixture.SomeCommandAnnotatedObject_create3;
 
 public class ExampleDomSpiCommandAppManifest extends AppManifestAbstract {
 
@@ -28,7 +27,7 @@ public class ExampleDomSpiCommandAppManifest extends AppManifestAbstract {
             FixturesModuleSpiCommandSubmodule.class
         )
         .withFixtureScripts(
-                SomeCommandAnnotatedObject_recreate3.class,
+                SomeCommandAnnotatedObject_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

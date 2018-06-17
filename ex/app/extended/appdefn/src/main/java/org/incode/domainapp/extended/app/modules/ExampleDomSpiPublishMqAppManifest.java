@@ -14,13 +14,12 @@ import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
+import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
+import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.FixturesModuleSpiPublishMqSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObjects;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.fixture.PublishMqDemoObject_recreate3;
-
-import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
-import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.fixture.PublishMqDemoObject_create3;
 
 public class ExampleDomSpiPublishMqAppManifest extends AppManifestAbstract {
 
@@ -30,7 +29,7 @@ public class ExampleDomSpiPublishMqAppManifest extends AppManifestAbstract {
             PublishMqModule.class
         )
         .withFixtureScripts(
-                PublishMqDemoObject_recreate3.class,
+                PublishMqDemoObject_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

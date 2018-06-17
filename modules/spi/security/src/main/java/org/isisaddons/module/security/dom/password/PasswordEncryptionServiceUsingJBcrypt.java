@@ -1,10 +1,21 @@
 package org.isisaddons.module.security.dom.password;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.mindrot.jbcrypt.BCrypt;
 
+import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.annotation.Programmatic;
 
 public class PasswordEncryptionServiceUsingJBcrypt implements PasswordEncryptionService {
+
+    @XmlRootElement(name = "module")
+    public static class Module extends ModuleAbstract {
+
+        public Module() {
+            withAdditionalServices(PasswordEncryptionServiceUsingJBcrypt.class);
+        }
+    }
 
     String salt;
 
