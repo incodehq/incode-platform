@@ -19,7 +19,7 @@ import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.D
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
 import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
-import org.incode.example.classification.dom.ClassificationModule;
+import org.incode.example.classification.ClassificationModule;
 
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

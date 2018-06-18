@@ -7,7 +7,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 
 @Mixin
 public class EmailAddress_update {

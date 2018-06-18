@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.dom.CommunicationChannelOwnerLinkForDemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleExamplesCommChannelIntegrationSubmodule extends ModuleAbstract {

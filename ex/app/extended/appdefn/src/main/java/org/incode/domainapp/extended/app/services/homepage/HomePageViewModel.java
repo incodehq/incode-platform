@@ -121,7 +121,7 @@ import org.incode.example.settings.dom.ApplicationSetting;
 import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
 import org.incode.example.settings.dom.UserSetting;
 import org.incode.example.settings.dom.UserSettingsServiceRW;
-import org.incode.example.tags.dom.Tag;
+import org.incode.example.tags.dom.impl.Tag;
 
 import lombok.Getter;
 import lombok.Setter;

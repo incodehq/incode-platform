@@ -1,17 +1,8 @@
 package org.incode.domainapp.extended.integtests.examples.document;
 
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlRootElement;
-
-import com.google.common.collect.Sets;
-
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-import org.isisaddons.module.fakedata.FakeDataModule;
-
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.FixturesModuleExamplesDocumentIntegrationSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
@@ -21,19 +12,8 @@ import org.incode.example.document.dom.impl.docs.Document_delete;
 
 public abstract class DocumentModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
-    @XmlRootElement(name = "module")
-    public static class MyModule extends ModuleAbstract {
-        @Override
-        public Set<org.apache.isis.applib.Module> getDependencies() {
-            return Sets.newHashSet(
-                    new FixturesModuleExamplesDocumentIntegrationSubmodule(),
-                    new FakeDataModule()
-            );
-        }
-    }
-
     public static ModuleAbstract module() {
-        return new MyModule();
+        return new DocumentModuleIntegTestModule();
     }
 
     protected DocumentModuleIntegTestAbstract() {

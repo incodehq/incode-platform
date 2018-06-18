@@ -716,7 +716,7 @@ In the `AppManifest`, update its `getModules()` method:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.example.document.dom.DocumentModule.class,
+            org.incode.example.document.DocumentModule.class,
     );
 }
 ----

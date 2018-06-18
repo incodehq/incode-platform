@@ -2,7 +2,7 @@ package org.incode.example.commchannel.dom.spi;
 
 import java.util.Collection;
 
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.type.CommunicationChannelType;
 

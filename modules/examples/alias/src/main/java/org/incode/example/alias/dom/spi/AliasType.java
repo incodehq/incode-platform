@@ -1,6 +1,6 @@
 package org.incode.example.alias.dom.spi;
 
-import org.incode.example.alias.dom.AliasModule;
+import org.incode.example.alias.AliasModule;
 
 /**
  * The type of an alias for an aliased domain object.  The combination of the

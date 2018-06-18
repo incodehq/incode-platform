@@ -56,7 +56,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.example.settings.SettingsManifest
+            org.incode.example.settings.dom.SettingsModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
 
         <jar-plugin.automaticModuleName>org.incode.example.settings</jar-plugin.automaticModuleName>

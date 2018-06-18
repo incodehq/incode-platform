@@ -12,7 +12,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 import org.incode.example.commchannel.dom.api.GeocodedAddress;
 import org.incode.example.commchannel.dom.api.GeocodingService;
 

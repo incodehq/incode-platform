@@ -2,6 +2,8 @@ package org.incode.example.classification.dom;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
+import org.incode.example.classification.ClassificationModule;
+
 /**
  * Provided for <tt>isis-maven-plugin</tt>.
  */

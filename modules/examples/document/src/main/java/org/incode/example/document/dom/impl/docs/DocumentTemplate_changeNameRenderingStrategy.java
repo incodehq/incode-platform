@@ -8,7 +8,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.document.DocumentModule;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategyRepository;
 

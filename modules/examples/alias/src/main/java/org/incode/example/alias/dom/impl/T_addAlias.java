@@ -16,7 +16,7 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.example.alias.dom.AliasModule;
+import org.incode.example.alias.AliasModule;
 import org.incode.example.alias.dom.spi.AliasType;
 import org.incode.example.alias.dom.spi.AliasTypeRepository;
 import org.incode.example.alias.dom.spi.ApplicationTenancyRepository;

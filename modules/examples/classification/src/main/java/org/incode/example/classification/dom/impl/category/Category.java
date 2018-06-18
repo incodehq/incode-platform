@@ -38,7 +38,7 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.example.classification.dom.ClassificationModule;
+import org.incode.example.classification.ClassificationModule;
 import org.incode.example.classification.dom.impl.category.taxonomy.Taxonomy;
 import org.incode.example.classification.dom.impl.classification.ClassificationRepository;
 

@@ -3,29 +3,19 @@ package org.incode.domainapp.extended.integtests.examples.commchannel;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Set;
 
 import javax.inject.Inject;
-import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.common.collect.Sets;
-
-import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
-import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
-import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.FixturesModuleExamplesCommChannelIntegrationSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.contributions.DemoObject_addEmailAddress;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.contributions.DemoObject_addPhoneOrFaxNumber;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.contributions.DemoObject_addPostalAddress;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.contributions.DemoObject_communicationChannels;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
-import org.incode.example.commchannel.dom.api.GeocodingService;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel_remove1;
 import org.incode.example.commchannel.dom.impl.channel.T_communicationChannels;
@@ -35,26 +25,8 @@ import org.incode.example.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 
 public abstract class CommChannelModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
-    @XmlRootElement(name = "module")
-    public static class MyModule extends ModuleAbstract {
-
-        public MyModule() {
-            withConfigurationProperty(GeocodingService.class.getCanonicalName() + ".demo", "true");
-        }
-
-        @Override
-        public Set<Module> getDependencies() {
-            return Sets.newHashSet(
-                    new FixturesModuleExamplesCommChannelIntegrationSubmodule(),
-                    new Gmap3ApplibModule(),
-                    new Gmap3UiModule(),
-                    new FakeDataModule()
-            );
-        }
-    }
-
     public static ModuleAbstract module() {
-        return new MyModule();
+        return new CommChannelModuleIntegTestModule();
     }
 
     protected CommChannelModuleIntegTestAbstract() {

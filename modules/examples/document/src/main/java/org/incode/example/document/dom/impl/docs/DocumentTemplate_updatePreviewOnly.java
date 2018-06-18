@@ -5,7 +5,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.document.DocumentModule;
 
 @Mixin
 public class DocumentTemplate_updatePreviewOnly {

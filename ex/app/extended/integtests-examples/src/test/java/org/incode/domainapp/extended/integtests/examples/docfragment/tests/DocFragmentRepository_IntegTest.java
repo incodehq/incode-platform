@@ -23,7 +23,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragmen
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DocFragmentData;
 import org.incode.example.docfragment.dom.impl.DocFragment;
 import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
-import org.incode.example.docfragment.fixture.DocFragment_tearDown;
+import org.incode.example.docfragment.fixture.teardown.DocFragmentModule_tearDown;
 
 import static org.apache.isis.core.integtestsupport.ThrowableMatchers.causedBy;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,7 +45,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void happyCase() throws Exception {
 
             // given
-            fixtureScripts.runFixtureScript(new DocFragment_tearDown(), null);
+            fixtureScripts.runFixtureScript(new DocFragmentModule_tearDown(), null);
             DocFragmentData.PersistScript fs = new DocFragmentData.PersistScript();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
@@ -64,7 +64,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void whenNone() throws Exception {
 
             // given
-            FixtureScript fs = new DocFragment_tearDown();
+            FixtureScript fs = new DocFragmentModule_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -82,7 +82,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void happyCase() throws Exception {
 
             // given
-            FixtureScript fs = new DocFragment_tearDown();
+            FixtureScript fs = new DocFragmentModule_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -99,7 +99,7 @@ public class DocFragmentRepository_IntegTest extends DocFragmentModuleIntegTestA
         public void whenAlreadyExists() throws Exception {
 
             // given
-            FixtureScript fs = new DocFragment_tearDown();
+            FixtureScript fs = new DocFragmentModule_tearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 

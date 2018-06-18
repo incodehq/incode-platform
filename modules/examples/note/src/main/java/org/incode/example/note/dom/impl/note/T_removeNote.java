@@ -11,7 +11,7 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.example.note.dom.NoteModule;
+import org.incode.example.note.NoteModule;
 
 public abstract class T_removeNote<T> {
 

@@ -448,7 +448,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.example.communications.dom.CommunicationsModule.class,
+            org.incode.example.communications.CommunicationsModule.class,
     );
 }
 ----

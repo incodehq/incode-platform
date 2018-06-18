@@ -55,7 +55,7 @@
 
     <properties>
         <isis-maven-plugin.validate.appManifest>
-            org.incode.example.tags.TagsManifest
+            org.incode.example.tags.dom.TagsModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
 
         <jar-plugin.automaticModuleName>org.incode.example.tags</jar-plugin.automaticModuleName>

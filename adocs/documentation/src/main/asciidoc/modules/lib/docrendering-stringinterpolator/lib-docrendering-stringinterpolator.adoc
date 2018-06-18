@@ -163,7 +163,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule.class,
+            org.incode.example.docrendering.stringinterpolator.StringInterpolatorDocRenderingModule.class,
     );
 }
 ----

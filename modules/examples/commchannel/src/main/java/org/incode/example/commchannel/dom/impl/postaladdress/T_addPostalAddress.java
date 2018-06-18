@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
 
 import org.incode.example.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 import org.incode.example.commchannel.dom.impl.type.CommunicationChannelType;
 
 public abstract class T_addPostalAddress<T> {

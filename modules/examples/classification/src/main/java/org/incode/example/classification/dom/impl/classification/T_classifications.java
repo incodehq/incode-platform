@@ -1,7 +1,7 @@
 package org.incode.example.classification.dom.impl.classification;
 
 import org.apache.isis.applib.annotation.*;
-import org.incode.example.classification.dom.ClassificationModule;
+import org.incode.example.classification.ClassificationModule;
 
 import javax.inject.Inject;
 import java.util.List;

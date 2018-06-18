@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 import org.incode.example.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
 import org.incode.example.commchannel.dom.impl.type.CommunicationChannelType;
 

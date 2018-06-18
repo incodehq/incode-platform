@@ -31,7 +31,7 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.document.DocumentModule;
 import org.incode.example.document.dom.impl.docs.DocumentTemplateRepository;
 import org.incode.example.document.dom.types.NameType;
 

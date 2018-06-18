@@ -23,10 +23,10 @@ import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.De
 import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoiceRepository;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
-import org.incode.example.communications.dom.CommunicationsModule;
+import org.incode.example.communications.CommunicationsModule;
 import org.incode.example.country.dom.impl.Country;
-import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.docrendering.freemarker.FreemarkerDocRenderingModule;
+import org.incode.example.document.DocumentModule;
 
 public class ExampleDomDomCommunicationsAppManifest extends AppManifestAbstract {
 

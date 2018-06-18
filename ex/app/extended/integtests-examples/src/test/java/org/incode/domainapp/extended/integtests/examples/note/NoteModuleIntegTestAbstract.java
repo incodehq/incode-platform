@@ -1,22 +1,16 @@
 package org.incode.domainapp.extended.integtests.examples.note;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
-import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.FixturesModuleExamplesNoteIntegrationSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_addNote;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_notes;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_removeNote;
@@ -31,19 +25,8 @@ import org.incode.example.note.dom.impl.note.T_removeNote;
 
 public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
-    @XmlRootElement(name = "module")
-    public static class MyModule extends ModuleAbstract {
-        @Override
-        public Set<Module> getDependencies() {
-            return Sets.newHashSet(
-                    new FixturesModuleExamplesNoteIntegrationSubmodule(),
-                    new FakeDataModule()
-            );
-        }
-    }
-
     public static ModuleAbstract module() {
-        return new NoteModuleIntegTestAbstract.MyModule();
+        return new NoteModuleIntegTestModule();
     }
 
     protected NoteModuleIntegTestAbstract() {

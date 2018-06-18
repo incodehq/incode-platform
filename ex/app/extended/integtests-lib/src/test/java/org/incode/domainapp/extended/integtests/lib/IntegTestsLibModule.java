@@ -25,7 +25,6 @@ public class IntegTestsLibModule extends ModuleAbstract {
                 FakeDataModuleIntegTestAbstract.module(),
                 PolyModuleIntegTestAbstract.module(),
                 StringInterpolatorModuleIntegTestAbstract.module()
-
         );
     }
 }

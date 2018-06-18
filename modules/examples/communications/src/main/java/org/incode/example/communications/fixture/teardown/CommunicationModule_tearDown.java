@@ -1,7 +1,6 @@
 package org.incode.example.communications.fixture.teardown;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
-import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;

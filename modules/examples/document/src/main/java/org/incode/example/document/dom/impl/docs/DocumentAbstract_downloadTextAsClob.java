@@ -6,7 +6,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Clob;
 
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.document.DocumentModule;
 
 @Mixin
 public class DocumentAbstract_downloadTextAsClob {

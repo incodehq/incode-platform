@@ -22,7 +22,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixtur
 import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObject_createUpTo10_hardcodedData;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture.DemoObjectWithBlob_createUpTo5_fakeData;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_recreate4_hardcodedData;
+import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
 import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_create4;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_create_usingExcelFixture;
@@ -54,7 +54,7 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
         ec.executeChild(this, new PublishMqDemoObject_create3());
 
         ec.executeChild(this, new DemoTaggableObject_withTags_create3());
-        ec.executeChild(this, new DemoOrderAndOrderLine_recreate4_hardcodedData());
+        ec.executeChild(this, new DemoOrderAndOrderLine_create4_hardcodedData());
         ec.executeChild(this, new Case_FixedAsset_Party_recreateAll());
         ec.executeChild(this, new ServletApiDemoObject_create3());
 

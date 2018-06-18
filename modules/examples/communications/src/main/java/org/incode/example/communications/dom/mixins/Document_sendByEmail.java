@@ -27,7 +27,7 @@ import org.incode.example.communications.dom.impl.comms.Communication;
 import org.incode.example.communications.dom.impl.comms.CommunicationRepository;
 import org.incode.example.communications.dom.spi.CommHeaderForEmail;
 import org.incode.example.communications.dom.spi.DocumentCommunicationSupport;
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.document.DocumentModule;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentState;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;

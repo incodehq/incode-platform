@@ -12,7 +12,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 
-import org.incode.example.docfragment.fixture.DocFragment_tearDown;
+import org.incode.example.docfragment.fixture.teardown.DocFragmentModule_tearDown;
 
 @XmlRootElement(name = "module")
 public class DocFragmentModule extends ModuleAbstract {
@@ -23,7 +23,7 @@ public class DocFragmentModule extends ModuleAbstract {
 
     @Override
     public FixtureScript getTeardownFixture() {
-        return new DocFragment_tearDown();
+        return new DocFragmentModule_tearDown();
     }
 
     //region > ui event classes

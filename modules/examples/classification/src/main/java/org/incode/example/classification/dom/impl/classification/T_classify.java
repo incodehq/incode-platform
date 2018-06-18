@@ -19,7 +19,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.registry.ServiceRegistry;
 
-import org.incode.example.classification.dom.ClassificationModule;
+import org.incode.example.classification.ClassificationModule;
 import org.incode.example.classification.dom.impl.applicability.Applicability;
 import org.incode.example.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.example.classification.dom.impl.category.Category;

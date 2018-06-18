@@ -9,7 +9,7 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
-import org.incode.domainapp.extended.integtests.mml.paraname8.integtests.Paraname8ModuleIntegTestAbstract;
+import org.incode.domainapp.extended.integtests.mml.paraname8.Paraname8ModuleIntegTestAbstract;
 
 @XmlRootElement(name = "module")
 public class IntegTestsMmlModule extends ModuleAbstract {

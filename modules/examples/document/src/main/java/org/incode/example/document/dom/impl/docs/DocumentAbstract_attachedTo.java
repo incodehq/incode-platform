@@ -18,7 +18,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.tablecol.TableColumnOrderService;
 
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.document.DocumentModule;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.example.document.dom.spi.SupportingDocumentsEvaluator;

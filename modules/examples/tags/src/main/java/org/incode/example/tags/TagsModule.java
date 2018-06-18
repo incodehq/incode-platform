@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.ModuleAbstract;
+import org.apache.isis.applib.fixturescripts.FixtureScript;
+
+import org.incode.example.tags.fixture.teardown.TagModule_teardown;
 
 @XmlRootElement(name = "module")
 public class TagsModule extends ModuleAbstract {
@@ -42,6 +45,10 @@ public class TagsModule extends ModuleAbstract {
         public PropertyDomainEvent(final S source, final Identifier identifier, final T oldValue, final T newValue) {
             super(source, identifier, oldValue, newValue);
         }
+    }
+
+    @Override public FixtureScript getTeardownFixture() {
+        return new TagModule_teardown();
     }
 
 }

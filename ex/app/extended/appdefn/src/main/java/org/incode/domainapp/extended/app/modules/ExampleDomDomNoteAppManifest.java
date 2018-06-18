@@ -17,7 +17,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.Fixtu
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.fixture.DemoObject_withNotes_recreate3;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.example.note.dom.NoteModule;
+import org.incode.example.note.NoteModule;
 
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

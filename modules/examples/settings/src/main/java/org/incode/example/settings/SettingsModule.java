@@ -4,21 +4,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.example.settings.dom.jdo.ApplicationSettingJdo;
-import org.incode.example.settings.dom.jdo.UserSettingJdo;
+import org.incode.example.settings.fixture.teardown.SettingsModule_teardown;
 
 @XmlRootElement(name = "module")
 public class SettingsModule extends ModuleAbstract {
 
     @Override public FixtureScript getTeardownFixture() {
-        return new TeardownFixtureAbstract2() {
-            @Override protected void execute(final ExecutionContext executionContext) {
-                deleteFrom(UserSettingJdo.class);
-                deleteFrom(ApplicationSettingJdo.class);
-            }
-        };
+        return new SettingsModule_teardown();
     }
 
     public abstract static class ActionDomainEvent<S>
@@ -32,4 +25,5 @@ public class SettingsModule extends ModuleAbstract {
     public abstract static class PropertyDomainEvent<S,T>
             extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> {
     }
+
 }

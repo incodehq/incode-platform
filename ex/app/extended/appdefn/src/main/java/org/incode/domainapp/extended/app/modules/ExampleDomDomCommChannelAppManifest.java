@@ -20,7 +20,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchanne
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_recreate3;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;

@@ -33,7 +33,7 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.example.communications.dom.CommunicationsModule;
+import org.incode.example.communications.CommunicationsModule;
 
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.example.communications.dom.types.DescriptionType;

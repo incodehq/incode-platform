@@ -19,7 +19,7 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
 
-import org.incode.example.classification.dom.ClassificationModule;
+import org.incode.example.classification.ClassificationModule;
 import org.incode.example.classification.dom.impl.category.Category;
 import org.incode.example.classification.dom.impl.category.taxonomy.Taxonomy;
 

@@ -12,22 +12,21 @@ import org.isisaddons.module.servletapi.ServletApiModule;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
 
+import org.incode.domainapp.extended.appdefn.DomainAppAppManifest;
 import org.incode.domainapp.extended.module.fixtures.FixturesModule;
 import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
-import org.incode.example.alias.dom.AliasModule;
-import org.incode.example.classification.dom.ClassificationModule;
-import org.incode.example.commchannel.dom.CommChannelModule;
-import org.incode.example.communications.dom.CommunicationsModuleDomModule;
-import org.incode.example.country.dom.CountryModule;
+import org.incode.example.alias.AliasModule;
+import org.incode.example.classification.ClassificationModule;
+import org.incode.example.commchannel.CommChannelModule;
+import org.incode.example.communications.CommunicationsModule;
+import org.incode.example.country.CountryModule;
 import org.incode.example.docfragment.dom.DocFragmentModuleDomModule;
-import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
-import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
-import org.incode.example.document.dom.DocumentModule;
-import org.incode.example.note.dom.NoteModule;
+import org.incode.example.docrendering.freemarker.FreemarkerDocRenderingModule;
+import org.incode.example.docrendering.stringinterpolator.StringInterpolatorDocRenderingModule;
+import org.incode.example.docrendering.xdocreport.XDocReportDocRenderingModule;
+import org.incode.example.document.DocumentModule;
+import org.incode.example.note.NoteModule;
 import org.incode.example.tags.TagsModule;
-
-import org.incode.domainapp.extended.appdefn.DomainAppAppManifest;
 
 public class DomainAppAppManifestWithExampleModules extends AppManifestAbstract {
 
@@ -55,7 +54,7 @@ public class DomainAppAppManifestWithExampleModules extends AppManifestAbstract 
                     AliasModule.class,
                     ClassificationModule.class,
                     CommChannelModule.class,
-                    CommunicationsModuleDomModule.class,
+                    CommunicationsModule.class,
                     CountryModule.class,
                     DocFragmentModuleDomModule.class,
                     DocumentModule.class,

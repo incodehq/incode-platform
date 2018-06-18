@@ -1,19 +1,14 @@
 package org.incode.domainapp.extended.module.fixtures.shared.demowithall.fixture;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
-import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
 
 public class DemoObjectWithAll_tearDown extends TeardownFixtureAbstract2 {
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
-        deleteFrom(DemoObject.class);
+        deleteFrom(DemoObjectWithAll.class);
     }
-
-
-    @javax.inject.Inject
-    IsisJdoSupport isisJdoSupport;
 
 }

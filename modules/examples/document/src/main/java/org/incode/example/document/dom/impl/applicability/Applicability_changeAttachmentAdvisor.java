@@ -10,7 +10,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.document.DocumentModule;
 import org.incode.example.document.dom.services.ClassNameViewModel;
 import org.incode.example.document.dom.services.ClassService;
 import org.incode.example.document.dom.spi.AttachmentAdvisorClassNameService;

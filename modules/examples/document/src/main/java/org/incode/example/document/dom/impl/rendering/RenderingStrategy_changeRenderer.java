@@ -11,7 +11,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.document.DocumentModule;
 import org.incode.example.document.dom.impl.renderers.Renderer;
 import org.incode.example.document.dom.services.ClassNameViewModel;
 import org.incode.example.document.dom.spi.RendererClassNameService;

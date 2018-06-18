@@ -423,7 +423,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.example.classification.dom.ClassificationModule.class,
+            org.incode.example.classification.ClassificationModule.class,
     );
 }
 ----

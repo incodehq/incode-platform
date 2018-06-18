@@ -19,7 +19,7 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.example.note.dom.NoteModule;
+import org.incode.example.note.NoteModule;
 import org.incode.example.note.dom.impl.calendarname.CalendarNameService;
 
 public abstract class T_addNote<T> {

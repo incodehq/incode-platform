@@ -26,10 +26,10 @@ import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.Demo
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrlMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
 import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObjectMenu;
-import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
-import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.docrendering.freemarker.FreemarkerDocRenderingModule;
+import org.incode.example.docrendering.stringinterpolator.StringInterpolatorDocRenderingModule;
+import org.incode.example.docrendering.xdocreport.XDocReportDocRenderingModule;
+import org.incode.example.document.DocumentModule;
 
 public class ExampleDomDomDocumentAppManifest extends AppManifestAbstract {
 

@@ -4,6 +4,8 @@ import org.apache.isis.applib.AppManifestAbstract;
 
 import org.isisaddons.module.security.SecurityModule;
 
+import org.incode.example.communications.CommunicationsModule;
+
 /**
  * Provided for <tt>isis-maven-plugin</tt>.
  */

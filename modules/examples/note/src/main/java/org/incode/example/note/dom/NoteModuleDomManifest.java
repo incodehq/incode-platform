@@ -2,6 +2,8 @@ package org.incode.example.note.dom;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
+import org.incode.example.note.NoteModule;
+
 /**
  * Provided for <tt>isis-maven-plugin</tt>.
  */

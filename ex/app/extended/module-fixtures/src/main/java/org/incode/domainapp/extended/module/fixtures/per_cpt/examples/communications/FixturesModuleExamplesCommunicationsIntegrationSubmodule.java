@@ -17,7 +17,7 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.dom.commchannels.CommunicationChannelOwnerLinkForDemoObjectWithNotes;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communications.dom.paperclips.PaperclipForDemoInvoice;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.FixturesModuleSharedDemoWithNotesSubmodule;
-import org.incode.example.communications.dom.CommunicationsModule;
+import org.incode.example.communications.CommunicationsModule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleExamplesCommunicationsIntegrationSubmodule extends ModuleAbstract {

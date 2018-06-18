@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.Classifications_tearDown;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.FixturesModuleSharedDemoWithAtPathSubmodule;
 import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.FixturesModuleSharedOtherWithAtPathSubmodule;
-import org.incode.example.classification.dom.ClassificationModule;
+import org.incode.example.classification.ClassificationModule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleExamplesClassificationIntegrationSubmodule extends ModuleAbstract {

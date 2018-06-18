@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.dom.AliasForDemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
-import org.incode.example.alias.dom.AliasModule;
+import org.incode.example.alias.AliasModule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleExamplesAliasIntegrationSubmodule extends ModuleAbstract {

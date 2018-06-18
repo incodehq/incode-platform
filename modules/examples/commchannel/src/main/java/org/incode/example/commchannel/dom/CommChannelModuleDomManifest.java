@@ -2,6 +2,8 @@ package org.incode.example.commchannel.dom;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
+import org.incode.example.commchannel.CommChannelModule;
+
 /**
  * Provided for <tt>isis-maven-plugin</tt>.
  */

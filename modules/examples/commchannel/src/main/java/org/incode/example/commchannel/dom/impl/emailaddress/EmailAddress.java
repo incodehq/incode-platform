@@ -8,7 +8,7 @@ import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Property;
 
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 
 import lombok.Getter;
 import lombok.Setter;

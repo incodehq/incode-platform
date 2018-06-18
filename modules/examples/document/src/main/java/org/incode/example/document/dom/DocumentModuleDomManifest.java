@@ -2,6 +2,8 @@ package org.incode.example.document.dom;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
+import org.incode.example.document.DocumentModule;
+
 /**
  * Provided for <tt>isis-maven-plugin</tt>.
  */

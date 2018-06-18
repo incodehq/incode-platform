@@ -2,6 +2,8 @@ package org.incode.example.alias.dom;
 
 import org.apache.isis.applib.AppManifestAbstract;
 
+import org.incode.example.alias.AliasModule;
+
 /**
  * Provided for <tt>isis-maven-plugin</tt>.
  */

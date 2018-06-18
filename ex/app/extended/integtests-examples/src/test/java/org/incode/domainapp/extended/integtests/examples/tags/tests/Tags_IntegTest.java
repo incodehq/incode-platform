@@ -19,8 +19,8 @@ import org.incode.domainapp.extended.integtests.examples.tags.TagsModuleIntegTes
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_create3;
-import org.incode.example.tags.dom.Tag;
-import org.incode.example.tags.dom.Tags;
+import org.incode.example.tags.dom.impl.Tag;
+import org.incode.example.tags.dom.impl.Tags;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;

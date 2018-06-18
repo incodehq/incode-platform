@@ -26,7 +26,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import org.incode.example.classification.dom.ClassificationModule;
+import org.incode.example.classification.ClassificationModule;
 import org.incode.example.classification.dom.impl.category.Category;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
 import org.incode.example.classification.dom.impl.category.taxonomy.Taxonomy;

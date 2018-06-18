@@ -30,7 +30,7 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 import org.incode.example.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.example.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.example.commchannel.dom.impl.purpose.CommunicationChannelPurposeService;
-import org.incode.example.commchannel.dom.CommChannelModule;
+import org.incode.example.commchannel.CommChannelModule;
 import org.incode.example.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.example.commchannel.dom.impl.type.CommunicationChannelType;
 

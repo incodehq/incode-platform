@@ -18,10 +18,10 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.d
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.FixturesModuleSharedDemoWithUrlSubmodule;
 import org.incode.domainapp.extended.module.fixtures.shared.other.FixturesModuleSharedOtherSubmodule;
-import org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule;
-import org.incode.example.docrendering.stringinterpolator.dom.StringInterpolatorDocRenderingModule;
-import org.incode.example.docrendering.xdocreport.dom.XDocReportDocRenderingModule;
-import org.incode.example.document.dom.DocumentModule;
+import org.incode.example.docrendering.freemarker.FreemarkerDocRenderingModule;
+import org.incode.example.docrendering.stringinterpolator.StringInterpolatorDocRenderingModule;
+import org.incode.example.docrendering.xdocreport.XDocReportDocRenderingModule;
+import org.incode.example.document.DocumentModule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleExamplesDocumentIntegrationSubmodule extends ModuleAbstract {

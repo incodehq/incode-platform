@@ -12,7 +12,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.example.note.dom.NoteModule;
+import org.incode.example.note.NoteModule;
 
 @Mixin
 public class Note_changeNotes {

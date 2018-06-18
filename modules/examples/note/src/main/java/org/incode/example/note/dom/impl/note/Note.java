@@ -26,7 +26,7 @@ import org.apache.isis.applib.util.TitleBuffer;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 
-import org.incode.example.note.dom.NoteModule;
+import org.incode.example.note.NoteModule;
 import org.incode.example.note.dom.impl.notablelink.NotableLink;
 import org.incode.example.note.dom.impl.notablelink.NotableLinkRepository;
 

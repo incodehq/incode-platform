@@ -194,7 +194,7 @@ In the `AppManifest`, update its `getModules()` method, eg:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.example.alias.dom.AliasModule.class,
+            org.incode.example.alias.AliasModule.class,
     );
 }
 ----

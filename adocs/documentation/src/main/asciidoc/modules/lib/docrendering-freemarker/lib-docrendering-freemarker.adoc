@@ -71,7 +71,7 @@ In the `AppManifest`, update its `getModules()` method:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.example.docrendering.freemarker.dom.FreemarkerDocRenderingModule.class,
+            org.incode.example.docrendering.freemarker.FreemarkerDocRenderingModule.class,
     );
 }
 ----

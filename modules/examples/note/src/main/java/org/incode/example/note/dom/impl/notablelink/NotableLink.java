@@ -28,7 +28,7 @@ import org.apache.isis.applib.services.title.TitleService;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.Calendarable;
 
-import org.incode.example.note.dom.NoteModule;
+import org.incode.example.note.NoteModule;
 import org.incode.example.note.dom.impl.calendarname.CalendarNameService;
 import org.incode.example.note.dom.impl.note.Note;
 

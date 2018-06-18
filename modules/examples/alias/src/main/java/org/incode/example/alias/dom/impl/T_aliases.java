@@ -1,7 +1,7 @@
 package org.incode.example.alias.dom.impl;
 
 import org.apache.isis.applib.annotation.*;
-import org.incode.example.alias.dom.AliasModule;
+import org.incode.example.alias.AliasModule;
 
 import javax.inject.Inject;
 import java.util.List;
