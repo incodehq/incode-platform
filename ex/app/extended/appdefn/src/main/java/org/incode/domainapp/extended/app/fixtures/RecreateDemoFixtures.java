@@ -11,8 +11,8 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.communicat
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.seed.RenderingStrategy_create6;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_create3;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_recreateAll;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_create3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_createAll;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.fixture.ServletApiDemoObject_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.sub.SomeAuditedObject_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.sub.SomeNotAuditedObject_create3;
@@ -55,11 +55,11 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
 
         ec.executeChild(this, new DemoTaggableObject_withTags_create3());
         ec.executeChild(this, new DemoOrderAndOrderLine_create4_hardcodedData());
-        ec.executeChild(this, new Case_FixedAsset_Party_recreateAll());
+        ec.executeChild(this, new Case_FixedAsset_Party_createAll());
         ec.executeChild(this, new ServletApiDemoObject_create3());
 
         ec.executeChild(this, new DemoObject_createUpTo10_hardcodedData());
-        ec.executeChild(this, new DemoObjectWithAll_recreate3());
+        ec.executeChild(this, new DemoObjectWithAll_create3());
         ec.executeChild(this, new DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3());
         ec.executeChild(this, new DemoObjectWithBlob_createUpTo5_fakeData());
         ec.executeChild(this, new DemoObjectWithNote_and_DemoInvoice_create3());

@@ -17,7 +17,7 @@ import org.incode.domainapp.extended.integtests.lib.poly.PolyModuleIntegTestAbst
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannels;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demoparty.Party_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demoparty.Party_create3;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -33,14 +33,14 @@ public class Party_IntegTest extends PolyModuleIntegTestAbstract {
 
     public static class AddCommunicationChannel extends Party_IntegTest {
 
-        private Party_recreate3 fs;
+        private Party_create3 fs;
         private Party party;
 
         @Before
         public void setUp() throws Exception {
 
             // given
-            fs = new Party_recreate3();
+            fs = new Party_create3();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -96,14 +96,14 @@ public class Party_IntegTest extends PolyModuleIntegTestAbstract {
 
     public static class RemoveCommunicationChannel extends Party_IntegTest {
 
-        private Party_recreate3 fs;
+        private Party_create3 fs;
         private Party party;
 
         @Before
         public void setUp() throws Exception {
 
             // given
-            fs = new Party_recreate3();
+            fs = new Party_create3();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 

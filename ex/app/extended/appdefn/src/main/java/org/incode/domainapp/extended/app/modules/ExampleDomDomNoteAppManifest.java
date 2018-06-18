@@ -13,15 +13,14 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.FixturesModuleExamplesNoteIntegrationSubmodule;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.fixture.DemoObject_withNotes_recreate3;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.example.note.NoteModule;
-
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.FixturesModuleExamplesNoteIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.fixture.DemoObject_withNotes_create3;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
+import org.incode.example.note.NoteModule;
 
 public class ExampleDomDomNoteAppManifest extends AppManifestAbstract {
 
@@ -33,7 +32,7 @@ public class ExampleDomDomNoteAppManifest extends AppManifestAbstract {
             NoteModule.class
         )
         .withFixtureScripts(
-                DemoObject_withNotes_recreate3.class,
+                DemoObject_withNotes_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

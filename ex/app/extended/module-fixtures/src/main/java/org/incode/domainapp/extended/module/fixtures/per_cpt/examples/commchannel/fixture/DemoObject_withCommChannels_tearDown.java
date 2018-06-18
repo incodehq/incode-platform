@@ -15,8 +15,4 @@ public class DemoObject_withCommChannels_tearDown extends FixtureScript {
         executionContext.executeChild(this, new DemoObject_tearDown());
     }
 
-
-    @javax.inject.Inject
-    IsisJdoSupport isisJdoSupport;
-
 }

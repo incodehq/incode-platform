@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.ext.togglz.fixture.DemoObject_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.ext.togglz.fixture.DemoObject_create3;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.domainapp.extended.integtests.ext.togglz.TogglzModuleIntegTestAbstract;
@@ -26,7 +26,7 @@ public class TogglzDemoObjects_IntegTest extends TogglzModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_recreate3(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_create3(), null);
     }
 
 

@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 
+import org.incode.domainapp.extended.integtests.lib.stringinterpolator.StringInterpolatorModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.dom.DemoReminderStringInterpolatorContributions;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminderMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;
-import org.incode.domainapp.extended.integtests.lib.stringinterpolator.StringInterpolatorModuleIntegTestAbstract;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_create4;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,7 +23,7 @@ public class StringInterpolatorDemoReminderReportingContributions_IntegTest exte
 
     @Before
     public void setUpData() throws Exception {
-        runFixtureScript(new DemoReminder_recreate4());
+        runFixtureScript(new DemoReminder_create4());
     }
 
     @Inject

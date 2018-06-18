@@ -12,41 +12,41 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demopa
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentContributions;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.CasePrimaryContentContributions;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.democasemgmt.Case_recreate3;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demofixedasset.FixedAsset_recreate6;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demoparty.Party_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.democasemgmt.Case_create3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demofixedasset.FixedAsset_create6;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demoparty.Party_create3;
 
-public class Case_FixedAsset_Party_recreateAll extends FixtureScript {
+public class Case_FixedAsset_Party_createAll extends FixtureScript {
 
-    private Case_recreate3 recreateCases;
-    private FixedAsset_recreate6 recreateFixedAssets;
-    private Party_recreate3 recreateParties;
+    private Case_create3 createCases;
+    private FixedAsset_create6 createFixedAssets;
+    private Party_create3 createParties;
 
     public List<FixedAsset> getFixedAssets() {
-        return recreateFixedAssets.getFixedAssets();
+        return createFixedAssets.getFixedAssets();
     }
     public List<Party> getParties() {
-        return recreateParties.getParties();
+        return createParties.getParties();
     }
     public List<Case> getCases() {
-        return recreateCases.getCases();
+        return createCases.getCases();
     }
 
     @Override
     protected void execute(final ExecutionContext ec) {
 
-        recreateFixedAssets = new FixedAsset_recreate6().setTeardown(false);
-        recreateParties = new Party_recreate3().setTeardown(false);
-        recreateCases = new Case_recreate3().setTeardown(false);
+        createFixedAssets = new FixedAsset_create6();
+        createParties = new Party_create3();
+        createCases = new Case_create3();
 
         ec.executeChild(this, new Case_FixedAsset_Party_andLinks_tearDown());
-        ec.executeChild(this, recreateFixedAssets);
-        ec.executeChild(this, recreateParties);
-        ec.executeChild(this, recreateCases);
+        ec.executeChild(this, createFixedAssets);
+        ec.executeChild(this, createParties);
+        ec.executeChild(this, createCases);
 
-        final List<Party> parties = recreateParties.getParties();
-        final List<FixedAsset> fixedAssets = recreateFixedAssets.getFixedAssets();
-        final List<Case> cases = recreateCases.getCases();
+        final List<Party> parties = createParties.getParties();
+        final List<FixedAsset> fixedAssets = createFixedAssets.getFixedAssets();
+        final List<Case> cases = createCases.getCases();
 
         // create comm channels
         int i=0;

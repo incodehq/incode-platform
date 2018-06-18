@@ -12,16 +12,15 @@ import org.apache.isis.applib.annotation.Nature;
 
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
-import org.incode.example.tags.TagsModule;
-
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.FixturesModuleExamplesTagsIntegrationSubmodule;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_recreate3;
 
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.FixturesModuleExamplesTagsIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_create3;
+import org.incode.example.tags.TagsModule;
 
 public class ExampleDomDomTagAppManifest extends AppManifestAbstract {
 
@@ -33,7 +32,7 @@ public class ExampleDomDomTagAppManifest extends AppManifestAbstract {
 
         )
         .withFixtureScripts(
-                DemoTaggableObject_withTags_recreate3.class,
+                DemoTaggableObject_withTags_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

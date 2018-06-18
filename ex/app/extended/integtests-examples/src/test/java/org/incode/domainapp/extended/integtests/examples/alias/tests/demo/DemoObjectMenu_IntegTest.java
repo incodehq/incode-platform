@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.incode.domainapp.extended.integtests.examples.alias.AliasModuleIntegTestAbstract;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObjectData;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_recreate2;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_create2;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObjectData;
 
 public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
 
@@ -21,7 +21,8 @@ public class DemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_withAliases_recreate2(), null);
+        fixtureScripts.runFixtureScript(new DemoObjectData.PersistScript(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withAliases_create2(), null);
     }
 
     @Test

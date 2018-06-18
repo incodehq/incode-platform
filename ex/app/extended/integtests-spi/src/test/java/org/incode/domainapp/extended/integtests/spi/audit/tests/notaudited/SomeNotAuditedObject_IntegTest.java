@@ -21,7 +21,7 @@ import org.isisaddons.module.audit.dom.AuditingServiceRepository;
 import org.incode.domainapp.extended.integtests.spi.audit.AuditModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited.SomeNotAuditedObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited.SomeNotAuditedObjects;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_create3;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -31,7 +31,7 @@ public class SomeNotAuditedObject_IntegTest extends AuditModuleIntegTestAbstract
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new SomeAuditedObject_and_SomeNonAuditedObject_recreate3(), null);
+        fixtureScripts.runFixtureScript(new SomeAuditedObject_and_SomeNonAuditedObject_create3(), null);
         transactionService.nextTransaction();
     }
 

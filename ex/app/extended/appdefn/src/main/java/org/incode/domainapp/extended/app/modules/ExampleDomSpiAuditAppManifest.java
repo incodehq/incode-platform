@@ -17,7 +17,7 @@ import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServic
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.FixturesModuleSpiAuditSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObjects;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_recreate3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.SomeAuditedObject_and_SomeNonAuditedObject_create3;
 
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
@@ -30,7 +30,7 @@ public class ExampleDomSpiAuditAppManifest extends AppManifestAbstract {
             AuditModule.class
         )
         .withFixtureScripts(
-                SomeAuditedObject_and_SomeNonAuditedObject_recreate3.class,
+                SomeAuditedObject_and_SomeNonAuditedObject_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

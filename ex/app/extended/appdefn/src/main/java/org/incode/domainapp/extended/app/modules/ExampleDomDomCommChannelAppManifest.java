@@ -16,15 +16,14 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
 import org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule;
 import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.FixturesModuleExamplesCommChannelIntegrationSubmodule;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_recreate3;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.example.commchannel.CommChannelModule;
-
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
 import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.FixturesModuleExamplesCommChannelIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_create3;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
+import org.incode.example.commchannel.CommChannelModule;
 
 public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
 
@@ -43,7 +42,7 @@ public class ExampleDomDomCommChannelAppManifest extends AppManifestAbstract {
             // -Dorg.incode.example.commchannel.dom.api.GeocodingService.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         )
         .withFixtureScripts(
-                DemoObject_withCommChannels_recreate3.class,
+                DemoObject_withCommChannels_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

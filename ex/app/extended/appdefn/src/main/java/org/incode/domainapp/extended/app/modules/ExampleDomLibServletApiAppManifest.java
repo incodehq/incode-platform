@@ -14,13 +14,12 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.servletapi.ServletApiModule;
 
+import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
+import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.FixturesModuleLibServletApiSubmodule;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObjects;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.fixture.ServletApiDemoObject_recreate3;
-
-import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
-import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.fixture.ServletApiDemoObject_create3;
 
 public class ExampleDomLibServletApiAppManifest extends AppManifestAbstract {
 
@@ -30,7 +29,7 @@ public class ExampleDomLibServletApiAppManifest extends AppManifestAbstract {
             ServletApiModule.class
         )
         .withFixtureScripts(
-                ServletApiDemoObject_recreate3.class,
+                ServletApiDemoObject_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

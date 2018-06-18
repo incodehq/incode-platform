@@ -18,7 +18,7 @@ import org.incode.domainapp.extended.integtests.lib.poly.PolyModuleIntegTestAbst
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannels;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demofixedasset.FixedAsset_recreate6;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demofixedasset.FixedAsset_create6;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -33,13 +33,13 @@ public class FixedAsset_IntegTest extends PolyModuleIntegTestAbstract {
     @Inject
     CommunicationChannels communicationChannelsMenu;
 
-    FixedAsset_recreate6 fs;
+    FixedAsset_create6 fs;
     FixedAsset fixedAsset;
 
     @Before
     public void setUp() throws Exception {
 
-        fs = new FixedAsset_recreate6();
+        fs = new FixedAsset_create6();
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();
 

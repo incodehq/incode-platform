@@ -13,14 +13,13 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_recreate2;
+import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
+import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.FixturesModuleExamplesAliasIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.alias.fixture.DemoObject_withAliases_create2;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.alias.AliasModule;
-
-import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
-import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomAliasAppManifest extends AppManifestAbstract {
 
@@ -31,7 +30,7 @@ public class ExampleDomDomAliasAppManifest extends AppManifestAbstract {
             AliasModule.class
         )
         .withFixtureScripts(
-                DemoObject_withAliases_recreate2.class,
+                DemoObject_withAliases_create2.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

@@ -13,8 +13,11 @@ import org.apache.isis.applib.annotation.Nature;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
+import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
+import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
+import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.FixturesModuleExamplesDocFragmentIntegrationSubmodule;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
 import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomer;
 import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomerMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;
@@ -22,10 +25,6 @@ import org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.do
 import org.incode.example.docfragment.dom.DocFragmentModuleDomModule;
 import org.incode.example.docfragment.dom.impl.DocFragment;
 import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
-
-import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
-import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
-import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
 public class ExampleDomDomDocFragmentAppManifest extends AppManifestAbstract {
 
@@ -39,7 +38,7 @@ public class ExampleDomDomDocFragmentAppManifest extends AppManifestAbstract {
 
         )
         .withFixtureScripts(
-                DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_recreate.class,
+                DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

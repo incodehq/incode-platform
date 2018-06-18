@@ -8,10 +8,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.fixture.DemoObject_withNotes_recreate3;
+import org.incode.domainapp.extended.integtests.examples.note.NoteModuleIntegTestAbstract;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.fixture.DemoObject_withNotes_create3;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.domainapp.extended.integtests.examples.note.NoteModuleIntegTestAbstract;
 
 public class NoteDemoObjectMenu_IntegTest extends NoteModuleIntegTestAbstract {
 
@@ -20,7 +20,7 @@ public class NoteDemoObjectMenu_IntegTest extends NoteModuleIntegTestAbstract {
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_withNotes_recreate3(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withNotes_create3(), null);
     }
 
     @Test

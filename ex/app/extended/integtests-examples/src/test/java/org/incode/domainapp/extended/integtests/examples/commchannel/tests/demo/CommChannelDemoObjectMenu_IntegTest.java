@@ -10,10 +10,10 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_recreate3;
+import org.incode.domainapp.extended.integtests.examples.commchannel.CommChannelModuleIntegTestAbstract;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.fixture.DemoObject_withCommChannels_create3;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
-import org.incode.domainapp.extended.integtests.examples.commchannel.CommChannelModuleIntegTestAbstract;
 
 public class CommChannelDemoObjectMenu_IntegTest extends CommChannelModuleIntegTestAbstract {
 
@@ -25,7 +25,7 @@ public class CommChannelDemoObjectMenu_IntegTest extends CommChannelModuleIntegT
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_recreate3(), null);
+        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_create3(), null);
     }
 
 

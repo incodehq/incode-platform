@@ -16,26 +16,17 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-public class Party_recreate3 extends FixtureScript {
+public class Party_create3 extends FixtureScript {
 
     public final List<String> PARTY_NAMES = Collections.unmodifiableList(Arrays.asList(
             "Mary", "Mungo", "Midge"));
 
-
-    @Getter @Setter
-    private Boolean teardown;
 
     @Getter
     private final List<Party> parties = Lists.newArrayList();
 
     @Override
     protected void execute(final ExecutionContext ec) {
-
-        defaultParam("teardown", ec, true);
-
-        if(getTeardown()) {
-            ec.executeChild(this, new Case_FixedAsset_Party_andLinks_tearDown());
-        }
 
         for (int i = 0; i < PARTY_NAMES.size(); i++) {
             final Party_create fs = new Party_create().setName(PARTY_NAMES.get(i));

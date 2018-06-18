@@ -21,7 +21,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofi
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAssets;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Parties;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_recreateAll;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_createAll;
 
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.fixture.DomainAppFixtureScriptsSpecProvider;
@@ -35,7 +35,7 @@ public class ExampleDomLibPolyAppManifest extends AppManifestAbstract {
             PolyModule.class
         )
         .withFixtureScripts(
-                Case_FixedAsset_Party_recreateAll.class,
+                Case_FixedAsset_Party_createAll.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

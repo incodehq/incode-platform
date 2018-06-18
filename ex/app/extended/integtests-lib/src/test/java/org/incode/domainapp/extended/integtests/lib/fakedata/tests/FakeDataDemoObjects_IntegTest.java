@@ -23,12 +23,12 @@ import org.apache.isis.applib.value.Password;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
+import org.incode.domainapp.extended.integtests.lib.fakedata.FakeDataModuleIntegTestAbstract;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.data.DemoObjectWithAll_update_withFakeData;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.EnumOf3;
-import org.incode.domainapp.extended.integtests.lib.fakedata.FakeDataModuleIntegTestAbstract;
 
 public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstract {
 
@@ -51,7 +51,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             // when
             //
 
-            final DemoObjectWithAll_recreate3 scenario = new DemoObjectWithAll_recreate3();
+            final DemoObjectWithAll_create3 scenario = new DemoObjectWithAll_create3();
             scenario.setNumberToCreate(1);
 
             fixtureScripts.runFixtureScript(scenario, null);
@@ -111,7 +111,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // given
             //
-            final DemoObjectWithAll_recreate3 fs = new DemoObjectWithAll_recreate3();
+            final DemoObjectWithAll_create3 fs = new DemoObjectWithAll_create3();
             fs.setNumberToCreate(1);
 
             fixtureScripts.runFixtureScript(fs, null);

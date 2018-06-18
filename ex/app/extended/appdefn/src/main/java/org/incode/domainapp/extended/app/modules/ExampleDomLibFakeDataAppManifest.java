@@ -14,13 +14,12 @@ import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.FixturesModuleLibFakeDataSubmodule;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_recreate3;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
-
 import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
 import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.FixturesModuleLibFakeDataSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_create3;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
 
 public class ExampleDomLibFakeDataAppManifest extends AppManifestAbstract {
 
@@ -31,7 +30,7 @@ public class ExampleDomLibFakeDataAppManifest extends AppManifestAbstract {
             FakeDataModule.class
         )
         .withFixtureScripts(
-                DemoObjectWithAll_recreate3.class,
+                DemoObjectWithAll_create3.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(

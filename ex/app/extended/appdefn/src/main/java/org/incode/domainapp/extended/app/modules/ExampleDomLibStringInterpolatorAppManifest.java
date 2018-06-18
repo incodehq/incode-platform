@@ -14,13 +14,12 @@ import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsin
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
 
+import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
+import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.FixturesModuleLibStringInterpolatorSubmodule;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminderMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_recreate4;
-
-import org.incode.domainapp.extended.appdefn.DomainAppAppManifestAbstract;
-import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_create4;
 
 public class ExampleDomLibStringInterpolatorAppManifest extends AppManifestAbstract {
 
@@ -31,7 +30,7 @@ public class ExampleDomLibStringInterpolatorAppManifest extends AppManifestAbstr
             StringInterpolatorModule.class
         )
         .withFixtureScripts(
-                DemoReminder_recreate4.class,
+                DemoReminder_create4.class,
                 SeedSuperAdministratorRoleAndSvenSuperUser.class
         )
         .withAdditionalServices(
