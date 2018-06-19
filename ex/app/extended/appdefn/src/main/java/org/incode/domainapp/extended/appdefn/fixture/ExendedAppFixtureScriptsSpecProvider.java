@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.app.fixtures;
+package org.incode.domainapp.extended.appdefn.fixture;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -6,22 +6,22 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecification;
 import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationProvider;
 
+/**
+ * Specifies where to find fixtures, and other settings.
+ */
 @DomainService(
-        nature = NatureOfService.DOMAIN,
-        menuOrder = "100"
+        nature = NatureOfService.DOMAIN
 )
-public class DomainAppWithExampleModulesFixtureScriptsSpecProvider implements FixtureScriptsSpecificationProvider {
+public class ExendedAppFixtureScriptsSpecProvider implements FixtureScriptsSpecificationProvider {
 
     @Override
     public FixtureScriptsSpecification getSpecification() {
         return FixtureScriptsSpecification
-                .builder("org.incode.domainapp.example")
+                .builder(ExendedAppFixtureScriptsSpecProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
-                .with(FixtureScripts.NonPersistedObjectsStrategy.PERSIST)
                 .withRunScriptDefault(RecreateDemoFixtures.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)
                 .withRecreate(RecreateDemoFixtures.class)
                 .build();
     }
-
 }

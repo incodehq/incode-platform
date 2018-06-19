@@ -7,6 +7,10 @@ import com.google.common.base.Strings;
 
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
+/**
+ * @deprecated - use {@link org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2}
+ */
+@Deprecated
 public abstract class TeardownFixtureAbstract extends IncodeFixtureAbstract {
 
     protected void deleteFrom(final Class cls) {

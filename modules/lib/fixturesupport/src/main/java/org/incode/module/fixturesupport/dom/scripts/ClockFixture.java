@@ -9,6 +9,10 @@ import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.fixtures.FixtureClock;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+/**
+ * @deprecated - use {@link org.apache.isis.applib.fixturescripts.clock.TickingClockFixture} instead
+ */
+@Deprecated
 public class ClockFixture extends FixtureScript {
 
     //region > factory methods, constructors
@@ -33,7 +37,7 @@ public class ClockFixture extends FixtureScript {
 
     //region > parseAsLocalDateTime
     private boolean parse(String dateStr) {
-        return dateStr == null ? true : parseNonNull(dateStr);
+        return dateStr == null || parseNonNull(dateStr);
     }
 
     private boolean parseNonNull(String dateStr) {

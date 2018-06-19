@@ -8,10 +8,12 @@ import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 /**
- *
  * @param <D> - the data object (implementing this interface)
  * @param <T> - the corresponding domain object type.
+ *
+ * @deprecated - instead use {@link org.apache.isis.applib.fixturescripts.PersonaWithBuilderScript}
  */
+@Deprecated
 public interface DemoData<D extends DemoData<D, T>, T> {
     T asDomainObject();
     T persistUsing(final ServiceRegistry2 serviceRegistry2);

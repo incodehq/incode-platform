@@ -6,10 +6,14 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
-import org.apache.isis.applib.services.repository.RepositoryService;
 
 import lombok.Getter;
 
+/**
+ *
+ * @deprecated - instead use {@link org.apache.isis.applib.fixturescripts.PersonaWithBuilderScript}
+ */
+@Deprecated
 public abstract class DemoDataPersistAbstract<S extends DemoDataPersistAbstract<S, D, T>, D extends DemoData<D,T>, T> extends FixtureScript {
 
     private final Class<D> demoDataClass;

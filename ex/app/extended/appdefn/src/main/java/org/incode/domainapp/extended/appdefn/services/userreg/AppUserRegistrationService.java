@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.app.services.userreg;
+package org.incode.domainapp.extended.appdefn.services.userreg;
 
 import java.util.Collections;
 import java.util.Set;

@@ -15,8 +15,6 @@ public class SecurityModuleAppSetUp extends FixtureScript {
         executionContext.executeChild(this, new SecurityModuleAppTearDown());
         executionContext.executeChild(this, new SeedUsersAndRolesFixtureScript());
 
-
-
         // roles and perms
         executionContext.executeChild(this, new SecurityModuleExampleUsersAndRoles());
 

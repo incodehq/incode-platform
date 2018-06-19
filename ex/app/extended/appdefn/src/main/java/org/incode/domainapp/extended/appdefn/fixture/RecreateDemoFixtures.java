@@ -1,8 +1,9 @@
-package org.incode.domainapp.extended.app.fixtures;
+package org.incode.domainapp.extended.appdefn.fixture;
 
 import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
+import org.apache.isis.applib.services.metamodel.MetaModelService5;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
@@ -34,12 +35,9 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
     @Override
     protected void execute(final ExecutionContext ec) {
 
+        ec.executeChild(this, metaModelService5.getAppManifest2().getTeardownFixture());
+
         ec.executeChild(this, new SecurityModuleAppSetUp());
-
-        // TODO: rely on ModuleAbstract2's teardown instead.
-
-
-
 
         ec.executeChild(this, new RenderingStrategy_create6());
         ec.executeChild(this, new DocumentType_and_DocumentTemplates_createSome());
@@ -72,6 +70,9 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
         ec.executeChild(this, new DemoToDoItem_create_usingExcelFixture("sven"));
 
     }
+
+    @Inject
+    MetaModelService5 metaModelService5;
 
     @Inject
     QueryResultsCache queryResultsCache;
