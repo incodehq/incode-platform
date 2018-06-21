@@ -55,10 +55,6 @@
     </developers>
 
     <properties>
-        <isis-maven-plugin.validate.appManifest>
-            org.isisaddons.module.sessionlogger.SessionLoggerSpiAppManifest
-        </isis-maven-plugin.validate.appManifest>
-
         <jar-plugin.automaticModuleName>org.incode.platform.spi.sessionlogger</jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir>org/incode/platform/spi/sessionlogger</git-plugin.propertiesDir>
 
@@ -94,12 +90,6 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>enforcerrelaxed</artifactId>
                         </mixin>
-<!--
-                        <mixin>
-                            <groupId>org.incode.mavenmixin</groupId>
-                            <artifactId>incode-mavenmixin-validate</artifactId>
-                        </mixin>
--->
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>standard</artifactId>

@@ -62,11 +62,17 @@ public class ErrorReportingServiceForJira implements ErrorReportingService {
     @Setter
     private String detailsFormat;
 
-    @Setter
     private JsonMarshaller jsonMarshaller;
+    @Programmatic
+    public void setJsonMarshaller(final JsonMarshaller jsonMarshaller) {
+        this.jsonMarshaller = jsonMarshaller;
+    }
 
-    @Setter
     private HttpPoster httpPoster;
+    @Programmatic
+    public void setHttpPoster(final HttpPoster httpPoster) {
+        this.httpPoster = httpPoster;
+    }
 
     private JiraMarshaller jiraMarshaller;
 

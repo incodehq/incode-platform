@@ -39,10 +39,13 @@ th, td {
         <img alt="Apache Isis Logo" src="about/images/isis-logo.png" />
              
         <p>
-        <a href="http://isis.apache.org" target="_blank">Apache Isis</a>&trade; is a framework to let you rapidly develop
-        domain-driven apps in Java.  This demo app allows the individual modules of the
-        <a href="https://github.com/incodehq/incode-platform" target="_blank">Incode Platform</a>,
-        to be explored, with each providing its own <code>AppManifest</code> implementation.
+        This extended app is provided for contributors to <a href="https://github.com/incodehq/incode-platform" target="_blank">Incode Platform</a>,
+        to perform additional manual/exploratory testing of a running application, with the incode modules configured.
+            It also bootstraps Camel, for the <i>publishmq</i> module.
+            <p>
+            A single <code>AppManifest</code> implementation (<code>ExtendedAppAppManifest</code>) uses the
+            <code>ExtendedAppAppDefnModule</code> to bootstrap the application; just comment modules in and out as required.
+            </p>
 
     <p>To access the app:</p>
     <ul>

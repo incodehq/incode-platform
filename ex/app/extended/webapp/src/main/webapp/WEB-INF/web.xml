@@ -405,7 +405,7 @@
         <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
         <init-param>
             <param-name>config-file</param-name>
-            <param-value>domainapp/webapp/quartz/quartz.properties</param-value>
+            <param-value>org/incode/domainapp/extended/webapp/quartz/quartz.properties</param-value>
         </init-param>
         <init-param>
             <param-name>shutdown-on-unload</param-name>
