@@ -78,7 +78,10 @@
             <!-- scope=compile for benefit of datanucleus enhancer -->
         </dependency>
 
-
+        <dependency>
+            <groupId>org.incode.example.country</groupId>
+            <artifactId>incode-example-country-dom</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>

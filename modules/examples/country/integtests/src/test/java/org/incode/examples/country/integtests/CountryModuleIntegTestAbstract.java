@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.country;
+package org.incode.examples.country.integtests;
 
 import org.apache.isis.applib.Module;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;

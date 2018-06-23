@@ -25,7 +25,7 @@
             </dependency>
             <dependency>
                 <groupId>org.incode.example.tags</groupId>
-                <artifactId>incode-example-tags-fixture</artifactId>
+                <artifactId>incode-example-tags-demo</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

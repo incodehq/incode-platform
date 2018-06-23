@@ -25,7 +25,7 @@
             </dependency>
             <dependency>
                 <groupId>org.incode.example.document</groupId>
-                <artifactId>incode-example-document-fixture</artifactId>
+                <artifactId>incode-example-document-demo</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

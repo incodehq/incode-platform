@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.domainapp.extended.integtests.examples.docfragment;
+package org.incode.example.docfragment.integtests.docfragment;
 
 import javax.inject.Inject;
 

@@ -33,6 +33,7 @@
 
     <modules>
 		<module>dom</module>
+		<module>integtests</module>
 	</modules>
 	
 </project>

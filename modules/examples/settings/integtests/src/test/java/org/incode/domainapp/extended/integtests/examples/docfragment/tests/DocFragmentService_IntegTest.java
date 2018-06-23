@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.docfragment.tests;
+package org.incode.example.docfragment.integtests.tests;
 
 import java.util.Locale;
 
@@ -12,7 +12,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.domainapp.extended.integtests.examples.docfragment.DocFragmentModuleIntegTestAbstract;
+import org.incode.example.docfragment.integtests.docfragment.DocFragmentModuleIntegTestAbstract;
 import org.incode.example.alias.demo.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
 import org.incode.examples.commchannel.demo.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;
 import org.incode.examples.commchannel.demo.shared.invoicewithatpath.fixture.DemoInvoiceWithAtPathData;

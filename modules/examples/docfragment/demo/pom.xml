@@ -92,6 +92,11 @@
             <artifactId>axon-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.incode.example.docfragment</groupId>
+            <artifactId>incode-example-docfragment-dom</artifactId>
+        </dependency>
+
         <!--
         <dependency>
             <groupId>org.isisaddons.module.docx</groupId>
@@ -148,10 +153,6 @@
             <artifactId>incode-example-communications-dom</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.incode.example.docfragment</groupId>
-            <artifactId>incode-example-docfragment-dom</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.incode.example.document</groupId>

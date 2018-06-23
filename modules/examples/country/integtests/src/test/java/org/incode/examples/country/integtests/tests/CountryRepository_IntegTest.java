@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.country.tests;
+package org.incode.examples.country.integtests.tests;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.incode.example.country.CountryModule;
 import org.incode.example.country.dom.impl.Country;
 import org.incode.example.country.dom.impl.CountryRepository;
 import org.incode.example.country.fixture.CountriesRefData;
-import org.incode.domainapp.extended.integtests.examples.country.CountryModuleIntegTestAbstract;
+import org.incode.examples.country.integtests.CountryModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

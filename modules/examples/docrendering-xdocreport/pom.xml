@@ -23,16 +23,6 @@
                 <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
                 <version>${revision}</version>
             </dependency>
-            <dependency>
-                <groupId>org.incode.example.docrendering-xdocreport</groupId>
-                <artifactId>incode-example-docrendering-xdocreport-fixture</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.docrendering-xdocreport</groupId>
-                <artifactId>incode-example-docrendering-xdocreport-integtests</artifactId>
-                <version>${revision}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

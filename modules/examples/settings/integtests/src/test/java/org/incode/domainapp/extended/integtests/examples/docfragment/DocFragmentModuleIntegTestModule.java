@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.docfragment;
+package org.incode.example.docfragment.integtests.docfragment;
 
 import java.util.Set;
 

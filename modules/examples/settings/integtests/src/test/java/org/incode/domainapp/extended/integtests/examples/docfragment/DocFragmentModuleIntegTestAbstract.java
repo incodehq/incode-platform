@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.docfragment;
+package org.incode.example.docfragment.integtests.docfragment;
 
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;

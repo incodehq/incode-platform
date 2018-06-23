@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.country;
+package org.incode.examples.country.integtests;
 
 import java.util.Set;
 
