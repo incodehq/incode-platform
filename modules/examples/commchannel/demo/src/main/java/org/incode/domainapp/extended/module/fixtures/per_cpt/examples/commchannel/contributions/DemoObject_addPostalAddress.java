@@ -2,7 +2,7 @@ package org.incode.example.alias.demo.examples.commchannel.contributions;
 
 import org.apache.isis.applib.annotation.Mixin;
 
-import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.commchannel.dom.impl.postaladdress.T_addPostalAddress;
 
 @Mixin

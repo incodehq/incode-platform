@@ -4,7 +4,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.example.alias.demo.examples.commchannel.dom.CommunicationChannelOwnerLinkForDemoObject;
-import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 
 @DomainService(nature = NatureOfService.DOMAIN)

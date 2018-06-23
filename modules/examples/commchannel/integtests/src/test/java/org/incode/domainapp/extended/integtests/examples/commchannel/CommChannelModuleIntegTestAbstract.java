@@ -15,7 +15,7 @@ import org.incode.example.alias.demo.examples.commchannel.contributions.DemoObje
 import org.incode.example.alias.demo.examples.commchannel.contributions.DemoObject_addPhoneOrFaxNumber;
 import org.incode.example.alias.demo.examples.commchannel.contributions.DemoObject_addPostalAddress;
 import org.incode.example.alias.demo.examples.commchannel.contributions.DemoObject_communicationChannels;
-import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel_remove1;
 import org.incode.example.commchannel.dom.impl.channel.T_communicationChannels;

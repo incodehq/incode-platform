@@ -15,8 +15,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.example.alias.demo.examples.commchannel.fixture.DemoObject_withCommChannels_tearDown;
-import org.incode.example.alias.demo.shared.dom.DemoObject;
-import org.incode.example.alias.demo.shared.dom.DemoObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel_remove1;

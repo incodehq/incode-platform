@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.shared.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.demo.dom;
 
 import java.util.List;
 
@@ -40,8 +40,8 @@ public class DemoObjectMenu {
         return repository.findByName(name);
     }
 
-    @javax.inject.Inject 
-    DemoObjectRepository repository;
+    @javax.inject.Inject
+    org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectRepository repository;
 
 
 }

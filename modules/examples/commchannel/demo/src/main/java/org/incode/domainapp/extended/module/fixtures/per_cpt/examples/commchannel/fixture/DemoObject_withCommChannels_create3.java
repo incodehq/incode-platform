@@ -1,9 +1,10 @@
-package org.incode.example.alias.demo.examples.commchannel.fixture;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.commchannel.fixture;
+//package org.incode.example.alias.demo.examples.commchannel.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.example.alias.demo.shared.dom.DemoObject;
-import org.incode.example.alias.demo.shared.dom.DemoObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.alias.demo.examples.commchannel.contributions.DemoObject_addEmailAddress;
 import org.incode.example.alias.demo.examples.commchannel.contributions.DemoObject_addPhoneOrFaxNumber;
 import org.incode.example.alias.demo.examples.commchannel.contributions.DemoObject_addPostalAddress;

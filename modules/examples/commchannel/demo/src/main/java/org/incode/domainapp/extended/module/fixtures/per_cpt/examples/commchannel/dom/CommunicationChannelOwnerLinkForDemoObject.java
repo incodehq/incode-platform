@@ -6,7 +6,7 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 import org.apache.isis.applib.annotation.DomainObject;
 
-import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLink;
 
 import lombok.Getter;

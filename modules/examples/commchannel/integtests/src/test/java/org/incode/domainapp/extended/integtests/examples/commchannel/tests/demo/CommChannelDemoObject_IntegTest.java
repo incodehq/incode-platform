@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import org.junit.Before;
 
 import org.incode.domainapp.extended.integtests.examples.commchannel.CommChannelModuleIntegTestAbstract;
-import org.incode.example.alias.demo.shared.dom.DemoObject;
-import org.incode.example.alias.demo.shared.dom.DemoObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 
 public class CommChannelDemoObject_IntegTest extends CommChannelModuleIntegTestAbstract {
 
