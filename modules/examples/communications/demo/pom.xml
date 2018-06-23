@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-example-communications-demo</artifactId>
-    <name>Incode Platform Example Communications Fixtures</name>
+    <name>Incode Platform Example Communications Demo</name>
 
     <build>
         <resources>
@@ -92,6 +92,28 @@
             <artifactId>axon-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.incode.example.communications</groupId>
+            <artifactId>incode-example-communications-dom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.document</groupId>
+            <artifactId>incode-example-document-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.docrendering</groupId>
+            <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.docrendering</groupId>
+            <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.docrendering</groupId>
+            <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
+        </dependency>
+
         <!--
         <dependency>
             <groupId>org.isisaddons.module.docx</groupId>
@@ -143,32 +165,12 @@
             <artifactId>incode-example-commchannel-dom</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.incode.example.communications</groupId>
-            <artifactId>incode-example-communications-dom</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.incode.example.docfragment</groupId>
             <artifactId>incode-example-docfragment-dom</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.incode.example.document</groupId>
-            <artifactId>incode-example-document-dom</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.incode.example.docrendering</groupId>
-            <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.incode.example.docrendering</groupId>
-            <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.incode.example.docrendering</groupId>
-            <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.incode.example.note</groupId>

@@ -19,10 +19,10 @@ import org.isisaddons.module.command.dom.CommandDomModule;
 import org.isisaddons.module.command.dom.CommandJdo;
 
 import org.incode.domainapp.extended.integtests.examples.communications.CommunicationsModuleIntegTestAbstract;
-import org.incode.example.alias.demo.examples.communications.app.fakeemail.EmailMessage;
-import org.incode.example.alias.demo.examples.communications.app.fakeemail.FakeEmailService;
-import org.incode.example.alias.demo.examples.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
-import org.incode.example.alias.demo.examples.communications.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.examples.communications.demo.usage.app.fakeemail.EmailMessage;
+import org.incode.examples.communications.demo.usage.app.fakeemail.FakeEmailService;
+import org.incode.examples.communications.demo.usage.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
+import org.incode.examples.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
 import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
 import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoiceRepository;
 import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotes;

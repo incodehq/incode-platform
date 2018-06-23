@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-import org.incode.example.alias.demo.examples.communications.app.fakesched.FakeScheduler;
+import org.incode.examples.communications.demo.usage.app.fakesched.FakeScheduler;
 
 public abstract class CommunicationsModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 

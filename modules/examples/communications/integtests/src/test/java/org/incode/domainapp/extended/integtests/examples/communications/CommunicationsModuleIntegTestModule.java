@@ -12,7 +12,7 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.isisaddons.module.command.dom.CommandDomModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.example.alias.demo.examples.communications.FixturesModuleExamplesCommunicationsIntegrationSubmodule;
+import org.incode.example.communications.demo.usage.communications.FixturesModuleExamplesCommunicationsIntegrationSubmodule;
 
 @XmlRootElement(name = "module")
 public class CommunicationsModuleIntegTestModule extends ModuleAbstract {
