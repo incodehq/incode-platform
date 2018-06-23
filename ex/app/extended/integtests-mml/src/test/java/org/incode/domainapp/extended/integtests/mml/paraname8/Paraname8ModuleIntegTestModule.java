@@ -11,7 +11,7 @@ import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
+import org.incode.examples.commchannel.demo.shared.demo.FixturesModuleSharedDemoSubmodule;
 
 @XmlRootElement(name = "module")
 public class Paraname8ModuleIntegTestModule extends ModuleAbstract {

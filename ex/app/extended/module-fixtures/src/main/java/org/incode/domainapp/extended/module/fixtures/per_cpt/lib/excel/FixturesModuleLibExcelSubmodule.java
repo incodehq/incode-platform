@@ -9,8 +9,8 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.FixturesModuleSharedTodoSubmodule;
+import org.incode.examples.commchannel.demo.shared.demo.FixturesModuleSharedDemoSubmodule;
+import org.incode.examples.commchannel.demo.shared.todo.FixturesModuleSharedTodoSubmodule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleLibExcelSubmodule extends ModuleAbstract {

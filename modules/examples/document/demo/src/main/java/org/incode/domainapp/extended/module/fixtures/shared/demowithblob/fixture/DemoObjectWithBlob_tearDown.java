@@ -1,9 +1,9 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture;
+package org.incode.examples.commchannel.demo.shared.demowithblob.fixture;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlob;
+import org.incode.examples.commchannel.demo.shared.demowithblob.dom.DemoObjectWithBlob;
 
 public class DemoObjectWithBlob_tearDown extends TeardownFixtureAbstract2 {
 

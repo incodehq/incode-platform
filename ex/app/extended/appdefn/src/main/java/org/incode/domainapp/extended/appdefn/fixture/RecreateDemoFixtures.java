@@ -21,12 +21,12 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.fixture
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.fixture.PublishMqDemoObject_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppSetUp;
 import org.incode.example.alias.demo.shared.fixture.DemoObject_createUpTo10_hardcodedData;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture.DemoObjectWithBlob_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
-import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_create4;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_create_usingExcelFixture;
+import org.incode.examples.commchannel.demo.shared.demowithblob.fixture.DemoObjectWithBlob_createUpTo5_fakeData;
+import org.incode.examples.commchannel.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.examples.commchannel.demo.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
+import org.incode.examples.commchannel.demo.shared.other.fixture.OtherObject_createUpTo5_fakeData;
+import org.incode.examples.commchannel.demo.shared.reminder.fixture.DemoReminder_create4;
+import org.incode.examples.commchannel.demo.shared.todo.fixture.DemoToDoItem_create_usingExcelFixture;
 import org.incode.example.country.fixture.CountriesRefData;
 import org.incode.example.country.fixture.StatesRefData;
 

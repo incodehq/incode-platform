@@ -19,7 +19,7 @@ import org.incode.example.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategyRepository;
 import org.incode.example.document.dom.impl.types.DocumentType;
 import org.incode.example.document.fixture.DocumentTemplateFSAbstract;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.example.alias.demo.examples.document.dom.applicability.aa.ForDemoObjectAlsoAttachToFirstOtherObject;
 import org.incode.example.alias.demo.examples.document.dom.applicability.aa.ForDemoObjectAttachToSame;
 import org.incode.example.alias.demo.examples.document.dom.applicability.rmf.FreemarkerModelOfDemoObject;

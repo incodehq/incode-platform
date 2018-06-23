@@ -11,8 +11,8 @@ import org.apache.isis.applib.services.wrapper.DisabledException;
 
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.domainapp.extended.integtests.examples.document.DocumentModuleIntegTestAbstract;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.examples.commchannel.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.example.alias.demo.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 
 import static org.assertj.core.api.Assertions.assertThat;

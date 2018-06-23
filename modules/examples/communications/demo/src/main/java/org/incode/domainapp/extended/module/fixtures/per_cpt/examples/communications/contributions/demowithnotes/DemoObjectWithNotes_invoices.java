@@ -11,9 +11,9 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoiceRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoiceRepository;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
 
 @Mixin(method = "coll")
 public class DemoObjectWithNotes_invoices {

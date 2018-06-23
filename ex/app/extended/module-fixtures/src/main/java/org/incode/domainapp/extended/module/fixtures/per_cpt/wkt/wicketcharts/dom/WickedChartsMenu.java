@@ -31,9 +31,9 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Category;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.examples.commchannel.demo.shared.todo.dom.Category;
+import org.incode.examples.commchannel.demo.shared.todo.dom.DemoToDoItem;
+import org.incode.examples.commchannel.demo.shared.todo.dom.DemoToDoItemMenu;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

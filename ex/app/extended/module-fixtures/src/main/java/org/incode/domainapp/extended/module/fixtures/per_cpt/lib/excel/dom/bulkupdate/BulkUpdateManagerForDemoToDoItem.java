@@ -27,9 +27,9 @@ import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.dom.WorksheetContent;
 import org.isisaddons.module.excel.dom.WorksheetSpec;
 
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Category;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Subcategory;
+import org.incode.examples.commchannel.demo.shared.todo.dom.DemoToDoItem;
+import org.incode.examples.commchannel.demo.shared.todo.dom.Category;
+import org.incode.examples.commchannel.demo.shared.todo.dom.Subcategory;
 
 import lombok.Getter;
 import lombok.Setter;

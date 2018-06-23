@@ -11,9 +11,9 @@ import org.apache.isis.core.commons.config.IsisConfiguration;
 
 import org.incode.domainapp.extended.integtests.lib.stringinterpolator.StringInterpolatorModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.dom.DemoReminderStringInterpolatorContributions;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminderMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_create4;
+import org.incode.examples.commchannel.demo.shared.reminder.dom.DemoReminder;
+import org.incode.examples.commchannel.demo.shared.reminder.dom.DemoReminderMenu;
+import org.incode.examples.commchannel.demo.shared.reminder.fixture.DemoReminder_create4;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

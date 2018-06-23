@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared;
+package org.incode.examples.commchannel.demo.shared;
 
 import org.apache.isis.applib.AppManifestAbstract;
 

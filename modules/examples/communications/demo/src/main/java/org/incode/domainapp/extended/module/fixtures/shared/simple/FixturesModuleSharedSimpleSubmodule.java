@@ -1,11 +1,11 @@
-package org.incode.domainapp.extended.module.fixtures.shared.simple;
+package org.incode.examples.commchannel.demo.shared.simple;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.SimpleObject_tearDown;
+import org.incode.examples.commchannel.demo.shared.simple.fixture.SimpleObject_tearDown;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleSharedSimpleSubmodule extends ModuleAbstract {

@@ -11,7 +11,7 @@ import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.extended.module.fixtures.shared.FixturesModuleSharedSubmodule;
+import org.incode.examples.commchannel.demo.shared.FixturesModuleSharedSubmodule;
 
 @XmlRootElement(name = "module")
 public class FlywayDbModuleIntegTestModule extends ModuleAbstract {

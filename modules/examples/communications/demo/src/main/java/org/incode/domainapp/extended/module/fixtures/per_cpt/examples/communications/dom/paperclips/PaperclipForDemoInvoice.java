@@ -18,7 +18,7 @@ import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndRender
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndScheduleRender;
 import org.incode.example.document.dom.mixins.T_documents;
 import org.incode.example.document.dom.mixins.T_preview;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,

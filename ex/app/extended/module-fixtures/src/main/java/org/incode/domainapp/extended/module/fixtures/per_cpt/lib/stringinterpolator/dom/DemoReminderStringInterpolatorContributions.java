@@ -10,7 +10,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
+import org.incode.examples.commchannel.demo.shared.reminder.dom.DemoReminder;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY

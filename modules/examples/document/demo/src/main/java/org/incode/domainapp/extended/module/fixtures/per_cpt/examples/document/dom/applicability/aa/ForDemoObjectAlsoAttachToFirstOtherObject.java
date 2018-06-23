@@ -13,8 +13,8 @@ import org.incode.example.document.dom.impl.applicability.AttachmentAdvisor;
 import org.incode.example.document.dom.impl.applicability.AttachmentAdvisorAbstract;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
+import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.examples.commchannel.demo.shared.other.dom.OtherObject;
 
 public class ForDemoObjectAlsoAttachToFirstOtherObject extends
         AttachmentAdvisorAbstract<DemoObjectWithUrl> {

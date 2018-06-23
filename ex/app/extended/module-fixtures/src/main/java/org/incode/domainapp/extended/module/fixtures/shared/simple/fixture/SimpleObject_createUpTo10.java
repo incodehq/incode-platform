@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.simple.fixture;
+package org.incode.examples.commchannel.demo.shared.simple.fixture;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObject;
-import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObjectMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.data.SimpleObject_data;
+import org.incode.examples.commchannel.demo.shared.simple.dom.SimpleObject;
+import org.incode.examples.commchannel.demo.shared.simple.dom.SimpleObjectMenu;
+import org.incode.examples.commchannel.demo.shared.simple.fixture.data.SimpleObject_data;
 
 import lombok.Getter;
 import lombok.Setter;

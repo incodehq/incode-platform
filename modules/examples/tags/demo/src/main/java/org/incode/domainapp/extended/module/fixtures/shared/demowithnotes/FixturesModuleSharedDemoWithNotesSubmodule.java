@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithnotes;
+package org.incode.examples.commchannel.demo.shared.demowithnotes;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -6,8 +6,8 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleSharedDemoWithNotesSubmodule extends ModuleAbstract {

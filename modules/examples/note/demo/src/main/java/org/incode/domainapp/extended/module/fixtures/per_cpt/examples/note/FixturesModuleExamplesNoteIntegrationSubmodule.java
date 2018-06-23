@@ -12,7 +12,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
 import org.incode.example.alias.demo.examples.note.dom.demolink.NotableLinkForDemoObject;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.FixturesModuleSharedDemoSubmodule;
+import org.incode.examples.commchannel.demo.shared.demo.FixturesModuleSharedDemoSubmodule;
 import org.incode.example.note.NoteModule;
 
 @XmlRootElement(name = "module")

@@ -4,7 +4,7 @@ import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
 
 import org.incode.example.document.dom.impl.applicability.RendererModelFactoryAbstract;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
 
 import lombok.Getter;
 

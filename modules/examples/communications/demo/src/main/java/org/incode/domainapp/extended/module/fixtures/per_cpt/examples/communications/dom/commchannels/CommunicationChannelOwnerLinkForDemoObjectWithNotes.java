@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,

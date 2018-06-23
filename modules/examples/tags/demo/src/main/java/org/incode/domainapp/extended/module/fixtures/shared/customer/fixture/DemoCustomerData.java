@@ -1,9 +1,9 @@
-package org.incode.domainapp.extended.module.fixtures.shared.customer.fixture;
+package org.incode.examples.commchannel.demo.shared.customer.fixture;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomer;
+import org.incode.examples.commchannel.demo.shared.customer.dom.DemoCustomer;
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 

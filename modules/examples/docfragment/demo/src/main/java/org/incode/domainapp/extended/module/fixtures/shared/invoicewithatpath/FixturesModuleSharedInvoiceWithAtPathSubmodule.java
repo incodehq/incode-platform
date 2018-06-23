@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath;
+package org.incode.examples.commchannel.demo.shared.invoicewithatpath;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -6,7 +6,7 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;
+import org.incode.examples.commchannel.demo.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleSharedInvoiceWithAtPathSubmodule extends ModuleAbstract {

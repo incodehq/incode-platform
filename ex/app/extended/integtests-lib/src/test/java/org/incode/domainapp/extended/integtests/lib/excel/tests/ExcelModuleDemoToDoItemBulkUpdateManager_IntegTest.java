@@ -23,8 +23,8 @@ import org.isisaddons.module.excel.dom.ExcelService;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
+import org.incode.examples.commchannel.demo.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.examples.commchannel.demo.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
 import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;

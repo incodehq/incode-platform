@@ -19,8 +19,8 @@ import org.apache.isis.applib.value.Password;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.EnumOf3;
+import org.incode.examples.commchannel.demo.shared.demowithall.dom.DemoObjectWithAll;
+import org.incode.examples.commchannel.demo.shared.demowithall.dom.EnumOf3;
 
 import lombok.Getter;
 import lombok.Setter;

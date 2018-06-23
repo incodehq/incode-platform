@@ -36,8 +36,8 @@ import org.isisaddons.module.docx.dom.DocxService;
 import org.isisaddons.module.docx.dom.LoadTemplateException;
 import org.isisaddons.module.docx.dom.MergeException;
 
-import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrder;
-import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrderLine;
+import org.incode.examples.commchannel.demo.shared.order.dom.DemoOrder;
+import org.incode.examples.commchannel.demo.shared.order.dom.DemoOrderLine;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY

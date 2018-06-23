@@ -1,11 +1,11 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithblob;
+package org.incode.examples.commchannel.demo.shared.demowithblob;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture.DemoObjectWithBlob_tearDown;
+import org.incode.examples.commchannel.demo.shared.demowithblob.fixture.DemoObjectWithBlob_tearDown;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleSharedDemoWithBlobSubmodule extends ModuleAbstract {

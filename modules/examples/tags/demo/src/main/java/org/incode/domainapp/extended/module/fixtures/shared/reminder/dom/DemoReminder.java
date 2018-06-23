@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.reminder.dom;
+package org.incode.examples.commchannel.demo.shared.reminder.dom;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;

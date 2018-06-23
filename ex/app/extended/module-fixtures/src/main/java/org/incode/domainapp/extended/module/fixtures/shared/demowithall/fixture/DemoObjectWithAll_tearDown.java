@@ -1,8 +1,8 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithall.fixture;
+package org.incode.examples.commchannel.demo.shared.demowithall.fixture;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
+import org.incode.examples.commchannel.demo.shared.demowithall.dom.DemoObjectWithAll;
 
 public class DemoObjectWithAll_tearDown extends TeardownFixtureAbstract2 {
 

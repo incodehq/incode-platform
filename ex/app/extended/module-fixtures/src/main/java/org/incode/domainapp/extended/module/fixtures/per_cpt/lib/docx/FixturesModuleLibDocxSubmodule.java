@@ -9,7 +9,7 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
-import org.incode.domainapp.extended.module.fixtures.shared.order.FixturesModuleSharedOrderSubmodule;
+import org.incode.examples.commchannel.demo.shared.order.FixturesModuleSharedOrderSubmodule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleLibDocxSubmodule extends ModuleAbstract {

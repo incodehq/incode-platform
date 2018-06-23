@@ -24,7 +24,7 @@ import org.incode.example.document.dom.impl.docs.Document_attachSupportingPdf;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.example.document.dom.impl.types.DocumentType;
 import org.incode.example.document.dom.impl.types.DocumentTypeRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
 import org.incode.example.alias.demo.examples.communications.fixture.doctypes.DocumentType_and_DocumentTemplates_createSome;
 
 /**

@@ -16,8 +16,8 @@ import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.dom.WorksheetContent;
 import org.isisaddons.module.excel.dom.WorksheetSpec;
 
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.examples.commchannel.demo.shared.todo.dom.DemoToDoItem;
+import org.incode.examples.commchannel.demo.shared.todo.dom.DemoToDoItemMenu;
 
 @Mixin(method = "act")
 public class DemoToDoItem_export2 {

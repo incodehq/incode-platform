@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture;
+package org.incode.examples.commchannel.demo.shared.demowithblob.fixture;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -17,8 +17,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlob;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlobMenu;
+import org.incode.examples.commchannel.demo.shared.demowithblob.dom.DemoObjectWithBlob;
+import org.incode.examples.commchannel.demo.shared.demowithblob.dom.DemoObjectWithBlobMenu;
 
 import lombok.Getter;
 

@@ -1,9 +1,9 @@
-package org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture;
+package org.incode.examples.commchannel.demo.shared.reminder.fixture;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
+import org.incode.examples.commchannel.demo.shared.reminder.dom.DemoReminder;
 
 public class DemoReminder_tearDown extends TeardownFixtureAbstract2 {
 

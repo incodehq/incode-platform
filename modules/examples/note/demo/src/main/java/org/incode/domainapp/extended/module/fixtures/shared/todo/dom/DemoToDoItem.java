@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.todo.dom;
+package org.incode.examples.commchannel.demo.shared.todo.dom;
 
 import java.math.BigDecimal;
 import java.util.List;

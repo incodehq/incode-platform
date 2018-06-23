@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.simple.dom;
+package org.incode.examples.commchannel.demo.shared.simple.dom;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;

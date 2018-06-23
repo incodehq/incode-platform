@@ -21,10 +21,10 @@ import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.domainapp.extended.integtests.examples.document.DocumentModuleIntegTestAbstract;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;
+import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.examples.commchannel.demo.shared.other.dom.OtherObject;
+import org.incode.examples.commchannel.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.examples.commchannel.demo.shared.other.fixture.OtherObject_createUpTo5_fakeData;
 import org.incode.example.alias.demo.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
 import org.incode.example.alias.demo.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 

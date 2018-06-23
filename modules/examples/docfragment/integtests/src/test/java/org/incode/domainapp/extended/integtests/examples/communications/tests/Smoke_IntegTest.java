@@ -23,10 +23,10 @@ import org.incode.example.alias.demo.examples.communications.app.fakeemail.Email
 import org.incode.example.alias.demo.examples.communications.app.fakeemail.FakeEmailService;
 import org.incode.example.alias.demo.examples.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
 import org.incode.example.alias.demo.examples.communications.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoiceRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoiceRepository;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;

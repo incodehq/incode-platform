@@ -12,10 +12,10 @@ import org.apache.isis.applib.value.Blob;
 
 import org.incode.example.alias.demo.examples.communications.contributions.DemoAppCommunicationChannelOwner_newChannelContributions;
 import org.incode.example.alias.demo.examples.communications.contributions.invoice.DemoInvoice_simulateRenderAsDoc;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoiceRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoiceRepository;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
 import org.incode.example.country.dom.impl.Country;

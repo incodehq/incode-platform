@@ -26,9 +26,9 @@ import org.isisaddons.module.fakedata.dom.FakeDataService;
 import org.incode.domainapp.extended.integtests.lib.fakedata.FakeDataModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.data.DemoObjectWithAll_update_withFakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.EnumOf3;
+import org.incode.examples.commchannel.demo.shared.demowithall.dom.DemoObjectWithAll;
+import org.incode.examples.commchannel.demo.shared.demowithall.dom.DemoObjectWithAllMenu;
+import org.incode.examples.commchannel.demo.shared.demowithall.dom.EnumOf3;
 
 public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstract {
 

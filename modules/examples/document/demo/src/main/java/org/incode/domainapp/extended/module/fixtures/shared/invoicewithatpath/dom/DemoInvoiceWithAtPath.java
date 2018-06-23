@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.dom;
+package org.incode.examples.commchannel.demo.shared.invoicewithatpath.dom;
 
 import java.io.IOException;
 
@@ -24,7 +24,7 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
-import org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.fixture.DemoInvoiceWithAtPathData;
+import org.incode.examples.commchannel.demo.shared.invoicewithatpath.fixture.DemoInvoiceWithAtPathData;
 import org.incode.example.docfragment.dom.api.DocFragmentService;
 import org.incode.example.docfragment.dom.types.AtPathType;
 
