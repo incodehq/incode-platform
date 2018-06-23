@@ -66,7 +66,7 @@
 
     <properties>
         <isis.integTest.module>
-            org.incode.domainapp.extended.integtests.examples.classification.ClassificationModuleIntegTestModule
+            org.incode.examples.classification.integtests.ClassificationModuleIntegTestModule
         </isis.integTest.module>
     </properties>
 
