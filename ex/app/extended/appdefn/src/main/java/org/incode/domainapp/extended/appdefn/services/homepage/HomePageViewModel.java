@@ -39,10 +39,10 @@ import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.sessionlogger.dom.SessionLogEntry;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.classification.dom.menu.TaxonomyMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.menu.DocumentTypeMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.example.alias.demo.examples.classification.dom.menu.TaxonomyMenu;
+import org.incode.example.alias.demo.examples.document.dom.menu.DocumentTypeMenu;
+import org.incode.example.alias.demo.examples.tags.dom.demo.DemoTaggableObject;
+import org.incode.example.alias.demo.examples.tags.dom.demo.DemoTaggableObjectMenu;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Cases;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
@@ -66,8 +66,8 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.de
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntity;
 import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomer;
 import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomerRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectRepository;
+import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.example.alias.demo.shared.dom.DemoObjectRepository;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;

@@ -143,7 +143,6 @@
             </activation>
             <modules>
                 <module>module-fixtures</module>
-                <module>integtests-examples</module>
                 <module>integtests-spi</module>
             </modules>
         </profile>
@@ -162,7 +161,6 @@
                 <module>module-base</module>
                 <module>module-fixtures</module>
 
-                <module>integtests-examples</module>
                 <module>integtests-ext</module>
                 <module>integtests-lib</module>
                 <module>integtests-spi</module>

@@ -11,8 +11,8 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.ext.togglz.fixture.DemoObject_create3;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
+import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.example.alias.demo.shared.dom.DemoObjectMenu;
 import org.incode.domainapp.extended.integtests.ext.togglz.TogglzModuleIntegTestAbstract;
 
 

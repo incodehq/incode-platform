@@ -1378,19 +1378,7 @@
 
     <modules>
 
-        <module>examples/alias</module>
-        <module>examples/classification</module>
-        <module>examples/commchannel</module>
-        <module>examples/communications</module>
-        <module>examples/country</module>
-        <module>examples/docfragment</module>
-        <module>examples/docrendering-freemarker</module>
-        <module>examples/docrendering-stringinterpolator</module>
-        <module>examples/docrendering-xdocreport</module>
-        <module>examples/document</module>
-        <module>examples/note</module>
-        <module>examples/settings</module>
-        <module>examples/tags</module>
+        <module>examples</module>
 
         <module>ext/flywaydb</module>
         <module>ext/quartz</module>

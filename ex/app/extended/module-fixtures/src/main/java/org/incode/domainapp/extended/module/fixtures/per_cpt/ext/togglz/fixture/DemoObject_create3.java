@@ -2,8 +2,8 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.ext.togglz.fixture
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectRepository;
+import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.example.alias.demo.shared.dom.DemoObjectRepository;
 
 public class DemoObject_create3 extends FixtureScript {
 

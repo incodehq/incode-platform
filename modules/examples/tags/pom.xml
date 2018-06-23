@@ -10,165 +10,34 @@
     </parent>
 
     <groupId>org.incode.example.tags</groupId>
-    <artifactId>incode-example-tags-dom</artifactId>
+    <artifactId>incode-example-tags</artifactId>
 
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-    <name>Incode Platform Example Tags Impl</name>
-    <description>
-        A module providing the ability to tag or label entities.
-    </description>
+    <name>Incode Platform Example Tags</name>
 
-    <url>https://github.com/incodehq/incode-platform</url>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.incode.example.tags</groupId>
+                <artifactId>incode-example-tags-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.tags</groupId>
+                <artifactId>incode-example-tags-fixture</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.tags</groupId>
+                <artifactId>incode-example-tags-integtests</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:git@github.com:incodehq/incode-platform.git</connection>
-        <developerConnection>scm:git:git@github.com:incodehq/incode-platform.git</developerConnection>
-        <url>git@github.com:incodehq/incode-platform.git</url>
-    </scm>
-
-    <developers>
-        <developer>
-            <id>dhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dhaywood@incode.org</email>
-        </developer>
-        <developer>
-            <id>jvanderwal</id>
-            <name>Jeroen van der Wal</name>
-            <email>jvanderwal@incode.org</email>
-        </developer>
-        <developer>
-            <id>jdoornenbal</id>
-            <name>Johan Doornenbal</name>
-            <email>jdoornenbal@incode.org</email>
-        </developer>
-    </developers>
-
-    <properties>
-        <isis-maven-plugin.validate.appManifest>
-            org.incode.example.tags.dom.TagsModuleDomManifest
-        </isis-maven-plugin.validate.appManifest>
-
-        <jar-plugin.automaticModuleName>org.incode.example.tags</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/example/settings</git-plugin.propertiesDir>
-
-        <git-plugin.gitDir>${project.basedir}/../../../../.git</git-plugin.gitDir>
-    </properties>
-
-
-    <build>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>com.github.odavid.maven.plugins</groupId>
-                <artifactId>mixin-maven-plugin</artifactId>
-                <version>0.1-alpha-39</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <mixins>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>datanucleusenhance</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                        </mixin>
-                        <!--
-                        TODO: reinstate
-                        <mixin>
-                            <groupId>org.incode.mavenmixin</groupId>
-                            <artifactId>incode-mavenmixin-validate</artifactId>
-                        </mixin>
-                        -->
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>sourceandjavadoc</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
-                        </mixin>
-                    </mixins>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-applib</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-        </dependency>
-
-        <!-- test -->
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-             <artifactId>isis-core-unittestsupport</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-            <scope>test</scope>
-            <type>test-jar</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
-
-    <profiles>
-        <profile>
-            <id>git</id>
-            <activation>
-                <property>
-                    <name>!skip.git</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>pl.project13.maven</groupId>
-                        <artifactId>git-commit-id-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
+    <modules>
+		<module>dom</module>
+	</modules>
+	
 </project>
