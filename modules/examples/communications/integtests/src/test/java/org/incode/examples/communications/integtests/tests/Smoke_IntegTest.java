@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.communications.tests;
+package org.incode.examples.communications.integtests.tests;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,15 +18,6 @@ import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
 import org.isisaddons.module.command.dom.CommandDomModule;
 import org.isisaddons.module.command.dom.CommandJdo;
 
-import org.incode.domainapp.extended.integtests.examples.communications.CommunicationsModuleIntegTestAbstract;
-import org.incode.examples.communications.demo.usage.app.fakeemail.EmailMessage;
-import org.incode.examples.communications.demo.usage.app.fakeemail.FakeEmailService;
-import org.incode.examples.communications.demo.usage.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
-import org.incode.examples.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
-import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
-import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoiceRepository;
-import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -41,6 +32,15 @@ import org.incode.example.communications.dom.mixins.Document_sendByPost;
 import org.incode.example.document.dom.impl.docs.DocumentAbstract;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
+import org.incode.examples.communications.demo.shared.demowithnotes.dom.DemoInvoice;
+import org.incode.examples.communications.demo.shared.demowithnotes.dom.DemoInvoiceRepository;
+import org.incode.examples.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.examples.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
+import org.incode.examples.communications.demo.usage.app.fakeemail.EmailMessage;
+import org.incode.examples.communications.demo.usage.app.fakeemail.FakeEmailService;
+import org.incode.examples.communications.demo.usage.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
+import org.incode.examples.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.examples.communications.integtests.CommunicationsModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 

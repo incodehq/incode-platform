@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.communications;
+package org.incode.examples.communications.integtests.communications;
 
 import java.util.Set;
 

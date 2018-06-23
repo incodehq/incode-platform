@@ -25,7 +25,7 @@
             </dependency>
             <dependency>
                 <groupId>org.incode.example.communications</groupId>
-                <artifactId>incode-example-communications-fixture</artifactId>
+                <artifactId>incode-example-communications-demo</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -39,6 +39,7 @@
     <modules>
 		<module>demo</module>
 		<module>dom</module>
+		<module>integtests</module>
 	</modules>
 	
 </project>

@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.communications.tests;
+package org.incode.examples.communications.integtests.tests;
 
 import javax.inject.Inject;
 
@@ -10,11 +10,6 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.incode.domainapp.extended.integtests.examples.communications.CommunicationsModuleIntegTestAbstract;
-import org.incode.examples.communications.demo.usage.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
-import org.incode.examples.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
-import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -22,6 +17,11 @@ import org.incode.example.communications.dom.impl.commchannel.EmailAddress;
 import org.incode.example.communications.dom.impl.commchannel.PostalAddress;
 import org.incode.example.communications.dom.impl.comms.Communication;
 import org.incode.example.communications.dom.impl.comms.CommunicationRepository;
+import org.incode.examples.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.examples.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
+import org.incode.examples.communications.demo.usage.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
+import org.incode.examples.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.examples.communications.integtests.CommunicationsModuleIntegTestAbstract;
 
 public class CommunicationChannelSubscription_Integtest extends CommunicationsModuleIntegTestAbstract {
 
