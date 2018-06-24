@@ -1,9 +1,9 @@
-package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.data;
+package org.incode.example.tags.demo.usage.fixture.data;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObject;
+import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObjectMenu;
 
 public abstract class AbstractTaggableObjectFixture extends FixtureScript {
 

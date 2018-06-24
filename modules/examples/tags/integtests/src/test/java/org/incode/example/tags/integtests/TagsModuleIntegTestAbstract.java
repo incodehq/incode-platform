@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.tags;
+package org.incode.example.tags.integtests;
 
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;

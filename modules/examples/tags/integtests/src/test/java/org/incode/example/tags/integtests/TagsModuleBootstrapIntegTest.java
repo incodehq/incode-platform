@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.domainapp.extended.integtests.examples.tags;
+package org.incode.example.tags.integtests;
 
 import javax.inject.Inject;
 

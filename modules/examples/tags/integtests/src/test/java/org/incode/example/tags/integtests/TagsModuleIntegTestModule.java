@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.tags;
+package org.incode.example.tags.integtests;
 
 import java.util.Set;
 
@@ -11,12 +11,14 @@ import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
+import org.incode.example.tags.demo.usage.TagsDemoSharedUsageSubmodule;
+
 @XmlRootElement(name = "module")
 public class TagsModuleIntegTestModule extends ModuleAbstract {
     @Override
     public Set<Module> getDependencies() {
         return Sets.newHashSet(
-                new FixturesModuleExamplesTagsIntegrationSubmodule(),
+                new TagsDemoSharedUsageSubmodule(),
                 new FakeDataModule()
         );
     }
