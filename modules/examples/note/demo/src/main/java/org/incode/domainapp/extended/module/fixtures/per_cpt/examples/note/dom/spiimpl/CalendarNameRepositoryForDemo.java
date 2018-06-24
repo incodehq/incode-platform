@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.note.dom.spiimpl;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.spiimpl;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.note.dom.spi.CalendarNameRepository;
 
 @DomainService(

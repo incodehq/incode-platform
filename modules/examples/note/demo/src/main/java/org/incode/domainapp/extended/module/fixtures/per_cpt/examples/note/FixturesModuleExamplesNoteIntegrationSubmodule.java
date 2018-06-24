@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.note;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note;
 
 import java.util.Set;
 
@@ -10,10 +10,6 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
-
-import org.incode.example.alias.demo.examples.note.dom.demolink.NotableLinkForDemoObject;
-import org.incode.examples.commchannel.demo.shared.demo.FixturesModuleSharedDemoSubmodule;
-import org.incode.example.note.NoteModule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleExamplesNoteIntegrationSubmodule extends ModuleAbstract {

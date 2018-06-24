@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.note.dom.demolink;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -6,7 +6,7 @@ import javax.jdo.annotations.InheritanceStrategy;
 
 import org.apache.isis.applib.annotation.DomainObject;
 
-import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.note.dom.impl.notablelink.NotableLink;
 
 import lombok.Getter;

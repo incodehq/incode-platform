@@ -1,13 +1,13 @@
-package org.incode.example.alias.demo.examples.note.fixture;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.fixture;
 
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.example.alias.demo.shared.dom.DemoObject;
-import org.incode.example.alias.demo.shared.dom.DemoObjectMenu;
-import org.incode.example.alias.demo.examples.note.dom.demolink.NotableLinkForDemoObject_addNote;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_addNote;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
 import org.incode.example.note.dom.impl.note.T_addNote;
 
 public class DemoObject_withNotes_create3 extends FixtureScript {

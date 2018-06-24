@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared;
+package org.incode.domainapp.extended.module.fixtures.shared;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

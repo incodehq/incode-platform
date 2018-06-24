@@ -37,6 +37,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>demo</module>
 		<module>dom</module>
 	</modules>
 	
