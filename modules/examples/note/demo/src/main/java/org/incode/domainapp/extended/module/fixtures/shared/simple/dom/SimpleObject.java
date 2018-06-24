@@ -41,7 +41,7 @@ import lombok.ToString;
         @javax.jdo.annotations.Query(
                 name = "findByName",
                 value = "SELECT "
-                        + "FROM org.incode.examples.communications.demo.shared.simple.dom.SimpleObject "
+                        + "FROM org.incode.example.communications.demo.shared.simple.dom.SimpleObject "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})

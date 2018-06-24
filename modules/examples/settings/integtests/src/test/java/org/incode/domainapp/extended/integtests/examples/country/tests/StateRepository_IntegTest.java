@@ -1,4 +1,4 @@
-package org.incode.examples.country.integtests.tests;
+package org.incode.example.country.integtests.tests;
 
 import java.util.List;
 

@@ -66,7 +66,7 @@
 
     <properties>
         <isis.integTest.module>
-            org.incode.examples.document.integtests.DocumentModuleIntegTestModule
+            org.incode.example.document.integtests.DocumentModuleIntegTestModule
         </isis.integTest.module>
     </properties>
 

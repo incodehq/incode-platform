@@ -66,7 +66,7 @@
 
     <properties>
         <isis.integTest.module>
-            org.incode.examples.settings.integtests.SettingsModuleIntegTestModule
+            org.incode.example.settings.integtests.SettingsModuleIntegTestModule
         </isis.integTest.module>
     </properties>
 

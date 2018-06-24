@@ -1,4 +1,4 @@
-package org.incode.examples.communications.integtests.communications;
+package org.incode.example.communications.integtests.communications;
 
 import javax.inject.Inject;
 

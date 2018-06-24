@@ -1,4 +1,4 @@
-package org.incode.examples.communications.integtests.tests;
+package org.incode.example.communications.integtests.tests;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +18,7 @@ import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
 import org.isisaddons.module.command.dom.CommandDomModule;
 import org.isisaddons.module.command.dom.CommandJdo;
 
-import org.incode.examples.communications.integtests.communications.CommunicationsModuleIntegTestAbstract;
+import org.incode.example.communications.integtests.communications.CommunicationsModuleIntegTestAbstract;
 import org.incode.example.alias.demo.examples.communications.app.fakeemail.EmailMessage;
 import org.incode.example.alias.demo.examples.communications.app.fakeemail.FakeEmailService;
 import org.incode.example.alias.demo.examples.communications.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
