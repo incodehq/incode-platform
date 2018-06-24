@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.document;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document;
 
 import java.util.Set;
 
@@ -14,17 +14,17 @@ import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.example.alias.demo.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.example.alias.demo.examples.document.dom.paperclips.other.PaperclipForOtherObject;
-import org.incode.examples.commchannel.demo.shared.demowithurl.FixturesModuleSharedDemoWithUrlSubmodule;
-import org.incode.examples.commchannel.demo.shared.other.FixturesModuleSharedOtherSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.FixturesModuleSharedDemoWithUrlSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.other.FixturesModuleSharedOtherSubmodule;
 import org.incode.example.docrendering.freemarker.FreemarkerDocRenderingModule;
 import org.incode.example.docrendering.stringinterpolator.StringInterpolatorDocRenderingModule;
 import org.incode.example.docrendering.xdocreport.XDocReportDocRenderingModule;
 import org.incode.example.document.DocumentModule;
 
 @XmlRootElement(name = "module")
-public class FixturesModuleExamplesDocumentIntegrationSubmodule extends ModuleAbstract {
+public class DocumentDemoUsageModule extends ModuleAbstract {
 
     @Override public Set<Module> getDependencies() {
         return Sets.newHashSet(

@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.document.dom.applicability.aa;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.aa;
 
 import java.util.Collections;
 import java.util.List;
@@ -6,12 +6,12 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
 import org.incode.example.document.dom.impl.applicability.AttachmentAdvisorAbstract;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.examples.commchannel.demo.shared.demowithnotes.dom.DemoInvoice;
 
 public class AttachAdvisorOfDocAttachedToDemoInvceWillAttachToSame extends
         AttachmentAdvisorAbstract<Document> {

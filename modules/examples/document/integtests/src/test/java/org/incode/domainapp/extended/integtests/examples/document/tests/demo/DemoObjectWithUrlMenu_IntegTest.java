@@ -9,11 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.incode.domainapp.extended.integtests.examples.document.DocumentModuleIntegTestAbstract;
-import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrlMenu;
-import org.incode.examples.commchannel.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.examples.commchannel.demo.shared.demowithurl.fixture.DemoObjectWithUrl_tearDown;
-import org.incode.example.alias.demo.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrlMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_tearDown;
 
 public class DemoObjectWithUrlMenu_IntegTest extends DocumentModuleIntegTestAbstract {
 

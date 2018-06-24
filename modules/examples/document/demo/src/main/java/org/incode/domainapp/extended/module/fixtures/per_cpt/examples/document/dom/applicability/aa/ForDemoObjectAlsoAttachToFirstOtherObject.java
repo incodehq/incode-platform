@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.document.dom.applicability.aa;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.aa;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,12 +9,12 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
 import org.incode.example.document.dom.impl.applicability.AttachmentAdvisor;
 import org.incode.example.document.dom.impl.applicability.AttachmentAdvisorAbstract;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
-import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.examples.commchannel.demo.shared.other.dom.OtherObject;
 
 public class ForDemoObjectAlsoAttachToFirstOtherObject extends
         AttachmentAdvisorAbstract<DemoObjectWithUrl> {

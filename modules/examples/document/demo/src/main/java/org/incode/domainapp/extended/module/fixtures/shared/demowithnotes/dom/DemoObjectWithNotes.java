@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.demowithnotes.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -15,8 +15,6 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
-
-import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwner;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,7 +40,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
-public class DemoObjectWithNotes implements Comparable<DemoObjectWithNotes>, CommunicationChannelOwner {
+public class DemoObjectWithNotes implements Comparable<DemoObjectWithNotes> /*, CommunicationChannelOwner*/ {
 
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
@@ -60,7 +58,7 @@ public class DemoObjectWithNotes implements Comparable<DemoObjectWithNotes>, Com
 
 
     @Programmatic
-    @Override
+    //@Override
     public String getAtPath() {
         return "/";
     }

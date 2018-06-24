@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.document.dom.menu;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.menu;
 
 import java.util.List;
 

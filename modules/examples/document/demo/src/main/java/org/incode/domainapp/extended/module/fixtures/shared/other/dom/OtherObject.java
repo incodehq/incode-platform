@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.other.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.other.dom;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;

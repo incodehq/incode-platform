@@ -3,10 +3,10 @@ package org.incode.domainapp.extended.integtests.examples.document;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-import org.incode.example.alias.demo.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.example.alias.demo.examples.document.dom.paperclips.other.PaperclipForOtherObject;
-import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.examples.commchannel.demo.shared.other.dom.OtherObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.other.PaperclipForOtherObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.Document_delete;
 

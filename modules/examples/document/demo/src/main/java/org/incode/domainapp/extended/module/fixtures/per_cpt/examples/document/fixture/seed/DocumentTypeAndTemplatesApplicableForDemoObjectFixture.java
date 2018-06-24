@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.document.fixture.seed;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.seed;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,17 +14,17 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.aa.ForDemoObjectAlsoAttachToFirstOtherObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.aa.ForDemoObjectAttachToSame;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.rmf.FreemarkerModelOfDemoObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.rmf.StringInterpolatorRootOfDemoObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.applicability.rmf.XDocReportModelOfDemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategyRepository;
 import org.incode.example.document.dom.impl.types.DocumentType;
 import org.incode.example.document.fixture.DocumentTemplateFSAbstract;
-import org.incode.examples.commchannel.demo.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.example.alias.demo.examples.document.dom.applicability.aa.ForDemoObjectAlsoAttachToFirstOtherObject;
-import org.incode.example.alias.demo.examples.document.dom.applicability.aa.ForDemoObjectAttachToSame;
-import org.incode.example.alias.demo.examples.document.dom.applicability.rmf.FreemarkerModelOfDemoObject;
-import org.incode.example.alias.demo.examples.document.dom.applicability.rmf.StringInterpolatorRootOfDemoObject;
-import org.incode.example.alias.demo.examples.document.dom.applicability.rmf.XDocReportModelOfDemoObject;
 
 import lombok.Getter;
 

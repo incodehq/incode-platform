@@ -11,14 +11,14 @@ import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.example.alias.demo.examples.document.FixturesModuleExamplesDocumentIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.DocumentDemoUsageModule;
 
 @XmlRootElement(name = "module")
 public class DocumentModuleIntegTestModule extends ModuleAbstract {
     @Override
     public Set<Module> getDependencies() {
         return Sets.newHashSet(
-                new FixturesModuleExamplesDocumentIntegrationSubmodule(),
+                new DocumentDemoUsageModule(),
                 new FakeDataModule()
         );
     }

@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.document.dom.paperclips.other;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.other;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -12,13 +12,13 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
+import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndRender;
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndScheduleRender;
 import org.incode.example.document.dom.mixins.T_documents;
 import org.incode.example.document.dom.mixins.T_preview;
-import org.incode.examples.commchannel.demo.shared.other.dom.OtherObject;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,

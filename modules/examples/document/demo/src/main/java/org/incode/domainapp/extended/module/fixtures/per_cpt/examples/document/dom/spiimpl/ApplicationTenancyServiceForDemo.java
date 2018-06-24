@@ -1,9 +1,9 @@
-package org.incode.example.alias.demo.examples.document.dom.spiimpl;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.spiimpl;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.example.classification.dom.spi.ApplicationTenancyService;
+import org.incode.example.document.dom.spi.ApplicationTenancyService;
 
 @DomainService(
     nature = NatureOfService.DOMAIN
