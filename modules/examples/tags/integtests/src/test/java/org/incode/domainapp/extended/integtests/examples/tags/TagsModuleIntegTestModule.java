@@ -11,8 +11,6 @@ import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.example.alias.demo.examples.tags.FixturesModuleExamplesTagsIntegrationSubmodule;
-
 @XmlRootElement(name = "module")
 public class TagsModuleIntegTestModule extends ModuleAbstract {
     @Override

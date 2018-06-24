@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.tags.dom.demo;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo;
 
 import java.util.List;
 

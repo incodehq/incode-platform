@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.tags.dom.demo;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import lombok.Setter;
  */
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema = "exampleDomTags"
+        schema = "tagsDemoUsage"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy= IdGeneratorStrategy.NATIVE,

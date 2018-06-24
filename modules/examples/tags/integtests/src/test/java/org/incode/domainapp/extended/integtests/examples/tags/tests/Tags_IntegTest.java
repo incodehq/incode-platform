@@ -16,9 +16,9 @@ import org.junit.Test;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.incode.domainapp.extended.integtests.examples.tags.TagsModuleIntegTestAbstract;
-import org.incode.example.alias.demo.examples.tags.dom.demo.DemoTaggableObject;
-import org.incode.example.alias.demo.examples.tags.dom.demo.DemoTaggableObjectMenu;
-import org.incode.example.alias.demo.examples.tags.fixture.DemoTaggableObject_withTags_create3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.DemoTaggableObject_withTags_create3;
 import org.incode.example.tags.dom.impl.Tag;
 import org.incode.example.tags.dom.impl.Tags;
 

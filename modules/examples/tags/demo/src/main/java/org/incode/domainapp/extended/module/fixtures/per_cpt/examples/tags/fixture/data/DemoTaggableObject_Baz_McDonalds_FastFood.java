@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.tags.fixture.data;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.fixture.data;
 
 public class DemoTaggableObject_Baz_McDonalds_FastFood extends AbstractTaggableObjectFixture {
 

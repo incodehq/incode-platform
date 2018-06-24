@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.examples.tags;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags;
 
 import java.util.List;
 import java.util.Set;
@@ -13,11 +13,11 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.example.alias.demo.examples.tags.dom.demo.DemoTaggableObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.tags.dom.demo.DemoTaggableObject;
 import org.incode.example.tags.TagsModule;
 
 @XmlRootElement(name = "module")
-public class FixturesModuleExamplesTagsIntegrationSubmodule extends ModuleAbstract {
+public class TagDemoSharedUsageSubmodule extends ModuleAbstract {
 
     @Override
     public Set<Module> getDependencies() {
