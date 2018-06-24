@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-example-commchannel-demo</artifactId>
-    <name>Incode Platform Example CommChannel Fixtures</name>
+    <name>Incode Platform Example CommChannel Demo</name>
 
     <build>
         <resources>

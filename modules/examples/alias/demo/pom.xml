@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-example-alias-demo</artifactId>
-    <name>Incode Platform Example Alias Demo Usage</name>
+    <name>Incode Platform Example Alias Demo</name>
 
     <build>
         <resources>

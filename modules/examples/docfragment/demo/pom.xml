@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-example-docfragment-demo</artifactId>
-    <name>Incode Platform Example DocFragment Fixtures</name>
+    <name>Incode Platform Example DocFragment Demo</name>
 
     <build>
         <resources>

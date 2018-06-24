@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-example-classification-demo</artifactId>
-    <name>Incode Platform Example classification Fixtures</name>
+    <name>Incode Platform Example classification Demo</name>
 
     <build>
         <resources>
