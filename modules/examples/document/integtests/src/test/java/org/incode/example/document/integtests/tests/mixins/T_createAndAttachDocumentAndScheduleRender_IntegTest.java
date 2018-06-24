@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.document.tests.mixins;
+package org.incode.example.document.integtests.tests.mixins;
 
 import javax.inject.Inject;
 
@@ -9,7 +9,7 @@ import org.apache.isis.applib.services.background.BackgroundCommandService;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 
-import org.incode.domainapp.extended.integtests.examples.document.DocumentModuleIntegTestAbstract;
+import org.incode.example.document.integtests.DocumentModuleIntegTestAbstract;
 import org.incode.example.document.demo.usage.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.example.document.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;

@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.document;
+package org.incode.example.document.integtests;
 
 import java.util.Set;
 

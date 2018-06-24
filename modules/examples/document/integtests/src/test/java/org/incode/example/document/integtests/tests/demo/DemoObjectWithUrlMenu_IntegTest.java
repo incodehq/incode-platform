@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.document.tests.demo;
+package org.incode.example.document.integtests.tests.demo;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.domainapp.extended.integtests.examples.document.DocumentModuleIntegTestAbstract;
+import org.incode.example.document.integtests.DocumentModuleIntegTestAbstract;
 import org.incode.example.document.demo.usage.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrlMenu;

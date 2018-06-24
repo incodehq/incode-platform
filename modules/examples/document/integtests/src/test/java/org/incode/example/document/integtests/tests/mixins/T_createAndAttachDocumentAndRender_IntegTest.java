@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.integtests.examples.document.tests.mixins;
+package org.incode.example.document.integtests.tests.mixins;
 
 import java.util.List;
 import java.util.Set;
@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.wrapper.HiddenException;
 
-import org.incode.domainapp.extended.integtests.examples.document.DocumentModuleIntegTestAbstract;
+import org.incode.example.document.integtests.DocumentModuleIntegTestAbstract;
 import org.incode.example.document.demo.usage.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
 import org.incode.example.document.demo.usage.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
 import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
