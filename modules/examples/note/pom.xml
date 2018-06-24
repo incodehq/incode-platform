@@ -39,6 +39,7 @@
     <modules>
         <module>demo</module>
 		<module>dom</module>
+		<module>integtests</module>
 	</modules>
 	
 </project>

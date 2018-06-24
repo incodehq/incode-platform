@@ -11,7 +11,7 @@ import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.example.alias.demo.examples.note.FixturesModuleExamplesNoteIntegrationSubmodule;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.FixturesModuleExamplesNoteIntegrationSubmodule;
 
 @XmlRootElement(name = "module")
 public class NoteModuleIntegTestModule extends ModuleAbstract {

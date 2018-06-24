@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObject_tearDown;
+
 @XmlRootElement(name = "module")
 public class FixturesModuleSharedDemoSubmodule extends ModuleAbstract {
 

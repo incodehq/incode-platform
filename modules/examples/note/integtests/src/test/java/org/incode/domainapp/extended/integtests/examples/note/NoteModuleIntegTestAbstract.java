@@ -11,10 +11,10 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.example.alias.demo.examples.note.dom.demolink.NotableLinkForDemoObject_addNote;
-import org.incode.example.alias.demo.examples.note.dom.demolink.NotableLinkForDemoObject_notes;
-import org.incode.example.alias.demo.examples.note.dom.demolink.NotableLinkForDemoObject_removeNote;
-import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_addNote;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_notes;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.note.dom.demolink.NotableLinkForDemoObject_removeNote;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.example.note.dom.impl.note.Note;
 import org.incode.example.note.dom.impl.note.Note_changeDate;
 import org.incode.example.note.dom.impl.note.Note_changeNotes;
