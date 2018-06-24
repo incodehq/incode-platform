@@ -79,11 +79,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.example.settings</groupId>
-            <artifactId>incode-example-settings-demo</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.incode.example.docfragment</groupId>
             <artifactId>incode-example-docfragment-dom</artifactId>
             <!-- scope=compile for benefit of datanucleus enhancer -->
@@ -120,6 +115,12 @@
             <artifactId>incode-module-base-dom</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incode.example.settings</groupId>
+            <artifactId>incode-example-settings-dom</artifactId>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>
