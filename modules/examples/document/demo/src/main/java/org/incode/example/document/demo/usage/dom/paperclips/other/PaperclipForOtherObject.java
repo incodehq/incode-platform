@@ -22,7 +22,7 @@ import org.incode.example.document.dom.mixins.T_preview;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema="exampleDomDocument"
+        schema="documentDemoUsage"
 )
 @javax.jdo.annotations.Inheritance(
         strategy = InheritanceStrategy.NEW_TABLE)

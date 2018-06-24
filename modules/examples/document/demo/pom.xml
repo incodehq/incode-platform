@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-example-document-demo</artifactId>
-    <name>Incode Platform Example Document Fixtures</name>
+    <name>Incode Platform Example Document Demo</name>
 
     <build>
         <resources>

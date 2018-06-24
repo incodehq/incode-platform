@@ -14,14 +14,14 @@ import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.example.document.demo.usage.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.example.document.demo.usage.dom.paperclips.other.PaperclipForOtherObject;
-import org.incode.example.document.demo.shared.demowithurl.FixturesModuleSharedDemoWithUrlSubmodule;
-import org.incode.example.document.demo.shared.other.FixturesModuleSharedOtherSubmodule;
 import org.incode.example.docrendering.freemarker.FreemarkerDocRenderingModule;
 import org.incode.example.docrendering.stringinterpolator.StringInterpolatorDocRenderingModule;
 import org.incode.example.docrendering.xdocreport.XDocReportDocRenderingModule;
 import org.incode.example.document.DocumentModule;
+import org.incode.example.document.demo.shared.DocumentDemoSharedModule;
+import org.incode.example.document.demo.shared.other.DocumentDemoOtherSubmodule;
+import org.incode.example.document.demo.usage.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.example.document.demo.usage.dom.paperclips.other.PaperclipForOtherObject;
 
 @XmlRootElement(name = "module")
 public class DocumentDemoUsageModule extends ModuleAbstract {
@@ -29,8 +29,7 @@ public class DocumentDemoUsageModule extends ModuleAbstract {
     @Override public Set<Module> getDependencies() {
         return Sets.newHashSet(
                     new DocumentModule(),
-                    new FixturesModuleSharedDemoWithUrlSubmodule(),
-                    new FixturesModuleSharedOtherSubmodule(),
+                    new DocumentDemoSharedModule(),
                     new FreemarkerDocRenderingModule(),
                     new StringInterpolatorDocRenderingModule(),
                     new XDocReportDocRenderingModule(),

@@ -10,7 +10,7 @@ import org.incode.example.document.demo.shared.demowithnotes.dom.DemoInvoice;
 import org.incode.example.document.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
 
 @XmlRootElement(name = "module")
-public class FixturesModuleSharedDemoWithNotesSubmodule extends ModuleAbstract {
+public class DocumentDemoSharedDemoWithNotesSubmodule extends ModuleAbstract {
 
     @Override public FixtureScript getTeardownFixture() {
         return new TeardownFixtureAbstract2() {
