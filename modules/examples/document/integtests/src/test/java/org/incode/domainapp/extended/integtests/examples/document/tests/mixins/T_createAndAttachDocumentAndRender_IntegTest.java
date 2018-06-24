@@ -16,12 +16,12 @@ import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 import org.apache.isis.applib.services.wrapper.HiddenException;
 
 import org.incode.domainapp.extended.integtests.examples.document.DocumentModuleIntegTestAbstract;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
-import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;
+import org.incode.example.document.demo.usage.dom.paperclips.demowithurl.PaperclipForDemoObjectWithUrl;
+import org.incode.example.document.demo.usage.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
+import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.example.document.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.example.document.demo.shared.other.dom.OtherObject;
+import org.incode.example.document.demo.shared.other.fixture.OtherObject_createUpTo5_fakeData;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentAbstract;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;

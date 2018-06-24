@@ -11,7 +11,7 @@ import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.examples.document.DocumentDemoUsageModule;
+import org.incode.example.document.demo.usage.DocumentDemoUsageModule;
 
 @XmlRootElement(name = "module")
 public class DocumentModuleIntegTestModule extends ModuleAbstract {
