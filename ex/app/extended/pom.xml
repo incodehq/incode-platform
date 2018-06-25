@@ -12,7 +12,7 @@
 
     <groupId>org.incode.example.application</groupId>
     <artifactId>incode-extended</artifactId>
-    <version>1.16.3-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <name>Incode Extended</name>
     <description>Domain application with example subdomains.</description>
@@ -56,19 +56,60 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-appdefn</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-module-base</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-module-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.alias</groupId>
+                <artifactId>incode-example-alias-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.classification</groupId>
+                <artifactId>incode-example-classification-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.commchannel</groupId>
+                <artifactId>incode-example-commchannel-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.document</groupId>
+                <artifactId>incode-example-document-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.note</groupId>
+                <artifactId>incode-example-note-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.tags</groupId>
+                <artifactId>incode-example-tags-demo</artifactId>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -76,31 +117,31 @@
                 <artifactId>incode-extended-module-fixtures</artifactId>
                 <scope>test</scope>
                 <type>test-jar</type>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-webapp</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-integtests</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-main-slack</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-example-appdefn</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -143,6 +184,24 @@
             </activation>
             <modules>
                 <module>module-fixtures</module>
+                <module>../../../modules/examples/alias/demo</module>
+                <module>../../../modules/examples/alias/dom</module>
+                <module>../../../modules/examples/classification/demo</module>
+                <module>../../../modules/examples/classification/dom</module>
+                <module>../../../modules/examples/commchannel/demo</module>
+                <module>../../../modules/examples/commchannel/dom</module>
+                <module>../../../modules/examples/communications/demo</module>
+                <module>../../../modules/examples/communications/dom</module>
+                <module>../../../modules/examples/country/dom</module>
+                <module>../../../modules/examples/docfragment/demo</module>
+                <module>../../../modules/examples/docfragment/dom</module>
+                <module>../../../modules/examples/document/demo</module>
+                <module>../../../modules/examples/document/dom</module>
+                <module>../../../modules/examples/note/demo</module>
+                <module>../../../modules/examples/note/dom</module>
+                <module>../../../modules/examples/settings/dom</module>
+                <module>../../../modules/examples/tags/dom</module>
+                <module>../../../modules/examples/tags/demo</module>
                 <module>integtests-spi</module>
             </modules>
         </profile>
@@ -165,6 +224,7 @@
                 <module>integtests-lib</module>
                 <module>integtests-spi</module>
                 <module>integtests-mml</module>
+                <module>../../../modules/examples</module>
 
                 <module>appdefn</module>
                 <module>webapp</module>

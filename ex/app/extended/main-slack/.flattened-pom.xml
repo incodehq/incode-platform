@@ -30,6 +30,46 @@
         <version>1.16.3-SNAPSHOT</version>
       </dependency>
       <dependency>
+        <groupId>org.incode.example.alias</groupId>
+        <artifactId>incode-example-alias-demo</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.classification</groupId>
+        <artifactId>incode-example-classification-demo</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.commchannel</groupId>
+        <artifactId>incode-example-commchannel-demo</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.communications</groupId>
+        <artifactId>incode-example-communications-demo</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.docfragment</groupId>
+        <artifactId>incode-example-docfragment-demo</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.document</groupId>
+        <artifactId>incode-example-document-demo</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.note</groupId>
+        <artifactId>incode-example-note-demo</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.incode.example.tags</groupId>
+        <artifactId>incode-example-tags-demo</artifactId>
+        <version>1.16.3-SNAPSHOT</version>
+      </dependency>
+      <dependency>
         <groupId>org.incode.example.application</groupId>
         <artifactId>incode-extended-module-fixtures</artifactId>
         <version>1.16.3-SNAPSHOT</version>

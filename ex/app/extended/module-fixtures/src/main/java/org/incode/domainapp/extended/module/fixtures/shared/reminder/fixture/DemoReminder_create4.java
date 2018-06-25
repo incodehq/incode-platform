@@ -1,9 +1,9 @@
-package org.incode.examples.commchannel.demo.shared.reminder.fixture;
+package org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.examples.commchannel.demo.shared.reminder.dom.DemoReminder;
-import org.incode.examples.commchannel.demo.shared.reminder.dom.DemoReminderMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminderMenu;
 
 public class DemoReminder_create4 extends FixtureScript {
 

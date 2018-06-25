@@ -9,7 +9,7 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
-import org.incode.examples.commchannel.demo.shared.reminder.FixturesModuleSharedReminderSubmodule;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.FixturesModuleSharedReminderSubmodule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleLibStringInterpolatorSubmodule extends ModuleAbstract {

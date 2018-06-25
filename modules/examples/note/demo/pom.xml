@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>incode-example-note-demo</artifactId>
-    <name>Incode Platform Example Note Fixtures</name>
+    <name>Incode Platform Example Note Demo</name>
 
     <build>
         <resources>

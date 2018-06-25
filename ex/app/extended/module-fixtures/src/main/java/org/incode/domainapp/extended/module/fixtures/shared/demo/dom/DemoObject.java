@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.shared.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.demo.dom;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -30,7 +30,7 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
-                        + "FROM org.incode.example.alias.demo.shared.dom.DemoObject "
+                        + "FROM org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 

@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.simple.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.simple.dom;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -41,7 +41,7 @@ import lombok.ToString;
         @javax.jdo.annotations.Query(
                 name = "findByName",
                 value = "SELECT "
-                        + "FROM org.incode.example.docfragment.demo.shared.simple.dom.SimpleObject "
+                        + "FROM org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObject "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})

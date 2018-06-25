@@ -1,4 +1,4 @@
-package org.incode.example.alias.demo.shared.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.demo.dom;
 
 import java.util.List;
 

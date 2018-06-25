@@ -1,12 +1,12 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.touch;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
-
-import javax.inject.Inject;
 
 
 @Mixin

@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.demowithatpath.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom;
 
 import java.util.List;
 

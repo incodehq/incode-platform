@@ -9,8 +9,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.examples.commchannel.demo.shared.demowithall.dom.DemoObjectWithAll;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.data.DemoObjectWithAll_create_withFakeData;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.todo.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.todo.dom;
 
 import java.util.Collections;
 import java.util.List;

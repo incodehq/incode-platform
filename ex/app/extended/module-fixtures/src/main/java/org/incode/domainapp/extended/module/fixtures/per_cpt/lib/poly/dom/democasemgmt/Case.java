@@ -2,6 +2,7 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democ
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;

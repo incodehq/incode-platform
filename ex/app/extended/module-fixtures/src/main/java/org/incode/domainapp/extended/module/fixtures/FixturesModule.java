@@ -1,11 +1,22 @@
 package org.incode.domainapp.extended.module.fixtures;
 
+import java.util.Set;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.common.collect.Sets;
+
+import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
+
+import org.isisaddons.module.excel.ExcelModule;
 
 @XmlRootElement(name = "module")
 public class FixturesModule extends ModuleAbstract {
+
+    @Override public Set<Module> getDependencies() {
+        return Sets.newHashSet(new ExcelModule());
+    }
 
     public static class PropertyDomainEvent<S,T>
             extends org.apache.isis.applib.services.eventbus.PropertyDomainEvent<S,T> {}

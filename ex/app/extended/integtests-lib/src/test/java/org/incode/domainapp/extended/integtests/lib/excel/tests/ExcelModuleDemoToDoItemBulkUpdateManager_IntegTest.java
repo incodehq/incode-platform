@@ -20,12 +20,12 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
+import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
-import org.incode.examples.commchannel.demo.shared.todo.dom.DemoToDoItemMenu;
-import org.incode.examples.commchannel.demo.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
-import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

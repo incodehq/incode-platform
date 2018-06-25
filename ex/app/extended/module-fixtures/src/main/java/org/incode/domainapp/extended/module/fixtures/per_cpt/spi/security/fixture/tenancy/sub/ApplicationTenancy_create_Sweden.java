@@ -2,8 +2,6 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixtu
 
 import org.isisaddons.module.security.seed.scripts.GlobalTenancy;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.tenancy.sub.AbstractTenancyFixtureScript;
-
 public class ApplicationTenancy_create_Sweden extends AbstractTenancyFixtureScript {
 
     public static final String TENANCY_NAME = "Sweden";

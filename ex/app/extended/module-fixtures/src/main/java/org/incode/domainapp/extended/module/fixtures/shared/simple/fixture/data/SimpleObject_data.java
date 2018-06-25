@@ -1,11 +1,11 @@
-package org.incode.examples.commchannel.demo.shared.simple.fixture.data;
+package org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.data;
 
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
+import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObject;
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 
-import org.incode.examples.commchannel.demo.shared.simple.dom.SimpleObject;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

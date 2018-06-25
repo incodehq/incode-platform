@@ -13,8 +13,7 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.schema.common.v1.OidDto;
 
 import org.incode.domainapp.extended.canonical.SimpleObjectDto;
-
-import org.incode.examples.commchannel.demo.shared.simple.dom.SimpleObject;
+import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObject;
 
 @DomainService(
         nature = NatureOfService.DOMAIN

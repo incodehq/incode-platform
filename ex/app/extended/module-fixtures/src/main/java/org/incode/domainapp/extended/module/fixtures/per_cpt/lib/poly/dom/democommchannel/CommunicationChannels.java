@@ -1,6 +1,7 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel;
 
 import java.util.List;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;

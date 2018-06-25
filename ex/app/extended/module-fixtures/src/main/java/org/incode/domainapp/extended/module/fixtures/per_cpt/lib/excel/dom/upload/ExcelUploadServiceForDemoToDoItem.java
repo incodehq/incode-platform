@@ -16,7 +16,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
-import org.incode.examples.commchannel.demo.shared.todo.fixture.DemoToDoItemRowHandler;
+
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItemRowHandler;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

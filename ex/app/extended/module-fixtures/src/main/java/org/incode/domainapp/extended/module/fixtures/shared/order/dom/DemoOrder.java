@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.order.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.order.dom;
 
 import java.math.BigDecimal;
 import java.util.Collection;

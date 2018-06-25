@@ -2,9 +2,6 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixtu
 
 import org.isisaddons.module.security.dom.user.AccountType;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.roles.sub.RoleAndPermissions_create_exampleGuest;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.roles.sub.RoleAndPremissions_create_exampleNoGuest;
-
 /**
  * Intended to be assigned to roles ({@link RoleAndPermissions_create_exampleGuest} and
  * {@link RoleAndPremissions_create_exampleNoGuest}) that conflict.

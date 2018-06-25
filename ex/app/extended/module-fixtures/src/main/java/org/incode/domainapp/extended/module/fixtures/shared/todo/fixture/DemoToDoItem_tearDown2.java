@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.todo.fixture;
+package org.incode.domainapp.extended.module.fixtures.shared.todo.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

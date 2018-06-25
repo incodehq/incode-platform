@@ -6,12 +6,6 @@ import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.metamodel.MetaModelService5;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
-import org.incode.example.alias.demo.examples.classification.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
-import org.incode.example.alias.demo.examples.communications.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
-import org.incode.example.alias.demo.examples.communications.fixture.doctypes.DocumentType_and_DocumentTemplates_createSome;
-import org.incode.example.alias.demo.examples.docfragment.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
-import org.incode.example.alias.demo.examples.document.fixture.seed.RenderingStrategy_create6;
-import org.incode.example.alias.demo.examples.tags.fixture.DemoTaggableObject_withTags_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_createAll;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.fixture.ServletApiDemoObject_create3;
@@ -20,15 +14,21 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.s
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.fixture.SomeCommandAnnotatedObject_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.fixture.PublishMqDemoObject_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppSetUp;
-import org.incode.example.alias.demo.shared.fixture.DemoObject_createUpTo10_hardcodedData;
-import org.incode.examples.commchannel.demo.shared.demowithblob.fixture.DemoObjectWithBlob_createUpTo5_fakeData;
-import org.incode.examples.commchannel.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.examples.commchannel.demo.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
-import org.incode.examples.commchannel.demo.shared.other.fixture.OtherObject_createUpTo5_fakeData;
-import org.incode.examples.commchannel.demo.shared.reminder.fixture.DemoReminder_create4;
-import org.incode.examples.commchannel.demo.shared.todo.fixture.DemoToDoItem_create_usingExcelFixture;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObject_createUpTo10_hardcodedData;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture.DemoObjectWithBlob_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
+import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_create4;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_create_usingExcelFixture;
+import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
+import org.incode.example.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.example.communications.demo.usage.fixture.doctypes.DocumentType_and_DocumentTemplates_createSome;
 import org.incode.example.country.fixture.CountriesRefData;
 import org.incode.example.country.fixture.StatesRefData;
+import org.incode.example.docfragment.demo.usage.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
+import org.incode.example.document.demo.usage.fixture.seed.RenderingStrategy_create6;
+import org.incode.example.tags.demo.usage.fixture.DemoTaggableObject_withTags_create3;
 
 public class RecreateDemoFixtures extends DiscoverableFixtureScript {
 

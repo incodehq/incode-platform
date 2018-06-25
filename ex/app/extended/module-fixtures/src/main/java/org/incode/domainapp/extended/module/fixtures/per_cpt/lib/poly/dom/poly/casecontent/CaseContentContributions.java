@@ -1,10 +1,13 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent;
 
 import java.util.List;
+
 import javax.inject.Inject;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;

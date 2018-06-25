@@ -38,7 +38,6 @@ import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
-import org.incode.domainapp.extended.appdefn.fixture.ExendedAppFixtureScriptsSpecProvider;
 import org.incode.domainapp.extended.embeddedcamel.EmbeddedCamelModule;
 import org.incode.domainapp.extended.module.fixtures.FixturesModule;
 import org.incode.example.alias.AliasModule;

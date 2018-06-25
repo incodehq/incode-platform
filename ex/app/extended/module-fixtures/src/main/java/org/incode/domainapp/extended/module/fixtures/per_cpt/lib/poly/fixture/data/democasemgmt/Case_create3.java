@@ -9,10 +9,8 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_andLinks_tearDown;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)

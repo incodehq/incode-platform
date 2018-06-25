@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.order.fixture;
+package org.incode.domainapp.extended.module.fixtures.shared.order.fixture;
 
 import java.math.BigDecimal;
 
@@ -7,8 +7,8 @@ import org.joda.time.LocalDate;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
 
-import org.incode.examples.commchannel.demo.shared.order.dom.DemoOrder;
-import org.incode.examples.commchannel.demo.shared.order.dom.DemoOrderMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrder;
+import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrderMenu;
 
 public class DemoOrderAndOrderLine_create4_hardcodedData extends FixtureScript {
 

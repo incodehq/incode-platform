@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.customer.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.customer.dom;
 
 import java.io.IOException;
 import java.util.List;

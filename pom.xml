@@ -65,8 +65,6 @@
 
                 <!-- quickstart app (module fixtures/demo usage, basis of quickstart archetype) -->
                 <module>ex/app/quickstart</module>
-
-                <!-- extended version of quickstart app -->
                 <module>ex/app/extended</module>
 
                 <!-- quickstart archetype generated from ex/app/quickstart  -->

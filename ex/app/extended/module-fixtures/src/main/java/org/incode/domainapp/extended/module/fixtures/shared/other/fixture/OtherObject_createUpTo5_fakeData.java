@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.other.fixture;
+package org.incode.domainapp.extended.module.fixtures.shared.other.fixture;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.examples.commchannel.demo.shared.other.dom.OtherObject;
-import org.incode.examples.commchannel.demo.shared.other.dom.OtherObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
+import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObjectMenu;
 
 import lombok.Getter;
 import lombok.Setter;

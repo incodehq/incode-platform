@@ -15,8 +15,6 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
-
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "exampleSpiSecurity.TenantedEntities",
@@ -41,7 +39,7 @@ public class TenantedEntities {
 
     @MemberOrder(sequence = "2")
     public TenantedEntity createTenantedEntity(
-            @Parameter(maxLength = NonTenantedEntity.MAX_LENGTH_NAME)
+            @Parameter(maxLength = TenantedEntity.MAX_LENGTH_NAME)
             final String name,
             final ApplicationTenancy tenancy) {
         final TenantedEntity obj = new TenantedEntity(name, null, tenancy.getPath());

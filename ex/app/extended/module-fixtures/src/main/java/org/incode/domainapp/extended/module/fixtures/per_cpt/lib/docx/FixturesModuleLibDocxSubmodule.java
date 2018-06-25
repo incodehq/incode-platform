@@ -9,12 +9,17 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
-import org.incode.examples.commchannel.demo.shared.order.FixturesModuleSharedOrderSubmodule;
+import org.isisaddons.module.docx.DocxModule;
+
+import org.incode.domainapp.extended.module.fixtures.shared.order.FixturesModuleSharedOrderSubmodule;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleLibDocxSubmodule extends ModuleAbstract {
 
     @Override public Set<Module> getDependencies() {
-        return Sets.newHashSet(new FixturesModuleSharedOrderSubmodule());
+        return Sets.newHashSet(
+                new DocxModule(),
+                new FixturesModuleSharedOrderSubmodule()
+        );
     }
 }

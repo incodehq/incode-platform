@@ -7,6 +7,7 @@ import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.user.AccountType;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
+
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.Util;
 
 public abstract class AbstractUserFixtureScript extends FixtureScript {
@@ -82,7 +83,8 @@ public abstract class AbstractUserFixtureScript extends FixtureScript {
         if(accountType == AccountType.DELEGATED) {
             applicationUser = applicationUserRepository.newDelegateUser(name, null, null);
         } else {
-            final String passwordStr = Util.coalesce(executionContext.getParameter("password"), getPassword(), "12345678a");
+            final String passwordStr = Util
+                    .coalesce(executionContext.getParameter("password"), getPassword(), "12345678a");
             final Password password = new Password(passwordStr);
             applicationUser = applicationUserRepository.newLocalUser(name, password, password, null, null, emailAddress);
         }

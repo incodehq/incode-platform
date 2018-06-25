@@ -2,6 +2,7 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixtu
 
 import org.isisaddons.module.security.dom.user.AccountType;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
+
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.tenancy.sub.ApplicationTenancy_create_Italy;
 
 public class ApplicationUser_create_Bert_in_Italy extends AbstractUserFixtureScript {

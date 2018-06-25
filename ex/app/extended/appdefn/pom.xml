@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.incode.example.application</groupId>
         <artifactId>incode-extended</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>incode-extended-appdefn</artifactId>
@@ -77,10 +77,16 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>cucumberreporting</artifactId>
                         </mixin>
+<!--
+TODO: reinstate, currently hitting classpath issue.  Perhaps servletapi is causing this?
+
+Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger failed: A required class was missing while executing org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger: de/agilecoders/wicket/jquery/AbstractConfig
+
                         <mixin>
                             <groupId>org.incode.mavenmixin</groupId>
                             <artifactId>incode-mavenmixin-swagger</artifactId>
                         </mixin>
+-->
                     </mixins>
                 </configuration>
             </plugin>
@@ -105,16 +111,32 @@
             <artifactId>incode-example-alias-dom</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.incode.example.alias</groupId>
+            <artifactId>incode-example-alias-demo</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.incode.example.classification</groupId>
             <artifactId>incode-example-classification-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.classification</groupId>
+            <artifactId>incode-example-classification-demo</artifactId>
         </dependency>
         <dependency>
             <groupId>org.incode.example.commchannel</groupId>
             <artifactId>incode-example-commchannel-dom</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.incode.example.commchannel</groupId>
+            <artifactId>incode-example-commchannel-demo</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.incode.example.communications</groupId>
             <artifactId>incode-example-communications-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.communications</groupId>
+            <artifactId>incode-example-communications-demo</artifactId>
         </dependency>
         <dependency>
             <groupId>org.incode.example.country</groupId>
@@ -123,6 +145,10 @@
         <dependency>
             <groupId>org.incode.example.docfragment</groupId>
             <artifactId>incode-example-docfragment-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.docfragment</groupId>
+            <artifactId>incode-example-docfragment-demo</artifactId>
         </dependency>
         <dependency>
             <groupId>org.incode.example.docrendering</groupId>
@@ -141,8 +167,16 @@
             <artifactId>incode-example-document-dom</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.incode.example.document</groupId>
+            <artifactId>incode-example-document-demo</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.incode.example.note</groupId>
             <artifactId>incode-example-note-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.note</groupId>
+            <artifactId>incode-example-note-demo</artifactId>
         </dependency>
         <dependency>
             <groupId>org.incode.example.settings</groupId>
@@ -151,6 +185,10 @@
         <dependency>
             <groupId>org.incode.example.tags</groupId>
             <artifactId>incode-example-tags-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.tags</groupId>
+            <artifactId>incode-example-tags-demo</artifactId>
         </dependency>
 
 

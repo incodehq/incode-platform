@@ -12,9 +12,9 @@ import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.examples.commchannel.demo.shared.todo.fixture.DemoFixture_extending_ExcelFixture2;
-import org.incode.examples.commchannel.demo.shared.todo.fixture.DemoToDoItemRowHandler2;
 import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoFixture_extending_ExcelFixture2;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItemRowHandler2;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.demowithnotes.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -33,7 +33,7 @@ import lombok.Setter;
         @javax.jdo.annotations.Query(
                 name = "findByName",
                 value = "SELECT "
-                        + "FROM org.incode.example.docfragment.demo.shared.demowithnotes.dom.DemoObjectWithNotes "
+                        + "FROM org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes "
                         + "WHERE name.indexOf(:name) >= 0 ")
 })
 @javax.jdo.annotations.Unique(name="DemoObjectWithNotes_name_UNQ", members = {"name"})

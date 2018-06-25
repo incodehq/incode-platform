@@ -1,7 +1,9 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary;
 
 import javax.inject.Inject;
+
 import com.google.common.eventbus.Subscribe;
+
 import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;

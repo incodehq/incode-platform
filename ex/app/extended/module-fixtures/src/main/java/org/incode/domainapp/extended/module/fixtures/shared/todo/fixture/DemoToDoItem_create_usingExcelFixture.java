@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.todo.fixture;
+package org.incode.domainapp.extended.module.fixtures.shared.todo.fixture;
 
 import java.net.URL;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 
-import org.incode.examples.commchannel.demo.shared.todo.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
 
 import lombok.Getter;
 

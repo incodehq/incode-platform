@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.demowithblob.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom;
 
 import java.util.List;
 

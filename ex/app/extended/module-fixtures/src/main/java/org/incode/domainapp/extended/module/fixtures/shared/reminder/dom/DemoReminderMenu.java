@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.reminder.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.reminder.dom;
 
 import java.util.List;
 

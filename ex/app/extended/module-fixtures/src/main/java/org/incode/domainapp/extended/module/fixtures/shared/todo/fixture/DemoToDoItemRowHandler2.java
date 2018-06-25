@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.todo.fixture;
+package org.incode.domainapp.extended.module.fixtures.shared.todo.fixture;
 
 import java.math.BigDecimal;
 
@@ -8,8 +8,8 @@ import org.isisaddons.module.excel.dom.ExcelFixture2;
 import org.isisaddons.module.excel.dom.ExcelMetaDataEnabled;
 import org.isisaddons.module.excel.dom.FixtureAwareRowHandler;
 
-import org.incode.examples.commchannel.demo.shared.todo.dom.Category;
-import org.incode.examples.commchannel.demo.shared.todo.dom.Subcategory;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Category;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Subcategory;
 
 import lombok.Getter;
 import lombok.Setter;

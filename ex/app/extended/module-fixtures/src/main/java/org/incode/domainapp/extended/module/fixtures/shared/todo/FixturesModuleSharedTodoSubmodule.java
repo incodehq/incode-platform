@@ -1,11 +1,11 @@
-package org.incode.examples.commchannel.demo.shared.todo;
+package org.incode.domainapp.extended.module.fixtures.shared.todo;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.examples.commchannel.demo.shared.todo.fixture.DemoToDoItem_tearDown;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_tearDown;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleSharedTodoSubmodule extends ModuleAbstract {

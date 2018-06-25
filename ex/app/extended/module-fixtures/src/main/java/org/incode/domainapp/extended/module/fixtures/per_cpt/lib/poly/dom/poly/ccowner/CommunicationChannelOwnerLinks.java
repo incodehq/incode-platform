@@ -1,8 +1,9 @@
 package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.ccowner;
 
 import java.util.List;
+
 import javax.annotation.PostConstruct;
-import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -10,6 +11,8 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
+
+import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
 

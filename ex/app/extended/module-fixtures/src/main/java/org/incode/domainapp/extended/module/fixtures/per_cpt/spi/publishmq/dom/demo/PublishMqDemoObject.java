@@ -24,7 +24,6 @@ import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.touch.Touchable;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

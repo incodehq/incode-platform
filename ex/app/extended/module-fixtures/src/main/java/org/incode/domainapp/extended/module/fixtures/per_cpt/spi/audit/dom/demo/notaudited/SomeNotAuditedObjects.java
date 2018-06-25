@@ -13,12 +13,10 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
-
 @DomainService (
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "exampleSpiAudit.SomeNotAuditedObjects",
-        repositoryFor = SomeAuditedObject.class
+        repositoryFor = SomeNotAuditedObject.class
 )
 @DomainServiceLayout(
         named = "SPI Modules",

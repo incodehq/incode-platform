@@ -1,4 +1,4 @@
-package org.incode.examples.commchannel.demo.shared.demowithnotes.dom;
+package org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDemo.DemoObjectWithNotesMenu"
+        objectType = "extendedDemo.DemoObjectWithNotesMenu"
 )
 @DomainServiceLayout(
         named = "Demo",

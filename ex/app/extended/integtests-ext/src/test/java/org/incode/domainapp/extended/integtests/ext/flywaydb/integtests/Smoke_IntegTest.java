@@ -10,9 +10,9 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
 import org.incode.domainapp.extended.integtests.ext.flywaydb.FlywayDbModuleIntegTestAbstract;
-import org.incode.example.alias.demo.shared.dom.DemoObject;
-import org.incode.example.alias.demo.shared.dom.DemoObjectMenu;
-import org.incode.example.alias.demo.shared.fixture.DemoObject_tearDown;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObject_tearDown;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
