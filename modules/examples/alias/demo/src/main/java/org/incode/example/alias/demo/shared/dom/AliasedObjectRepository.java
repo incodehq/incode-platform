@@ -10,24 +10,24 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = DemoObject.class
+        repositoryFor = AliasDemoObject.class
 )
-public class DemoObjectRepository {
+public class AliasDemoObjectRepository {
 
-    public List<DemoObject> listAll() {
-        return repositoryService.allInstances(DemoObject.class);
+    public List<AliasDemoObject> listAll() {
+        return repositoryService.allInstances(AliasDemoObject.class);
     }
 
-    public List<DemoObject> findByName(final String name) {
+    public List<AliasDemoObject> findByName(final String name) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
-                        DemoObject.class,
+                        AliasDemoObject.class,
                         "findByName",
                         "name", name));
     }
 
-    public DemoObject create(final String name) {
-        final DemoObject object = new DemoObject(name);
+    public AliasDemoObject create(final String name) {
+        final AliasDemoObject object = new AliasDemoObject(name);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;

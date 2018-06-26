@@ -11,7 +11,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
-import org.incode.example.alias.demo.shared.dom.DemoObject;
+import org.incode.example.alias.demo.shared.dom.AliasDemoObject;
 import org.incode.example.alias.dom.impl.Alias;
 import org.incode.example.alias.dom.impl.AliasRepository;
 import org.incode.example.alias.dom.impl.T_addAlias;
@@ -33,42 +33,42 @@ public class AliasForDemoObject extends Alias {
     @Column(allowsNull = "false", name = "demoObjectId")
     @Property(editing = Editing.DISABLED)
     @Getter @Setter
-    private DemoObject demoObject;
+    private AliasDemoObject aliasDemoObject;
 
 
     @Override
     public Object getAliased() {
-        return getDemoObject();
+        return this.getAliasDemoObject();
     }
     @Override
     protected void setAliased(final Object aliased) {
-        setDemoObject((DemoObject) aliased);
+        this.setAliasDemoObject((AliasDemoObject) aliased);
     }
 
 
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends AliasRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(DemoObject.class, AliasForDemoObject.class);
+            super(AliasDemoObject.class, AliasForDemoObject.class);
         }
     }
 
 
     @Mixin
-    public static class _aliases extends T_aliases<DemoObject> {
-        public _aliases(final DemoObject aliased) {
+    public static class _aliases extends T_aliases<AliasDemoObject> {
+        public _aliases(final AliasDemoObject aliased) {
             super(aliased);
         }
     }
     @Mixin
-    public static class _addAlias extends T_addAlias<DemoObject> {
-        public _addAlias(final DemoObject aliased) {
+    public static class _addAlias extends T_addAlias<AliasDemoObject> {
+        public _addAlias(final AliasDemoObject aliased) {
             super(aliased);
         }
     }
     @Mixin
-    public static class _removeAlias extends T_removeAlias<DemoObject> {
-        public _removeAlias(final DemoObject aliased) {
+    public static class _removeAlias extends T_removeAlias<AliasDemoObject> {
+        public _removeAlias(final AliasDemoObject aliased) {
             super(aliased);
         }
     }

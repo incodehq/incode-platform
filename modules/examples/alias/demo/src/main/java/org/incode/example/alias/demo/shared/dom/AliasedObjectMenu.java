@@ -19,29 +19,29 @@ import org.apache.isis.applib.annotation.SemanticsOf;
         named = "Demo",
         menuOrder = "10.1"
 )
-public class DemoObjectMenu {
+public class AliasDemoObjectMenu {
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<DemoObject> listAllDemoObjects() {
+    public List<AliasDemoObject> listAllDemoObjects() {
         return repository.listAll();
     }
 
 
     @MemberOrder(sequence = "2")
-    public DemoObject createDemoObject(final String name) {
+    public AliasDemoObject createDemoObject(final String name) {
         return repository.create(name);
     }
 
     @MemberOrder(sequence = "3")
-    public List<DemoObject> findDemoObjectByName(final String name) {
+    public List<AliasDemoObject> findDemoObjectByName(final String name) {
         return repository.findByName(name);
     }
 
-    @javax.inject.Inject 
-    DemoObjectRepository repository;
+    @javax.inject.Inject
+    AliasDemoObjectRepository repository;
 
 
 }
