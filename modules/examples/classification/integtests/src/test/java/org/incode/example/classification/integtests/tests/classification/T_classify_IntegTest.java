@@ -17,8 +17,8 @@ import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClas
 import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
 import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
 import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObjectMenu;
-import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
-import org.incode.example.classification.demo.usage.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
+import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForSomeClassifiedObject;
+import org.incode.example.classification.demo.usage.dom.classification.otherwithatpath.ClassificationForOtherClassifiedObject;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.example.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.example.classification.dom.impl.category.Category;
@@ -69,7 +69,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
         assertThat(classificationRepository.findByClassified(demoBip)).isEmpty();
 
         // when
-        final ClassificationForDemoObjectWithAtPath.classify classification = factoryService.mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoBip);
+        final ClassificationForSomeClassifiedObject.classify classification = factoryService.mixin(ClassificationForSomeClassifiedObject.classify.class, demoBip);
         Collection<Taxonomy> choices0Classify = classification.choices0Classify();
         assertThat(choices0Classify)
                 .extracting(Taxonomy::getName)
@@ -103,7 +103,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
                 .extracting(Category::getName)
                 .contains("Red", "Medium");
 
-        final ClassificationForDemoObjectWithAtPath.classify classification = factoryService.mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoFooInItaly);
+        final ClassificationForSomeClassifiedObject.classify classification = factoryService.mixin(ClassificationForSomeClassifiedObject.classify.class, demoFooInItaly);
 
         // when
         final String message = classification.disableClassify().toString();
@@ -122,7 +122,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
                 .get();
         assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(otherBaz.getClass(), otherBaz.getAtPath())).isEmpty();
 
-        final ClassificationForOtherObjectWithAtPath.classify classification = factoryService.mixin(ClassificationForOtherObjectWithAtPath.classify.class, otherBaz);
+        final ClassificationForOtherClassifiedObject.classify classification = factoryService.mixin(ClassificationForOtherClassifiedObject.classify.class, otherBaz);
 
         // when
         final String message = classification.disableClassify().toString();
@@ -141,7 +141,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
                 .get();
         assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(otherBarInFrance.getClass(), otherBarInFrance.getAtPath())).isEmpty();
 
-        final ClassificationForOtherObjectWithAtPath.classify classification = factoryService.mixin(ClassificationForOtherObjectWithAtPath.classify.class, otherBarInFrance);
+        final ClassificationForOtherClassifiedObject.classify classification = factoryService.mixin(ClassificationForOtherClassifiedObject.classify.class, otherBarInFrance);
 
         // when
         final String message = classification.disableClassify().toString();

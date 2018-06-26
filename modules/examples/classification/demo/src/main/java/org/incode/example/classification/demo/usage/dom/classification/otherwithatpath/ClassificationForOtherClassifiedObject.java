@@ -27,7 +27,7 @@ import lombok.Setter;
 )
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject
-public class ClassificationForOtherObjectWithAtPath extends Classification {
+public class ClassificationForOtherClassifiedObject extends Classification {
 
 
     @Column(allowsNull = "false", name = "otherObjectId")
@@ -73,7 +73,7 @@ public class ClassificationForOtherObjectWithAtPath extends Classification {
     public static class SubtypeProvider
             extends ClassificationRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(OtherClassifiedObject.class, ClassificationForOtherObjectWithAtPath.class);
+            super(OtherClassifiedObject.class, ClassificationForOtherClassifiedObject.class);
         }
     }
 }

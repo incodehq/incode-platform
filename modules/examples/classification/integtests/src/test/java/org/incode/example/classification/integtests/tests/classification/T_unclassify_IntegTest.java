@@ -13,8 +13,8 @@ import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClas
 import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
 import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
 import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObjectMenu;
-import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
-import org.incode.example.classification.demo.usage.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
+import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForSomeClassifiedObject;
+import org.incode.example.classification.demo.usage.dom.classification.otherwithatpath.ClassificationForOtherClassifiedObject;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.example.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
@@ -61,7 +61,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
         assertThat(byClassified).hasSize(2);
 
         // when
-        final ClassificationForDemoObjectWithAtPath.unclassify unclassify = factoryService.mixin(ClassificationForDemoObjectWithAtPath.unclassify.class, demoFooInItaly);
+        final ClassificationForSomeClassifiedObject.unclassify unclassify = factoryService.mixin(ClassificationForSomeClassifiedObject.unclassify.class, demoFooInItaly);
         wrap(unclassify).unclassify(byClassified.get(0));
 
         // then
@@ -80,7 +80,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
                 .get();
         assertThat(classificationRepository.findByClassified(otherBarInFrance)).isEmpty();
 
-        final ClassificationForOtherObjectWithAtPath.unclassify unclassify = factoryService.mixin(ClassificationForOtherObjectWithAtPath.unclassify.class, otherBarInFrance);
+        final ClassificationForOtherClassifiedObject.unclassify unclassify = factoryService.mixin(ClassificationForOtherClassifiedObject.unclassify.class, otherBarInFrance);
 
         // when
         final String message = unclassify.disableUnclassify().toString();

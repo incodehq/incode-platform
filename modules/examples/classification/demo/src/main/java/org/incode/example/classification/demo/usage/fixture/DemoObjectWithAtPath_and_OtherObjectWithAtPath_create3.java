@@ -13,7 +13,7 @@ import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClas
 import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
 import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
 import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObjectMenu;
-import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
+import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForSomeClassifiedObject;
 import org.incode.example.classification.dom.impl.category.Category;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
 import org.incode.example.classification.dom.impl.category.taxonomy.Taxonomy;
@@ -85,11 +85,11 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3
 
         // classify DemoObject
 
-        wrap(mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoFooInItaly)).classify(italianColours, italianRed);
+        wrap(mixin(ClassificationForSomeClassifiedObject.classify.class, demoFooInItaly)).classify(italianColours, italianRed);
 
-        wrap(mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoFooInItaly)).classify(globalSizes, medium);
+        wrap(mixin(ClassificationForSomeClassifiedObject.classify.class, demoFooInItaly)).classify(globalSizes, medium);
 
-        wrap(mixin(ClassificationForDemoObjectWithAtPath.classify.class, demoBarInFrance)).classify(globalSizes, smallSmaller);
+        wrap(mixin(ClassificationForSomeClassifiedObject.classify.class, demoBarInFrance)).classify(globalSizes, smallSmaller);
 
         // leave OtherObject unclassified
 
