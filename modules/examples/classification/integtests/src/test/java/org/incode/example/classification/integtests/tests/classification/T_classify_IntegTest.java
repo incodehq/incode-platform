@@ -13,10 +13,10 @@ import org.junit.rules.ExpectedException;
 
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPath;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObjectMenu;
 import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
 import org.incode.example.classification.demo.usage.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
@@ -41,9 +41,9 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectWithAtPathMenu demoObjectMenu;
+    SomeClassifiedObjectMenu demoObjectMenu;
     @Inject
-    OtherObjectWithAtPathMenu otherObjectMenu;
+    OtherClassifiedObjectMenu otherObjectMenu;
 
     @Inject
     ApplicationTenancyService applicationTenancyService;
@@ -61,7 +61,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void when_applicability_and_no_classification() {
         // given
-        DemoObjectWithAtPath demoBip = demoObjectMenu.listAllDemoObjectsWithAtPath()
+        SomeClassifiedObject demoBip = demoObjectMenu.listAllDemoObjectsWithAtPath()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo bip (in Milan)"))
                 .findFirst()
@@ -93,7 +93,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_applicability_but_classifications_already_defined() {
         // given
-        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath()
+        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo foo (in Italy)"))
                 .findFirst()
@@ -115,7 +115,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_no_applicability_for_domain_type() {
         // given
-        OtherObjectWithAtPath otherBaz = otherObjectMenu.listAllOtherObjectsWithAtPath()
+        OtherClassifiedObject otherBaz = otherObjectMenu.listAllOtherObjectsWithAtPath()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other baz (Global)"))
                 .findFirst()
@@ -134,7 +134,7 @@ public class T_classify_IntegTest extends ClassificationModuleIntegTestAbstract 
     @Test
     public void cannot_classify_when_no_applicability_for_atPath() {
         // given
-        OtherObjectWithAtPath otherBarInFrance = otherObjectMenu.listAllOtherObjectsWithAtPath()
+        OtherClassifiedObject otherBarInFrance = otherObjectMenu.listAllOtherObjectsWithAtPath()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other bar (in France)"))
                 .findFirst()

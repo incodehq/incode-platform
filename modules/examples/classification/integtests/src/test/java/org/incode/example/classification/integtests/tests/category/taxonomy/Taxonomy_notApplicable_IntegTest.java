@@ -15,8 +15,8 @@ import org.incode.example.classification.dom.impl.classification.Classification;
 import org.incode.example.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.example.classification.dom.spi.ApplicationTenancyService;
 import org.incode.example.classification.integtests.ClassificationModuleIntegTestAbstract;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_tearDown;
 
@@ -32,7 +32,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectWithAtPathMenu demoObjectMenu;
+    SomeClassifiedObjectMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 
@@ -46,7 +46,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
     public void happy_case() {
         // given
         Taxonomy italianColours = (Taxonomy) categoryRepository.findByParentAndName(null, "Italian Colours");
-        List<Applicability> applicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA");
+        List<Applicability> applicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(SomeClassifiedObject.class, "/ITA");
         assertThat(applicabilities).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getName).containsOnly("Italian Colours", "Sizes");
 
         Applicability italianColoursApplicability = applicabilities.stream()
@@ -58,7 +58,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
         wrap(italianColours).notApplicable(italianColoursApplicability);
 
         // then
-        List<Applicability> newApplicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA");
+        List<Applicability> newApplicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(SomeClassifiedObject.class, "/ITA");
         assertThat(newApplicabilities).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getName).containsOnly("Sizes");
     }
 
@@ -66,7 +66,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
     public void existing_classifications_are_ignored() {
         // given
         Taxonomy italianColours = (Taxonomy) categoryRepository.findByParentAndName(null, "Italian Colours");
-        List<Applicability> applicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA");
+        List<Applicability> applicabilities = applicabilityRepository.findByDomainTypeAndUnderAtPath(SomeClassifiedObject.class, "/ITA");
         assertThat(applicabilities).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getName).contains("Italian Colours");
 
         Applicability italianColoursApplicability = applicabilities.stream()
@@ -74,7 +74,7 @@ public class Taxonomy_notApplicable_IntegTest extends ClassificationModuleIntegT
                 .findFirst()
                 .get();
 
-        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath().stream()
+        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath().stream()
                 .filter(d -> d.getName().equals("Demo foo (in Italy)"))
                 .findFirst()
                 .get();

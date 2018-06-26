@@ -7,13 +7,13 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
 import org.incode.example.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.example.classification.dom.impl.category.Category;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
 import org.incode.example.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.example.classification.dom.spi.ApplicationTenancyService;
 import org.incode.example.classification.integtests.ClassificationModuleIntegTestAbstract;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_tearDown;
 
@@ -29,7 +29,7 @@ public class Category_name_IntegTest extends ClassificationModuleIntegTestAbstra
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectWithAtPathMenu demoObjectMenu;
+    SomeClassifiedObjectMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 

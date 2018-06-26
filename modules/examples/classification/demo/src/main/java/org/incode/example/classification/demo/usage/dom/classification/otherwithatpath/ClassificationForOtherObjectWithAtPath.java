@@ -11,12 +11,12 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
 import org.incode.example.classification.dom.impl.classification.Classification;
 import org.incode.example.classification.dom.impl.classification.ClassificationRepository;
 import org.incode.example.classification.dom.impl.classification.T_classifications;
 import org.incode.example.classification.dom.impl.classification.T_classify;
 import org.incode.example.classification.dom.impl.classification.T_unclassify;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPath;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +33,7 @@ public class ClassificationForOtherObjectWithAtPath extends Classification {
     @Column(allowsNull = "false", name = "otherObjectId")
     @Property(editing = Editing.DISABLED)
     @Getter @Setter
-    private OtherObjectWithAtPath otherObject;
+    private OtherClassifiedObject otherObject;
 
 
 
@@ -44,27 +44,27 @@ public class ClassificationForOtherObjectWithAtPath extends Classification {
 
     @Override
     protected void setClassified(final Object classified) {
-        setOtherObject((OtherObjectWithAtPath) classified);
+        setOtherObject((OtherClassifiedObject) classified);
     }
 
     @Mixin
     public static class classifications extends
-            T_classifications<OtherObjectWithAtPath> {
-        public classifications(final OtherObjectWithAtPath classified) {
+            T_classifications<OtherClassifiedObject> {
+        public classifications(final OtherClassifiedObject classified) {
             super(classified);
         }
     }
 
     @Mixin
-    public static class classify extends T_classify<OtherObjectWithAtPath> {
-        public classify(final OtherObjectWithAtPath classified) {
+    public static class classify extends T_classify<OtherClassifiedObject> {
+        public classify(final OtherClassifiedObject classified) {
             super(classified);
         }
     }
 
     @Mixin
-    public static class unclassify extends T_unclassify<OtherObjectWithAtPath> {
-        public unclassify(final OtherObjectWithAtPath classified) {
+    public static class unclassify extends T_unclassify<OtherClassifiedObject> {
+        public unclassify(final OtherClassifiedObject classified) {
             super(classified);
         }
     }
@@ -73,7 +73,7 @@ public class ClassificationForOtherObjectWithAtPath extends Classification {
     public static class SubtypeProvider
             extends ClassificationRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(OtherObjectWithAtPath.class, ClassificationForOtherObjectWithAtPath.class);
+            super(OtherClassifiedObject.class, ClassificationForOtherObjectWithAtPath.class);
         }
     }
 }

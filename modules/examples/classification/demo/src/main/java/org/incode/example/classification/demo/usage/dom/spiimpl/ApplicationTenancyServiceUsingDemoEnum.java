@@ -3,9 +3,9 @@ package org.incode.example.classification.demo.usage.dom.spiimpl;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
 import org.incode.example.classification.dom.spi.ApplicationTenancyService;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPath;
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
 
 @DomainService(
     nature = NatureOfService.DOMAIN
@@ -14,11 +14,11 @@ public class ApplicationTenancyServiceUsingDemoEnum implements ApplicationTenanc
 
     @Override
     public String atPathFor(final Object domainObjectToClassify) {
-        if(domainObjectToClassify instanceof DemoObjectWithAtPath) {
-            return ((DemoObjectWithAtPath) domainObjectToClassify).getAtPath();
+        if(domainObjectToClassify instanceof SomeClassifiedObject) {
+            return ((SomeClassifiedObject) domainObjectToClassify).getAtPath();
         }
-        if(domainObjectToClassify instanceof OtherObjectWithAtPath) {
-            return ((OtherObjectWithAtPath) domainObjectToClassify).getAtPath();
+        if(domainObjectToClassify instanceof OtherClassifiedObject) {
+            return ((OtherClassifiedObject) domainObjectToClassify).getAtPath();
         }
         return null;
     }

@@ -11,9 +11,9 @@ import org.junit.rules.ExpectedException;
 
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPath;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_tearDown;
 import org.incode.example.classification.dom.impl.applicability.Applicability;
@@ -36,7 +36,7 @@ public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectWithAtPathMenu demoObjectMenu;
+    SomeClassifiedObjectMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 
@@ -53,13 +53,13 @@ public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest
     public void can_add_applicability_for_different_domain_types_with_same_atPath() {
         // given
         Taxonomy frenchColours = (Taxonomy) categoryRepository.findByParentAndName(null, "French Colours");
-        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(OtherObjectWithAtPath.class, "/FRA")).isEmpty();
+        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(OtherClassifiedObject.class, "/FRA")).isEmpty();
 
         // when
-        wrap(frenchColours).applicable("/FRA", OtherObjectWithAtPath.class.getName());
+        wrap(frenchColours).applicable("/FRA", OtherClassifiedObject.class.getName());
 
         // then
-        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(OtherObjectWithAtPath.class, "/FRA")).hasSize(1);
+        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(OtherClassifiedObject.class, "/FRA")).hasSize(1);
     }
 
     @Test
@@ -67,15 +67,15 @@ public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest
 
         // eg given an applicability for "/ITA" and 'DemoObject', can also add an applicability for "/ITA/MIL" and 'DemoObject'
         Taxonomy italianColours = (Taxonomy) categoryRepository.findByParentAndName(null, "Italian Colours");
-        final List<Applicability> byDomainTypeAndUnderAtPath = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA");
+        final List<Applicability> byDomainTypeAndUnderAtPath = applicabilityRepository.findByDomainTypeAndUnderAtPath(SomeClassifiedObject.class, "/ITA");
         assertThat(byDomainTypeAndUnderAtPath).hasSize(2);
         assertThat(byDomainTypeAndUnderAtPath).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getFullyQualifiedName).containsOnly("Italian Colours", "Sizes");
 
         // when
-        wrap(italianColours).applicable("/ITA/MIL", DemoObjectWithAtPath.class.getName());
+        wrap(italianColours).applicable("/ITA/MIL", SomeClassifiedObject.class.getName());
 
         // then
-        final List<Applicability> byDomainTypeAndUnderAtPathNew = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA/MIL");
+        final List<Applicability> byDomainTypeAndUnderAtPathNew = applicabilityRepository.findByDomainTypeAndUnderAtPath(SomeClassifiedObject.class, "/ITA/MIL");
         assertThat(byDomainTypeAndUnderAtPathNew).hasSize(3);
         assertThat(byDomainTypeAndUnderAtPathNew).extracting(Applicability::getTaxonomy).extracting(Taxonomy::getFullyQualifiedName).containsOnly("Italian Colours", "Sizes");
     }
@@ -89,10 +89,10 @@ public class Taxonomy_applicable_IntegTest extends ClassificationModuleIntegTest
 
         // then
         expectedException.expect(InvalidException.class);
-        expectedException.expectMessage("Already applicable for '/ITA' and '" + DemoObjectWithAtPath.class.getName() + "'");
+        expectedException.expectMessage("Already applicable for '/ITA' and '" + SomeClassifiedObject.class.getName() + "'");
 
         // when
-        wrap(italianColours).applicable("/ITA", DemoObjectWithAtPath.class.getName());
+        wrap(italianColours).applicable("/ITA", SomeClassifiedObject.class.getName());
 
     }
 

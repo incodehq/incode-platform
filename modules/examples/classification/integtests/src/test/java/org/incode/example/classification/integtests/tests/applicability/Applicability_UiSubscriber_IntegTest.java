@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Ignore;
 
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.example.classification.dom.impl.applicability.ApplicabilityRepository;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
@@ -23,7 +23,7 @@ public class Applicability_UiSubscriber_IntegTest extends ClassificationModuleIn
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectWithAtPathMenu demoObjectMenu;
+    SomeClassifiedObjectMenu demoObjectMenu;
     @Inject
     ApplicationTenancyService applicationTenancyService;
 

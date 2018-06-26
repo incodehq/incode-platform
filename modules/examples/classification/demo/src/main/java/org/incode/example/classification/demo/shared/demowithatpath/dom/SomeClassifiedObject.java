@@ -1,4 +1,4 @@
-package org.incode.example.classification.demo.shared.otherwithatpath.dom;
+package org.incode.example.classification.demo.shared.demowithatpath.dom;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -14,41 +14,33 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="classificationDemoShared"
+        schema="classificationDemoSharedDemo"
 )
 @javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Version(strategy=VersionStrategy.VERSION_NUMBER, column = "version")
 @DomainObject(editing = Editing.DISABLED )
 @DomainObjectLayout(bookmarking = BookmarkPolicy.AS_ROOT )
+@AllArgsConstructor
+@Builder
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
-public class OtherObjectWithAtPath implements Comparable<OtherObjectWithAtPath> {
+public class SomeClassifiedObject implements Comparable<SomeClassifiedObject> {
 
-    @Builder
-    public OtherObjectWithAtPath(final String name, final String atPath) {
-        this.name = name;
-        this.atPath = atPath;
-    }
 
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
     @Getter @Setter
     private String name;
 
-
     @javax.jdo.annotations.Column(allowsNull="false")
     @Getter @Setter
     private String atPath;
-
-    public String getAtPath() {
-        return atPath;
-    }
-
 
 
     @Override
@@ -57,8 +49,8 @@ public class OtherObjectWithAtPath implements Comparable<OtherObjectWithAtPath> 
     }
 
     @Override
-    public int compareTo(final OtherObjectWithAtPath other) {
-        return Ordering.natural().onResultOf(OtherObjectWithAtPath::getName).compare(this, other);
+    public int compareTo(final SomeClassifiedObject other) {
+        return Ordering.natural().onResultOf(SomeClassifiedObject::getName).compare(this, other);
     }
 
 

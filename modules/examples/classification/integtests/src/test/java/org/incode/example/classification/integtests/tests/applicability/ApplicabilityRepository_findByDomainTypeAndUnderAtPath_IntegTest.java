@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPath;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_tearDown;
 import org.incode.example.classification.dom.impl.applicability.Applicability;
@@ -42,13 +42,13 @@ public class ApplicabilityRepository_findByDomainTypeAndUnderAtPath_IntegTest ex
     public void exact_match_on_application_tenancy() {
 
         // /ITA matches /ITA and /
-        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA").size()).isEqualTo(2);
+        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(SomeClassifiedObject.class, "/ITA").size()).isEqualTo(2);
     }
 
     @Test
     public void matches_on_sub_application_tenancy() {
 
-        final List<Applicability> byDomainTypeAndUnderAtPath = applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/ITA/XYZ");
+        final List<Applicability> byDomainTypeAndUnderAtPath = applicabilityRepository.findByDomainTypeAndUnderAtPath(SomeClassifiedObject.class, "/ITA/XYZ");
         assertThat(byDomainTypeAndUnderAtPath.size()).isEqualTo(2);
         assertThat(byDomainTypeAndUnderAtPath).extracting(Applicability::getAtPath).containsOnly("/ITA", "/");
         // eg set up for "/ITA", search for app tenancy "/ITA/MIL"
@@ -57,7 +57,7 @@ public class ApplicabilityRepository_findByDomainTypeAndUnderAtPath_IntegTest ex
 
     @Test
     public void does_not_match_on_super_application_tenancy() {
-        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(DemoObjectWithAtPath.class, "/").size()).isEqualTo(1);
+        assertThat(applicabilityRepository.findByDomainTypeAndUnderAtPath(SomeClassifiedObject.class, "/").size()).isEqualTo(1);
     }
 
 }

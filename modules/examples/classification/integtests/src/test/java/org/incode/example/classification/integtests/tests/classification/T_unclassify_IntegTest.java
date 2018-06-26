@@ -9,10 +9,10 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPath;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObjectMenu;
 import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
 import org.incode.example.classification.demo.usage.dom.classification.otherwithatpath.ClassificationForOtherObjectWithAtPath;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
@@ -35,9 +35,9 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
     ApplicabilityRepository applicabilityRepository;
 
     @Inject
-    DemoObjectWithAtPathMenu demoObjectMenu;
+    SomeClassifiedObjectMenu demoObjectMenu;
     @Inject
-    OtherObjectWithAtPathMenu otherObjectMenu;
+    OtherClassifiedObjectMenu otherObjectMenu;
 
     @Inject
     ApplicationTenancyService applicationTenancyService;
@@ -52,7 +52,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
     @Test
     public void enabled_when_classifications_exist() {
         // given
-        DemoObjectWithAtPath demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath()
+        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo foo (in Italy)"))
                 .findFirst()
@@ -73,7 +73,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
 
         // given "Other bar (in Paris)", that has no classifications
         // given
-        OtherObjectWithAtPath otherBarInFrance = otherObjectMenu.listAllOtherObjectsWithAtPath()
+        OtherClassifiedObject otherBarInFrance = otherObjectMenu.listAllOtherObjectsWithAtPath()
                 .stream()
                 .filter(otherObject -> otherObject.getName().equals("Other bar (in France)"))
                 .findFirst()

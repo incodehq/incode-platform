@@ -9,10 +9,10 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPath;
-import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObject;
+import org.incode.example.classification.demo.shared.otherwithatpath.dom.OtherClassifiedObjectMenu;
 import org.incode.example.classification.demo.usage.dom.classification.demowithatpath.ClassificationForDemoObjectWithAtPath;
 import org.incode.example.classification.dom.impl.category.Category;
 import org.incode.example.classification.dom.impl.category.CategoryRepository;
@@ -24,10 +24,10 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3
         extends FixtureScript {
 
     @Getter
-    private List<DemoObjectWithAtPath> demoObjects = Lists.newArrayList();
+    private List<SomeClassifiedObject> demoObjects = Lists.newArrayList();
 
     @Getter
-    private List<OtherObjectWithAtPath> otherObjects = Lists.newArrayList();
+    private List<OtherClassifiedObject> otherObjects = Lists.newArrayList();
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
@@ -39,8 +39,8 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3
         Category italianGreen = italianColours.addChild("Green", "GREEN", null);
         Category italianWhite = italianColours.addChild("White", "WHITE", null);
 
-        wrap(italianColours).applicable("/ITA", DemoObjectWithAtPath.class.getName());
-        wrap(italianColours).applicable("/ITA", OtherObjectWithAtPath.class.getName());
+        wrap(italianColours).applicable("/ITA", SomeClassifiedObject.class.getName());
+        wrap(italianColours).applicable("/ITA", OtherClassifiedObject.class.getName());
 
         // french taxonomy applicable only to French DemoObject (and not to OtherObject even if with FRA app tenancy)
         Taxonomy frenchColours = categoryRepository.createTaxonomy("French Colours");
@@ -49,7 +49,7 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3
         Category frenchWhite = frenchColours.addChild("White", "FRWHITE", null);
         Category frenchBlue = frenchColours.addChild("Blue", "FRBLUE", null);
 
-        wrap(frenchColours).applicable("/FRA", DemoObjectWithAtPath.class.getName());
+        wrap(frenchColours).applicable("/FRA", SomeClassifiedObject.class.getName());
 
         // global taxonomy applicable only to DemoObject (any app tenancy)
         Taxonomy globalSizes = categoryRepository.createTaxonomy("Sizes");
@@ -66,22 +66,22 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3
         Category smallSmaller = small.addChild("Smaller", "XS", 2);
         Category smallSmallest = small.addChild("Smallest", "XXS", 3);
 
-        wrap(globalSizes).applicable("/", DemoObjectWithAtPath.class.getName());
+        wrap(globalSizes).applicable("/", SomeClassifiedObject.class.getName());
 
         // create a sample set of DemoObject and OtherObject, for various app tenancies
 
-        final DemoObjectWithAtPath demoFooInItaly = createDemo("Demo foo (in Italy)", "/ITA", executionContext);
-        final DemoObjectWithAtPath demoBarInFrance = createDemo("Demo bar (in France)", "/FRA", executionContext);
-        final DemoObjectWithAtPath demoBaz = createDemo("Demo baz (Global)", "/", executionContext);
-        final DemoObjectWithAtPath demoBip = createDemo("Demo bip (in Milan)", "/ITA/I-MIL", executionContext);
-        final DemoObjectWithAtPath demoBop = createDemo("Demo bop (in Paris)", "/FRA/F-PAR", executionContext);
+        final SomeClassifiedObject demoFooInItaly = createDemo("Demo foo (in Italy)", "/ITA", executionContext);
+        final SomeClassifiedObject demoBarInFrance = createDemo("Demo bar (in France)", "/FRA", executionContext);
+        final SomeClassifiedObject demoBaz = createDemo("Demo baz (Global)", "/", executionContext);
+        final SomeClassifiedObject demoBip = createDemo("Demo bip (in Milan)", "/ITA/I-MIL", executionContext);
+        final SomeClassifiedObject demoBop = createDemo("Demo bop (in Paris)", "/FRA/F-PAR", executionContext);
 
-        final OtherObjectWithAtPath otherFooInItaly = createOther("Other foo (in Italy)", "/ITA", executionContext);
+        final OtherClassifiedObject otherFooInItaly = createOther("Other foo (in Italy)", "/ITA", executionContext);
 
-        final OtherObjectWithAtPath otherBarInFrance = createOther("Other bar (in France)", "/FRA", executionContext);
-        final OtherObjectWithAtPath otherBaz = createOther("Other baz (Global)", "/", executionContext);
-        final OtherObjectWithAtPath otherBip = createOther("Other bip (in Milan)", "/ITA/I-MIL", executionContext);
-        final OtherObjectWithAtPath otherBop = createOther("Other bop (in Paris)", "/FRA/F-PAR", executionContext);
+        final OtherClassifiedObject otherBarInFrance = createOther("Other bar (in France)", "/FRA", executionContext);
+        final OtherClassifiedObject otherBaz = createOther("Other baz (Global)", "/", executionContext);
+        final OtherClassifiedObject otherBip = createOther("Other bip (in Milan)", "/ITA/I-MIL", executionContext);
+        final OtherClassifiedObject otherBop = createOther("Other bop (in Paris)", "/FRA/F-PAR", executionContext);
 
         // classify DemoObject
 
@@ -95,29 +95,29 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3
 
     }
 
-    private DemoObjectWithAtPath createDemo(
+    private SomeClassifiedObject createDemo(
             final String name,
             final String atPath,
             final ExecutionContext executionContext) {
-        final DemoObjectWithAtPath demoObject = wrap(demoObjectMenu).createDemoObjectWithAtPath(name, atPath);
+        final SomeClassifiedObject demoObject = wrap(demoObjectMenu).createDemoObjectWithAtPath(name, atPath);
         demoObjects.add(demoObject);
         return executionContext.addResult(this, demoObject);
     }
 
-    private OtherObjectWithAtPath createOther(
+    private OtherClassifiedObject createOther(
             final String name,
             final String atPath,
             final ExecutionContext executionContext) {
-        final OtherObjectWithAtPath otherObject = wrap(otherObjectMenu).createOtherObjectWithAtPath(name, atPath);
+        final OtherClassifiedObject otherObject = wrap(otherObjectMenu).createOtherObjectWithAtPath(name, atPath);
         otherObjects.add(otherObject);
         return executionContext.addResult(this, otherObject);
     }
 
     //region > injected services
     @Inject
-    DemoObjectWithAtPathMenu demoObjectMenu;
+    SomeClassifiedObjectMenu demoObjectMenu;
     @Inject
-    OtherObjectWithAtPathMenu otherObjectMenu;
+    OtherClassifiedObjectMenu otherObjectMenu;
     @Inject
     CategoryRepository categoryRepository;
     //endregion

@@ -9,9 +9,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
 import org.incode.example.classification.integtests.ClassificationModuleIntegTestAbstract;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.example.classification.demo.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 
 public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstract {
@@ -32,7 +32,7 @@ public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstr
         int numDemoObjects = fs.getDemoObjects().size();
 
         // when
-        final List<DemoObjectWithAtPath> all = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
+        final List<SomeClassifiedObject> all = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
 
         // then
         Assertions.assertThat(all.size()).isEqualTo(numDemoObjects);
@@ -42,19 +42,19 @@ public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstr
     public void create() throws Exception {
 
         // given
-        final List<DemoObjectWithAtPath> before = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
+        final List<SomeClassifiedObject> before = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
         int numBefore = before.size();
 
         // when
         wrap(demoObjectMenu).createDemoObjectWithAtPath("Faz", "/");
 
         // then
-        final List<DemoObjectWithAtPath> after = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
+        final List<SomeClassifiedObject> after = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
         Assertions.assertThat(after.size()).isEqualTo(numBefore+1);
     }
 
     @Inject
-    DemoObjectWithAtPathMenu demoObjectMenu;
+    SomeClassifiedObjectMenu demoObjectMenu;
 
 
 }
