@@ -8,10 +8,8 @@ import com.google.common.collect.Sets;
 
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
-import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.example.alias.demo.shared.AliasDemoSharedModule;
-import org.incode.example.alias.demo.shared.fixture.DemoObject_tearDown;
 import org.incode.example.alias.demo.usage.AliasDemoUsageModule;
 
 @XmlRootElement(name = "module")

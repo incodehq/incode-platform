@@ -2,23 +2,23 @@ package org.incode.example.alias.demo.usage.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.example.alias.demo.shared.fixture.DemoObjectData;
-import org.incode.example.alias.demo.usage.dom.AliasForDemoObject;
+import org.incode.example.alias.demo.shared.dom.AliasedObject;
+import org.incode.example.alias.demo.shared.fixture.AliasedObjectData;
+import org.incode.example.alias.demo.usage.dom.AliasForAliasDemoObject;
 import org.incode.example.alias.demo.usage.spi.aliastype.AliasTypeDemoEnum;
-import org.incode.example.alias.demo.shared.dom.DemoObject;
 import org.incode.example.alias.dom.impl.T_addAlias;
 
 public class DemoObject_withAliases_create2 extends FixtureScript {
 
     T_addAlias mixinAddAlias(final Object aliased) {
-        return factoryService.mixin(AliasForDemoObject._addAlias.class, aliased);
+        return factoryService.mixin(AliasForAliasDemoObject._addAlias.class, aliased);
     }
 
     @Override
     protected void execute(final ExecutionContext executionContext) {
 
-        final DemoObject foo = DemoObjectData.Foo.findUsing(serviceRegistry);
-        final DemoObject bar = DemoObjectData.Bar.findUsing(serviceRegistry);
+        final AliasedObject foo = AliasedObjectData.Foo.findUsing(serviceRegistry);
+        final AliasedObject bar = AliasedObjectData.Bar.findUsing(serviceRegistry);
 
         wrap(mixinAddAlias(foo)).$$("/uk", AliasTypeDemoEnum.GENERAL_LEDGER, "12345");
         wrap(mixinAddAlias(foo)).$$("/uk", AliasTypeDemoEnum.DOCUMENT_MANAGEMENT, "http://docserver.mycompany/url/12345");

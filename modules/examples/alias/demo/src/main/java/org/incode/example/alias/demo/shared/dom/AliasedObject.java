@@ -39,7 +39,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
-public class AliasDemoObject implements Comparable<AliasDemoObject> {
+public class AliasedObject implements Comparable<AliasedObject> {
 
 
     @javax.jdo.annotations.Column(allowsNull="false")
@@ -54,12 +54,12 @@ public class AliasDemoObject implements Comparable<AliasDemoObject> {
     }
 
     @Override
-    public int compareTo(final AliasDemoObject other) {
-        return Ordering.natural().onResultOf(AliasDemoObject::getName).compare(this, other);
+    public int compareTo(final AliasedObject other) {
+        return Ordering.natural().onResultOf(AliasedObject::getName).compare(this, other);
     }
 
 
-    // required by AliasDemoObjectData#findUsing
+    // required by AliasedObjectData#findUsing
     @Override
     public boolean equals(final Object o) {
         return ObjectContracts.equals(this,o, "name");

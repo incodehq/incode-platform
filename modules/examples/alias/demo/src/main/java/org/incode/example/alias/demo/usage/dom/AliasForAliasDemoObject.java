@@ -11,7 +11,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
-import org.incode.example.alias.demo.shared.dom.AliasDemoObject;
+import org.incode.example.alias.demo.shared.dom.AliasedObject;
 import org.incode.example.alias.dom.impl.Alias;
 import org.incode.example.alias.dom.impl.AliasRepository;
 import org.incode.example.alias.dom.impl.T_addAlias;
@@ -27,48 +27,48 @@ import lombok.Setter;
 )
 @javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @DomainObject
-public class AliasForDemoObject extends Alias {
+public class AliasForAliasDemoObject extends Alias {
 
 
     @Column(allowsNull = "false", name = "demoObjectId")
     @Property(editing = Editing.DISABLED)
     @Getter @Setter
-    private AliasDemoObject aliasDemoObject;
+    private AliasedObject aliasedObject;
 
 
     @Override
     public Object getAliased() {
-        return this.getAliasDemoObject();
+        return this.getAliasedObject();
     }
     @Override
     protected void setAliased(final Object aliased) {
-        this.setAliasDemoObject((AliasDemoObject) aliased);
+        this.setAliasedObject((AliasedObject) aliased);
     }
 
 
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends AliasRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(AliasDemoObject.class, AliasForDemoObject.class);
+            super(AliasedObject.class, AliasForAliasDemoObject.class);
         }
     }
 
 
     @Mixin
-    public static class _aliases extends T_aliases<AliasDemoObject> {
-        public _aliases(final AliasDemoObject aliased) {
+    public static class _aliases extends T_aliases<AliasedObject> {
+        public _aliases(final AliasedObject aliased) {
             super(aliased);
         }
     }
     @Mixin
-    public static class _addAlias extends T_addAlias<AliasDemoObject> {
-        public _addAlias(final AliasDemoObject aliased) {
+    public static class _addAlias extends T_addAlias<AliasedObject> {
+        public _addAlias(final AliasedObject aliased) {
             super(aliased);
         }
     }
     @Mixin
-    public static class _removeAlias extends T_removeAlias<AliasDemoObject> {
-        public _removeAlias(final AliasDemoObject aliased) {
+    public static class _removeAlias extends T_removeAlias<AliasedObject> {
+        public _removeAlias(final AliasedObject aliased) {
             super(aliased);
         }
     }

@@ -15,9 +15,9 @@ import org.junit.Test;
 
 import org.apache.isis.applib.AbstractSubscriber;
 
+import org.incode.example.alias.demo.shared.dom.AliasedObjectMenu;
 import org.incode.example.alias.integtests.AliasModuleIntegTestAbstract;
 import org.incode.example.alias.demo.usage.fixture.DemoObject_withAliases_tearDown;
-import org.incode.example.alias.demo.shared.dom.DemoObjectMenu;
 import org.incode.example.alias.dom.impl.Alias;
 import org.incode.example.alias.dom.impl.T_addAlias;
 import org.incode.example.alias.dom.spi.AliasType;
@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
 
     @Inject
-    DemoObjectMenu demoObjectMenu;
+    AliasedObjectMenu aliasDemoObjectMenu;
 
     @Inject
     AliasTypeRepository aliasTypeRepository;
@@ -44,7 +44,7 @@ public class T_addAlias_IntegTest extends AliasModuleIntegTestAbstract {
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new DemoObject_withAliases_tearDown(), null);
 
-        aliased = wrap(demoObjectMenu).createDemoObject("Foo");
+        aliased = wrap(aliasDemoObjectMenu).createDemoObject("Foo");
     }
 
     public static class ActionImplementationIntegTest extends T_addAlias_IntegTest {

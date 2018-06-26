@@ -8,31 +8,31 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.incode.example.alias.demo.shared.dom.AliasDemoObject;
-import org.incode.example.alias.demo.shared.fixture.AliasDemoObjectData;
+import org.incode.example.alias.demo.shared.dom.AliasedObject;
+import org.incode.example.alias.demo.shared.fixture.AliasedObjectData;
 import org.incode.example.alias.integtests.AliasModuleIntegTestAbstract;
 import org.incode.example.alias.demo.usage.fixture.DemoObject_withAliases_create2;
-import org.incode.example.alias.demo.shared.dom.AliasDemoObjectMenu;
+import org.incode.example.alias.demo.shared.dom.AliasedObjectMenu;
 
-public class AliasDemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
+public class AliasedObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
 
     @Inject
-    AliasDemoObjectMenu aliasDemoObjectMenu;
+    AliasedObjectMenu aliasDemoObjectMenu;
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new AliasDemoObjectData.PersistScript(), null);
+        fixtureScripts.runFixtureScript(new AliasedObjectData.PersistScript(), null);
         fixtureScripts.runFixtureScript(new DemoObject_withAliases_create2(), null);
     }
 
     @Test
     public void listAll() throws Exception {
 
-        final List<AliasDemoObject> all = wrap(aliasDemoObjectMenu).listAllDemoObjects();
-        Assertions.assertThat(all.size()).isEqualTo(AliasDemoObjectData.values().length);
+        final List<AliasedObject> all = wrap(aliasDemoObjectMenu).listAllDemoObjects();
+        Assertions.assertThat(all.size()).isEqualTo(AliasedObjectData.values().length);
         
-        AliasDemoObject aliasDemoObject = wrap(all.get(0));
-        Assertions.assertThat(aliasDemoObject.getName()).isEqualTo("Foo");
+        AliasedObject aliasedObject = wrap(all.get(0));
+        Assertions.assertThat(aliasedObject.getName()).isEqualTo("Foo");
     }
     
     @Test
@@ -40,8 +40,8 @@ public class AliasDemoObjectMenu_IntegTest extends AliasModuleIntegTestAbstract 
 
         wrap(aliasDemoObjectMenu).createDemoObject("Faz");
         
-        final List<AliasDemoObject> all = wrap(aliasDemoObjectMenu).listAllDemoObjects();
-        Assertions.assertThat(all.size()).isEqualTo(AliasDemoObjectData.values().length+1);
+        final List<AliasedObject> all = wrap(aliasDemoObjectMenu).listAllDemoObjects();
+        Assertions.assertThat(all.size()).isEqualTo(AliasedObjectData.values().length+1);
     }
 
 }

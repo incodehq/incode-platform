@@ -14,7 +14,7 @@ import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.isisaddons.module.fakedata.FakeDataModule;
 
 import org.incode.example.alias.AliasModule;
-import org.incode.example.alias.demo.usage.dom.AliasForDemoObject;
+import org.incode.example.alias.demo.usage.dom.AliasForAliasDemoObject;
 
 @XmlRootElement(name = "module")
 public class AliasDemoUsageModule extends ModuleAbstract {
@@ -32,7 +32,7 @@ public class AliasDemoUsageModule extends ModuleAbstract {
         return new TeardownFixtureAbstract2() {
             @Override
             protected void execute(final FixtureScript.ExecutionContext executionContext) {
-                deleteFrom(AliasForDemoObject.class);
+                deleteFrom(AliasForAliasDemoObject.class);
             }
         };
     }

@@ -13,35 +13,35 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleAliasDemo.DemoObjectMenu"
+        objectType = "exampleAliasDemo.AliasedObjectMenu"
 )
 @DomainServiceLayout(
         named = "Demo",
         menuOrder = "10.1"
 )
-public class AliasDemoObjectMenu {
+public class AliasedObjectMenu {
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<AliasDemoObject> listAllDemoObjects() {
+    public List<AliasedObject> listAllDemoObjects() {
         return repository.listAll();
     }
 
 
     @MemberOrder(sequence = "2")
-    public AliasDemoObject createDemoObject(final String name) {
+    public AliasedObject createDemoObject(final String name) {
         return repository.create(name);
     }
 
     @MemberOrder(sequence = "3")
-    public List<AliasDemoObject> findDemoObjectByName(final String name) {
+    public List<AliasedObject> findDemoObjectByName(final String name) {
         return repository.findByName(name);
     }
 
     @javax.inject.Inject
-    AliasDemoObjectRepository repository;
+    AliasedObjectRepository repository;
 
 
 }

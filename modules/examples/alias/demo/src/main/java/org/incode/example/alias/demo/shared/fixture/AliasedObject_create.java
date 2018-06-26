@@ -2,15 +2,15 @@ package org.incode.example.alias.demo.shared.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.example.alias.demo.shared.dom.AliasDemoObject;
-import org.incode.example.alias.demo.shared.dom.AliasDemoObjectMenu;
+import org.incode.example.alias.demo.shared.dom.AliasedObject;
+import org.incode.example.alias.demo.shared.dom.AliasedObjectMenu;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-public class AliasDemoObject_create extends FixtureScript {
+public class AliasedObject_create extends FixtureScript {
 
     @Getter @Setter
     private String name;
@@ -19,7 +19,7 @@ public class AliasDemoObject_create extends FixtureScript {
      * The created simple object (output).
      */
     @Getter
-    private AliasDemoObject aliasDemoObject;
+    private AliasedObject aliasedObject;
 
 
     @Override
@@ -27,11 +27,11 @@ public class AliasDemoObject_create extends FixtureScript {
 
         String name = checkParam("name", ec, String.class);
 
-        this.aliasDemoObject = wrap(aliasDemoObjectMenu).createDemoObject(name);
-        ec.addResult(this, aliasDemoObject);
+        this.aliasedObject = wrap(aliasDemoObjectMenu).createDemoObject(name);
+        ec.addResult(this, aliasedObject);
     }
 
     @javax.inject.Inject
-    AliasDemoObjectMenu aliasDemoObjectMenu;
+    AliasedObjectMenu aliasDemoObjectMenu;
 
 }
