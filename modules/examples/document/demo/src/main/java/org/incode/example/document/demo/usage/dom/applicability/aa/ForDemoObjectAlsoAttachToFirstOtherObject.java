@@ -9,24 +9,24 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.example.document.demo.shared.other.dom.OtherObject;
+import org.incode.example.document.demo.shared.demowithurl.dom.DocDemoObjectWithUrl;
+import org.incode.example.document.demo.shared.other.dom.DocOtherObject;
 import org.incode.example.document.dom.impl.applicability.AttachmentAdvisor;
 import org.incode.example.document.dom.impl.applicability.AttachmentAdvisorAbstract;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 
 public class ForDemoObjectAlsoAttachToFirstOtherObject extends
-        AttachmentAdvisorAbstract<DemoObjectWithUrl> {
+        AttachmentAdvisorAbstract<DocDemoObjectWithUrl> {
 
     public ForDemoObjectAlsoAttachToFirstOtherObject() {
-        super(DemoObjectWithUrl.class);
+        super(DocDemoObjectWithUrl.class);
     }
 
     @Override
     protected List<PaperclipSpec> doAdvise(
             final DocumentTemplate documentTemplate,
-            final DemoObjectWithUrl demoObject,
+            final DocDemoObjectWithUrl demoObject,
             final Document createdDocument) {
         return determinePaperclipSpecs(demoObject, createdDocument);
     }
@@ -40,7 +40,7 @@ public class ForDemoObjectAlsoAttachToFirstOtherObject extends
         attachTo.add(new AttachmentAdvisor.PaperclipSpec(null, domainObject, createdDocument));
 
         // also attaches to first 'otherObject' (if any)
-        final Optional<OtherObject> firstOtherObjectIfAny = repositoryService.allInstances(OtherObject.class).stream().findFirst();
+        final Optional<DocOtherObject> firstOtherObjectIfAny = repositoryService.allInstances(DocOtherObject.class).stream().findFirst();
         if(firstOtherObjectIfAny.isPresent()) {
             attachTo.add(new AttachmentAdvisor.PaperclipSpec("other", firstOtherObjectIfAny.get(), createdDocument));
         }

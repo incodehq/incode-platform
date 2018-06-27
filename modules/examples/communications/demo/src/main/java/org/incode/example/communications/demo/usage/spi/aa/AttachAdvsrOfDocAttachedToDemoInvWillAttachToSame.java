@@ -6,12 +6,12 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsInvoice;
 import org.incode.example.document.dom.impl.applicability.AttachmentAdvisorAbstract;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoInvoice;
 
 public class AttachAdvsrOfDocAttachedToDemoInvWillAttachToSame extends
         AttachmentAdvisorAbstract<Document> {
@@ -27,10 +27,10 @@ public class AttachAdvsrOfDocAttachedToDemoInvWillAttachToSame extends
             final Document createdDocument) {
 
         final List<Paperclip> paperclips = paperclipRepository.findByDocument(document);
-        final Optional<DemoInvoice> demoInvoiceIfAny =
+        final Optional<CommsInvoice> demoInvoiceIfAny =
                 paperclips.stream().map(Paperclip::getAttachedTo)
-                        .filter(DemoInvoice.class::isInstance)
-                        .map(DemoInvoice.class::cast)
+                        .filter(CommsInvoice.class::isInstance)
+                        .map(CommsInvoice.class::cast)
                         .findFirst();
 
         return demoInvoiceIfAny.isPresent()

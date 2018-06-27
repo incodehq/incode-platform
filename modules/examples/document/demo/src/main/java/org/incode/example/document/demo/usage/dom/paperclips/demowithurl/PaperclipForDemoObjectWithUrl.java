@@ -12,7 +12,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
-import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.example.document.demo.shared.demowithurl.dom.DocDemoObjectWithUrl;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndRender;
@@ -29,8 +29,8 @@ import org.incode.example.document.dom.mixins.T_preview;
 @DomainObject
 public class PaperclipForDemoObjectWithUrl extends Paperclip {
 
-    //region > demoObject (property)
-    private DemoObjectWithUrl demoObject;
+    //region > deniObject (property)
+    private DocDemoObjectWithUrl demoObject;
 
     @Column(
             allowsNull = "false",
@@ -39,11 +39,11 @@ public class PaperclipForDemoObjectWithUrl extends Paperclip {
     @Property(
             editing = Editing.DISABLED
     )
-    public DemoObjectWithUrl getDemoObject() {
+    public DocDemoObjectWithUrl getDemoObject() {
         return demoObject;
     }
 
-    public void setDemoObject(final DemoObjectWithUrl demoObject) {
+    public void setDemoObject(final DocDemoObjectWithUrl demoObject) {
         this.demoObject = demoObject;
     }
     //endregion
@@ -58,7 +58,7 @@ public class PaperclipForDemoObjectWithUrl extends Paperclip {
 
     @Override
     protected void setAttachedTo(final Object object) {
-        setDemoObject((DemoObjectWithUrl) object);
+        setDemoObject((DocDemoObjectWithUrl) object);
     }
     //endregion
 
@@ -68,7 +68,7 @@ public class PaperclipForDemoObjectWithUrl extends Paperclip {
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends PaperclipRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(DemoObjectWithUrl.class, PaperclipForDemoObjectWithUrl.class);
+            super(DocDemoObjectWithUrl.class, PaperclipForDemoObjectWithUrl.class);
         }
     }
     //endregion
@@ -76,31 +76,31 @@ public class PaperclipForDemoObjectWithUrl extends Paperclip {
     //region > mixins
 
     @Mixin
-    public static class _preview extends T_preview<DemoObjectWithUrl> {
-        public _preview(final DemoObjectWithUrl demoObject) {
+    public static class _preview extends T_preview<DocDemoObjectWithUrl> {
+        public _preview(final DocDemoObjectWithUrl demoObject) {
             super(demoObject);
         }
     }
 
     @Mixin
-    public static class _documents extends T_documents<DemoObjectWithUrl> {
-        public _documents(final DemoObjectWithUrl demoObject) {
+    public static class _documents extends T_documents<DocDemoObjectWithUrl> {
+        public _documents(final DocDemoObjectWithUrl demoObject) {
             super(demoObject);
         }
     }
 
     @Mixin
     public static class _createAndAttachDocumentAndRender extends
-            T_createAndAttachDocumentAndRender<DemoObjectWithUrl> {
-        public _createAndAttachDocumentAndRender(final DemoObjectWithUrl demoObject) {
+            T_createAndAttachDocumentAndRender<DocDemoObjectWithUrl> {
+        public _createAndAttachDocumentAndRender(final DocDemoObjectWithUrl demoObject) {
             super(demoObject);
         }
     }
 
     @Mixin
     public static class _createAndAttachDocumentAndScheduleRender extends
-            T_createAndAttachDocumentAndScheduleRender<DemoObjectWithUrl> {
-        public _createAndAttachDocumentAndScheduleRender(final DemoObjectWithUrl demoObject) {
+            T_createAndAttachDocumentAndScheduleRender<DocDemoObjectWithUrl> {
+        public _createAndAttachDocumentAndScheduleRender(final DocDemoObjectWithUrl demoObject) {
             super(demoObject);
         }
     }

@@ -15,10 +15,10 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
+import org.incode.example.tags.demo.usage.dom.demo.TaggableObjectMenu;
 import org.incode.example.tags.integtests.TagsModuleIntegTestAbstract;
-import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObject;
-import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObjectMenu;
-import org.incode.example.tags.demo.usage.fixture.DemoTaggableObject_withTags_create3;
+import org.incode.example.tags.demo.usage.dom.demo.TaggableObject;
+import org.incode.example.tags.demo.usage.fixture.TaggableObject_withTags_create3;
 import org.incode.example.tags.dom.impl.Tag;
 import org.incode.example.tags.dom.impl.Tags;
 
@@ -29,15 +29,15 @@ import static org.junit.Assert.assertThat;
 
 public class Tags_IntegTest extends TagsModuleIntegTestAbstract {
 
-    DemoTaggableObject entity;
+    TaggableObject entity;
 
     @Before
     public void setUpData() throws Exception {
-        runFixtureScript(new DemoTaggableObject_withTags_create3());
+        runFixtureScript(new TaggableObject_withTags_create3());
     }
 
     @Inject
-    DemoTaggableObjectMenu exampleTaggableEntities;
+    TaggableObjectMenu exampleTaggableEntities;
 
     @Inject
     Tags tags;
@@ -47,7 +47,7 @@ public class Tags_IntegTest extends TagsModuleIntegTestAbstract {
 
     @Before
     public void setUp() throws Exception {
-        final List<DemoTaggableObject> all = wrap(exampleTaggableEntities).listAllTaggableObjects();
+        final List<TaggableObject> all = wrap(exampleTaggableEntities).listAllTaggableObjects();
         assertThat(all.size(), is(4));
 
         entity = all.get(0);

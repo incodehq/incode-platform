@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.incode.example.note.integtests.NoteModuleIntegTestAbstract;
-import org.incode.examples.note.demo.usage.dom.spiimpl.CalendarNameRepositoryForDemo;
+import org.incode.examples.note.demo.shared.demo.dom.NotableObject;
+import org.incode.examples.note.demo.usage.dom.spiimpl.CalendarNameRepositoryForNotableObject;
 import org.incode.examples.note.demo.usage.fixture.DemoModule_withNotes_tearDown;
-import org.incode.examples.note.demo.shared.demo.dom.DemoObject;
-import org.incode.examples.note.demo.shared.demo.dom.DemoObjectMenu;
+import org.incode.examples.note.demo.shared.demo.dom.NotableObjectMenu;
 import org.incode.example.note.dom.impl.note.Note;
 import org.incode.example.note.dom.impl.note.NoteRepository;
 
@@ -23,16 +23,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class NoteRepository_IntegTest extends NoteModuleIntegTestAbstract {
 
     @Inject
-    CalendarNameRepositoryForDemo calendarNameRepository;
+    CalendarNameRepositoryForNotableObject calendarNameRepository;
 
     @Inject
-    DemoObjectMenu noteDemoObjectMenu;
+    NotableObjectMenu noteDemoObjectMenu;
 
     @Inject
     NoteRepository noteRepository;
 
-    DemoObject notable1;
-    DemoObject notable2;
+    NotableObject notable1;
+    NotableObject notable2;
 
     @Before
     public void setUpData() throws Exception {
@@ -41,7 +41,7 @@ public class NoteRepository_IntegTest extends NoteModuleIntegTestAbstract {
         notable1 = wrap(noteDemoObjectMenu).createDemoObject("Foo");
         notable2 = wrap(noteDemoObjectMenu).createDemoObject("Bar");
 
-        calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
+        calendarNameRepository.setCalendarNames(NotableObject.class, "BLUE", "GREEN", "RED");
     }
 
     public static class FindByNotableIntegTest extends NoteRepository_IntegTest {

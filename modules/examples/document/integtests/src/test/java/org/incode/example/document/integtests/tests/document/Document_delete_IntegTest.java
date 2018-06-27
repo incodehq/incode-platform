@@ -5,12 +5,12 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.incode.example.document.demo.shared.demowithurl.dom.DocDemoObjectWithUrl;
 import org.incode.example.document.integtests.DocumentModuleIntegTestAbstract;
 import org.incode.example.document.demo.usage.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
-import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.example.document.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.example.document.demo.shared.other.dom.OtherObject;
-import org.incode.example.document.demo.shared.other.fixture.OtherObject_createUpTo5_fakeData;
+import org.incode.example.document.demo.shared.demowithurl.fixture.DocDemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.example.document.demo.shared.other.dom.DocOtherObject;
+import org.incode.example.document.demo.shared.other.fixture.DocOtherObject_createUpTo5_fakeData;
 import org.incode.example.document.dom.impl.docs.Document;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 
@@ -18,8 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Document_delete_IntegTest extends DocumentModuleIntegTestAbstract {
 
-    DemoObjectWithUrl demoObject;
-    OtherObject otherObject;
+    DocDemoObjectWithUrl demoObject;
+    DocOtherObject otherObject;
 
     DocumentTypeAndTemplatesApplicableForDemoObjectFixture templateFixture;
 
@@ -36,12 +36,12 @@ public class Document_delete_IntegTest extends DocumentModuleIntegTestAbstract {
         fixtureScripts.runFixtureScript(templateFixture, null);
 
         // demo objects
-        final DemoObjectWithUrl_createUpTo5_fakeData demoObjectWithUrlFixture = new DemoObjectWithUrl_createUpTo5_fakeData();
+        final DocDemoObjectWithUrl_createUpTo5_fakeData demoObjectWithUrlFixture = new DocDemoObjectWithUrl_createUpTo5_fakeData();
         fixtureScripts.runFixtureScript(demoObjectWithUrlFixture, null);
         demoObject = demoObjectWithUrlFixture.getDemoObjects().get(0);
 
         // other objects
-        final OtherObject_createUpTo5_fakeData otherObjectsFixture = new OtherObject_createUpTo5_fakeData();
+        final DocOtherObject_createUpTo5_fakeData otherObjectsFixture = new DocOtherObject_createUpTo5_fakeData();
         fixtureScripts.runFixtureScript(otherObjectsFixture, null);
         otherObject = otherObjectsFixture.getOtherObjects().get(0);
 

@@ -11,8 +11,8 @@ import org.apache.isis.applib.services.wrapper.DisabledException;
 
 import org.incode.example.document.integtests.DocumentModuleIntegTestAbstract;
 import org.incode.example.document.demo.usage.fixture.seed.DocumentTypeAndTemplatesApplicableForDemoObjectFixture;
-import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.example.document.demo.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
+import org.incode.example.document.demo.shared.demowithurl.dom.DocDemoObjectWithUrl;
+import org.incode.example.document.demo.shared.demowithurl.fixture.DocDemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +22,7 @@ import static org.junit.Assume.assumeThat;
 
 public class T_createAndAttachDocumentAndScheduleRender_IntegTest extends DocumentModuleIntegTestAbstract {
 
-    DemoObjectWithUrl demoObject;
+    DocDemoObjectWithUrl demoObject;
 
 
     DocumentTypeAndTemplatesApplicableForDemoObjectFixture templateFs;
@@ -36,7 +36,7 @@ public class T_createAndAttachDocumentAndScheduleRender_IntegTest extends Docume
         fixtureScripts.runFixtureScript(templateFs, null);
 
         // demo objects
-        final DemoObjectWithUrl_createUpTo5_fakeData demoObjectWithUrlFixture = new DemoObjectWithUrl_createUpTo5_fakeData();
+        final DocDemoObjectWithUrl_createUpTo5_fakeData demoObjectWithUrlFixture = new DocDemoObjectWithUrl_createUpTo5_fakeData();
         fixtureScripts.runFixtureScript(demoObjectWithUrlFixture, null);
         demoObject = demoObjectWithUrlFixture.getDemoObjects().get(0);
 

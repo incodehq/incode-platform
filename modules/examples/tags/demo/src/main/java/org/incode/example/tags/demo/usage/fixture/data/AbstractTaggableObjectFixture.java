@@ -2,20 +2,20 @@ package org.incode.example.tags.demo.usage.fixture.data;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObject;
-import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObjectMenu;
+import org.incode.example.tags.demo.usage.dom.demo.TaggableObject;
+import org.incode.example.tags.demo.usage.dom.demo.TaggableObjectMenu;
 
 public abstract class AbstractTaggableObjectFixture extends FixtureScript {
 
-    protected DemoTaggableObject create(
+    protected TaggableObject create(
             final String name, final String brand, final String sector,
             final ExecutionContext executionContext) {
-        final DemoTaggableObject entity = demoTaggableObjectMenu.createTaggableEntity(name, brand, sector);
+        final TaggableObject entity = taggableObjectMenu.createTaggableEntity(name, brand, sector);
         executionContext.add(this, name, entity);
         return entity;
     }
 
     @javax.inject.Inject
-    private DemoTaggableObjectMenu demoTaggableObjectMenu;
+    private TaggableObjectMenu taggableObjectMenu;
 
 }

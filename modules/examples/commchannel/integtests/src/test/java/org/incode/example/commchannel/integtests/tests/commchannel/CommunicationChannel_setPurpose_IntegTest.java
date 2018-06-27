@@ -15,9 +15,9 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.example.commchannel.demo.shared.dom.DemoObject;
-import org.incode.example.commchannel.demo.shared.dom.DemoObjectMenu;
-import org.incode.example.commchannel.demo.usage.fixture.DemoObject_withCommChannels_tearDown;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomer;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomerMenu;
+import org.incode.example.commchannel.demo.usage.fixture.CommChannelCustomer_withCommChannels_tearDown;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannelRepository;
 import org.incode.example.commchannel.integtests.CommChannelModuleIntegTestAbstract;
@@ -27,16 +27,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CommunicationChannel_setPurpose_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
-    DemoObjectMenu commChannelDemoObjectMenu;
+    CommChannelCustomerMenu commChannelDemoObjectMenu;
     @Inject
     CommunicationChannelRepository communicationChannelRepository;
 
-    DemoObject fredDemoOwner;
+    CommChannelCustomer fredDemoOwner;
     SortedSet<CommunicationChannel> fredChannels;
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
+        fixtureScripts.runFixtureScript(new CommChannelCustomer_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Foo");
 

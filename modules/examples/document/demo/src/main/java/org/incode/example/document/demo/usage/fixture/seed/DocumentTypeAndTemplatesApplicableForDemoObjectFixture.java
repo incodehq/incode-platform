@@ -14,12 +14,12 @@ import org.apache.isis.applib.services.clock.ClockService;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
+import org.incode.example.document.demo.shared.demowithurl.dom.DocDemoObjectWithUrl;
 import org.incode.example.document.demo.usage.dom.applicability.aa.ForDemoObjectAlsoAttachToFirstOtherObject;
 import org.incode.example.document.demo.usage.dom.applicability.aa.ForDemoObjectAttachToSame;
 import org.incode.example.document.demo.usage.dom.applicability.rmf.FreemarkerModelOfDemoObject;
 import org.incode.example.document.demo.usage.dom.applicability.rmf.StringInterpolatorRootOfDemoObject;
 import org.incode.example.document.demo.usage.dom.applicability.rmf.XDocReportModelOfDemoObject;
-import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategyRepository;
@@ -97,7 +97,7 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 executionContext);
 
         mixin(DocumentTemplate._applicable.class, fmkTemplate).applicable(
-                DemoObjectWithUrl.class,
+                DocDemoObjectWithUrl.class,
                 FreemarkerModelOfDemoObject.class,
                 ForDemoObjectAttachToSame.class);
 
@@ -122,7 +122,7 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 executionContext);
 
         mixin(DocumentTemplate._applicable.class, siTemplate).applicable(
-                DemoObjectWithUrl.class,
+                DocDemoObjectWithUrl.class,
                 StringInterpolatorRootOfDemoObject.class,
                 ForDemoObjectAttachToSame.class);
 
@@ -141,13 +141,13 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 new Blob(
                         docTypeForXDocReportPdf.getName() + ".docx",
                         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                        loadResourceBytes("demoObject-template.docx")
+                        loadResourceBytes("docDemoObjectWithUrl-template.docx")
                 ), xdpRenderingStrategy,
                 "${demoObject.name}", fmkRenderingStrategy,
                 executionContext);
 
         mixin(DocumentTemplate._applicable.class, xdpTemplate).applicable(
-                DemoObjectWithUrl.class,
+                DocDemoObjectWithUrl.class,
                 XDocReportModelOfDemoObject.class,
                 ForDemoObjectAttachToSame.class);
 
@@ -166,13 +166,13 @@ public class DocumentTypeAndTemplatesApplicableForDemoObjectFixture extends Docu
                 new Blob(
                         docTypeForXDocReportDocx.getName() + ".docx",
                         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                        loadResourceBytes("demoObject-template.docx")
+                        loadResourceBytes("docDemoObjectWithUrl-template.docx")
                 ), xddRenderingStrategy,
                 "${demoObject.name}", fmkRenderingStrategy,
                 executionContext);
 
         mixin(DocumentTemplate._applicable.class, xddTemplate).applicable(
-                DemoObjectWithUrl.class,
+                DocDemoObjectWithUrl.class,
                 XDocReportModelOfDemoObject.class,
                 ForDemoObjectAlsoAttachToFirstOtherObject.class);
 

@@ -11,10 +11,10 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForDemoObject_addNote;
-import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForDemoObject_notes;
-import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForDemoObject_removeNote;
-import org.incode.examples.note.demo.shared.demo.dom.DemoObject;
+import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForNotableObject_addNote;
+import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForNotableObject_notes;
+import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForNotableObject_removeNote;
+import org.incode.examples.note.demo.shared.demo.dom.NotableObject;
 import org.incode.example.note.dom.impl.note.Note;
 import org.incode.example.note.dom.impl.note.Note_changeDate;
 import org.incode.example.note.dom.impl.note.Note_changeNotes;
@@ -37,15 +37,15 @@ public abstract class NoteModuleIntegTestAbstract extends IntegrationTestAbstrac
     @Inject
     protected FakeDataService fakeData;
 
-    protected T_addNote mixinAddNote(final DemoObject notable) {
-        return mixin(NotableLinkForDemoObject_addNote.class, notable);
+    protected T_addNote mixinAddNote(final NotableObject notable) {
+        return mixin(NotableLinkForNotableObject_addNote.class, notable);
     }
-    protected T_removeNote mixinRemoveNote(final DemoObject notable) {
-        return mixin(NotableLinkForDemoObject_removeNote.class, notable);
+    protected T_removeNote mixinRemoveNote(final NotableObject notable) {
+        return mixin(NotableLinkForNotableObject_removeNote.class, notable);
     }
 
-    protected T_notes mixinNotes(final DemoObject notable) {
-        return mixin(NotableLinkForDemoObject_notes.class, notable);
+    protected T_notes mixinNotes(final NotableObject notable) {
+        return mixin(NotableLinkForNotableObject_notes.class, notable);
     }
 
     protected Note_changeDate mixinChangeDate(final Note note) {

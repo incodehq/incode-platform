@@ -12,7 +12,7 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
-import org.incode.example.document.demo.shared.other.dom.OtherObject;
+import org.incode.example.document.demo.shared.other.dom.DocOtherObject;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndRender;
@@ -30,7 +30,7 @@ import org.incode.example.document.dom.mixins.T_preview;
 public class PaperclipForOtherObject extends Paperclip {
 
     //region > otherObject (property)
-    private OtherObject otherObject;
+    private DocOtherObject otherObject;
 
     @Column(
             allowsNull = "false",
@@ -39,11 +39,11 @@ public class PaperclipForOtherObject extends Paperclip {
     @Property(
             editing = Editing.DISABLED
     )
-    public OtherObject getOtherObject() {
+    public DocOtherObject getOtherObject() {
         return otherObject;
     }
 
-    public void setOtherObject(final OtherObject otherObject) {
+    public void setOtherObject(final DocOtherObject otherObject) {
         this.otherObject = otherObject;
     }
     //endregion
@@ -58,7 +58,7 @@ public class PaperclipForOtherObject extends Paperclip {
 
     @Override
     protected void setAttachedTo(final Object object) {
-        setOtherObject((OtherObject) object);
+        setOtherObject((DocOtherObject) object);
     }
     //endregion
 
@@ -68,7 +68,7 @@ public class PaperclipForOtherObject extends Paperclip {
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends PaperclipRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(OtherObject.class, PaperclipForOtherObject.class);
+            super(DocOtherObject.class, PaperclipForOtherObject.class);
         }
     }
     //endregion
@@ -76,30 +76,30 @@ public class PaperclipForOtherObject extends Paperclip {
     //region > mixins
 
     @Mixin
-    public static class _preview extends T_preview<OtherObject> {
-        public _preview(final OtherObject otherObject) {
+    public static class _preview extends T_preview<DocOtherObject> {
+        public _preview(final DocOtherObject otherObject) {
             super(otherObject);
         }
     }
 
     @Mixin
-    public static class _documents extends T_documents<OtherObject> {
-        public _documents(final OtherObject otherObject) {
+    public static class _documents extends T_documents<DocOtherObject> {
+        public _documents(final DocOtherObject otherObject) {
             super(otherObject);
         }
     }
 
     @Mixin
-    public static class _createAndAttachDocumentAndRender extends T_createAndAttachDocumentAndRender<OtherObject> {
-        public _createAndAttachDocumentAndRender(final OtherObject otherObject) {
+    public static class _createAndAttachDocumentAndRender extends T_createAndAttachDocumentAndRender<DocOtherObject> {
+        public _createAndAttachDocumentAndRender(final DocOtherObject otherObject) {
             super(otherObject);
         }
     }
 
     @Mixin
     public static class _createAndAttachDocumentAndScheduleRender extends
-            T_createAndAttachDocumentAndScheduleRender<OtherObject> {
-        public _createAndAttachDocumentAndScheduleRender(final OtherObject otherObject) {
+            T_createAndAttachDocumentAndScheduleRender<DocOtherObject> {
+        public _createAndAttachDocumentAndScheduleRender(final DocOtherObject otherObject) {
             super(otherObject);
         }
     }

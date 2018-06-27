@@ -12,10 +12,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
+import org.incode.example.docfragment.demo.shared.invoicewithatpath.dom.DocFragInvoice;
 import org.incode.example.docfragment.integtests.DocFragmentModuleIntegTestAbstract;
-import org.incode.example.docfragment.demo.usage.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
-import org.incode.example.docfragment.demo.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;
-import org.incode.example.docfragment.demo.shared.invoicewithatpath.fixture.DemoInvoiceWithAtPathData;
+import org.incode.example.docfragment.demo.usage.fixture.DocFragCustomer_and_DocFragInvoice_and_fragments_create;
+import org.incode.example.docfragment.demo.shared.invoicewithatpath.fixture.DocFragInvoiceData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,7 +34,7 @@ public class DocFragmentService_IntegTest extends DocFragmentModuleIntegTestAbst
     public void setUp() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create(), null);
+        fixtureScripts.runFixtureScript(new DocFragCustomer_and_DocFragInvoice_and_fragments_create(), null);
         transactionService.nextTransaction();
 
         defaultLocale = Locale.getDefault();
@@ -57,7 +57,7 @@ public class DocFragmentService_IntegTest extends DocFragmentModuleIntegTestAbst
         @Test
         public void happy_case() throws Exception {
             // given
-            final DemoInvoiceWithAtPath invoice1 = DemoInvoiceWithAtPathData.Invoice1.findUsing(serviceRegistry2);
+            final DocFragInvoice invoice1 = DocFragInvoiceData.Invoice1.findUsing(serviceRegistry2);
             assertThat(invoice1.getRendered()).isNull();
 
             // when

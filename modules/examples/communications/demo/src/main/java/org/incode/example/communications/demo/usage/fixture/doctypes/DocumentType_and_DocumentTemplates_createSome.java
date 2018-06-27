@@ -19,7 +19,7 @@ import org.incode.example.document.dom.impl.rendering.RenderingStrategy;
 import org.incode.example.document.dom.impl.rendering.RenderingStrategyRepository;
 import org.incode.example.document.dom.impl.types.DocumentType;
 import org.incode.example.document.fixture.DocumentTemplateFSAbstract;
-import org.incode.example.communications.demo.usage.spi.rmf.RenderModelFactoryOfDocumentAttachedToDemoInvoice;
+import org.incode.example.communications.demo.usage.spi.rmf.RenderModelFactoryOfDocumentAttachedToCommsInvoice;
 
 import lombok.Getter;
 
@@ -81,7 +81,7 @@ public class DocumentType_and_DocumentTemplates_createSome extends DocumentTempl
 
         mixin(DocumentTemplate._applicable.class, fmkTemplate).applicable(
                 Document.class,
-                RenderModelFactoryOfDocumentAttachedToDemoInvoice.class,
+                RenderModelFactoryOfDocumentAttachedToCommsInvoice.class,
                 null);
 
         executionContext.addResult(this, fmkTemplate);

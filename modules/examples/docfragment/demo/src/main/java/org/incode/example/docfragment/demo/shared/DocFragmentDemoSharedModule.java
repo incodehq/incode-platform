@@ -9,16 +9,16 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
-import org.incode.example.docfragment.demo.shared.customer.DocFragmentDemoSharedCustomerSubmodule;
-import org.incode.example.docfragment.demo.shared.invoicewithatpath.DocFragmentDemoSharedInvoiceWithAtPathSubmodule;
+import org.incode.example.docfragment.demo.shared.customer.DocFragCustomerSubmodule;
+import org.incode.example.docfragment.demo.shared.invoicewithatpath.DocFragInvoiceSubmodule;
 
 @XmlRootElement(name = "module")
 public class DocFragmentDemoSharedModule extends ModuleAbstract {
 
     @Override public Set<Module> getDependencies() {
         return Sets.newHashSet(
-                new DocFragmentDemoSharedCustomerSubmodule(),
-                new DocFragmentDemoSharedInvoiceWithAtPathSubmodule()
+                new DocFragCustomerSubmodule(),
+                new DocFragInvoiceSubmodule()
         );
     }
 }

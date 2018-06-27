@@ -13,9 +13,9 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.example.commchannel.demo.shared.dom.DemoObject;
-import org.incode.example.commchannel.demo.shared.dom.DemoObjectMenu;
-import org.incode.example.commchannel.demo.usage.fixture.DemoObject_withCommChannels_tearDown;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomer;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomerMenu;
+import org.incode.example.commchannel.demo.usage.fixture.CommChannelCustomer_withCommChannels_tearDown;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.postaladdress.PostalAddress;
 import org.incode.example.commchannel.dom.impl.postaladdress.PostalAddress_lookupGeocode;
@@ -28,9 +28,9 @@ import static org.junit.Assume.assumeThat;
 public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
-    DemoObjectMenu commChannelDemoObjectMenu;
+    CommChannelCustomerMenu commChannelDemoObjectMenu;
 
-    DemoObject fredDemoOwner;
+    CommChannelCustomer fredDemoOwner;
     PostalAddress postalAddress;
 
     PostalAddress_lookupGeocode mixinLookupGeocode(final PostalAddress postalAddress) {
@@ -40,7 +40,7 @@ public class PostalAddress_lookupGeocode_IntegTest extends CommChannelModuleInte
     @Before
     public void setUpData() throws Exception {
 
-        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
+        fixtureScripts.runFixtureScript(new CommChannelCustomer_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
 

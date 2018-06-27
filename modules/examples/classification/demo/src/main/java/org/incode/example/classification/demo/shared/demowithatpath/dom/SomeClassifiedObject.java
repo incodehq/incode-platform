@@ -21,7 +21,7 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema="classificationDemoSharedDemo"
+        schema="classificationDemoShared"
 )
 @javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Version(strategy=VersionStrategy.VERSION_NUMBER, column = "version")

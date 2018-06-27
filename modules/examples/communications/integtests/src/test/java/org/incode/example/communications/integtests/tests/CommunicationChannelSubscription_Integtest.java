@@ -10,6 +10,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsCustomer;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsCustomerMenu;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -17,10 +19,8 @@ import org.incode.example.communications.dom.impl.commchannel.EmailAddress;
 import org.incode.example.communications.dom.impl.commchannel.PostalAddress;
 import org.incode.example.communications.dom.impl.comms.Communication;
 import org.incode.example.communications.dom.impl.comms.CommunicationRepository;
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
 import org.incode.example.communications.demo.usage.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
-import org.incode.example.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.example.communications.demo.usage.fixture.demoobjwithnote.CommsCustomer_and_CommsInvoice_create3;
 import org.incode.example.communications.integtests.CommunicationsModuleIntegTestAbstract;
 
 public class CommunicationChannelSubscription_Integtest extends CommunicationsModuleIntegTestAbstract {
@@ -36,7 +36,7 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsMo
     TransactionService transactionService;
 
     @Inject
-    DemoObjectWithNotesMenu customerMenu;
+    CommsCustomerMenu customerMenu;
 
     @Inject
     CommunicationChannelOwnerLinkRepository linkRepository;
@@ -51,8 +51,8 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsMo
         transactionService.nextTransaction();
 
         // and so given customer with an email
-        final DemoObjectWithNotes fred = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final CommsCustomer fred = customerMenu.findDemoObjectsWithNotesByName(
+                CommsCustomer_and_CommsInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
 
         final EmailAddress fredEmail = (EmailAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(fred, CommunicationChannelType.EMAIL_ADDRESS)
@@ -64,8 +64,8 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsMo
     @Test
     public void replacement_provided() throws Exception {
         // Given
-        final DemoObjectWithNotes owner = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final CommsCustomer owner = customerMenu.findDemoObjectsWithNotesByName(
+                CommsCustomer_and_CommsInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,
@@ -102,8 +102,8 @@ public class CommunicationChannelSubscription_Integtest extends CommunicationsMo
     @Test
     public void validate_fails_when_no_replacement_is_provided() throws Exception {
         // Given
-        final DemoObjectWithNotes owner = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final CommsCustomer owner = customerMenu.findDemoObjectsWithNotesByName(
+                CommsCustomer_and_CommsInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
         final PostalAddress postalAddress = communicationChannelRepository.newPostal(
                 owner,
                 CommunicationChannelType.POSTAL_ADDRESS,

@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.incode.example.alias.demo.shared.dom.AliasedObject;
 import org.incode.example.alias.demo.shared.fixture.AliasedObjectData;
 import org.incode.example.alias.integtests.AliasModuleIntegTestAbstract;
-import org.incode.example.alias.demo.usage.fixture.DemoObject_withAliases_create2;
+import org.incode.example.alias.demo.usage.fixture.AliasedObject_withAliases_create2;
 import org.incode.example.alias.demo.shared.dom.AliasedObjectMenu;
 
 public class AliasedObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
@@ -22,7 +22,7 @@ public class AliasedObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
     @Before
     public void setUpData() throws Exception {
         fixtureScripts.runFixtureScript(new AliasedObjectData.PersistScript(), null);
-        fixtureScripts.runFixtureScript(new DemoObject_withAliases_create2(), null);
+        fixtureScripts.runFixtureScript(new AliasedObject_withAliases_create2(), null);
     }
 
     @Test

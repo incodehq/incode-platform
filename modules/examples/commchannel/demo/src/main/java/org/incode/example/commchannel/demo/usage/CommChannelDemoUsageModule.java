@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
 import org.incode.example.commchannel.CommChannelModule;
 import org.incode.example.commchannel.demo.shared.CommChannelDemoSharedModule;
-import org.incode.example.commchannel.demo.usage.dom.CommunicationChannelOwnerLinkForDemoObject;
+import org.incode.example.commchannel.demo.usage.dom.CommunicationChannelOwnerLinkForCommChannelCustomer;
 
 @XmlRootElement(name = "module")
 public class CommChannelDemoUsageModule extends ModuleAbstract {
@@ -28,7 +28,7 @@ public class CommChannelDemoUsageModule extends ModuleAbstract {
     @Override public FixtureScript getTeardownFixture() {
         return new TeardownFixtureAbstract2() {
             @Override protected void execute(final ExecutionContext executionContext) {
-                deleteFrom(CommunicationChannelOwnerLinkForDemoObject.class);
+                deleteFrom(CommunicationChannelOwnerLinkForCommChannelCustomer.class);
             }
         };
     }

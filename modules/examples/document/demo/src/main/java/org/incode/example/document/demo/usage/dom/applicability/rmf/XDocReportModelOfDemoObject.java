@@ -6,21 +6,21 @@ import com.google.common.collect.ImmutableMap;
 
 import org.isisaddons.module.xdocreport.dom.service.XDocReportModel;
 
-import org.incode.example.document.demo.shared.demowithurl.dom.DemoObjectWithUrl;
+import org.incode.example.document.demo.shared.demowithurl.dom.DocDemoObjectWithUrl;
 import org.incode.example.document.dom.impl.applicability.RendererModelFactoryAbstract;
 import org.incode.example.document.dom.impl.docs.DocumentTemplate;
 
 import lombok.Getter;
 
-public class XDocReportModelOfDemoObject extends RendererModelFactoryAbstract<DemoObjectWithUrl> {
+public class XDocReportModelOfDemoObject extends RendererModelFactoryAbstract<DocDemoObjectWithUrl> {
 
     public XDocReportModelOfDemoObject() {
-        super(DemoObjectWithUrl.class);
+        super(DocDemoObjectWithUrl.class);
     }
 
     @Override
     protected Object doNewRendererModel(
-            final DocumentTemplate documentTemplate, final DemoObjectWithUrl demoObject) {
+            final DocumentTemplate documentTemplate, final DocDemoObjectWithUrl demoObject) {
         return new DataModel(demoObject);
     }
 
@@ -28,9 +28,9 @@ public class XDocReportModelOfDemoObject extends RendererModelFactoryAbstract<De
 
         // for freemarker
         @Getter
-        private final DemoObjectWithUrl demoObject;
+        private final DocDemoObjectWithUrl demoObject;
 
-        public DataModel(final DemoObjectWithUrl demoObject) {
+        public DataModel(final DocDemoObjectWithUrl demoObject) {
             this.demoObject = demoObject;
         }
 

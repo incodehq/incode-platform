@@ -13,7 +13,7 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObject;
+import org.incode.example.tags.demo.usage.dom.demo.TaggableObject;
 import org.incode.example.tags.TagsModule;
 
 @XmlRootElement(name = "module")
@@ -28,7 +28,7 @@ public class TagsDemoSharedUsageSubmodule extends ModuleAbstract {
     public FixtureScript getTeardownFixture() {
         return new TeardownFixtureAbstract2() {
             @Override protected void execute(final ExecutionContext executionContext) {
-                deleteFrom(DemoTaggableObject.class);
+                deleteFrom(TaggableObject.class);
             }
         };
     }

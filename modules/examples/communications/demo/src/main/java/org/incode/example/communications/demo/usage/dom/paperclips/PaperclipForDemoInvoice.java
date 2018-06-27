@@ -12,13 +12,13 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsInvoice;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndRender;
 import org.incode.example.document.dom.mixins.T_createAndAttachDocumentAndScheduleRender;
 import org.incode.example.document.dom.mixins.T_documents;
 import org.incode.example.document.dom.mixins.T_preview;
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoInvoice;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
@@ -31,8 +31,8 @@ import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoInvoi
 )
 public class PaperclipForDemoInvoice extends Paperclip {
 
-    //region > demoObject (property)
-    private DemoInvoice demoInvoice;
+    //region > notableObject (property)
+    private CommsInvoice commsInvoice;
 
     @Column(
             allowsNull = "false",
@@ -41,12 +41,12 @@ public class PaperclipForDemoInvoice extends Paperclip {
     @Property(
             editing = Editing.DISABLED
     )
-    public DemoInvoice getDemoInvoice() {
-        return demoInvoice;
+    public CommsInvoice getCommsInvoice() {
+        return commsInvoice;
     }
 
-    public void setDemoInvoice(final DemoInvoice demoInvoice) {
-        this.demoInvoice = demoInvoice;
+    public void setCommsInvoice(final CommsInvoice commsInvoice) {
+        this.commsInvoice = commsInvoice;
     }
     //endregion
 
@@ -55,12 +55,12 @@ public class PaperclipForDemoInvoice extends Paperclip {
     @NotPersistent
     @Override
     public Object getAttachedTo() {
-        return getDemoInvoice();
+        return getCommsInvoice();
     }
 
     @Override
     protected void setAttachedTo(final Object object) {
-        setDemoInvoice((DemoInvoice) object);
+        setCommsInvoice((CommsInvoice) object);
     }
     //endregion
 
@@ -70,7 +70,7 @@ public class PaperclipForDemoInvoice extends Paperclip {
     @DomainService(nature = NatureOfService.DOMAIN)
     public static class SubtypeProvider extends PaperclipRepository.SubtypeProviderAbstract {
         public SubtypeProvider() {
-            super(DemoInvoice.class, PaperclipForDemoInvoice.class);
+            super(CommsInvoice.class, PaperclipForDemoInvoice.class);
         }
     }
     //endregion
@@ -78,31 +78,31 @@ public class PaperclipForDemoInvoice extends Paperclip {
     //region > mixins
 
     @Mixin
-    public static class _preview extends T_preview<DemoInvoice> {
-        public _preview(final DemoInvoice demoInvoice) {
-            super(demoInvoice);
+    public static class _preview extends T_preview<CommsInvoice> {
+        public _preview(final CommsInvoice commsInvoice) {
+            super(commsInvoice);
         }
     }
 
     @Mixin
-    public static class _documents extends T_documents<DemoInvoice> {
-        public _documents(final DemoInvoice demoInvoice) {
-            super(demoInvoice);
+    public static class _documents extends T_documents<CommsInvoice> {
+        public _documents(final CommsInvoice commsInvoice) {
+            super(commsInvoice);
         }
     }
 
     @Mixin
-    public static class _createAndAttachDocumentAndRender extends T_createAndAttachDocumentAndRender<DemoInvoice> {
-        public _createAndAttachDocumentAndRender(final DemoInvoice demoInvoice) {
-            super(demoInvoice);
+    public static class _createAndAttachDocumentAndRender extends T_createAndAttachDocumentAndRender<CommsInvoice> {
+        public _createAndAttachDocumentAndRender(final CommsInvoice commsInvoice) {
+            super(commsInvoice);
         }
     }
 
     @Mixin
     public static class _createAndAttachDocumentAndScheduleRender extends
-            T_createAndAttachDocumentAndScheduleRender<DemoInvoice> {
-        public _createAndAttachDocumentAndScheduleRender(final DemoInvoice demoInvoice) {
-            super(demoInvoice);
+            T_createAndAttachDocumentAndScheduleRender<CommsInvoice> {
+        public _createAndAttachDocumentAndScheduleRender(final CommsInvoice commsInvoice) {
+            super(commsInvoice);
         }
     }
 

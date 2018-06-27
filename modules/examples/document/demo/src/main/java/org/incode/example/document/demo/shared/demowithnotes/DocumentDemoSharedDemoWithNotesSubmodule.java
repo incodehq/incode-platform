@@ -6,8 +6,8 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.example.document.demo.shared.demowithnotes.dom.DemoInvoice;
-import org.incode.example.document.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.example.document.demo.shared.demowithnotes.dom.DocInvoice;
+import org.incode.example.document.demo.shared.demowithnotes.dom.DocDemoObjectWithNotes;
 
 @XmlRootElement(name = "module")
 public class DocumentDemoSharedDemoWithNotesSubmodule extends ModuleAbstract {
@@ -16,8 +16,8 @@ public class DocumentDemoSharedDemoWithNotesSubmodule extends ModuleAbstract {
         return new TeardownFixtureAbstract2() {
             @Override
             protected void execute(final ExecutionContext executionContext) {
-                deleteFrom(DemoInvoice.class);
-                deleteFrom(DemoObjectWithNotes.class);
+                deleteFrom(DocInvoice.class);
+                deleteFrom(DocDemoObjectWithNotes.class);
             }
         };
     }

@@ -13,9 +13,9 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.example.commchannel.demo.shared.dom.DemoObject;
-import org.incode.example.commchannel.demo.shared.dom.DemoObjectMenu;
-import org.incode.example.commchannel.demo.usage.fixture.DemoObject_withCommChannels_tearDown;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomer;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomerMenu;
+import org.incode.example.commchannel.demo.usage.fixture.CommChannelCustomer_withCommChannels_tearDown;
 import org.incode.example.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.example.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber_update;
 import org.incode.example.commchannel.dom.impl.type.CommunicationChannelType;
@@ -26,9 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
-    DemoObjectMenu commChannelDemoObjectMenu;
+    CommChannelCustomerMenu commChannelDemoObjectMenu;
 
-    DemoObject fredDemoOwner;
+    CommChannelCustomer fredDemoOwner;
     PhoneOrFaxNumber fredPhone;
 
     PhoneOrFaxNumber_update mixinUpdate(final PhoneOrFaxNumber phoneOrFaxNumber) {
@@ -37,7 +37,7 @@ public class PhoneOrFaxNumber_update_IntegTest extends CommChannelModuleIntegTes
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
+        fixtureScripts.runFixtureScript(new CommChannelCustomer_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewPhoneOrFaxNumber(fredDemoOwner))

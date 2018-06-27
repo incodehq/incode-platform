@@ -5,12 +5,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.example.document.demo.shared.demowithurl.fixture.DemoObjectWithUrl_tearDown;
+import org.incode.example.document.demo.shared.demowithurl.fixture.DocDemoObjectWithUrl_tearDown;
 
 @XmlRootElement(name = "module")
 public class DocumentDemoSharedDemoWithUrlSubmodule extends ModuleAbstract {
 
     @Override public FixtureScript getTeardownFixture() {
-        return new DemoObjectWithUrl_tearDown();
+        return new DocDemoObjectWithUrl_tearDown();
     }
 }

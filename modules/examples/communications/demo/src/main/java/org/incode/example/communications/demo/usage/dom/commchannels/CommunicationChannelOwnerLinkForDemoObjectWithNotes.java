@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsCustomer;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwner;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLink;
 
@@ -27,18 +27,18 @@ import org.incode.example.communications.dom.impl.commchannel.CommunicationChann
 )
 public class CommunicationChannelOwnerLinkForDemoObjectWithNotes extends CommunicationChannelOwnerLink {
 
-    //region > demoObject (property)
-    private DemoObjectWithNotes demoCustomer;
+    //region > notableObject (property)
+    private CommsCustomer demoCustomer;
 
     @Column(
             allowsNull = "false",
             name = "demoObjectId"
     )
-    public DemoObjectWithNotes getDemoCustomer() {
+    public CommsCustomer getDemoCustomer() {
         return demoCustomer;
     }
 
-    public void setDemoCustomer(final DemoObjectWithNotes demoCustomer) {
+    public void setDemoCustomer(final CommsCustomer demoCustomer) {
         this.demoCustomer = demoCustomer;
     }
     //endregion
@@ -46,7 +46,7 @@ public class CommunicationChannelOwnerLinkForDemoObjectWithNotes extends Communi
     @Override
     public void setPolymorphicReference(final CommunicationChannelOwner polymorphicReference) {
         super.setPolymorphicReference(polymorphicReference);
-        setDemoCustomer((DemoObjectWithNotes) polymorphicReference);
+        setDemoCustomer((CommsCustomer) polymorphicReference);
     }
 
     //    //region > owner (hook, derived)
@@ -76,7 +76,7 @@ public class CommunicationChannelOwnerLinkForDemoObjectWithNotes extends Communi
         @EventHandler
         @Subscribe
         public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof DemoObjectWithNotes) {
+            if(ev.getPolymorphicReference() instanceof CommsCustomer) {
                 ev.setSubtype(CommunicationChannelOwnerLinkForDemoObjectWithNotes.class);
             }
         }

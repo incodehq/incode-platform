@@ -6,9 +6,9 @@ import org.junit.Before;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.incode.example.commchannel.demo.shared.dom.DemoObject;
-import org.incode.example.commchannel.demo.shared.dom.DemoObjectMenu;
-import org.incode.example.commchannel.demo.usage.fixture.DemoObject_withCommChannels_tearDown;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomer;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomerMenu;
+import org.incode.example.commchannel.demo.usage.fixture.CommChannelCustomer_withCommChannels_tearDown;
 import org.incode.example.commchannel.dom.impl.ownerlink.CommunicationChannelOwnerLinkRepository;
 import org.incode.example.commchannel.dom.impl.type.CommunicationChannelType;
 import org.incode.example.commchannel.integtests.CommChannelModuleIntegTestAbstract;
@@ -19,17 +19,17 @@ public class CommunicationChannelOwnerLinkRepository_IntegTest extends CommChann
     FixtureScripts fixtureScripts;
 
     @Inject
-    DemoObjectMenu commChannelDemoObjectMenu;
+    CommChannelCustomerMenu commChannelDemoObjectMenu;
 
-    DemoObject fredDemoOwner;
-    DemoObject billDemoOwner;
+    CommChannelCustomer fredDemoOwner;
+    CommChannelCustomer billDemoOwner;
 
     @Inject
     CommunicationChannelOwnerLinkRepository communicationChannelOwnerLinkRepository;
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
+        fixtureScripts.runFixtureScript(new CommChannelCustomer_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         billDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Bill");

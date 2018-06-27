@@ -12,10 +12,10 @@ import org.junit.Test;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
 import org.incode.example.note.integtests.NoteModuleIntegTestAbstract;
-import org.incode.examples.note.demo.usage.dom.spiimpl.CalendarNameRepositoryForDemo;
+import org.incode.examples.note.demo.usage.dom.spiimpl.CalendarNameRepositoryForNotableObject;
 import org.incode.examples.note.demo.usage.fixture.DemoModule_withNotes_tearDown;
-import org.incode.examples.note.demo.shared.demo.dom.DemoObject;
-import org.incode.examples.note.demo.shared.demo.dom.DemoObjectMenu;
+import org.incode.examples.note.demo.shared.demo.dom.NotableObject;
+import org.incode.examples.note.demo.shared.demo.dom.NotableObjectMenu;
 import org.incode.example.note.dom.impl.note.Note;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,12 +23,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Note_changeNotes_IntegTest extends NoteModuleIntegTestAbstract {
 
     @Inject
-    CalendarNameRepositoryForDemo calendarNameRepository;
+    CalendarNameRepositoryForNotableObject calendarNameRepository;
 
     @Inject
-    DemoObjectMenu noteDemoObjectMenu;
+    NotableObjectMenu noteDemoObjectMenu;
 
-    DemoObject notable;
+    NotableObject notable;
     Note note;
     Note noteWithoutDate;
     Note noteWithoutText;
@@ -38,7 +38,7 @@ public class Note_changeNotes_IntegTest extends NoteModuleIntegTestAbstract {
         fixtureScripts.runFixtureScript(new DemoModule_withNotes_tearDown(), null);
 
         notable = wrap(noteDemoObjectMenu).createDemoObject("Foo");
-        calendarNameRepository.setCalendarNames(DemoObject.class, "BLUE", "GREEN", "RED");
+        calendarNameRepository.setCalendarNames(NotableObject.class, "BLUE", "GREEN", "RED");
 
         wrap(mixinAddNote(notable)).$$("note A", fakeData.jodaLocalDates().any(), "GREEN");
         wrap(mixinAddNote(notable)).$$("note B", null, null);

@@ -18,6 +18,8 @@ import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
 import org.isisaddons.module.command.dom.CommandDomModule;
 import org.isisaddons.module.command.dom.CommandJdo;
 
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsCustomer;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsInvoice;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannel;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelOwnerLinkRepository;
 import org.incode.example.communications.dom.impl.commchannel.CommunicationChannelType;
@@ -32,14 +34,12 @@ import org.incode.example.communications.dom.mixins.Document_sendByPost;
 import org.incode.example.document.dom.impl.docs.DocumentAbstract;
 import org.incode.example.document.dom.impl.paperclips.Paperclip;
 import org.incode.example.document.dom.impl.paperclips.PaperclipRepository;
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoInvoice;
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoInvoiceRepository;
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.example.communications.demo.shared.demowithnotes.dom.DemoObjectWithNotesMenu;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsInvoiceRepository;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsCustomerMenu;
 import org.incode.example.communications.demo.usage.app.fakeemail.EmailMessage;
 import org.incode.example.communications.demo.usage.app.fakeemail.FakeEmailService;
 import org.incode.example.communications.demo.usage.fixture.DemoObjectWithNotes_and_DemoInvoice_and_docs_and_comms_create;
-import org.incode.example.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.example.communications.demo.usage.fixture.demoobjwithnote.CommsCustomer_and_CommsInvoice_create3;
 import org.incode.example.communications.integtests.CommunicationsModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -53,13 +53,13 @@ public class Smoke_IntegTest extends CommunicationsModuleIntegTestAbstract {
     TransactionService transactionService;
 
     @Inject
-    DemoObjectWithNotesMenu customerMenu;
+    CommsCustomerMenu customerMenu;
 
     @Inject
     CommunicationChannelOwnerLinkRepository linkRepository;
 
     @Inject
-    DemoInvoiceRepository invoiceRepository;
+    CommsInvoiceRepository invoiceRepository;
 
     @Inject
     PaperclipRepository paperclipRepository;
@@ -74,8 +74,8 @@ public class Smoke_IntegTest extends CommunicationsModuleIntegTestAbstract {
         transactionService.nextTransaction();
 
         // and so given customer with an email
-        final DemoObjectWithNotes fred = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
+        final CommsCustomer fred = customerMenu.findDemoObjectsWithNotesByName(
+                CommsCustomer_and_CommsInvoice_create3.FRED_HAS_EMAIL_AND_PHONE).get(0);
 
         final EmailAddress fredEmail = (EmailAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(fred, CommunicationChannelType.EMAIL_ADDRESS)
@@ -83,7 +83,7 @@ public class Smoke_IntegTest extends CommunicationsModuleIntegTestAbstract {
                 .getCommunicationChannel();
 
         // and with an invoice
-        final DemoInvoice fredInvoice = invoiceRepository.findByCustomer(fred).get(0);
+        final CommsInvoice fredInvoice = invoiceRepository.findByCustomer(fred).get(0);
 
         // that has an attached document
         final Paperclip paperclip = paperclipRepository.findByAttachedTo(fredInvoice).get(0);
@@ -144,8 +144,8 @@ public class Smoke_IntegTest extends CommunicationsModuleIntegTestAbstract {
         transactionService.nextTransaction();
 
         // and so given customer with an email
-        final DemoObjectWithNotes mary = customerMenu.findDemoObjectsWithNotesByName(
-                DemoObjectWithNote_and_DemoInvoice_create3.MARY_HAS_PHONE_AND_POST).get(0);
+        final CommsCustomer mary = customerMenu.findDemoObjectsWithNotesByName(
+                CommsCustomer_and_CommsInvoice_create3.MARY_HAS_PHONE_AND_POST).get(0);
 
         final PostalAddress maryPost = (PostalAddress) linkRepository
                 .findByOwnerAndCommunicationChannelType(mary, CommunicationChannelType.POSTAL_ADDRESS)
@@ -153,7 +153,7 @@ public class Smoke_IntegTest extends CommunicationsModuleIntegTestAbstract {
                 .getCommunicationChannel();
 
         // and with an invoice
-        final DemoInvoice fredInvoice = invoiceRepository.findByCustomer(mary).get(0);
+        final CommsInvoice fredInvoice = invoiceRepository.findByCustomer(mary).get(0);
 
         // that has an attached document
         final Paperclip paperclip = paperclipRepository.findByAttachedTo(fredInvoice).get(0);

@@ -4,20 +4,20 @@ import javax.inject.Inject;
 
 import org.junit.Before;
 
-import org.incode.example.commchannel.demo.shared.dom.DemoObject;
-import org.incode.example.commchannel.demo.shared.dom.DemoObjectMenu;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomer;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomerMenu;
 import org.incode.example.commchannel.integtests.CommChannelModuleIntegTestAbstract;
 
 public class CommChannelDemoObject_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
-    DemoObjectMenu commChannelDemoObjectMenu;
+    CommChannelCustomerMenu commChannelDemoObjectMenu;
 
-    DemoObject commChannelDemoObject;
+    CommChannelCustomer commChannelCommChannelCustomer;
 
     @Before
     public void setUpData() throws Exception {
-        commChannelDemoObject = wrap(commChannelDemoObjectMenu).createDemoObject("Foo");
+        commChannelCommChannelCustomer = wrap(commChannelDemoObjectMenu).createDemoObject("Foo");
     }
 
 

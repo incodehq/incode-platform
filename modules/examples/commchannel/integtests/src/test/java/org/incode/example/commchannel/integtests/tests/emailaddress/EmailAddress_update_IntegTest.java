@@ -13,9 +13,9 @@ import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
-import org.incode.example.commchannel.demo.shared.dom.DemoObject;
-import org.incode.example.commchannel.demo.shared.dom.DemoObjectMenu;
-import org.incode.example.commchannel.demo.usage.fixture.DemoObject_withCommChannels_tearDown;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomer;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomerMenu;
+import org.incode.example.commchannel.demo.usage.fixture.CommChannelCustomer_withCommChannels_tearDown;
 import org.incode.example.commchannel.dom.impl.channel.CommunicationChannel;
 import org.incode.example.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.example.commchannel.dom.impl.emailaddress.EmailAddress_update;
@@ -26,9 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbstract {
 
     @Inject
-    DemoObjectMenu commChannelDemoObjectMenu;
+    CommChannelCustomerMenu commChannelDemoObjectMenu;
 
-    DemoObject fredDemoOwner;
+    CommChannelCustomer fredDemoOwner;
     EmailAddress fredEmail;
 
     EmailAddress_update mixinUpdate(final EmailAddress emailAddress) {
@@ -37,7 +37,7 @@ public class EmailAddress_update_IntegTest extends CommChannelModuleIntegTestAbs
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new DemoObject_withCommChannels_tearDown(), null);
+        fixtureScripts.runFixtureScript(new CommChannelCustomer_withCommChannels_tearDown(), null);
 
         fredDemoOwner = wrap(commChannelDemoObjectMenu).createDemoObject("Fred");
         wrap(mixinNewEmailAddress(fredDemoOwner)).$$(

@@ -13,7 +13,7 @@ import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
 import org.incode.example.note.NoteModule;
 import org.incode.examples.note.demo.shared.NoteDemoSharedModule;
-import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForDemoObject;
+import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForNotableObject;
 
 @XmlRootElement(name = "module")
 public class NoteDemoUsageModule extends ModuleAbstract {
@@ -30,7 +30,7 @@ public class NoteDemoUsageModule extends ModuleAbstract {
     public FixtureScript getTeardownFixture() {
         return new TeardownFixtureAbstract2() {
             @Override protected void execute(final ExecutionContext executionContext) {
-                deleteFrom(NotableLinkForDemoObject.class);
+                deleteFrom(NotableLinkForNotableObject.class);
             }
         };
     }
