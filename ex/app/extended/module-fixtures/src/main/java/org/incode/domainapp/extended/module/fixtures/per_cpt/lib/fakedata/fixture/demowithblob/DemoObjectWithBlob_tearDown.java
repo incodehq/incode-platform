@@ -1,8 +1,8 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.demowithblob;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlob;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob.DemoObjectWithBlob;
 
 public class DemoObjectWithBlob_tearDown extends TeardownFixtureAbstract2 {
 

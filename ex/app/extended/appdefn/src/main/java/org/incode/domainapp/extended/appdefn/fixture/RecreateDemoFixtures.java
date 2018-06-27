@@ -6,7 +6,7 @@ import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 import org.apache.isis.applib.services.metamodel.MetaModelService5;
 import org.apache.isis.applib.services.queryresultscache.QueryResultsCache;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.DemoObjectWithAll_create3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.demowithall.DemoObjectWithAll_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.Case_FixedAsset_Party_createAll;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.fixture.ServletApiDemoObject_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.fixture.sub.SomeAuditedObject_create3;
@@ -15,7 +15,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.command.fixture
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.fixture.PublishMqDemoObject_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppSetUp;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObject_createUpTo10_hardcodedData;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.fixture.DemoObjectWithBlob_createUpTo5_fakeData;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.demowithblob.DemoObjectWithBlob_createUpTo5_fakeData;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
 import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
 import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;

@@ -9,7 +9,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlob;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob.DemoObjectWithBlob;
 
 @DomainService(
         objectType = "org.incode.domainapp.example.dom.app.HomePageService",

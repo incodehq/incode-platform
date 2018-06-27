@@ -1,17 +1,21 @@
-package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.data;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.demowithall.data;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAll;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAllMenu;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@lombok.experimental.Accessors(chain = true)
 public class DemoObjectWithAll_create_withFakeData extends FixtureScript {
+
+    @Getter(onMethod = @__( @Programmatic )) @Setter
+    private Boolean withFakeData;
 
     @Getter(onMethod = @__( @Programmatic )) @Setter
     private String name;
@@ -47,16 +51,18 @@ public class DemoObjectWithAll_create_withFakeData extends FixtureScript {
     protected void execute(final ExecutionContext executionContext) {
 
         // defaults
+        this.defaultParam("withFakeData", executionContext, true);
+
         this.defaultParam("name", executionContext, fakeDataService.name().firstName());
 
-        this.defaultParam("someBoolean", executionContext, fakeDataService.booleans().any());
-        this.defaultParam("someChar", executionContext, fakeDataService.chars().any());
-        this.defaultParam("someByte", executionContext, fakeDataService.bytes().any());
-        this.defaultParam("someShort", executionContext, fakeDataService.shorts().any());
-        this.defaultParam("someInt", executionContext, fakeDataService.ints().any());
-        this.defaultParam("someLong", executionContext, fakeDataService.longs().any());
-        this.defaultParam("someFloat", executionContext, fakeDataService.floats().any());
-        this.defaultParam("someDouble", executionContext, fakeDataService.doubles().any());
+        this.defaultParam("someBoolean", executionContext, withFakeData ? fakeDataService.booleans().any() : false);
+        this.defaultParam("someChar", executionContext, withFakeData ? fakeDataService.chars().any() : (char)0);
+        this.defaultParam("someByte", executionContext,   withFakeData ? fakeDataService.bytes().any(): (byte)0);
+        this.defaultParam("someShort", executionContext,  withFakeData ? fakeDataService.shorts().any(): (short)0);
+        this.defaultParam("someInt", executionContext,    withFakeData ? fakeDataService.ints().any(): 0);
+        this.defaultParam("someLong", executionContext,   withFakeData ? fakeDataService.longs().any(): 0L);
+        this.defaultParam("someFloat", executionContext,  withFakeData ? fakeDataService.floats().any(): 0.0f);
+        this.defaultParam("someDouble", executionContext, withFakeData ? fakeDataService.doubles().any(): 0.0);
 
         // create
         this.fakeDataDemoObject =

@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.data;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.demowithall.data;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -19,8 +19,8 @@ import org.apache.isis.applib.value.Password;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.EnumOf3;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAll;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.EnumOf3;
 
 import lombok.Getter;
 import lombok.Setter;

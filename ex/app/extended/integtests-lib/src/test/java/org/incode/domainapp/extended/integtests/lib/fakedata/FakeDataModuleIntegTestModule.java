@@ -15,13 +15,12 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.Fixtur
 
 @XmlRootElement(name = "module")
 public class FakeDataModuleIntegTestModule extends ModuleAbstract {
+
     @Override
     public Set<Module> getDependencies() {
-        final Set<Module> dependencies = super.getDependencies();
-        dependencies.addAll(Sets.newHashSet(
+        return Sets.newHashSet(
                 new FakeDataModule(),
                 new FixturesModuleLibFakeDataSubmodule()
-        ));
-        return dependencies;
+        );
     }
 }

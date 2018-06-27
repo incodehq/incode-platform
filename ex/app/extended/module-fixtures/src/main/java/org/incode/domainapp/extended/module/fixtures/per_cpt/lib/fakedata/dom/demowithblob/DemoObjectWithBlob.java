@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob;
 
 import java.net.MalformedURLException;
 import java.net.URL;

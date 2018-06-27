@@ -1257,11 +1257,113 @@
                 <version>${xdocreport.version}</version>
             </dependency>
 
-
         </dependencies>
     </dependencyManagement>
 
     <profiles>
+
+        <profile>
+            <id>default-modules</id>
+            <activation>
+                <property>
+                    <name>!release-modules</name>
+                </property>
+            </activation>
+            <modules>
+                <module>ext/flywaydb</module>
+                <module>ext/quartz</module>
+                <module>ext/togglz</module>
+
+                <module>lib/base</module>
+                <module>lib/docx</module>
+                <module>lib/excel</module>
+                <module>lib/fakedata</module>
+                <module>lib/fixturesupport</module>
+                <module>lib/freemarker</module>
+                <module>lib/integtestsupport</module>
+                <module>lib/jaxrsclient</module>
+                <module>lib/pdfbox</module>
+                <module>lib/poly</module>
+                <module>lib/servletapi</module>
+                <module>lib/slack</module>
+                <module>lib/stringinterpolator</module>
+                <module>lib/unittestsupport</module>
+                <module>lib/xdocreport</module>
+                <module>lib/zip</module>
+
+                <module>mml/paraname8</module>
+
+                <module>spi/audit</module>
+                <module>spi/command</module>
+                <module>spi/commandreplay</module>
+                <module>spi/errorrptjira</module>
+                <module>spi/errorrptslack</module>
+                <module>spi/publishmq</module>
+                <module>spi/security</module>
+                <module>spi/sessionlogger</module>
+                <module>spi/userimpersonate</module>
+
+                <module>wkt/excel</module>
+                <module>wkt/fullcalendar2</module>
+                <module>wkt/gmap3</module>
+                <module>wkt/pdfjs</module>
+                <module>wkt/summernote</module>
+                <module>wkt/wickedcharts</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>release-modules</id>
+            <activation>
+                <property>
+                    <name>release-modules</name>
+                </property>
+            </activation>
+            <!-- almost same as default-modules, but adds in examples -->
+            <modules>
+                <module>examples</module>
+
+                <module>ext/flywaydb</module>
+                <module>ext/quartz</module>
+                <module>ext/togglz</module>
+
+                <module>lib/base</module>
+                <module>lib/docx</module>
+                <module>lib/excel</module>
+                <module>lib/fakedata</module>
+                <module>lib/fixturesupport</module>
+                <module>lib/freemarker</module>
+                <module>lib/integtestsupport</module>
+                <module>lib/jaxrsclient</module>
+                <module>lib/pdfbox</module>
+                <module>lib/poly</module>
+                <module>lib/servletapi</module>
+                <module>lib/slack</module>
+                <module>lib/stringinterpolator</module>
+                <module>lib/unittestsupport</module>
+                <module>lib/xdocreport</module>
+                <module>lib/zip</module>
+
+                <module>mml/paraname8</module>
+
+                <module>spi/audit</module>
+                <module>spi/command</module>
+                <module>spi/commandreplay</module>
+                <module>spi/errorrptjira</module>
+                <module>spi/errorrptslack</module>
+                <module>spi/publishmq</module>
+                <module>spi/security</module>
+                <module>spi/sessionlogger</module>
+                <module>spi/userimpersonate</module>
+
+                <module>wkt/excel</module>
+                <module>wkt/fullcalendar2</module>
+                <module>wkt/gmap3</module>
+                <module>wkt/pdfjs</module>
+                <module>wkt/summernote</module>
+                <module>wkt/wickedcharts</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>release</id>
@@ -1375,50 +1477,5 @@
             </repositories>
         </profile>
     </profiles>
-
-    <modules>
-
-        <module>examples</module>
-
-        <module>ext/flywaydb</module>
-        <module>ext/quartz</module>
-        <module>ext/togglz</module>
-
-        <module>lib/base</module>
-        <module>lib/docx</module>
-        <module>lib/excel</module>
-        <module>lib/fakedata</module>
-        <module>lib/fixturesupport</module>
-        <module>lib/freemarker</module>
-        <module>lib/integtestsupport</module>
-        <module>lib/jaxrsclient</module>
-        <module>lib/pdfbox</module>
-        <module>lib/poly</module>
-        <module>lib/servletapi</module>
-        <module>lib/slack</module>
-        <module>lib/stringinterpolator</module>
-        <module>lib/unittestsupport</module>
-        <module>lib/xdocreport</module>
-        <module>lib/zip</module>
-
-        <module>mml/paraname8</module>
-
-        <module>spi/audit</module>
-        <module>spi/command</module>
-        <module>spi/commandreplay</module>
-        <module>spi/errorrptjira</module>
-        <module>spi/errorrptslack</module>
-        <module>spi/publishmq</module>
-        <module>spi/security</module>
-        <module>spi/sessionlogger</module>
-        <module>spi/userimpersonate</module>
-
-        <module>wkt/excel</module>
-        <module>wkt/fullcalendar2</module>
-        <module>wkt/gmap3</module>
-        <module>wkt/pdfjs</module>
-        <module>wkt/summernote</module>
-        <module>wkt/wickedcharts</module>
-    </modules>
 
 </project>

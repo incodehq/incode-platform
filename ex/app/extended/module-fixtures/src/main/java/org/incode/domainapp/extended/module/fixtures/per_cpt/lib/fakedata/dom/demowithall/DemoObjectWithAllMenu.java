@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall;
 
 import java.util.List;
 

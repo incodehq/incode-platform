@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom;
+package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob;
 
 import java.util.List;
 
@@ -15,13 +15,13 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDemo.SomeClassifiedObjectMenu"
+        objectType = "exampleWktPdfjs.DemoObjectMenu"
 )
 @DomainServiceLayout(
         named = "Demo",
-        menuOrder = "10.3"
+        menuOrder = "10.4"
 )
-public class DemoObjectWithAtPathMenu {
+public class DemoObjectWithBlobMenu {
 
 
     //region > listAll (action)
@@ -33,32 +33,27 @@ public class DemoObjectWithAtPathMenu {
             bookmarking = BookmarkPolicy.AS_ROOT
     )
     @MemberOrder(sequence = "1")
-    public List<DemoObjectWithAtPath> listAllDemoObjectsWithAtPath() {
-        return repositoryService.allInstances(DemoObjectWithAtPath.class);
+    public List<DemoObjectWithBlob> listAllDemoObjectsWithBlob() {
+        return repositoryService.allInstances(DemoObjectWithBlob.class);
     }
 
     //endregion
 
-    //region > createTopLevel (action)
-    
+    //region > create (action)
+
     @MemberOrder(sequence = "2")
-    public DemoObjectWithAtPath createDemoObjectWithAtPath(
+    public DemoObjectWithBlob createDemoObjectWithBlob(
             @ParameterLayout(named = "Name")
-            final String name,
-            @ParameterLayout(named = "Application tenancy")
-            final String atPath) {
-        final DemoObjectWithAtPath obj = new DemoObjectWithAtPath(name, atPath);
+            final String name) {
+        final DemoObjectWithBlob obj = repositoryService.instantiate(DemoObjectWithBlob.class);
+        obj.setName(name);
         repositoryService.persist(obj);
         return obj;
     }
 
     //endregion
 
-    //region > injected services
-
     @javax.inject.Inject
     RepositoryService repositoryService;
-
-    //endregion
 
 }

@@ -39,6 +39,10 @@ import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.sessionlogger.dom.SessionLogEntry;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAll;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAllMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob.DemoObjectWithBlob;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob.DemoObjectWithBlobMenu;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Cases;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
@@ -60,16 +64,8 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.de
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntities;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntity;
-import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomer;
-import org.incode.domainapp.extended.module.fixtures.shared.customer.dom.DemoCustomerRepository;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAll;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithall.dom.DemoObjectWithAllMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPath;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithatpath.dom.DemoObjectWithAtPathMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlob;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithblob.dom.DemoObjectWithBlobMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoiceRepository;
 import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
@@ -146,9 +142,9 @@ public class HomePageViewModel {
         return demoObjectWithAllMenu.listAllDemoObjectsWithAll();
     }
 
-    public List<DemoObjectWithAtPath> getDemoObjectsWithAtPath() {
-        return demoObjectWithAtPathMenu.listAllDemoObjectsWithAtPath();
-    }
+//    public List<DemoObjectWithAtPath> getDemoObjectsWithAtPath() {
+//        return demoObjectWithAtPathMenu.listAllDemoObjectsWithAtPath();
+//    }
 
     public List<DemoObjectWithBlob> getDemoObjectsWithBlob() {
         return demoObjectWithBlobMenu.listAllDemoObjectsWithBlob();
@@ -172,8 +168,8 @@ public class HomePageViewModel {
     @javax.inject.Inject
     DemoObjectWithAllMenu demoObjectWithAllMenu;
 
-    @javax.inject.Inject
-    DemoObjectWithAtPathMenu demoObjectWithAtPathMenu;
+//    @javax.inject.Inject
+//    DemoObjectWithAtPathMenu demoObjectWithAtPathMenu;
 
     @javax.inject.Inject
     DemoObjectWithBlobMenu demoObjectWithBlobMenu;
@@ -205,9 +201,9 @@ public class HomePageViewModel {
 
     // more demo
 
-    public List<DemoCustomer> getDemoCustomers() {
-        return demoCustomerRepository.listAll();
-    }
+//    public List<DemoCustomer> getDemoCustomers() {
+//        return demoCustomerRepository.listAll();
+//    }
 
     public List<DemoInvoice> getDemoInvoices() {
         return demoInvoiceRepository.listAll();
@@ -229,8 +225,8 @@ public class HomePageViewModel {
         return demoToDoItemMenu.allInstances();
     }
 
-    @javax.inject.Inject
-    DemoCustomerRepository demoCustomerRepository;
+//    @javax.inject.Inject
+//    DemoCustomerRepository demoCustomerRepository;
 
     @javax.inject.Inject
     DemoInvoiceRepository demoInvoiceRepository;
