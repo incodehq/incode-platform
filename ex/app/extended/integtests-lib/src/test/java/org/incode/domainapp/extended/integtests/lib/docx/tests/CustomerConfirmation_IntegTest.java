@@ -12,10 +12,10 @@ import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
 import org.incode.domainapp.extended.integtests.lib.docx.DocxModuleIntegTestAbstract;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.CustomerConfirmation;
-import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrder;
-import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrderMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.custconf.CustomerConfirmation;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.order.DemoOrder;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.order.DemoOrderMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.fixture.order.DemoOrderAndOrderLine_create4_hardcodedData;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;

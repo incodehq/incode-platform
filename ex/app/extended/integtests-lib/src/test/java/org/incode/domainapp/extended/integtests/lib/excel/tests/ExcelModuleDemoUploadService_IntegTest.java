@@ -17,9 +17,9 @@ import org.isisaddons.module.excel.dom.util.ExcelFileBlobConverter;
 
 import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAbstract;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.upload.ExcelUploadServiceForDemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_tearDown;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItemMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.fixture.DemoToDoItem_tearDown;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

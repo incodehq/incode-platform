@@ -10,8 +10,8 @@ import org.isisaddons.module.excel.dom.PivotColumn;
 import org.isisaddons.module.excel.dom.PivotRow;
 import org.isisaddons.module.excel.dom.PivotValue;
 
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Category;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Subcategory;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.Category;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.Subcategory;
 
 import lombok.Getter;
 import lombok.Setter;

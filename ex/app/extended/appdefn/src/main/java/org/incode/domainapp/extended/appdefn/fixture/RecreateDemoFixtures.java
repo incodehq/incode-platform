@@ -16,11 +16,9 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.fixtu
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.fixture.SecurityModuleAppSetUp;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObject_createUpTo10_hardcodedData;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.fixture.demowithblob.DemoObjectWithBlob_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.fixture.DemoObjectWithUrl_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.order.fixture.DemoOrderAndOrderLine_create4_hardcodedData;
-import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherObject_createUpTo5_fakeData;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_create4;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_create_usingExcelFixture;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.fixture.order.DemoOrderAndOrderLine_create4_hardcodedData;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.fixture.DemoReminder_create4;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.fixture.DemoToDoItem_create_usingExcelFixture;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
 import org.incode.example.communications.demo.usage.fixture.demoobjwithnote.CommsCustomer_and_CommsInvoice_create3;
 import org.incode.example.communications.demo.usage.fixture.doctypes.DocumentType_and_DocumentTemplates_createSome;
@@ -61,9 +59,6 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
         ec.executeChild(this, new DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3());
         ec.executeChild(this, new DemoObjectWithBlob_createUpTo5_fakeData());
         ec.executeChild(this, new CommsCustomer_and_CommsInvoice_create3());
-        ec.executeChild(this, new DemoObjectWithUrl_createUpTo5_fakeData());
-
-        ec.executeChild(this, new OtherObject_createUpTo5_fakeData());
 
         ec.executeChild(this, new DocFragCustomer_and_DocFragInvoice_and_fragments_create());
         ec.executeChild(this, new DemoReminder_create4());

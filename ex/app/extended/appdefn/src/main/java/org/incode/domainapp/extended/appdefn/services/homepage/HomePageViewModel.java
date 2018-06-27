@@ -39,6 +39,10 @@ import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.sessionlogger.dom.SessionLogEntry;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.order.DemoOrder;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.order.DemoOrderMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItemMenu;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAll;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAllMenu;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob.DemoObjectWithBlob;
@@ -52,6 +56,8 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofi
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Parties;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.servletapi.dom.demo.ServletApiDemoObject;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.dom.DemoReminder;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.dom.DemoReminderMenu;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObject;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.audited.SomeAuditedObjects;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.audit.dom.demo.notaudited.SomeNotAuditedObject;
@@ -66,24 +72,6 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.de
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntity;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoice;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoInvoiceRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotes;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithnotes.dom.DemoObjectWithNotesRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrl;
-import org.incode.domainapp.extended.module.fixtures.shared.demowithurl.dom.DemoObjectWithUrlMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.dom.DemoInvoiceWithAtPath;
-import org.incode.domainapp.extended.module.fixtures.shared.invoicewithatpath.dom.DemoInvoiceWithAtPathRepository;
-import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrder;
-import org.incode.domainapp.extended.module.fixtures.shared.order.dom.DemoOrderMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObject;
-import org.incode.domainapp.extended.module.fixtures.shared.other.dom.OtherObjectMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPath;
-import org.incode.domainapp.extended.module.fixtures.shared.otherwithatpath.dom.OtherObjectWithAtPathMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminder;
-import org.incode.domainapp.extended.module.fixtures.shared.reminder.dom.DemoReminderMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
 import org.incode.example.alias.dom.impl.Alias;
 import org.incode.example.alias.dom.impl.AliasRepository;
 import org.incode.example.alias.dom.spi.AliasTypeRepository;
@@ -150,16 +138,16 @@ public class HomePageViewModel {
         return demoObjectWithBlobMenu.listAllDemoObjectsWithBlob();
     }
 
-    public List<DemoObjectWithNotes> getDemoObjectWithNotes() {
-        return demoObjectWithNotesRepository.listAll();
-    }
+//    public List<DemoObjectWithNotes> getDemoObjectWithNotes() {
+//        return demoObjectWithNotesRepository.listAll();
+//    }
 
-    public List<DemoObjectWithUrl> getDemoObjectsWithUrl() {
-        return demoObjectWithUrlMenu.listAllDemoObjectsWithUrl();
-    }
+//    public List<DemoObjectWithUrl> getDemoObjectsWithUrl() {
+//        return demoObjectWithUrlMenu.listAllDemoObjectsWithUrl();
+//    }
 
-    @javax.inject.Inject
-    DemoObjectWithUrlMenu demoObjectWithUrlMenu;
+//    @javax.inject.Inject
+//    DemoObjectWithUrlMenu demoObjectWithUrlMenu;
 
 
     @javax.inject.Inject
@@ -174,27 +162,27 @@ public class HomePageViewModel {
     @javax.inject.Inject
     DemoObjectWithBlobMenu demoObjectWithBlobMenu;
 
-    @javax.inject.Inject
-    DemoObjectWithNotesRepository demoObjectWithNotesRepository;
+//    @javax.inject.Inject
+//    DemoObjectWithNotesRepository demoObjectWithNotesRepository;
 
 
 
     // demo (other)
 
-    public List<OtherObject> getOtherObjects() {
-        return otherObjectMenu.listAllOtherObjects();
-    }
+//    public List<OtherObject> getOtherObjects() {
+//        return otherObjectMenu.listAllOtherObjects();
+//    }
 
 
-    public List<OtherObjectWithAtPath> getOtherObjectsWithAtPath() {
-        return otherObjectWithAtPathMenu.listAllOtherObjectsWithAtPath();
-    }
+//    public List<OtherObjectWithAtPath> getOtherObjectsWithAtPath() {
+//        return otherObjectWithAtPathMenu.listAllOtherObjectsWithAtPath();
+//    }
 
-    @javax.inject.Inject
-    OtherObjectMenu otherObjectMenu;
+//    @javax.inject.Inject
+//    OtherObjectMenu otherObjectMenu;
 
-    @javax.inject.Inject
-    OtherObjectWithAtPathMenu otherObjectWithAtPathMenu;
+//    @javax.inject.Inject
+//    OtherObjectWithAtPathMenu otherObjectWithAtPathMenu;
 
 
 
@@ -205,13 +193,13 @@ public class HomePageViewModel {
 //        return demoCustomerRepository.listAll();
 //    }
 
-    public List<DemoInvoice> getDemoInvoices() {
-        return demoInvoiceRepository.listAll();
-    }
+//    public List<DemoInvoice> getDemoInvoices() {
+//        return demoInvoiceRepository.listAll();
+//    }
 
-    public List<DemoInvoiceWithAtPath> getDemoInvoicesWithAtPath() {
-        return demoInvoiceWithAtPathRepository.listAll();
-    }
+//    public List<DemoInvoiceWithAtPath> getDemoInvoicesWithAtPath() {
+//        return demoInvoiceWithAtPathRepository.listAll();
+//    }
 
     public List<DemoOrder> getDemoOrders() {
         return demoOrderMenu.listAllDemoOrders();
@@ -228,11 +216,11 @@ public class HomePageViewModel {
 //    @javax.inject.Inject
 //    DemoCustomerRepository demoCustomerRepository;
 
-    @javax.inject.Inject
-    DemoInvoiceRepository demoInvoiceRepository;
+//    @javax.inject.Inject
+//    DemoInvoiceRepository demoInvoiceRepository;
 
-    @javax.inject.Inject
-    DemoInvoiceWithAtPathRepository demoInvoiceWithAtPathRepository;
+//    @javax.inject.Inject
+//    DemoInvoiceWithAtPathRepository demoInvoiceWithAtPathRepository;
 
     @javax.inject.Inject
     DemoOrderMenu demoOrderMenu;

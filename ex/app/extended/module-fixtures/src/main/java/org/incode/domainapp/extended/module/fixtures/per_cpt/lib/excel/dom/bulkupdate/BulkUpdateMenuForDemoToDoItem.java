@@ -20,9 +20,9 @@ import org.apache.isis.applib.services.memento.MementoService.Memento;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Category;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Subcategory;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.Category;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.Subcategory;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,

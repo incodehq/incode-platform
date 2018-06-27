@@ -12,8 +12,8 @@ import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItemMenu;
 
 @Mixin(method = "act")
 public class DemoToDoItem_export {

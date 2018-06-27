@@ -24,8 +24,8 @@ import org.incode.domainapp.extended.integtests.lib.excel.ExcelModuleIntegTestAb
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_recreate_usingExcelFixture;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItemMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.fixture.DemoToDoItem_recreate_usingExcelFixture;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
