@@ -22,13 +22,13 @@ import org.incode.domainapp.extended.module.fixtures.shared.other.fixture.OtherO
 import org.incode.domainapp.extended.module.fixtures.shared.reminder.fixture.DemoReminder_create4;
 import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_create_usingExcelFixture;
 import org.incode.example.classification.demo.usage.fixture.DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3;
-import org.incode.example.communications.demo.usage.fixture.demoobjwithnote.DemoObjectWithNote_and_DemoInvoice_create3;
+import org.incode.example.communications.demo.usage.fixture.demoobjwithnote.CommsCustomer_and_CommsInvoice_create3;
 import org.incode.example.communications.demo.usage.fixture.doctypes.DocumentType_and_DocumentTemplates_createSome;
 import org.incode.example.country.fixture.CountriesRefData;
 import org.incode.example.country.fixture.StatesRefData;
-import org.incode.example.docfragment.demo.usage.fixture.DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create;
+import org.incode.example.docfragment.demo.usage.fixture.DocFragCustomer_and_DocFragInvoice_and_fragments_create;
 import org.incode.example.document.demo.usage.fixture.seed.RenderingStrategy_create6;
-import org.incode.example.tags.demo.usage.fixture.DemoTaggableObject_withTags_create3;
+import org.incode.example.tags.demo.usage.fixture.TaggableObject_withTags_create3;
 
 public class RecreateDemoFixtures extends DiscoverableFixtureScript {
 
@@ -51,7 +51,7 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
         ec.executeChild(this, new SomeCommandAnnotatedObject_create3());
         ec.executeChild(this, new PublishMqDemoObject_create3());
 
-        ec.executeChild(this, new DemoTaggableObject_withTags_create3());
+        ec.executeChild(this, new TaggableObject_withTags_create3());
         ec.executeChild(this, new DemoOrderAndOrderLine_create4_hardcodedData());
         ec.executeChild(this, new Case_FixedAsset_Party_createAll());
         ec.executeChild(this, new ServletApiDemoObject_create3());
@@ -60,12 +60,12 @@ public class RecreateDemoFixtures extends DiscoverableFixtureScript {
         ec.executeChild(this, new DemoObjectWithAll_create3());
         ec.executeChild(this, new DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3());
         ec.executeChild(this, new DemoObjectWithBlob_createUpTo5_fakeData());
-        ec.executeChild(this, new DemoObjectWithNote_and_DemoInvoice_create3());
+        ec.executeChild(this, new CommsCustomer_and_CommsInvoice_create3());
         ec.executeChild(this, new DemoObjectWithUrl_createUpTo5_fakeData());
 
         ec.executeChild(this, new OtherObject_createUpTo5_fakeData());
 
-        ec.executeChild(this, new DemoCustomer_and_DemoInvoiceWithAtPath_and_fragments_create());
+        ec.executeChild(this, new DocFragCustomer_and_DocFragInvoice_and_fragments_create());
         ec.executeChild(this, new DemoReminder_create4());
         ec.executeChild(this, new DemoToDoItem_create_usingExcelFixture("sven"));
 

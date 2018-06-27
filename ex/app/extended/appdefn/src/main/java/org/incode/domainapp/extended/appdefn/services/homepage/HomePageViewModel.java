@@ -119,8 +119,8 @@ import org.incode.example.settings.dom.ApplicationSetting;
 import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
 import org.incode.example.settings.dom.UserSetting;
 import org.incode.example.settings.dom.UserSettingsServiceRW;
-import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObject;
-import org.incode.example.tags.demo.usage.dom.demo.DemoTaggableObjectMenu;
+import org.incode.example.tags.demo.usage.dom.demo.TaggableObject;
+import org.incode.example.tags.demo.usage.dom.demo.TaggableObjectMenu;
 import org.incode.example.tags.dom.impl.Tag;
 
 import lombok.Getter;
@@ -414,7 +414,7 @@ public class HomePageViewModel {
 
     // tags
 
-    public List<DemoTaggableObject> getDemoTaggableObjects() {
+    public List<TaggableObject> getDemoTaggableObjects() {
         return taggableObjectMenu.listAllTaggableObjects();
     }
 
@@ -423,7 +423,7 @@ public class HomePageViewModel {
     }
 
     @Inject
-    DemoTaggableObjectMenu taggableObjectMenu;
+    TaggableObjectMenu taggableObjectMenu;
 
     @Inject RepositoryService repositoryService;
 
