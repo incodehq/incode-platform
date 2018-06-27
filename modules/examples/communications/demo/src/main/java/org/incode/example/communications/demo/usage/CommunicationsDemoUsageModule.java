@@ -14,9 +14,9 @@ import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 
-import org.incode.example.communications.demo.shared.demowithnotes.CommunicationsDemoSharedDemoWithNotesSubmodule;
+import org.incode.example.communications.demo.shared.demowithnotes.CommunicationsDemoSharedCustomerSubmodule;
 import org.incode.example.communications.CommunicationsModule;
-import org.incode.example.communications.demo.usage.dom.commchannels.CommunicationChannelOwnerLinkForDemoObjectWithNotes;
+import org.incode.example.communications.demo.usage.dom.commchannels.CommunicationChannelOwnerLinkForCustomer;
 import org.incode.example.communications.demo.usage.dom.paperclips.PaperclipForDemoInvoice;
 
 @XmlRootElement(name = "module")
@@ -26,7 +26,7 @@ public class CommunicationsDemoUsageModule extends ModuleAbstract {
     public Set<Module> getDependencies() {
         return Sets.newHashSet(
                 new CommunicationsModule(),
-                new CommunicationsDemoSharedDemoWithNotesSubmodule(),
+                new CommunicationsDemoSharedCustomerSubmodule(),
                 new PdfBoxModule(),
                 new FreeMarkerModule()
             );
@@ -38,7 +38,7 @@ public class CommunicationsDemoUsageModule extends ModuleAbstract {
             @Override
             protected void execute(final FixtureScript.ExecutionContext executionContext) {
                 deleteFrom(PaperclipForDemoInvoice.class);
-                deleteFrom(CommunicationChannelOwnerLinkForDemoObjectWithNotes.class);
+                deleteFrom(CommunicationChannelOwnerLinkForCustomer.class);
             }
         };
     }

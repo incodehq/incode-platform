@@ -42,7 +42,7 @@ public class CategoryRepository_findByClassified_IntegTest extends Classificatio
     @Test
     public void happy_case() {
         // given
-        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath().stream()
+        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllOfSomeClassifiedObjects().stream()
                 .filter(d -> d.getName().equals("Demo foo (in Italy)"))
                 .findFirst().get();
         assertThat(demoFooInItaly).isNotNull();

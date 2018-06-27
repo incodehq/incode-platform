@@ -52,7 +52,7 @@ public class T_unclassify_IntegTest extends ClassificationModuleIntegTestAbstrac
     @Test
     public void enabled_when_classifications_exist() {
         // given
-        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath()
+        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllOfSomeClassifiedObjects()
                 .stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo foo (in Italy)"))
                 .findFirst()

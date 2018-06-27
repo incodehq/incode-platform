@@ -99,7 +99,7 @@ public class DemoObjectWithAtPath_and_OtherObjectWithAtPath_create3
             final String name,
             final String atPath,
             final ExecutionContext executionContext) {
-        final SomeClassifiedObject demoObject = wrap(demoObjectMenu).createDemoObjectWithAtPath(name, atPath);
+        final SomeClassifiedObject demoObject = wrap(demoObjectMenu).createSomeClassifiedObject(name, atPath);
         demoObjects.add(demoObject);
         return executionContext.addResult(this, demoObject);
     }

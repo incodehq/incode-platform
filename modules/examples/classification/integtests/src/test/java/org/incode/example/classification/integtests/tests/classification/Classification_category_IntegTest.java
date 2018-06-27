@@ -42,7 +42,7 @@ public class Classification_category_IntegTest extends ClassificationModuleInteg
     @Ignore
     public void happy_case() {
         // given
-        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllDemoObjectsWithAtPath().stream()
+        SomeClassifiedObject demoFooInItaly = demoObjectMenu.listAllOfSomeClassifiedObjects().stream()
                 .filter(demoObject -> demoObject.getName().equals("Demo foo (in Italy)"))
                 .findFirst()
                 .get();

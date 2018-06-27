@@ -9,7 +9,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.factory.FactoryService;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob.DemoObjectWithBlob;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.wkt.pdfjs.dom.DemoObjectWithBlob;
 
 @DomainService(
         objectType = "org.incode.domainapp.example.dom.app.HomePageService",
@@ -22,7 +22,7 @@ public class HomePageService {
     public HomePageViewModel homePage() {
         HomePageViewModel viewModel = factoryService.instantiate(HomePageViewModel.class);
 
-        final List<DemoObjectWithBlob> demoObjects = viewModel.getDemoObjectsWithBlob();
+        final List<DemoObjectWithBlob> demoObjects = viewModel.getWktPdfjsDemoObjectsWithBlob();
         if (!demoObjects.isEmpty()) {
             viewModel.setIdx(0);
         }

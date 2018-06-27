@@ -5,21 +5,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.google.common.eventbus.Subscribe;
-
-import org.axonframework.eventhandling.annotation.EventHandler;
 import org.wicketstuff.pdfjs.Scale;
 
-import org.apache.isis.applib.AbstractSubscriber;
 import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Nature;
-import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.apache.isis.applib.services.scratchpad.Scratchpad;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
@@ -41,12 +34,11 @@ import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.order.DemoOrder;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.docx.dom.order.DemoOrderMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItemMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAll;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithall.DemoObjectWithAllMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob.DemoObjectWithBlob;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.demowithblob.DemoObjectWithBlobMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.pivot.ExcelPivotByCategoryAndSubcategoryMenu;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.upload.ExcelUploadServiceForDemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.DemoObjectWithAll;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.fakedata.dom.DemoObjectWithAllMenu;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Cases;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democommchannel.CommunicationChannel;
@@ -70,25 +62,45 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.de
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted.NonTenantedEntity;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntities;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted.TenantedEntity;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.wkt.pdfjs.dom.DemoObjectWithBlob;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.wkt.pdfjs.dom.DemoObjectWithBlobMenu;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
 import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObjectRepository;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.example.alias.demo.shared.dom.AliasedObject;
+import org.incode.example.alias.demo.shared.dom.AliasedObjectRepository;
+import org.incode.example.alias.demo.usage.dom.AliasForAliasedObject;
 import org.incode.example.alias.dom.impl.Alias;
-import org.incode.example.alias.dom.impl.AliasRepository;
-import org.incode.example.alias.dom.spi.AliasTypeRepository;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObject;
+import org.incode.example.classification.demo.shared.demowithatpath.dom.SomeClassifiedObjectMenu;
 import org.incode.example.classification.demo.usage.dom.menu.TaxonomyMenu;
 import org.incode.example.classification.dom.impl.applicability.Applicability;
 import org.incode.example.classification.dom.impl.category.Category;
 import org.incode.example.classification.dom.impl.classification.Classification;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomer;
+import org.incode.example.commchannel.demo.shared.dom.CommChannelCustomerRepository;
 import org.incode.example.commchannel.dom.impl.emailaddress.EmailAddress;
 import org.incode.example.commchannel.dom.impl.phoneorfax.PhoneOrFaxNumber;
 import org.incode.example.commchannel.dom.impl.postaladdress.PostalAddress;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsCustomer;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsCustomerRepository;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsInvoice;
+import org.incode.example.communications.demo.shared.demowithnotes.dom.CommsInvoiceRepository;
+import org.incode.example.communications.demo.usage.dom.commchannels.CommunicationChannelOwnerLinkForCustomer;
+import org.incode.example.communications.demo.usage.dom.paperclips.PaperclipForDemoInvoice;
 import org.incode.example.communications.dom.impl.comms.CommChannelRole;
 import org.incode.example.communications.dom.impl.comms.Communication;
 import org.incode.example.communications.dom.impl.paperclips.PaperclipForCommunication;
 import org.incode.example.country.dom.impl.Country;
 import org.incode.example.country.dom.impl.State;
+import org.incode.example.docfragment.demo.shared.customer.dom.DocFragCustomer;
 import org.incode.example.docfragment.dom.impl.DocFragment;
 import org.incode.example.docfragment.dom.impl.DocFragmentRepository;
+import org.incode.example.document.demo.shared.demowithnotes.dom.DocDemoObjectWithNotes;
+import org.incode.example.document.demo.shared.demowithnotes.dom.DocInvoice;
+import org.incode.example.document.demo.shared.demowithurl.dom.DocDemoObjectWithUrl;
+import org.incode.example.document.demo.shared.other.dom.DocOtherObject;
 import org.incode.example.document.demo.usage.dom.menu.DocumentTypeMenu;
 import org.incode.example.document.dom.impl.docs.DocumentAbstract;
 import org.incode.example.document.dom.impl.docs.DocumentRepository;
@@ -106,6 +118,9 @@ import org.incode.example.settings.dom.UserSettingsServiceRW;
 import org.incode.example.tags.demo.usage.dom.demo.TaggableObject;
 import org.incode.example.tags.demo.usage.dom.demo.TaggableObjectMenu;
 import org.incode.example.tags.dom.impl.Tag;
+import org.incode.examples.note.demo.shared.demo.dom.NotableObject;
+import org.incode.examples.note.demo.shared.demo.dom.NotableObjectRepository;
+import org.incode.examples.note.demo.usage.dom.demolink.NotableLinkForNotableObject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -120,316 +135,78 @@ public class HomePageViewModel {
         return "Home page";
     }
 
-    // demo
-
-    public List<DemoObject> getDemoObjects() {
+    // shared.demo
+    public List<DemoObject> getSharedDemoObjects() {
         return demoObjectRepository.listAll();
     }
-
-    public List<DemoObjectWithAll> getDemoObjectsWithAll() {
-        return demoObjectWithAllMenu.listAllDemoObjectsWithAll();
-    }
-
-//    public List<DemoObjectWithAtPath> getDemoObjectsWithAtPath() {
-//        return demoObjectWithAtPathMenu.listAllDemoObjectsWithAtPath();
-//    }
-
-    public List<DemoObjectWithBlob> getDemoObjectsWithBlob() {
-        return demoObjectWithBlobMenu.listAllDemoObjectsWithBlob();
-    }
-
-//    public List<DemoObjectWithNotes> getDemoObjectWithNotes() {
-//        return demoObjectWithNotesRepository.listAll();
-//    }
-
-//    public List<DemoObjectWithUrl> getDemoObjectsWithUrl() {
-//        return demoObjectWithUrlMenu.listAllDemoObjectsWithUrl();
-//    }
-
-//    @javax.inject.Inject
-//    DemoObjectWithUrlMenu demoObjectWithUrlMenu;
-
 
     @javax.inject.Inject
     DemoObjectRepository demoObjectRepository;
 
-    @javax.inject.Inject
-    DemoObjectWithAllMenu demoObjectWithAllMenu;
 
-//    @javax.inject.Inject
-//    DemoObjectWithAtPathMenu demoObjectWithAtPathMenu;
-
-    @javax.inject.Inject
-    DemoObjectWithBlobMenu demoObjectWithBlobMenu;
-
-//    @javax.inject.Inject
-//    DemoObjectWithNotesRepository demoObjectWithNotesRepository;
+    // shared.simple
 
 
+    // shared.todo
 
-    // demo (other)
-
-//    public List<OtherObject> getOtherObjects() {
-//        return otherObjectMenu.listAllOtherObjects();
-//    }
-
-
-//    public List<OtherObjectWithAtPath> getOtherObjectsWithAtPath() {
-//        return otherObjectWithAtPathMenu.listAllOtherObjectsWithAtPath();
-//    }
-
-//    @javax.inject.Inject
-//    OtherObjectMenu otherObjectMenu;
-
-//    @javax.inject.Inject
-//    OtherObjectWithAtPathMenu otherObjectWithAtPathMenu;
-
-
-
-
-    // more demo
-
-//    public List<DemoCustomer> getDemoCustomers() {
-//        return demoCustomerRepository.listAll();
-//    }
-
-//    public List<DemoInvoice> getDemoInvoices() {
-//        return demoInvoiceRepository.listAll();
-//    }
-
-//    public List<DemoInvoiceWithAtPath> getDemoInvoicesWithAtPath() {
-//        return demoInvoiceWithAtPathRepository.listAll();
-//    }
-
-    public List<DemoOrder> getDemoOrders() {
-        return demoOrderMenu.listAllDemoOrders();
-    }
-
-    public List<DemoReminder> getDemoReminders() {
-        return demoReminderMenu.listAllReminders();
-    }
-
-    public List<DemoToDoItem> getDemoToDoItems() {
+    public List<DemoToDoItem> getSharedDemoToDoItems() {
         return demoToDoItemMenu.allInstances();
     }
-
-//    @javax.inject.Inject
-//    DemoCustomerRepository demoCustomerRepository;
-
-//    @javax.inject.Inject
-//    DemoInvoiceRepository demoInvoiceRepository;
-
-//    @javax.inject.Inject
-//    DemoInvoiceWithAtPathRepository demoInvoiceWithAtPathRepository;
-
-    @javax.inject.Inject
-    DemoOrderMenu demoOrderMenu;
-
-    @javax.inject.Inject
-    DemoReminderMenu demoReminderMenu;
 
     @javax.inject.Inject
     DemoToDoItemMenu demoToDoItemMenu;
 
 
 
-    // alias
+    // lib.docx
 
-    public List<Alias> getAliases() {
-        return repositoryService.allInstances(Alias.class);
+    public List<DemoOrder> getLibDocxDemoOrders() {
+        return demoOrderMenu.listAllDemoOrders();
     }
-
-    @Inject
-    AliasTypeRepository aliasTypeRepository;
-
-    @Inject
-    AliasRepository aliasRepository;
+    @javax.inject.Inject
+    DemoOrderMenu demoOrderMenu;
 
 
-    // classification
+    // lib.excel
+    @javax.inject.Inject
+    BulkUpdateMenuForDemoToDoItem bulkUpdateMenuForDemoToDoItem;
 
-    public List<Category> getTaxonomies() {
-        return taxonomyMenu.listAllTaxonomies();
-    }
+    @javax.inject.Inject
+    ExcelPivotByCategoryAndSubcategoryMenu excelPivotByCategoryAndSubcategoryMenu;
 
-    public List<Category> getCategories() {
-        return repositoryService.allInstances(Category.class);
-    }
-
-    public List<Applicability> getClassificationApplicabilities() {
-        return repositoryService.allInstances(Applicability.class);
-    }
-
-    public List<Classification> getClassifications() {
-        return repositoryService.allInstances(Classification.class);
-    }
-
-    @Inject
-    TaxonomyMenu taxonomyMenu;
+    @javax.inject.Inject
+    ExcelUploadServiceForDemoToDoItem excelUploadServiceForDemoToDoItem;
 
 
-
-    // comm channels
-
-    public List<PostalAddress> getCcPostalAddresses() {
-        return repositoryService.allInstances(PostalAddress.class);
-    }
-
-    public List<EmailAddress> getCcEmailAddresses() {
-        return repositoryService.allInstances(EmailAddress.class);
-    }
-
-    public List<PhoneOrFaxNumber> getCcPhoneOrFaxNumbers() {
-        return repositoryService.allInstances(PhoneOrFaxNumber.class);
-    }
-
-    // communications
-
-    public List<CommChannelRole> getCommChannelRoles() {
-        return repositoryService.allInstances(CommChannelRole.class);
-    }
-
-    public List<org.incode.example.communications.dom.impl.commchannel.PostalAddress> getPostalAddresses() {
-        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.PostalAddress.class);
-    }
-
-    public List<org.incode.example.communications.dom.impl.commchannel.EmailAddress> getEmailAddresses() {
-        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.EmailAddress.class);
-    }
-
-    public List<org.incode.example.communications.dom.impl.commchannel.PhoneOrFaxNumber> getPhoneOrFaxNumbers() {
-        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.PhoneOrFaxNumber.class);
-    }
-
-    public List<PaperclipForCommunication> getPaperclipForCommunications() {
-        return repositoryService.allInstances(PaperclipForCommunication.class);
-    }
-
-    public List<Communication> getCommunications() {
-        return repositoryService.allInstances(Communication.class);
-    }
-
-
-
-    // country
-
-    public List<Country> getCountries() {
-        return repositoryService.allInstances(Country.class);
-    }
-
-    public List<State> getStates() {
-        return repositoryService.allInstances(State.class);
-    }
-
-
-
-    // docfragment
-
-    public List<DocFragment> getDocFragments() {
-        return docfragmentRepository.listAll();
+    // lib.fakedata
+    public List<DemoObjectWithAll> getLibFakeDataDemoObjectsWithAll() {
+        return demoObjectWithAllMenu.listAllDemoObjectsWithAll();
     }
 
     @javax.inject.Inject
-    DocFragmentRepository docfragmentRepository;
+    DemoObjectWithAllMenu demoObjectWithAllMenu;
 
 
 
 
-    // document
 
-    public List<DocumentType> getDocumentTypes() {
-        return documentTypeMenu.allDocumentTypes();
-    }
-
-    public List<RenderingStrategy> getRenderingStrategies() {
-        return renderingStrategyRepository.allStrategies();
-    }
-
-    public List<DocumentTemplate> getDocumentTemplates() {
-        return documentTemplateRepository.allTemplates();
-    }
-
-    public List<org.incode.example.document.dom.impl.applicability.Applicability> getDocumentApplicabilities() {
-        return repositoryService.allInstances(org.incode.example.document.dom.impl.applicability.Applicability.class);
-    }
-
-
-    public List<DocumentAbstract> getDocuments() {
-        return documentRepository.allDocuments();
-    }
-
-    @javax.inject.Inject
-    DocumentTypeMenu documentTypeMenu;
-
-    @javax.inject.Inject
-    RenderingStrategyRepository renderingStrategyRepository;
-
-    @javax.inject.Inject
-    DocumentTemplateRepository documentTemplateRepository;
-
-    @javax.inject.Inject
-    DocumentRepository documentRepository;
-
-
-    // note
-
-    public List<Note> getNotes() {
-        return noteRepository.allNotes();
-    }
-
-    @Inject
-    NoteRepository noteRepository;
-
-    // settings
-
-    public List<ApplicationSetting> getApplicationSettings() {
-        return applicationSettingsServiceRW.listAll();
-    }
-
-    @Inject
-    ApplicationSettingsServiceRW applicationSettingsServiceRW;
-
-    public List<UserSetting> getUserSettings() {
-        return userSettingsServiceRW.listAll();
-    }
-
-    @Inject
-    UserSettingsServiceRW userSettingsServiceRW;
-
-    // tags
-
-    public List<TaggableObject> getDemoTaggableObjects() {
-        return taggableObjectMenu.listAllTaggableObjects();
-    }
-
-    public List<Tag> getTags() {
-        return repositoryService.allInstances(Tag.class);
-    }
-
-    @Inject
-    TaggableObjectMenu taggableObjectMenu;
-
-    @Inject RepositoryService repositoryService;
-
-
-
-
-    // poly
-    public List<CommunicationChannel> getCommunicationChannels() {
+    // lib.poly
+    public List<CommunicationChannel> getLibPolyCommunicationChannels() {
         return communicationChannelsMenu.listAllCommunicationChannels();
     }
 
-    public List<Party> getParties() {
+    public List<Party> getLibPolyParties() {
         return parties.listAllParties();
     }
 
-    public List<FixedAsset> getFixedAssets() {
+    public List<FixedAsset> getLibPolyFixedAssets() {
         return fixedAssets.listAllFixedAssets();
     }
 
-    public List<Case> getCases() {
+    public List<Case> getLibPolyCases() {
         return cases.listAllCases();
     }
+
 
     @javax.inject.Inject
     CommunicationChannels communicationChannelsMenu;
@@ -444,27 +221,38 @@ public class HomePageViewModel {
     Cases cases;
 
 
+    // lib.servletApi
 
-
-    // servlet api
-
-    public List<ServletApiDemoObject> getServletApiDemoObjects() {
+    public List<ServletApiDemoObject> getLibServletApiDemoObjects() {
         return repositoryService.allInstances(ServletApiDemoObject.class);
     }
 
 
+    // lib.stringinterpolator
 
-    // audit
+    public List<DemoReminder> getDemoReminders() {
+        return demoReminderMenu.listAllReminders();
+    }
 
-    public List<SomeAuditedObject> getSomeAuditedObjects() {
+    @javax.inject.Inject
+    DemoReminderMenu demoReminderMenu;
+
+
+
+
+
+
+    // spi.audit
+
+    public List<SomeAuditedObject> getSpiAuditSomeAuditedObjects() {
         return someAuditedObjects.listAllSomeAuditedObjects();
     }
 
-    public List<SomeNotAuditedObject> getSomeNotAuditedObjects() {
+    public List<SomeNotAuditedObject> getSpiAuditSomeNotAuditedObjects() {
         return someNotAuditedObjects.listAllSomeNotAuditedObjects();
     }
 
-    public List<AuditEntry> getAuditEntries() {
+    public List<AuditEntry> getSpiAuditAuditEntries() {
         return repositoryService.allInstances(AuditEntry.class);
     }
 
@@ -476,13 +264,13 @@ public class HomePageViewModel {
 
 
 
-    // command
+    // spi.command
 
-    public List<SomeCommandAnnotatedObject> getSomeCommandAnnotatedObjects() {
+    public List<SomeCommandAnnotatedObject> getSpiCommandSomeCommandAnnotatedObjects() {
         return someCommandAnnotatedObjects.listAllSomeCommandAnnotatedObjects();
     }
 
-    public List<CommandJdo> getCommands() {
+    public List<CommandJdo> getSpiCommandCommands() {
         return repositoryService.allInstances(CommandJdo.class);
     }
 
@@ -494,21 +282,20 @@ public class HomePageViewModel {
     CommandServiceJdoRepository commandServiceJdoRepository;
 
 
-    // publishmq
 
-    public List<PublishMqDemoObject> getPublishMqDemoObjects() {
+    // spi.publishmq
+
+    public List<PublishMqDemoObject> getSpiPublishMqDemoObjects() {
         return publishMqDemoObjects.listAllPublishMqDemoObjects();
     }
 
-    public List<PublishedEvent> getPublishedEvents() {
+    public List<PublishedEvent> getSpiPublishMqPublishedEvents() {
         return repositoryService.allInstances(PublishedEvent.class);
     }
 
-    public List<StatusMessage> getStatusMessages() {
+    public List<StatusMessage> getSpiPublishMqStatusMessages() {
         return repositoryService.allInstances(StatusMessage.class);
     }
-
-
 
     @Inject
     PublishMqDemoObjects publishMqDemoObjects;
@@ -516,29 +303,30 @@ public class HomePageViewModel {
     @Inject
     PublishedEventRepository publishedEventRepository;
 
-    // security
 
-    public List<ApplicationUser> getApplicationUsers() {
+    // spi.security
+
+    public List<ApplicationUser> getSpiSecurityApplicationUsers() {
         return applicationUserMenu.allUsers();
     }
 
-    public List<ApplicationRole> getApplicationRoles() {
+    public List<ApplicationRole> getSpiSecurityApplicationRoles() {
         return applicationRoleMenu.allRoles();
     }
 
-    public List<ApplicationPermission> getApplicationPermissions() {
+    public List<ApplicationPermission> getSpiSecurityApplicationPermissions() {
         return applicationPermissionMenu.allPermissions();
     }
 
-    public List<ApplicationTenancy> getApplicationTenancies() {
+    public List<ApplicationTenancy> getSpiSecurityApplicationTenancies() {
         return applicationTenancyMenu.allTenancies();
     }
 
-    public List<TenantedEntity> getTenantedEntities() {
+    public List<TenantedEntity> getSpiSecurityTenantedEntities() {
         return tenantedEntities.listAllTenantedEntities();
     }
 
-    public List<NonTenantedEntity> getNonTenantedEntities() {
+    public List<NonTenantedEntity> getSpiSecurityNonTenantedEntities() {
         return nonTenantedEntities.listAllNonTenantedEntities();
     }
 
@@ -560,14 +348,15 @@ public class HomePageViewModel {
     @Inject
     NonTenantedEntities nonTenantedEntities;
 
-    // sessionlogger
 
-    public List<SessionLogEntry> getSessionLogEntries() {
+
+    // spi.sessionlogger
+
+    public List<SessionLogEntry> getSpiSessionLoggerSessionLogEntries() {
         return repositoryService.allInstances(SessionLogEntry.class);
     }
 
-
-    // fullcalendar2
+    // wkt2.fullcalendar2
 
     public List<DemoToDoItem> getDemoToDoItemsNotYetComplete() {
         return demoToDoItemMenu.notYetCompleteNoUi();
@@ -576,46 +365,24 @@ public class HomePageViewModel {
 
 
 
-    // pdf.js
+    // wkt.pdfjs
 
-    @DomainService(nature = NatureOfService.DOMAIN)
-    public static class CssHighlighter extends AbstractSubscriber {
-
-        @EventHandler
-        @Subscribe
-        public void on(DemoObjectWithBlob.CssClassUiEvent ev) {
-            if(getContext() == null) {
-                return;
-            }
-            DemoObjectWithBlob selectedDemoObject = getContext().getSelected();
-            if(ev.getSource() == selectedDemoObject) {
-                ev.setCssClass("selected");
-            }
-        }
-
-        private HomePageViewModel getContext() {
-            return (HomePageViewModel) scratchpad.get("context");
-        }
-        void setContext(final HomePageViewModel homePageViewModel) {
-            scratchpad.put("context", homePageViewModel);
-        }
-
-        @Inject
-        Scratchpad scratchpad;
+    public List<DemoObjectWithBlob> getWktPdfjsDemoObjectsWithBlob() {
+        return demoObjectWithBlobMenu.listAllDemoObjectsWithBlob();
     }
-
-
+    @javax.inject.Inject
+    DemoObjectWithBlobMenu demoObjectWithBlobMenu;
 
     @PdfJsViewer(initialPageNum = 1, initialScale = Scale._1_00, initialHeight = 600)
     public Blob getBlob() {
-        return getSelected() != null ? getSelected().getBlob() : null;
+        return getWktPdfjsSelected() != null ? getWktPdfjsSelected().getBlob() : null;
     }
 
 
 
     @Property(hidden = Where.EVERYWHERE)
-    public int getNumObjects() {
-        return getDemoObjectsWithBlob().size();
+    public int getWktPdfjsNumObjects() {
+        return getWktPdfjsDemoObjectsWithBlob().size();
     }
 
 
@@ -625,8 +392,8 @@ public class HomePageViewModel {
 
 
     @XmlTransient
-    public DemoObjectWithBlob getSelected() {
-        final List<DemoObjectWithBlob> demoObjectsWithBlob = getDemoObjectsWithBlob();
+    public DemoObjectWithBlob getWktPdfjsSelected() {
+        final List<DemoObjectWithBlob> demoObjectsWithBlob = getWktPdfjsDemoObjectsWithBlob();
         return demoObjectsWithBlob.isEmpty() ? null : demoObjectsWithBlob.get(getIdx());
     }
 
@@ -647,7 +414,7 @@ public class HomePageViewModel {
         return viewModel;
     }
     public String disableNext() {
-        return getIdx() == getNumObjects() - 1 ? "At end" : null;
+        return getIdx() == getWktPdfjsNumObjects() - 1 ? "At end" : null;
     }
 
 
@@ -657,6 +424,267 @@ public class HomePageViewModel {
 
     @javax.inject.Inject
     CssHighlighter cssHighlighter;
+
+
+
+
+
+
+    // example.alias
+
+    public List<AliasedObject> getExampleAliasAliasedObjects() {
+        return aliasedObjectRepository.listAll();
+    }
+
+    public List<AliasForAliasedObject> getExampleAliasAliasForAliasedObjects() {
+        return repositoryService.allInstances(AliasForAliasedObject.class);
+    }
+
+    public List<Alias> getExampleAliasAliases() {
+        return repositoryService.allInstances(Alias.class);
+    }
+
+
+    @Inject
+    AliasedObjectRepository aliasedObjectRepository;
+
+
+
+    // example.classification
+
+    public List<SomeClassifiedObject> getExampleClassificationSomeClassifiedObjects() {
+        return someClassifiedObjectMenu.listAllOfSomeClassifiedObjects();
+    }
+
+    @Inject
+    SomeClassifiedObjectMenu someClassifiedObjectMenu;
+
+    public List<Category> getExampleClassificationTaxonomies() {
+        return taxonomyMenu.listAllTaxonomies();
+    }
+
+    public List<Category> getExampleClassificationCategories() {
+        return repositoryService.allInstances(Category.class);
+    }
+
+    public List<Applicability> getExampleClassificationApplicabilities() {
+        return repositoryService.allInstances(Applicability.class);
+    }
+
+    public List<Classification> getExampleClassifications() {
+        return repositoryService.allInstances(Classification.class);
+    }
+
+    @Inject
+    TaxonomyMenu taxonomyMenu;
+
+
+
+    // example.commchannel
+
+    public List<CommChannelCustomer> getExampleCommChannelCustomers() {
+        return commChannelCustomerRepository.listAll();
+    }
+
+    @Inject
+    CommChannelCustomerRepository commChannelCustomerRepository;
+
+    public List<PostalAddress> getExampleCommChannelPostalAddresses() {
+        return repositoryService.allInstances(PostalAddress.class);
+    }
+
+    public List<EmailAddress> getExampleCommChannelEmailAddresses() {
+        return repositoryService.allInstances(EmailAddress.class);
+    }
+
+    public List<PhoneOrFaxNumber> getExampleCommChannelPhoneOrFaxNumbers() {
+        return repositoryService.allInstances(PhoneOrFaxNumber.class);
+    }
+
+
+
+    // example.communications
+
+    public List<CommsCustomer> getExampleCommunicationsCustomers() {
+        return commsCustomerRepository.listAll();
+    }
+
+    @Inject
+    CommsCustomerRepository commsCustomerRepository;
+
+    public List<CommsInvoice> getExampleCommunicationsInvoices() {
+        return commsInvoiceRepository.listAll();
+    }
+
+    @Inject
+    CommsInvoiceRepository commsInvoiceRepository;
+
+
+    public List<CommunicationChannelOwnerLinkForCustomer> getExampleCommunicationsCommunicationChannelOwnerLinkForCustomers() {
+        return repositoryService.allInstances(CommunicationChannelOwnerLinkForCustomer.class);
+    }
+
+    public List<org.incode.example.communications.dom.impl.commchannel.PostalAddress> getExampleCommunicationsPostalAddresses() {
+        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.PostalAddress.class);
+    }
+
+    public List<org.incode.example.communications.dom.impl.commchannel.EmailAddress> getExampleCommunicationsEmailAddresses() {
+        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.EmailAddress.class);
+    }
+
+    public List<org.incode.example.communications.dom.impl.commchannel.PhoneOrFaxNumber> getExampleCommunicationsPhoneOrFaxNumbers() {
+        return repositoryService.allInstances(org.incode.example.communications.dom.impl.commchannel.PhoneOrFaxNumber.class);
+    }
+
+    public List<PaperclipForCommunication> getExampleCommunicationsPaperclipForCommunications() {
+        return repositoryService.allInstances(PaperclipForCommunication.class);
+    }
+
+    public List<Communication> getCommunications() {
+        return repositoryService.allInstances(Communication.class);
+    }
+
+    public List<PaperclipForDemoInvoice> getExampleCommunicationsPaperclipForDemoInvoice() {
+        return repositoryService.allInstances(PaperclipForDemoInvoice.class);
+    }
+
+    public List<CommChannelRole> getExampleCommunicationsCommChannelRoles() {
+        return repositoryService.allInstances(CommChannelRole.class);
+    }
+
+
+
+    // example.country
+
+    public List<Country> getExampleCountryCountries() {
+        return repositoryService.allInstances(Country.class);
+    }
+
+    public List<State> getExampleCountryStates() {
+        return repositoryService.allInstances(State.class);
+    }
+
+
+
+    // exampledocfragment
+
+    public List<DocFragCustomer> getExampleDocFragmentCustomers() {
+        return repositoryService.allInstances(DocFragCustomer.class);
+    }
+
+    public List<DocFragment> getExampleDocFragmentDocFragments() {
+        return docfragmentRepository.listAll();
+    }
+
+    @javax.inject.Inject
+    DocFragmentRepository docfragmentRepository;
+
+
+
+
+    // example.document
+
+    public List<DocDemoObjectWithNotes> getExampleDocumentDocDemoObjectWithNotes() {
+        return repositoryService.allInstances(DocDemoObjectWithNotes.class);
+    }
+
+    public List<DocDemoObjectWithUrl> getExampleDocumentDocDemoObjectWithUrl() {
+        return repositoryService.allInstances(DocDemoObjectWithUrl.class);
+    }
+
+    public List<DocInvoice> getExampleDocumentDocInvoices() {
+        return repositoryService.allInstances(DocInvoice.class);
+    }
+
+    public List<DocOtherObject> getExampleDocumentDocOtherObjects() {
+        return repositoryService.allInstances(DocOtherObject.class);
+    }
+
+    public List<DocumentType> getExampleDocumentDocumentTypes() {
+        return documentTypeMenu.allDocumentTypes();
+    }
+
+    public List<RenderingStrategy> getExampleDocumentRenderingStrategies() {
+        return renderingStrategyRepository.allStrategies();
+    }
+
+    public List<DocumentTemplate> getExampleDocumentDocumentTemplates() {
+        return documentTemplateRepository.allTemplates();
+    }
+
+    public List<org.incode.example.document.dom.impl.applicability.Applicability> getDocumentApplicabilities() {
+        return repositoryService.allInstances(org.incode.example.document.dom.impl.applicability.Applicability.class);
+    }
+
+    public List<DocumentAbstract> getExampleDocumentDocuments() {
+        return documentRepository.allDocuments();
+    }
+
+    @javax.inject.Inject
+    DocumentTypeMenu documentTypeMenu;
+
+    @javax.inject.Inject
+    RenderingStrategyRepository renderingStrategyRepository;
+
+    @javax.inject.Inject
+    DocumentTemplateRepository documentTemplateRepository;
+
+    @javax.inject.Inject
+    DocumentRepository documentRepository;
+
+
+    // example.note
+
+    public List<NotableObject> getExampleNoteNotables() {
+        return notableObjectRepository.listAll();
+    }
+    @Inject
+    NotableObjectRepository notableObjectRepository;
+
+    public List<NotableLinkForNotableObject> getExampleNoteNotableLinkForNotableObject() {
+        return repositoryService.allInstances(NotableLinkForNotableObject.class);
+    }
+
+    public List<Note> getExampleNoteNotes() {
+        return noteRepository.allNotes();
+    }
+
+    @Inject
+    NoteRepository noteRepository;
+
+
+
+    // example.settings
+    public List<ApplicationSetting> getExampleSettingsApplicationSettings() {
+        return applicationSettingsServiceRW.listAll();
+    }
+    @Inject
+    ApplicationSettingsServiceRW applicationSettingsServiceRW;
+
+    public List<UserSetting> getExampleSettingsUserSettings() {
+        return userSettingsServiceRW.listAll();
+    }
+    @Inject
+    UserSettingsServiceRW userSettingsServiceRW;
+
+
+    // example.tags
+
+    public List<TaggableObject> getExampleTagsTaggableObjects() {
+        return taggableObjectMenu.listAllTaggableObjects();
+    }
+
+    public List<Tag> getExampleTags() {
+        return repositoryService.allInstances(Tag.class);
+    }
+
+    @Inject
+    TaggableObjectMenu taggableObjectMenu;
+
+    @Inject
+    RepositoryService repositoryService;
+
+
 
 
 

@@ -11,7 +11,7 @@ import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
 
 import lombok.Getter;
 

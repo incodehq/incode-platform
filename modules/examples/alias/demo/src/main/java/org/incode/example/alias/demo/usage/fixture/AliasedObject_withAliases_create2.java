@@ -4,14 +4,14 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.example.alias.demo.shared.dom.AliasedObject;
 import org.incode.example.alias.demo.shared.fixture.AliasedObjectData;
-import org.incode.example.alias.demo.usage.dom.AliasForAliasDemoObject;
+import org.incode.example.alias.demo.usage.dom.AliasForAliasedObject;
 import org.incode.example.alias.demo.usage.spi.aliastype.AliasTypeDemoEnum;
 import org.incode.example.alias.dom.impl.T_addAlias;
 
 public class AliasedObject_withAliases_create2 extends FixtureScript {
 
     T_addAlias mixinAddAlias(final Object aliased) {
-        return factoryService.mixin(AliasForAliasDemoObject._addAlias.class, aliased);
+        return factoryService.mixin(AliasForAliasedObject._addAlias.class, aliased);
     }
 
     @Override

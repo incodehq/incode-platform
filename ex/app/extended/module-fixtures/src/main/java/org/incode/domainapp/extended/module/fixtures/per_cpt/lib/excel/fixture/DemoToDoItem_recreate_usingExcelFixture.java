@@ -2,6 +2,8 @@ package org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_tearDown2;
+
 public class DemoToDoItem_recreate_usingExcelFixture extends FixtureScript {
 
     private final String user;

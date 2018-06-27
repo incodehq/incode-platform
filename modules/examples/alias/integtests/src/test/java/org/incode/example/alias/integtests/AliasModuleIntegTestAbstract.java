@@ -7,7 +7,7 @@ import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
 
-import org.incode.example.alias.demo.usage.dom.AliasForAliasDemoObject;
+import org.incode.example.alias.demo.usage.dom.AliasForAliasedObject;
 
 public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
@@ -22,15 +22,15 @@ public abstract class AliasModuleIntegTestAbstract extends IntegrationTestAbstra
     @Inject
     protected FakeDataService fakeData;
 
-    protected AliasForAliasDemoObject._addAlias mixinAddAlias(final Object aliased) {
-        return mixin(AliasForAliasDemoObject._addAlias.class, aliased);
+    protected AliasForAliasedObject._addAlias mixinAddAlias(final Object aliased) {
+        return mixin(AliasForAliasedObject._addAlias.class, aliased);
     }
-    protected AliasForAliasDemoObject._removeAlias mixinRemoveAlias(final Object aliased) {
-        return mixin(AliasForAliasDemoObject._removeAlias.class, aliased);
+    protected AliasForAliasedObject._removeAlias mixinRemoveAlias(final Object aliased) {
+        return mixin(AliasForAliasedObject._removeAlias.class, aliased);
     }
 
-    protected AliasForAliasDemoObject._aliases mixinAliases(final Object aliased) {
-        return mixin(AliasForAliasDemoObject._aliases.class, aliased);
+    protected AliasForAliasedObject._aliases mixinAliases(final Object aliased) {
+        return mixin(AliasForAliasedObject._aliases.class, aliased);
     }
 
 }

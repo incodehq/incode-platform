@@ -32,7 +32,7 @@ public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstr
         int numDemoObjects = fs.getDemoObjects().size();
 
         // when
-        final List<SomeClassifiedObject> all = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
+        final List<SomeClassifiedObject> all = wrap(demoObjectMenu).listAllOfSomeClassifiedObjects();
 
         // then
         Assertions.assertThat(all.size()).isEqualTo(numDemoObjects);
@@ -42,14 +42,14 @@ public class DemoObjectMenu_IntegTest extends ClassificationModuleIntegTestAbstr
     public void create() throws Exception {
 
         // given
-        final List<SomeClassifiedObject> before = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
+        final List<SomeClassifiedObject> before = wrap(demoObjectMenu).listAllOfSomeClassifiedObjects();
         int numBefore = before.size();
 
         // when
-        wrap(demoObjectMenu).createDemoObjectWithAtPath("Faz", "/");
+        wrap(demoObjectMenu).createSomeClassifiedObject("Faz", "/");
 
         // then
-        final List<SomeClassifiedObject> after = wrap(demoObjectMenu).listAllDemoObjectsWithAtPath();
+        final List<SomeClassifiedObject> after = wrap(demoObjectMenu).listAllOfSomeClassifiedObjects();
         Assertions.assertThat(after.size()).isEqualTo(numBefore+1);
     }
 

@@ -13,10 +13,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.Category;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.DemoToDoItemMenu;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.Subcategory;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Category;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
+import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Subcategory;
 
 import lombok.Getter;
 import lombok.Setter;
