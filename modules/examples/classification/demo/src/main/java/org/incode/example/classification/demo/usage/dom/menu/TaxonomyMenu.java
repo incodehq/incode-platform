@@ -16,7 +16,7 @@ import org.incode.example.classification.dom.impl.category.CategoryRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDomClassification.TaxonomyMenu"
+        objectType = "classificationDemoUsage.TaxonomyMenu"
 )
 @DomainServiceLayout(
         named = "Subdomains",

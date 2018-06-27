@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.Title;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
-        objectType = "incodeCommunicationsDemo.EmailMessage",
+        objectType = "communicationsDemoUsage.EmailMessage",
         editing = Editing.DISABLED
 )
 @lombok.Data

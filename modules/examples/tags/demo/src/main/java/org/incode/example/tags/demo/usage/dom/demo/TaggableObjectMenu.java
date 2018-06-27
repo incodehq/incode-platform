@@ -15,7 +15,7 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDomTags.DemoTaggableEntityMenu"
+        objectType = "tagsDemoUsage.DemoTaggableEntityMenu"
 )
 @DomainServiceLayout(
         named = "Subdomains",

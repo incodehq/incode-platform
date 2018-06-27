@@ -15,7 +15,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDocumentDemo.DocDemoObjectWithUrlMenu",
+        objectType = "documentDemoShared.DocDemoObjectWithUrlMenu",
         repositoryFor = DocDemoObjectWithUrl.class
 )
 @DomainServiceLayout(

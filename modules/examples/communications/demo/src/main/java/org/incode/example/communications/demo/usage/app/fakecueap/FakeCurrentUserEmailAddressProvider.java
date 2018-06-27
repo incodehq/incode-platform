@@ -12,7 +12,7 @@ import org.incode.example.communications.dom.spi.CurrentUserEmailAddressProvider
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "incodeCommunicationsDemo.FakeCurrentUserEmailAddressProvider",
+        objectType = "communicationsDemoUsage.FakeCurrentUserEmailAddressProvider",
         menuOrder = "1"
 )
 @DomainServiceLayout(

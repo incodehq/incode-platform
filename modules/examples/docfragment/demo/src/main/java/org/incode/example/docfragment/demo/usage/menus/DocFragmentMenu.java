@@ -25,7 +25,7 @@ import org.incode.example.docfragment.dom.spi.ApplicationTenancyService;
 import org.incode.example.docfragment.dom.types.TemplateTextType;
 
 @DomainService(
-        objectType = "docfragment.DocFragmentMenu",
+        objectType = "docfragmentDemoUsage.DocFragmentMenu",
         nature = NatureOfService.VIEW_MENU_ONLY,
         repositoryFor = DocFragment.class
 )

@@ -14,7 +14,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDocumentsDemo.DocDemoObjectWithNotesMenu"
+        objectType = "documentsDemoShared.DocDemoObjectWithNotesMenu"
 )
 @DomainServiceLayout(
         named = "Demo",

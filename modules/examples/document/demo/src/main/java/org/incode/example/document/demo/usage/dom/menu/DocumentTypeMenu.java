@@ -16,7 +16,7 @@ import org.incode.example.document.dom.impl.types.DocumentTypeRepository;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDemoDocument.DocumentTypeMenu"
+        objectType = "doocumentDemoUsage.DocumentTypeMenu"
 )
 @DomainServiceLayout(
         named = "Document Types",
