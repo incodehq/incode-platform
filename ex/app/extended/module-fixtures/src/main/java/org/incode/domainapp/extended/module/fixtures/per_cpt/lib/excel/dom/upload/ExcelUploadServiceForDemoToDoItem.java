@@ -21,7 +21,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.fixture.D
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleLibExcel.ExcelUploadServiceForDemoToDoItem"
+        objectType = "fixtureLibExcel.ExcelUploadServiceForDemoToDoItem"
 )
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,

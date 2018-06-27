@@ -20,7 +20,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.D
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.Subcategory;
 
 @DomainObject(
-        objectType = "exampleLibExcel.BulkUpdateLineItemForDemoToDoItem"
+        objectType = "fixtureLibExcel.BulkUpdateLineItemForDemoToDoItem"
 )
 @DomainObjectLayout(
         named = "Bulk update line item",

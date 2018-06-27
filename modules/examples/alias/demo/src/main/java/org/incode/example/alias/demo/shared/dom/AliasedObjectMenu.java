@@ -25,18 +25,18 @@ public class AliasedObjectMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<AliasedObject> listAllDemoObjects() {
+    public List<AliasedObject> listAllAliasedObjects() {
         return repository.listAll();
     }
 
 
     @MemberOrder(sequence = "2")
-    public AliasedObject createDemoObject(final String name) {
+    public AliasedObject createAliasedObject(final String name) {
         return repository.create(name);
     }
 
     @MemberOrder(sequence = "3")
-    public List<AliasedObject> findDemoObjectByName(final String name) {
+    public List<AliasedObject> findAliasedObjectByName(final String name) {
         return repository.findByName(name);
     }
 

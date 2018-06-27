@@ -17,7 +17,7 @@ import org.incode.domainapp.extended.module.base.togglz.TogglzFeature;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "simple.SimpleObjectMenu",
+        objectType = "fixtureSimple.SimpleObjectMenu",
         repositoryFor = SimpleObject.class
 )
 @DomainServiceLayout(

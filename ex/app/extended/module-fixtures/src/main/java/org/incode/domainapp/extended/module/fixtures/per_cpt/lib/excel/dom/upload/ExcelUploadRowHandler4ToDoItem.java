@@ -24,7 +24,10 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.S
 import lombok.Getter;
 import lombok.Setter;
 
-@DomainObject(nature = Nature.VIEW_MODEL)
+@DomainObject(
+        objectType = "fixtureLibExcel.ExcelUploadRowHandler4ToDoItem",
+        nature = Nature.VIEW_MODEL
+)
 public class ExcelUploadRowHandler4ToDoItem implements ExcelFixtureRowHandler {
 
     @Getter @Setter

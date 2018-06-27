@@ -9,16 +9,22 @@
                             <collection id="demoObjects"/>
                         </bs3:col>
                         <bs3:col span="6">
+<!--
                             <collection id="demoObjectsWithAtPath"/>
+-->
                         </bs3:col>
                         <bs3:col span="4">
                             <collection id="demoObjectsWithBlob"/>
                         </bs3:col>
                         <bs3:col span="4">
+<!--
                             <collection id="demoObjectWithNotes"/>
+-->
                         </bs3:col>
                         <bs3:col span="4">
+<!--
                             <collection id="demoObjectsWithUrl"/>
+-->
                         </bs3:col>
                         <bs3:col span="12">
                             <collection id="demoObjectsWithAll"/>
@@ -28,22 +34,30 @@
                 <bs3:tab name="Other">
                     <bs3:row>
                         <bs3:col span="6">
+<!--
                             <collection id="otherObjects"/>
+-->
                         </bs3:col>
                         <bs3:col span="6">
+<!--
                             <collection id="otherObjectsWithAtPath"/>
+-->
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
                 <bs3:tab name="More demo">
                     <bs3:row>
                         <bs3:col span="6">
+<!--
                             <collection id="demoCustomers"/>
+-->
                             <collection id="demoOrders"/>
                             <collection id="demoReminders"/>
                         </bs3:col>
                         <bs3:col span="6">
+<!--
                             <collection id="demoInvoices"/>
+-->
                             <collection id="demoInvoicesWithAtPath"/>
                         </bs3:col>
                         <bs3:col span="12">

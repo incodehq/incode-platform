@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleSpiPublishMq.PublishMqDemoObjects",
+        objectType = "fixtureSpiPublishMq.PublishMqDemoObjects",
         repositoryFor = PublishMqDemoObject.class
 )
 @DomainServiceLayout(

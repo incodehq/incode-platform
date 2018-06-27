@@ -28,7 +28,7 @@ public class AliasedObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
     @Test
     public void listAll() throws Exception {
 
-        final List<AliasedObject> all = wrap(aliasDemoObjectMenu).listAllDemoObjects();
+        final List<AliasedObject> all = wrap(aliasDemoObjectMenu).listAllAliasedObjects();
         Assertions.assertThat(all.size()).isEqualTo(AliasedObjectData.values().length);
         
         AliasedObject aliasedObject = wrap(all.get(0));
@@ -38,9 +38,9 @@ public class AliasedObjectMenu_IntegTest extends AliasModuleIntegTestAbstract {
     @Test
     public void create() throws Exception {
 
-        wrap(aliasDemoObjectMenu).createDemoObject("Faz");
+        wrap(aliasDemoObjectMenu).createAliasedObject("Faz");
         
-        final List<AliasedObject> all = wrap(aliasDemoObjectMenu).listAllDemoObjects();
+        final List<AliasedObject> all = wrap(aliasDemoObjectMenu).listAllAliasedObjects();
         Assertions.assertThat(all.size()).isEqualTo(AliasedObjectData.values().length+1);
     }
 

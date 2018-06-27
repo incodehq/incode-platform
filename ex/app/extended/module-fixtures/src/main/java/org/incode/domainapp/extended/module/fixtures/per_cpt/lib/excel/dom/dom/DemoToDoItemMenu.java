@@ -29,7 +29,7 @@ import org.isisaddons.wicket.gmap3.cpt.applib.Location;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleDemo.DemoToDoItemMenu"
+        objectType = "fixtureLibExcel.DemoToDoItemMenu"
 )
 @DomainServiceLayout(
         named = "Dummy",

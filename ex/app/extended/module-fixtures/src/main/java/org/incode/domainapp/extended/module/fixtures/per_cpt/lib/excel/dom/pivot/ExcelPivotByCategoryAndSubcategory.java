@@ -16,7 +16,10 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.S
 import lombok.Getter;
 import lombok.Setter;
 
-@DomainObject(nature = Nature.VIEW_MODEL)
+@DomainObject(
+        objectType = "fixtureLibExcel.ExcelPivotByCategoryAndSubcategory",
+        nature = Nature.VIEW_MODEL
+)
 public class ExcelPivotByCategoryAndSubcategory {
 
     public ExcelPivotByCategoryAndSubcategory(

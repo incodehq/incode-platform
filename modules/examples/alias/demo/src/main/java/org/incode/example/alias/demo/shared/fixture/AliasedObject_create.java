@@ -27,7 +27,7 @@ public class AliasedObject_create extends FixtureScript {
 
         String name = checkParam("name", ec, String.class);
 
-        this.aliasedObject = wrap(aliasDemoObjectMenu).createDemoObject(name);
+        this.aliasedObject = wrap(aliasDemoObjectMenu).createAliasedObject(name);
         ec.addResult(this, aliasedObject);
     }
 

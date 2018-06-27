@@ -26,7 +26,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.excel.dom.dom.S
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "exampleLibExcel.BulkUpdateMenuForDemoToDoItem"
+        objectType = "fixtureLibExcel.BulkUpdateMenuForDemoToDoItem"
 )
 @DomainServiceLayout(
         named = "Excel",

@@ -24,7 +24,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.c
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "exampleLibPoly"
+        schema = "fixtureLibPoly"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,

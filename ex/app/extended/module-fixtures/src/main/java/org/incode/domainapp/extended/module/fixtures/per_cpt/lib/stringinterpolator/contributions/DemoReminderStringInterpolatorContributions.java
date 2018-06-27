@@ -13,7 +13,8 @@ import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.stringinterpolator.dom.DemoReminder;
 
 @DomainService(
-        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
+        nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY,
+        objectType = "fixtureLibStringInterpolator.DemoReminderStringInterpolatorContributions"
 )
 public class DemoReminderStringInterpolatorContributions {
 
