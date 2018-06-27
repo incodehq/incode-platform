@@ -1,12 +1,12 @@
-package org.incode.example.tags.demo.usage.fixture;
+package org.incode.example.tags.demo.shared.fixture;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.example.tags.demo.usage.dom.demo.TaggableObjectMenu;
-import org.incode.example.tags.demo.usage.fixture.data.TaggableObject_Bar_Pepsi_Drink;
-import org.incode.example.tags.demo.usage.fixture.data.TaggableObject_Baz_McDonalds_FastFood;
-import org.incode.example.tags.demo.usage.fixture.data.TaggableObject_Bip_CocaCola_Drink;
-import org.incode.example.tags.demo.usage.fixture.data.TaggableObject_Bop_Levis_Clothing;
+import org.incode.example.tags.demo.shared.dom.demo.TaggableObjectMenu;
+import org.incode.example.tags.demo.shared.fixture.data.TaggableObject_Bar_Pepsi_Drink;
+import org.incode.example.tags.demo.shared.fixture.data.TaggableObject_Baz_McDonalds_FastFood;
+import org.incode.example.tags.demo.shared.fixture.data.TaggableObject_Bip_CocaCola_Drink;
+import org.incode.example.tags.demo.shared.fixture.data.TaggableObject_Bop_Levis_Clothing;
 
 public class TaggableObject_withTags_create3 extends FixtureScript {
 

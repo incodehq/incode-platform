@@ -1,4 +1,4 @@
-package org.incode.example.tags.demo.usage.dom.demo;
+package org.incode.example.tags.demo.shared.dom.demo;
 
 import java.util.List;
 

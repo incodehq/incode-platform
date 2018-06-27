@@ -15,10 +15,10 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-import org.incode.example.tags.demo.usage.dom.demo.TaggableObjectMenu;
+import org.incode.example.tags.demo.shared.dom.demo.TaggableObjectMenu;
 import org.incode.example.tags.integtests.TagsModuleIntegTestAbstract;
-import org.incode.example.tags.demo.usage.dom.demo.TaggableObject;
-import org.incode.example.tags.demo.usage.fixture.TaggableObject_withTags_create3;
+import org.incode.example.tags.demo.shared.dom.demo.TaggableObject;
+import org.incode.example.tags.demo.shared.fixture.TaggableObject_withTags_create3;
 import org.incode.example.tags.dom.impl.Tag;
 import org.incode.example.tags.dom.impl.Tags;
 

@@ -14,7 +14,7 @@ import org.incode.example.docfragment.demo.shared.invoicewithatpath.DocFragInvoi
 import org.incode.example.docfragment.DocFragmentModule;
 
 @XmlRootElement(name = "module")
-public class DocFragmentDemoUsageSubmodule extends ModuleAbstract {
+public class DocFragmentDemoUsageModule extends ModuleAbstract {
 
     @Override
     public Set<Module> getDependencies() {

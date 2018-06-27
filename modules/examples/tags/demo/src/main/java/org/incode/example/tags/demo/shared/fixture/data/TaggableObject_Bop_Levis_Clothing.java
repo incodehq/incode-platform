@@ -1,4 +1,4 @@
-package org.incode.example.tags.demo.usage.fixture.data;
+package org.incode.example.tags.demo.shared.fixture.data;
 
 public class TaggableObject_Bop_Levis_Clothing extends AbstractTaggableObjectFixture {
 

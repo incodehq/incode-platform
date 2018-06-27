@@ -40,19 +40,19 @@ import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
 import org.incode.domainapp.extended.embeddedcamel.EmbeddedCamelModule;
 import org.incode.domainapp.extended.module.fixtures.FixturesModule;
-import org.incode.example.alias.AliasModule;
-import org.incode.example.classification.ClassificationModule;
-import org.incode.example.commchannel.CommChannelModule;
-import org.incode.example.communications.CommunicationsModule;
+import org.incode.example.alias.demo.AliasDemoModule;
+import org.incode.example.classification.demo.ClassificationDemoModule;
+import org.incode.example.commchannel.demo.CommChannelDemoModule;
+import org.incode.example.communications.demo.CommunicationsDemoModule;
 import org.incode.example.country.CountryModule;
-import org.incode.example.docfragment.DocFragmentModule;
+import org.incode.example.docfragment.demo.DocFragmentDemoModule;
 import org.incode.example.docrendering.freemarker.FreemarkerDocRenderingModule;
 import org.incode.example.docrendering.stringinterpolator.StringInterpolatorDocRenderingModule;
 import org.incode.example.docrendering.xdocreport.XDocReportDocRenderingModule;
-import org.incode.example.document.DocumentModule;
-import org.incode.example.note.NoteModule;
+import org.incode.example.document.demo.DocumentDemoModule;
 import org.incode.example.settings.SettingsModule;
-import org.incode.example.tags.TagsModule;
+import org.incode.example.tags.demo.TagsDemoModule;
+import org.incode.examples.note.demo.NoteDemoModule;
 import org.incode.module.base.services.BaseServicesModule;
 import org.incode.module.errorrptjira.ErrorReportingJiraModule;
 import org.incode.module.errorrptslack.ErrorReportingSlackModule;
@@ -101,7 +101,8 @@ public class ExtendedAppAppDefnModule extends ModuleAbstract {
                 new SecurityModule()    // expected by shiro config
         );
 
-        appendExampleModulesTo(dependencies);
+        appendExampleFixtureModulesTo(dependencies);
+
         appendExtModulesTo(dependencies);
         appendLibModulesTo(dependencies);
         appendSpiModulesTo(dependencies);
@@ -110,21 +111,21 @@ public class ExtendedAppAppDefnModule extends ModuleAbstract {
         return dependencies;
     }
 
-    private void appendExampleModulesTo(Set<Module> dependencies) {
+    private void appendExampleFixtureModulesTo(Set<Module> dependencies) {
         final HashSet<ModuleAbstract> mods = Sets.newHashSet(
-                new AliasModule(),
-                new ClassificationModule(),
-                new CommChannelModule(),
-                new CommunicationsModule(),
+                new AliasDemoModule(),
+                new ClassificationDemoModule(),
+                new CommChannelDemoModule(),
+                new CommunicationsDemoModule(),
                 new CountryModule(),
-                new DocFragmentModule(),
+                new DocFragmentDemoModule(),
                 new FreemarkerDocRenderingModule(),
                 new StringInterpolatorDocRenderingModule(),
                 new XDocReportDocRenderingModule(),
-                new DocumentModule(),
-                new NoteModule(),
+                new DocumentDemoModule(),
+                new NoteDemoModule(),
                 new SettingsModule(),   // expected by togglz
-                new TagsModule()
+                new TagsDemoModule()
         );
         dependencies.addAll(mods);
     }

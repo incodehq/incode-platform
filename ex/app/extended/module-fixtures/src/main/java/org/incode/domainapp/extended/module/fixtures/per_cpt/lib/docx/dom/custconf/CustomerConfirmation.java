@@ -50,8 +50,7 @@ public class CustomerConfirmation {
 
     @PostConstruct
     public void init() throws IOException, LoadTemplateException {
-        final byte[] bytes = Resources.toByteArray(Resources.getResource(this.getClass(), "CustomerConfirmation.docx"));
-        wordprocessingMLPackage = docxService.loadPackage(new ByteArrayInputStream(bytes));
+        // now done lazily
     }
     //endregion
 
@@ -70,7 +69,7 @@ public class CustomerConfirmation {
         final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
 
         final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
-        docxService.merge(w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
+        docxService.merge(w3cDocument, getWordprocessingMLPackage(), docxTarget, DocxService.MatchingPolicy.LAX);
 
         final String blobName = "customerConfirmation-" + order.getNumber() + ".docx";
         final String blobMimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
@@ -119,7 +118,7 @@ public class CustomerConfirmation {
         final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
 
         final ByteArrayOutputStream docxTarget = new ByteArrayOutputStream();
-        docxService.merge(w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX, DocxService.OutputType.PDF);
+        docxService.merge(w3cDocument, getWordprocessingMLPackage(), docxTarget, DocxService.MatchingPolicy.LAX, DocxService.OutputType.PDF);
 
         final String blobName = "customerConfirmation-" + order.getNumber() + ".pdf";
         final String blobMimeType = "application/pdf";
@@ -232,6 +231,22 @@ public class CustomerConfirmation {
 
     @javax.inject.Inject
     private DocxService docxService;
+
+    @lombok.SneakyThrows
+    private WordprocessingMLPackage getWordprocessingMLPackage() {
+
+        if(wordprocessingMLPackage == null) {
+            final byte[] bytes;
+            bytes = Resources.toByteArray(Resources.getResource(this.getClass(), "CustomerConfirmation.docx"));
+            wordprocessingMLPackage = docxService.loadPackage(new ByteArrayInputStream(bytes));
+        }
+
+        return wordprocessingMLPackage;
+    }
+
+    private void setWordprocessingMLPackage(WordprocessingMLPackage wordprocessingMLPackage) {
+        this.wordprocessingMLPackage = wordprocessingMLPackage;
+    }
 
     //endregion
 

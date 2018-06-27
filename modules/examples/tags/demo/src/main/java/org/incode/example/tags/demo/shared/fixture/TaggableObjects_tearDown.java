@@ -1,8 +1,8 @@
-package org.incode.example.tags.demo.usage.fixture;
+package org.incode.example.tags.demo.shared.fixture;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.example.tags.demo.usage.dom.demo.TaggableObject;
+import org.incode.example.tags.demo.shared.dom.demo.TaggableObject;
 import org.incode.example.tags.dom.impl.Tag;
 
 public class TaggableObjects_tearDown extends TeardownFixtureAbstract2 {

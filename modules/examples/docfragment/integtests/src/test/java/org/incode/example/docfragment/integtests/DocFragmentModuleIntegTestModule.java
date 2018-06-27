@@ -12,7 +12,7 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.isisaddons.module.fakedata.FakeDataModule;
 import org.isisaddons.module.freemarker.dom.service.FreeMarkerService;
 
-import org.incode.example.docfragment.demo.usage.DocFragmentDemoUsageSubmodule;
+import org.incode.example.docfragment.demo.usage.DocFragmentDemoUsageModule;
 
 @XmlRootElement(name = "module")
 public class DocFragmentModuleIntegTestModule extends ModuleAbstract {
@@ -24,7 +24,7 @@ public class DocFragmentModuleIntegTestModule extends ModuleAbstract {
     @Override
     public Set<Module> getDependencies() {
         return Sets.newHashSet(
-                new DocFragmentDemoUsageSubmodule(),
+                new DocFragmentDemoUsageModule(),
                 new FakeDataModule()
         );
     }

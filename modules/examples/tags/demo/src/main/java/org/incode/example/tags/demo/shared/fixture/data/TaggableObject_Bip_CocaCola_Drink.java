@@ -1,4 +1,4 @@
-package org.incode.example.tags.demo.usage.fixture.data;
+package org.incode.example.tags.demo.shared.fixture.data;
 
 public class TaggableObject_Bip_CocaCola_Drink extends AbstractTaggableObjectFixture {
 
