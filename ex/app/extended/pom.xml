@@ -234,18 +234,6 @@
         </profile>
 
         <profile>
-            <id>integtests-examples</id>
-            <activation>
-                <property>
-                    <name>integtests-examples</name>
-                </property>
-            </activation>
-            <modules>
-                <module>integtests-examples</module>
-            </modules>
-        </profile>
-
-        <profile>
             <id>integtests-ext</id>
             <activation>
                 <property>

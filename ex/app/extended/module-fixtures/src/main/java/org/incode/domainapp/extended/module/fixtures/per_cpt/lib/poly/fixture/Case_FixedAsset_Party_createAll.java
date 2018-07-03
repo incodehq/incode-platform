@@ -11,6 +11,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofi
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentContributions;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.CasePrimaryContentContributions;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.Case_makePrimary;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.democasemgmt.Case_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demofixedasset.FixedAsset_create6;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demoparty.Party_create3;
@@ -84,8 +85,8 @@ public class Case_FixedAsset_Party_createAll extends FixtureScript {
         caseContentContributions.addToCase(cases.get(2), fixedAsset2);
 
         // assign a primary content for cases
-        casePrimaryContentContributions.makePrimary(case0, party1);
-        casePrimaryContentContributions.makePrimary(case1, fixedAsset0);
+        factoryService.mixin(Case_makePrimary.class, case0).act(party1);
+        factoryService.mixin(Case_makePrimary.class, case1).act(fixedAsset0);
     }
 
     private static String commChannelDetailsFor(final int i) {
@@ -93,8 +94,8 @@ public class Case_FixedAsset_Party_createAll extends FixtureScript {
     }
 
     @Inject
-    private CaseContentContributions caseContentContributions;
+    CaseContentContributions caseContentContributions;
     @Inject
-    private CasePrimaryContentContributions casePrimaryContentContributions;
+    CasePrimaryContentContributions casePrimaryContentContributions;
 
 }
