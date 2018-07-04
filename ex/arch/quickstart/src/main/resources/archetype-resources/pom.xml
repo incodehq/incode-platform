@@ -77,25 +77,13 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-appdefn</artifactId>
+                <artifactId>incode-extended-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-canonical</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-dom</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-embeddedcamel</artifactId>
+                <artifactId>incode-extended-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

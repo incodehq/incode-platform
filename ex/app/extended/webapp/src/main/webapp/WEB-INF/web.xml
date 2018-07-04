@@ -3,7 +3,7 @@
     xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-    <display-name>Domain App</display-name>
+    <display-name>Incode Platform Extended App</display-name>
 
     <welcome-file-list>
         <welcome-file>about/index.html</welcome-file>
@@ -11,7 +11,7 @@
 
 
     <listener>
-        <listener-class>domainapp.webapp.spring.CustomSpringContextLoaderListener</listener-class>
+        <listener-class>org.incode.domainapp.extended.webapp.spring.CustomSpringContextLoaderListener</listener-class>
     </listener>
 
     <context-param>
@@ -267,7 +267,7 @@
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>domainapp.webapp.DomainAppWicketApplication</param-value>
+            <param-value>org.incode.domainapp.extended.webapp.DomainAppWicketApplication</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -405,7 +405,7 @@
         <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
         <init-param>
             <param-name>config-file</param-name>
-            <param-value>domainapp/webapp/quartz/quartz.properties</param-value>
+            <param-value>org/incode/domainapp/extended/webapp/quartz/quartz.properties</param-value>
         </init-param>
         <init-param>
             <param-name>shutdown-on-unload</param-name>

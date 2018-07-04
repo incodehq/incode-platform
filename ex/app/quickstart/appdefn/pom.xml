@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.incode.example.application</groupId>
         <artifactId>incode-quickstart</artifactId>
-        <version>1.16.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>incode-quickstart-appdefn</artifactId>
@@ -19,7 +19,11 @@
         <isis-maven-plugin.swagger.appManifest>
             domainapp.appdefn.DomainAppAppManifestNoFlywayDb
         </isis-maven-plugin.swagger.appManifest>
+
+        <isis.version>${isisVersion}</isis.version>
     </properties>
+
+
     <build>
         <resources>
             <resource>
@@ -77,14 +81,45 @@
                             <groupId>com.danhaywood.mavenmixin</groupId>
                             <artifactId>cucumberreporting</artifactId>
                         </mixin>
-                        <mixin>
-                            <groupId>org.incode.mavenmixin</groupId>
-                            <artifactId>incode-mavenmixin-swagger</artifactId>
-                        </mixin>
                     </mixins>
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.isis.tool</groupId>
+                <artifactId>isis-maven-plugin</artifactId>
+                <version>${isis.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>swagger</goal>
+                        </goals>
+                        <configuration>
+                            <appManifest>${isis-maven-plugin.swagger.appManifest}</appManifest>
+                            <visibilities>
+                                <visibility>PUBLIC</visibility>
+                                <visibility>PRIVATE</visibility>
+                            </visibilities>
+                            <format>JSON</format>
+                            <fileNamePrefix>swagger</fileNamePrefix>
+                        </configuration>
+                    </execution>
+                </executions>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>${project.artifactId}</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>2.3.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
@@ -129,6 +164,73 @@
             <artifactId>isis-core-wrapper</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.isisaddons.metamodel.paraname8</groupId>
+            <artifactId>isis-metamodel-paraname8-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.togglz</groupId>
+            <artifactId>isis-module-togglz-glue</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.audit</groupId>
+            <artifactId>isis-module-audit-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.command</groupId>
+            <artifactId>isis-module-command-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>${jbcrypt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.security</groupId>
+            <artifactId>isis-module-security-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.sessionlogger</groupId>
+            <artifactId>isis-module-sessionlogger-dom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.wicket.excel</groupId>
+            <artifactId>isis-wicket-excel-cpt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
+            <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.wicket.gmap3</groupId>
+            <artifactId>isis-wicket-gmap3-cpt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.wicket.summernote</groupId>
+            <artifactId>isis-wicket-summernote-cpt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.wicket.pdfjs</groupId>
+            <artifactId>isis-wicket-pdfjs-cpt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.wicket.wickedcharts</groupId>
+            <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.incode.example.settings</groupId>
+            <artifactId>incode-example-settings-dom</artifactId>
+        </dependency>
+
+
         <!-- test -->
 	    <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
@@ -138,221 +240,5 @@
         </dependency>
 
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>metamodel-paraname8</id>
-            <activation>
-                <property>
-                    <name>!skip.metamodel-paraname8</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.metamodel.paraname8</groupId>
-                    <artifactId>isis-metamodel-paraname8-dom</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>ext-togglz</id>
-            <activation>
-                <property>
-                    <name>!skip.ext-togglz</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.module.togglz</groupId>
-                    <artifactId>isis-module-togglz-glue</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>spi-audit</id>
-            <activation>
-                <property>
-                    <name>!skip.spi-audit</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.module.audit</groupId>
-                    <artifactId>isis-module-audit-dom</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>spi-command</id>
-            <activation>
-                <property>
-                    <name>!skip.spi-command</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.module.command</groupId>
-                    <artifactId>isis-module-command-dom</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>spi-publishmq</id>
-            <activation>
-                <property>
-                    <name>!skip.spi-publishmq</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.module.publishmq</groupId>
-                    <artifactId>isis-module-publishmq-dom-jdo</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.isisaddons.module.publishmq</groupId>
-                    <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>spi-security</id>
-            <activation>
-                <property>
-                    <name>!skip.spi-security</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.mindrot</groupId>
-                        <artifactId>jbcrypt</artifactId>
-                        <version>${jbcrypt.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.module.security</groupId>
-                    <artifactId>isis-module-security-dom</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.mindrot</groupId>
-                    <artifactId>jbcrypt</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>spi-sessionlogger</id>
-            <activation>
-                <property>
-                    <name>!skip.spi-sessionlogger</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.module.sessionlogger</groupId>
-                    <artifactId>isis-module-sessionlogger-dom</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wicket-excel</id>
-            <activation>
-                <property>
-                    <name>!skip.wicket-excel</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.wicket.excel</groupId>
-                    <artifactId>isis-wicket-excel-cpt</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wicket-fullcalendar2</id>
-            <activation>
-                <property>
-                    <name>!skip.wicket-fullcalendar2</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
-                    <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wicket-gmap3</id>
-            <activation>
-                <property>
-                    <name>!skip.wicket-gmap3</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.wicket.gmap3</groupId>
-                    <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wicket-summernote</id>
-            <activation>
-                <property>
-                    <name>!skip.wicket-summernote</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.wicket.summernote</groupId>
-                    <artifactId>isis-wicket-summernote-cpt</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wicket-pdfjs</id>
-            <activation>
-                <property>
-                    <name>!skip.wicket-pdfjs</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.wicket.pdfjs</groupId>
-                    <artifactId>isis-wicket-pdfjs-cpt</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wicket-wickedcharts</id>
-            <activation>
-                <property>
-                    <name>!skip.wicket-wickedcharts</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.isisaddons.wicket.wickedcharts</groupId>
-                    <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>module-settings</id>
-            <activation>
-                <property>
-                    <name>!skip.module-settings</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.incode.example.settings</groupId>
-                    <artifactId>incode-example-settings-dom</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
 </project>

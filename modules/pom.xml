@@ -99,7 +99,7 @@
         <jbcrypt.version>0.3m</jbcrypt.version>
         <jdom.version>2.0.2</jdom.version>
         <jdom2.version>2.0.5</jdom2.version>
-        <lombok.version>1.16.16</lombok.version>
+        <lombok.version>1.16.20</lombok.version>
         <objenesis.version>2.2</objenesis.version>
         <ognl.version>3.0.8</ognl.version>
         <quartz-scheduler.version>2.2.1</quartz-scheduler.version>
@@ -1257,11 +1257,113 @@
                 <version>${xdocreport.version}</version>
             </dependency>
 
-
         </dependencies>
     </dependencyManagement>
 
     <profiles>
+
+        <profile>
+            <id>default-modules</id>
+            <activation>
+                <property>
+                    <name>!release-modules</name>
+                </property>
+            </activation>
+            <modules>
+                <module>ext/flywaydb</module>
+                <module>ext/quartz</module>
+                <module>ext/togglz</module>
+
+                <module>lib/base</module>
+                <module>lib/docx</module>
+                <module>lib/excel</module>
+                <module>lib/fakedata</module>
+                <module>lib/fixturesupport</module>
+                <module>lib/freemarker</module>
+                <module>lib/integtestsupport</module>
+                <module>lib/jaxrsclient</module>
+                <module>lib/pdfbox</module>
+                <module>lib/poly</module>
+                <module>lib/servletapi</module>
+                <module>lib/slack</module>
+                <module>lib/stringinterpolator</module>
+                <module>lib/unittestsupport</module>
+                <module>lib/xdocreport</module>
+                <module>lib/zip</module>
+
+                <module>mml/paraname8</module>
+
+                <module>spi/audit</module>
+                <module>spi/command</module>
+                <module>spi/commandreplay</module>
+                <module>spi/errorrptjira</module>
+                <module>spi/errorrptslack</module>
+                <module>spi/publishmq</module>
+                <module>spi/security</module>
+                <module>spi/sessionlogger</module>
+                <module>spi/userimpersonate</module>
+
+                <module>wkt/excel</module>
+                <module>wkt/fullcalendar2</module>
+                <module>wkt/gmap3</module>
+                <module>wkt/pdfjs</module>
+                <module>wkt/summernote</module>
+                <module>wkt/wickedcharts</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>release-modules</id>
+            <activation>
+                <property>
+                    <name>release-modules</name>
+                </property>
+            </activation>
+            <!-- almost same as default-modules, but adds in examples -->
+            <modules>
+                <module>examples</module>
+
+                <module>ext/flywaydb</module>
+                <module>ext/quartz</module>
+                <module>ext/togglz</module>
+
+                <module>lib/base</module>
+                <module>lib/docx</module>
+                <module>lib/excel</module>
+                <module>lib/fakedata</module>
+                <module>lib/fixturesupport</module>
+                <module>lib/freemarker</module>
+                <module>lib/integtestsupport</module>
+                <module>lib/jaxrsclient</module>
+                <module>lib/pdfbox</module>
+                <module>lib/poly</module>
+                <module>lib/servletapi</module>
+                <module>lib/slack</module>
+                <module>lib/stringinterpolator</module>
+                <module>lib/unittestsupport</module>
+                <module>lib/xdocreport</module>
+                <module>lib/zip</module>
+
+                <module>mml/paraname8</module>
+
+                <module>spi/audit</module>
+                <module>spi/command</module>
+                <module>spi/commandreplay</module>
+                <module>spi/errorrptjira</module>
+                <module>spi/errorrptslack</module>
+                <module>spi/publishmq</module>
+                <module>spi/security</module>
+                <module>spi/sessionlogger</module>
+                <module>spi/userimpersonate</module>
+
+                <module>wkt/excel</module>
+                <module>wkt/fullcalendar2</module>
+                <module>wkt/gmap3</module>
+                <module>wkt/pdfjs</module>
+                <module>wkt/summernote</module>
+                <module>wkt/wickedcharts</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>release</id>
@@ -1375,63 +1477,5 @@
             </repositories>
         </profile>
     </profiles>
-
-    <modules>
-
-        <module>ext/flywaydb/impl</module>
-        <module>ext/quartz/impl</module>
-        <module>ext/togglz/impl</module>
-
-        <module>lib/base/impl</module>
-        <module>lib/docx/impl</module>
-        <module>lib/excel/impl</module>
-        <module>lib/fakedata/impl</module>
-        <module>lib/fixturesupport/impl</module>
-        <module>lib/freemarker/impl</module>
-        <module>lib/integtestsupport/impl</module>
-        <module>lib/jaxrsclient/impl</module>
-        <module>lib/pdfbox/impl</module>
-        <module>lib/poly/impl</module>
-        <module>lib/servletapi/impl</module>
-        <module>lib/slack/impl</module>
-        <module>lib/slack/main</module>
-        <module>lib/stringinterpolator/impl</module>
-        <module>lib/unittestsupport/impl</module>
-        <module>lib/xdocreport/impl</module>
-        <module>lib/zip/impl</module>
-
-        <module>dom/alias/impl</module>
-        <module>dom/classification/impl</module>
-        <module>dom/commchannel/impl</module>
-        <module>dom/communications/impl</module>
-        <module>dom/country/impl</module>
-        <module>dom/docfragment/impl</module>
-        <module>dom/docrendering-freemarker/impl</module>
-        <module>dom/docrendering-stringinterpolator/impl</module>
-        <module>dom/docrendering-xdocreport/impl</module>
-        <module>dom/document/impl</module>
-        <module>dom/note/impl</module>
-        <module>dom/settings/impl</module>
-        <module>dom/tags/impl</module>
-
-        <module>mml/paraname8/impl</module>
-
-        <module>spi/audit/impl</module>
-        <module>spi/command/impl</module>
-        <module>spi/command/replay</module>
-        <module>spi/errorrptjira/impl</module>
-        <module>spi/errorrptslack/impl</module>
-        <module>spi/publishmq/impl</module>
-        <module>spi/security/impl</module>
-        <module>spi/sessionlogger/impl</module>
-        <module>spi/userimpersonate/impl</module>
-
-        <module>wkt/excel/impl</module>
-        <module>wkt/fullcalendar2/impl</module>
-        <module>wkt/gmap3/impl</module>
-        <module>wkt/pdfjs/impl</module>
-        <module>wkt/summernote/impl</module>
-        <module>wkt/wickedcharts/impl</module>
-    </modules>
 
 </project>

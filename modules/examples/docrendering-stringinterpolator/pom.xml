@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.incode.example.docrendering</groupId>
+    <artifactId>incode-example-docrendering-stringinterpolator</artifactId>
+
+    <packaging>pom</packaging>
+
+    <name>Incode Platform Example DocRenderingStringInterpolator</name>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.incode.example.docrendering-stringinterpolator</groupId>
+                <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+		<module>dom</module>
+	</modules>
+	
+</project>

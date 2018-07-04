@@ -7,7 +7,10 @@
 pass:[<br/>]
 
 The Incode Platform provides a number of _modules_ for use with the link:http://isis.apache.org[Apache Isis] framework.
-The platform also provides a _"quickstart"_ app which can be used to quickly set up your own pre-configured applications.
+These are all released as ready-to-use binaries.
+In addition, the _examples_ modules are provided as source code - which provide some supporting subdomains such as notes and documents - can be easily forked and adapted for use in your own applications.
+
+The platform also provides a _"quickstart"_ Maven archetype which can be used to quickly set up your own pre-configured applications.
 
 
 
@@ -165,4 +168,10 @@ xref:modules/dom/tags/dom-tags.adoc#[Tags]
 |===
 
 
+The xref:modules/lib/lib.adoc#[_Libraries_], xref:modules/spi/spi.adoc#[_SPI Implementations_], xref:modules/wkt/wkt.adoc#[_Wicket Components_] and xref:modules/ext/ext.adoc#[_Extensions_] are intended to be used as ready-to-use binaries.
+So far as possible these modules will support semantic versioning to prevent breakages between versions.
+If you have enhancements to these, raise a pull request.
 
+In contrast, the xref:modules/dom/dom.adoc#[_Example Subdomains & Libraries_] are provided as a "starter-for-ten" for use within your own applications.
+You are welcome to raise pull requests, but you are also encouraged just to fork and adapt the code as you see fit.
+For this reason, semantic versioning is not being used for the examples; new versions could have breaking changes.

@@ -34,7 +34,8 @@
 
             <camel:choice>
                 <camel:when>
-                    <camel:simple>${header.ixn[execution$memberIdentifier]} == 'org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObject#updateName()'</camel:simple>
+                    <camel:simple>${header.ixn[execution$memberIdentifier]} ==
+                        'org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObject#updateName()'</camel:simple>
 
                     <log message="updateName() received... "/>
 
@@ -45,7 +46,8 @@
                     <camel:to uri="stream:out"/>
                 </camel:when>
                 <camel:when>
-                    <camel:simple>${header.ixn[execution$memberIdentifier]} == 'org.incode.domainapp.example.dom.spi.publishmq.dom.demo.PublishMqDemoObject#updateDescription()'</camel:simple>
+                    <camel:simple>${header.ixn[execution$memberIdentifier]} ==
+                        'org.incode.domainapp.extended.module.fixtures.per_cpt.spi.publishmq.dom.demo.PublishMqDemoObject#updateDescription()'</camel:simple>
 
                     <log message="updateDescription() received... "/>
 

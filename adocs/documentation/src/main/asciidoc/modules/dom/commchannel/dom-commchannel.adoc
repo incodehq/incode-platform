@@ -299,7 +299,7 @@ In the `AppManifest`, update its `getModules()` method:
 public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
-            org.incode.example.commchannel.dom.CommChannelModule.class,
+            org.incode.example.commchannel.CommChannelModule.class,
     );
 }
 ----

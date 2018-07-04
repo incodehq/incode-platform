@@ -6,21 +6,27 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.16.2</version>
+        <version>${revision}</version>
         <relativePath>../../../modules/pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.example.application</groupId>
     <artifactId>incode-quickstart</artifactId>
-    <version>1.16.2-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <name>Incode QuickStart</name>
     <description>Domain application leveraging the Incode Platform.</description>
 
     <properties>
 
-        <isis.version>1.16.2</isis.version>
-        <incode-platform.version>${project.parent.version}</incode-platform.version>
+        <isisVersion>1.16.2</isisVersion>
+        <incodeMavenmixinVersion>1.16.3-SNAPSHOT</incodeMavenmixinVersion>
+        <incodePlatformVersion>1.16.3-SNAPSHOT</incodePlatformVersion>
+
+        <revision>1.16.3-SNAPSHOT</revision>
+
+        <isis.version>${isisVersion}</isis.version>
+        <incode-platform.version>${incodePlatformVersion}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
         <jetty.version>9.4.3.v20170317</jetty.version>
@@ -72,31 +78,13 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>incode-quickstart-main-slack</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>incode-quickstart-webapp</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-appdefn</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-canonical</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-dom</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

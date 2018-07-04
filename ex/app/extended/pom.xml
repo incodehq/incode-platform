@@ -6,29 +6,33 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
-        <version>1.16.3-SNAPSHOT</version>
+        <version>${revision}</version>
         <relativePath>../../../modules/pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.example.application</groupId>
     <artifactId>incode-extended</artifactId>
-    <version>1.16.3-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <name>Incode Extended</name>
     <description>Domain application with example subdomains.</description>
 
     <properties>
 
-        <isis.version>1.16.2</isis.version>
-        <!--
-        <isis.version>1.16.1.20180223-1715</isis.version>
-        -->
-        <incode-platform.version>${project.parent.version}</incode-platform.version>
+        <revision>1.16.3-SNAPSHOT</revision>
+        <isisVersion>1.16.2</isisVersion>
+
+        <isis.version>${isisVersion}</isis.version>
+        <incode-platform.version>${revision}</incode-platform.version>
+
+        <lombok.version>1.16.20</lombok.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
         <jetty.version>9.4.3.v20170317</jetty.version>
         <activemq-web.version>5.14.3</activemq-web.version>
         <camel.version>2.16.3</camel.version>
+
+        <cxf-core.version>3.1.1</cxf-core.version>
 
         <!-- override properties inherited from incode-parent -->
         <activemq.version>${activemq-web.version}</activemq.version>
@@ -41,6 +45,8 @@
 
         <jaxb-impl.version>2.2.11</jaxb-impl.version>
         <jquery-selectors.version>0.2.4</jquery-selectors.version>
+
+
     </properties>
 
     <packaging>pom</packaging>
@@ -50,57 +56,110 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-appdefn</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-module-base</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-module-simple</artifactId>
-                <version>${project.version}</version>
+                <artifactId>incode-extended-module-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.alias</groupId>
+                <artifactId>incode-example-alias-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.classification</groupId>
+                <artifactId>incode-example-classification-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.commchannel</groupId>
+                <artifactId>incode-example-commchannel-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.document</groupId>
+                <artifactId>incode-example-document-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.note</groupId>
+                <artifactId>incode-example-note-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.tags</groupId>
+                <artifactId>incode-example-tags-demo</artifactId>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-module-simple</artifactId>
+                <artifactId>incode-extended-module-fixtures</artifactId>
                 <scope>test</scope>
                 <type>test-jar</type>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-webapp</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-extended-integtests</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-extended-main-slack</artifactId>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>incode-extended-example-appdefn</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-extended-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-canonical</artifactId>
+                <artifactId>incode-extended-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-dom</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-embeddedcamel</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
             </dependency>
 
         </dependencies>
@@ -124,8 +183,33 @@
                 </property>
             </activation>
             <modules>
-                <module>example/dom</module>
-                <module>module-simple</module>
+                <module>module-fixtures</module>
+                <module>../../../modules/spi/audit</module>
+                <module>../../../modules/spi/command</module>
+                <module>../../../modules/spi/publishmq/jdo</module>
+                <module>../../../modules/spi/security</module>
+                <module>../../../modules/spi/sessionlogger</module>
+
+                <module>../../../modules/examples/alias/demo</module>
+                <module>../../../modules/examples/alias/dom</module>
+                <module>../../../modules/examples/classification/demo</module>
+                <module>../../../modules/examples/classification/dom</module>
+                <module>../../../modules/examples/commchannel/demo</module>
+                <module>../../../modules/examples/commchannel/dom</module>
+                <module>../../../modules/examples/communications/demo</module>
+                <module>../../../modules/examples/communications/dom</module>
+                <module>../../../modules/examples/country/dom</module>
+                <module>../../../modules/examples/docfragment/demo</module>
+                <module>../../../modules/examples/docfragment/dom</module>
+                <module>../../../modules/examples/document/demo</module>
+                <module>../../../modules/examples/document/dom</module>
+                <module>../../../modules/examples/note/demo</module>
+                <module>../../../modules/examples/note/dom</module>
+                <module>../../../modules/examples/settings/dom</module>
+                <module>../../../modules/examples/tags/dom</module>
+                <module>../../../modules/examples/tags/demo</module>
+
+                <module>integtests-spi</module>
             </modules>
         </profile>
 
@@ -137,17 +221,72 @@
                 </property>
             </activation>
             <modules>
+                <module>canonical</module>
+<!--
+                <module>embeddedcamel</module>
+-->
+
                 <module>module-base</module>
-                <module>module-simple</module>
+                <module>module-fixtures</module>
+
+                <module>integtests-ext</module>
+                <module>integtests-lib</module>
+                <module>integtests-spi</module>
+                <module>integtests-mml</module>
+                <module>../../../modules/examples</module>
+
                 <module>appdefn</module>
                 <module>webapp</module>
 
-                <module>example/canonical</module>
-                <module>example/embeddedcamel</module>
+                <module>main-slack</module>
+            </modules>
+        </profile>
 
-                <module>example/dom</module>
-                <module>example/appdefn</module>
+        <profile>
+            <id>integtests-ext</id>
+            <activation>
+                <property>
+                    <name>integtests-ext</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-ext</module>
+            </modules>
+        </profile>
 
+        <profile>
+            <id>integtests-lib</id>
+            <activation>
+                <property>
+                    <name>integtests-lib</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-lib</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>integtests-mml</id>
+            <activation>
+                <property>
+                    <name>integtests-mml</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-mml</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>integtests-spi</id>
+            <activation>
+                <property>
+                    <name>integtests-spi</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integtests-spi</module>
             </modules>
         </profile>
     </profiles>
