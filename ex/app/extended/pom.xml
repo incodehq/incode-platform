@@ -222,9 +222,7 @@
             </activation>
             <modules>
                 <module>canonical</module>
-<!--
                 <module>embeddedcamel</module>
--->
 
                 <module>module-base</module>
                 <module>module-fixtures</module>
