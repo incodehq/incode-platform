@@ -39,3 +39,4 @@ JArchitectOut/
 rebel.xml
 translations.pot
 datanucleus.log.1
+.flattened-pom.xml

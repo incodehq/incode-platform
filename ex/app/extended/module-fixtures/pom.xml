@@ -276,6 +276,14 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
             <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
         </dependency>
 
+<!--
+        <dependency>
+            <groupId>org.incode.example.classification</groupId>
+            <artifactId>incode-example-classification-demo</artifactId>
+            <scope>compile</scope>
+        </dependency>
+-->
+
         <!-- test -->
         <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
@@ -294,12 +302,6 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.incode.example.classification</groupId>
-            <artifactId>incode-example-classification-demo</artifactId>
-            <version>1.16.3-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
 
     </dependencies>
