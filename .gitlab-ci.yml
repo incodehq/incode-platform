@@ -31,6 +31,7 @@ build-package-push:
       mvn --batch-mode \
           clean install
           -Drevision=$REVISION \
+          $CORE_ADDITIONAL_OPTS
     - cd modules
     - >
       mvn -s .m2/settings.xml \
