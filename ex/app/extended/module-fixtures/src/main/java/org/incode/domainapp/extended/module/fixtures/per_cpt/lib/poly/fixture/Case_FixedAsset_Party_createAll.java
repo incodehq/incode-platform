@@ -9,8 +9,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demofixedasset.FixedAsset;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.demoparty.Party;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentContributions;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.CasePrimaryContentContributions;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentLinks;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.caseprimary.Case_makePrimary;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.democasemgmt.Case_create3;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.fixture.data.demofixedasset.FixedAsset_create6;
@@ -73,16 +72,16 @@ public class Case_FixedAsset_Party_createAll extends FixtureScript {
         final Case case0 = cases.get(0);
         final Case case1 = cases.get(1);
 
-        caseContentContributions.addToCase(case0, party0);
-        caseContentContributions.addToCase(case0, party1);
-        caseContentContributions.addToCase(case0, fixedAsset0);
-        caseContentContributions.addToCase(case0, fixedAsset1);
+        caseContentLinks.createLink(case0, party0);
+        caseContentLinks.createLink(case0, party1);
+        caseContentLinks.createLink(case0, fixedAsset0);
+        caseContentLinks.createLink(case0, fixedAsset1);
 
-        caseContentContributions.addToCase(case1, party1);
-        caseContentContributions.addToCase(case1, fixedAsset1);
+        caseContentLinks.createLink(case1, party1);
+        caseContentLinks.createLink(case1, fixedAsset1);
 
-        caseContentContributions.addToCase(cases.get(2), party2);
-        caseContentContributions.addToCase(cases.get(2), fixedAsset2);
+        caseContentLinks.createLink(cases.get(2), party2);
+        caseContentLinks.createLink(cases.get(2), fixedAsset2);
 
         // assign a primary content for cases
         factoryService.mixin(Case_makePrimary.class, case0).act(party1);
@@ -94,8 +93,6 @@ public class Case_FixedAsset_Party_createAll extends FixtureScript {
     }
 
     @Inject
-    CaseContentContributions caseContentContributions;
-    @Inject
-    CasePrimaryContentContributions casePrimaryContentContributions;
+    CaseContentLinks caseContentLinks;
 
 }

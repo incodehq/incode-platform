@@ -12,7 +12,7 @@ import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.c
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class CasePrimaryContentContributions {
+public class CasePrimaryContentService {
 
 
     Case setPrimary(final Case aCase, final CaseContent caseContent) {

@@ -12,7 +12,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
 import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContent;
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentContributions;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentService;
 
 @Mixin(method="act")
 public class Case_makePrimary {
@@ -30,17 +30,17 @@ public class Case_makePrimary {
             contributed = Contributed.AS_ACTION
     )
     public Case act(final CaseContent caseContent) {
-        return casePrimaryContentContributions.setPrimary(aCase, caseContent);
+        return casePrimaryContentService.setPrimary(aCase, caseContent);
     }
 
-    public List<CaseContent> choices0MakePrimary() {
-        return caseContentContributions.contents(aCase);
+    public List<CaseContent> choices0Act() {
+        return caseContentService.contentsFor(aCase);
     }
 
     @Inject
-    CasePrimaryContentContributions casePrimaryContentContributions;
-
+    CasePrimaryContentService casePrimaryContentService;
     @Inject
-    CaseContentContributions caseContentContributions;
+    CaseContentService caseContentService;
+
 
 }

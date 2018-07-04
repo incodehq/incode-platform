@@ -540,7 +540,7 @@ public class HomePageViewModel {
         return repositoryService.allInstances(PaperclipForCommunication.class);
     }
 
-    public List<Communication> getCommunications() {
+    public List<Communication> getExampleCommunications() {
         return repositoryService.allInstances(Communication.class);
     }
 
@@ -612,7 +612,7 @@ public class HomePageViewModel {
         return documentTemplateRepository.allTemplates();
     }
 
-    public List<org.incode.example.document.dom.impl.applicability.Applicability> getDocumentApplicabilities() {
+    public List<org.incode.example.document.dom.impl.applicability.Applicability> getExampleDocumentApplicabilities() {
         return repositoryService.allInstances(org.incode.example.document.dom.impl.applicability.Applicability.class);
     }
 

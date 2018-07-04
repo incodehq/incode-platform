@@ -184,6 +184,12 @@
             </activation>
             <modules>
                 <module>module-fixtures</module>
+                <module>../../../modules/spi/audit</module>
+                <module>../../../modules/spi/command</module>
+                <module>../../../modules/spi/publishmq/jdo</module>
+                <module>../../../modules/spi/security</module>
+                <module>../../../modules/spi/sessionlogger</module>
+
                 <module>../../../modules/examples/alias/demo</module>
                 <module>../../../modules/examples/alias/dom</module>
                 <module>../../../modules/examples/classification/demo</module>
@@ -202,6 +208,7 @@
                 <module>../../../modules/examples/settings/dom</module>
                 <module>../../../modules/examples/tags/dom</module>
                 <module>../../../modules/examples/tags/demo</module>
+
                 <module>integtests-spi</module>
             </modules>
         </profile>
@@ -215,7 +222,9 @@
             </activation>
             <modules>
                 <module>canonical</module>
+<!--
                 <module>embeddedcamel</module>
+-->
 
                 <module>module-base</module>
                 <module>module-fixtures</module>

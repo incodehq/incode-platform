@@ -9,8 +9,12 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.services.eventbus.AbstractDomainEvent;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContentContributions;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.democasemgmt.Case;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContent;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.CaseContent_removeFromCase;
+import org.incode.domainapp.extended.module.fixtures.per_cpt.lib.poly.dom.poly.casecontent.Case_removeFromCaseContent;
 
 @DomainService(
         nature = NatureOfService.DOMAIN
@@ -22,20 +26,30 @@ public class CasePrimaryContentSubscriber extends AbstractSubscriber {
      */
     @Programmatic
     @Subscribe
-    public void on(final CaseContentContributions.RemoveFromCaseDomainEvent ev) {
-        switch (ev.getEventPhase()) {
-            case EXECUTING:
-                final CasePrimaryContentLink link = casePrimaryContentLinks.findByCaseAndContent(ev.getCase(), ev.getContent());
-                if(link != null) {
-                    container.remove(link);
-                }
-                break;
+    public void on(final Case_removeFromCaseContent.RemoveDomainEvent ev) {
+        remove(ev.getCase(), ev.getContent(), ev.getEventPhase());
+    }
+
+    @Programmatic
+    @Subscribe
+    public void on(final CaseContent_removeFromCase.RemoveDomainEvent ev) {
+        remove(ev.getCase(), ev.getContent(), ev.getEventPhase());
+    }
+
+    private void remove(final Case aCase, final CaseContent content, final AbstractDomainEvent.Phase eventPhase) {
+        switch (eventPhase) {
+        case EXECUTING:
+            final CasePrimaryContentLink link = casePrimaryContentLinks.findByCaseAndContent(aCase, content);
+            if (link != null) {
+                container.remove(link);
+            }
+            break;
         }
     }
 
     @Inject
-    private CasePrimaryContentLinks casePrimaryContentLinks;
+    CasePrimaryContentLinks casePrimaryContentLinks;
     @Inject
-    private DomainObjectContainer container;
+    DomainObjectContainer container;
 
 }

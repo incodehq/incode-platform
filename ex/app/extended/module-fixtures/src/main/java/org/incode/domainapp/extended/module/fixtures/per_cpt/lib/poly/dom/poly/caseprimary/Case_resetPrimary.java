@@ -26,10 +26,10 @@ public class Case_resetPrimary {
             contributed = Contributed.AS_ACTION
     )
     public Case act() {
-        return casePrimaryContentContributions.setPrimary(aCase, null);
+        return casePrimaryContentService.setPrimary(aCase, null);
     }
 
     @Inject
-    CasePrimaryContentContributions casePrimaryContentContributions;
+    CasePrimaryContentService casePrimaryContentService;
 
 }
