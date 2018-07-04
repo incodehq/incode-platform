@@ -12,12 +12,16 @@ before_script:
   - export BASELINE=1.16.2
   - export REVISION=$BASELINE.$(date +%Y%m%d)-$(date +%H%M)-$(echo $CI_COMMIT_SHA | cut -c1-8)
 
-services:
-  - docker:dind
+#
+# TODO: uncomment next 2 sections if decide to configure & build incode-extended-app as a Docker image
+#
 
-variables:
-  DOCKER_HOST: tcp://docker:2375
-  DOCKER_DRIVER: overlay2
+#services:
+#  - docker:dind
+
+#variables:
+#  DOCKER_HOST: tcp://docker:2375
+#  DOCKER_DRIVER: overlay2
 #  APP_NAME: "incode-extended-app"
 
 stages:
@@ -29,7 +33,7 @@ build-package-push:
     - echo "REVISION=$REVISION"
     - >
       mvn --batch-mode \
-          clean install
+          clean install \
           -Drevision=$REVISION \
           $CORE_ADDITIONAL_OPTS
     - cd modules
@@ -45,7 +49,7 @@ build-package-push:
 
 
 #
-# TODO: to enable (if we decide to configure the incode-extended app as a Docker image)
+# TODO: uncomment if we decide to configure & build the incode-extended app as a Docker image
 #
 #
 # requires the additional following gitlab secret variables
