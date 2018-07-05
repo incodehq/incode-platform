@@ -44,18 +44,25 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     public static final String KEY_VM_TRANSPORT_URL = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".vmTransportUri";
     public static final String KEY_VM_TRANSPORT_URL_DEFAULT = "vm://broker";
 
+    public static final String KEY_TCP_TRANSPORT_URL = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".tcpTransportUri";
+    public static final String KEY_TCP_TRANSPORT_URL_DEFAULT = "vm://broker";
+
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".memberInteractionsQueue";
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT = "memberInteractionsQueue";
     //endregion
 
     //region > fields
 
-    private ConnectionFactory jmsConnectionFactory;
-    private Connection jmsConnection;
+    private ConnectionFactory vmJmsConnectionFactory;
+    private Connection vmJmsConnection;
+    private String vmTransportUrl;
+
+    private ConnectionFactory tcpJmsConnectionFactory;
+    private Connection tcpJmsConnection;
+    private String tcpTransportUrl;
 
     private static boolean transacted = true;
 
-    private String vmTransportUrl;
     String memberInteractionsQueueName;
 
     //endregion
@@ -69,27 +76,27 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         memberInteractionsQueueName = properties.getOrDefault(KEY_MEMBER_INTERACTIONS_QUEUE,
                 KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT);
 
-        jmsConnectionFactory = new ActiveMQConnectionFactory(vmTransportUrl);
+        vmJmsConnectionFactory = new ActiveMQConnectionFactory(vmTransportUrl);
 
         try {
-            jmsConnection = jmsConnectionFactory.createConnection();
+            vmJmsConnection = vmJmsConnectionFactory.createConnection();
         } catch (JMSException e) {
             LOG.error("Unable to create connection", e);
             throw new RuntimeException(e);
         }
 
         try {
-            jmsConnection.start();
+            vmJmsConnection.start();
         } catch (JMSException e) {
             LOG.error("Unable to start connection", e);
-            closeSafely(jmsConnection);
-            jmsConnection = null;
+            closeSafely(vmJmsConnection);
+            vmJmsConnection = null;
         }
     }
 
     @PreDestroy
     public void shutdown() {
-        closeSafely(jmsConnection);
+        closeSafely(vmJmsConnection);
     }
 
 
@@ -142,7 +149,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         Session session = null;
         try {
 
-            session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
+            session = vmJmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
             TextMessage message = session.createTextMessage(xml);
 
             final String transactionId = interactionDto.getTransactionId();
