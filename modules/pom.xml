@@ -1460,10 +1460,51 @@
 
         <!-- TODO: move up to incode-build -->
         <profile>
+            <id>incode-cloud-maven</id>
+            <activation>
+                <property>
+                    <name>!skip.incode-cloud-maven</name>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>incode-cloud-maven</id>
+                    <url>https://repo.incode.cloud/repository/maven/</url>
+                    <name>Incode Cloud (maven)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </snapshots>
+                    <layout>default</layout>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>incode-cloud-maven</id>
+                    <name>Incode Cloud (maven)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <url>https://repo.incode.cloud/repository/maven/</url>
+                    <layout>default</layout>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+        <!-- TODO: move up to incode-build -->
+        <profile>
             <id>incode-cloud-maven-dev</id>
             <activation>
                 <property>
-                    <name>!skip.incode-cloud-maven-dev</name>
+                    <name>incode-cloud-maven-dev</name>
                 </property>
             </activation>
             <repositories>
@@ -1504,7 +1545,7 @@
             <id>incode-cloud-maven-test</id>
             <activation>
                 <property>
-                    <name>!skip.incode-cloud-maven-test</name>
+                    <name>incode-cloud-maven-test</name>
                 </property>
             </activation>
             <repositories>
@@ -1545,7 +1586,7 @@
             <id>incode-cloud-maven-prod</id>
             <activation>
                 <property>
-                    <name>!skip.incode-cloud-maven-prod</name>
+                    <name>incode-cloud-maven-prod</name>
                 </property>
             </activation>
             <repositories>
@@ -1581,22 +1622,8 @@
             </pluginRepositories>
         </profile>
 
-
+        <!-- TODO: move up to incode-build -->
         <profile>
-            <!--
-            this profile allows builds to be deployed to an inhouse nexus repo.
-
-            export NEXUS_USERNAME=...
-            export NEXUS_PASSWORD=...
-            export NEXUS_REPO_URL=...
-            export REVISION=...
-
-            mvn -s .m2/settings.xml \
-                -Drevision=$REVISION \
-                clean deploy \
-                -Dnexus-deploy \
-                -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL
-             -->
             <id>nexus-deploy</id>
             <activation>
                 <property>
