@@ -1456,26 +1456,131 @@
                 </snapshotRepository>
             </distributionManagement>
         </profile>
+
+
+        <!-- TODO: move up to incode-build -->
         <profile>
-            <id>cloudbees-snapshots</id>
+            <id>incode-cloud-maven-dev</id>
             <activation>
                 <property>
-                    <name>!skip.cloudbees-snapshots</name>
+                    <name>!skip.incode-cloud-maven-dev</name>
                 </property>
             </activation>
             <repositories>
                 <repository>
-                    <id>snapshots-repo</id>
-                    <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
+                    <id>incode-cloud-maven-dev</id>
+                    <url>https://repo.incode.cloud/repository/maven-dev/</url>
+                    <name>Incode Cloud (maven-dev)</name>
                     <releases>
-                        <enabled>false</enabled>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
                     </releases>
                     <snapshots>
-                        <enabled>true</enabled>
+                        <enabled>false</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
                     </snapshots>
+                    <layout>default</layout>
                 </repository>
             </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>incode-cloud-maven-dev</id>
+                    <name>Incode Cloud (maven-dev)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <url>https://repo.incode.cloud/repository/maven-dev/</url>
+                    <layout>default</layout>
+                </pluginRepository>
+            </pluginRepositories>
         </profile>
+
+        <!-- TODO: move up to incode-build -->
+        <profile>
+            <id>incode-cloud-maven-test</id>
+            <activation>
+                <property>
+                    <name>!skip.incode-cloud-maven-test</name>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>incode-cloud-maven-test</id>
+                    <url>https://repo.incode.cloud/repository/maven-test/</url>
+                    <name>Incode Cloud (maven-test)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </snapshots>
+                    <layout>default</layout>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>incode-cloud-maven-test</id>
+                    <name>Incode Cloud (maven-test)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <url>https://repo.incode.cloud/repository/maven-test/</url>
+                    <layout>default</layout>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+        <!-- TODO: move up to incode-build -->
+        <profile>
+            <id>incode-cloud-maven-prod</id>
+            <activation>
+                <property>
+                    <name>!skip.incode-cloud-maven-prod</name>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>incode-cloud-maven-prod</id>
+                    <url>https://repo.incode.cloud/repository/maven-prod/</url>
+                    <name>Incode Cloud (maven-prod)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </snapshots>
+                    <layout>default</layout>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>incode-cloud-maven-prod</id>
+                    <name>Incode Cloud (maven-prod)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <url>https://repo.incode.cloud/repository/maven-prod/</url>
+                    <layout>default</layout>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
 
         <profile>
             <!--
