@@ -1,12 +1,18 @@
 package org.isisaddons.module.publishmq.dom.jdo.mixins;
 
-import org.apache.isis.applib.annotation.*;
+import java.util.UUID;
+
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.Contributed;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
+
 import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
-
-import java.util.UUID;
 
 
 /**
@@ -45,7 +51,7 @@ public class HasTransactionId_publishedEvent {
         return (hasTransactionId instanceof PublishedEvent);
     }
     public String disable$$() {
-        return findFirstEvent() == null ? "No command found for transaction Id": null;
+        return findFirstEvent() == null ? "No published event found for transaction Id": null;
     }
 
     private PublishedEvent findFirstEvent() {
@@ -56,7 +62,7 @@ public class HasTransactionId_publishedEvent {
 
 
     @javax.inject.Inject
-    private PublishedEventRepository publishedEventRepository;
+    PublishedEventRepository publishedEventRepository;
 
 
 }
