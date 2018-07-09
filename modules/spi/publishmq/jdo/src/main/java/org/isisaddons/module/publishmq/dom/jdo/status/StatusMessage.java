@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Index;
 
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
@@ -17,6 +18,7 @@ import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
+import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -64,6 +66,12 @@ import lombok.Setter;
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
                     + "ORDER BY timestamp DESC, transactionId DESC")
 })
+@javax.jdo.annotations.Indices( {
+        @Index(
+                name = "StatusMessage_transactionId_sequence_IDX",
+                members = { "transactionId", "sequence" }
+        )
+})
 @DomainObject(
         editing = Editing.DISABLED,
         objectType = "isispublishmq.StatusMessage"
@@ -98,9 +106,12 @@ public class StatusMessage implements HasTransactionId {
 
     public static class TimestampDomainEvent extends PropertyDomainEvent<Timestamp> { }
 
+    /**
+     * The combination of ({@link #getTransactionId() transactionId}, {@link #getSequence()} and {@link #getTimestamp()} timestamp}) makes up the {@link StatusMessagePK primary key}.
+     */
     @javax.jdo.annotations.PrimaryKey
     @javax.jdo.annotations.Persistent
-    @javax.jdo.annotations.Column(allowsNull="false")
+    @javax.jdo.annotations.Column(allowsNull="false", position = 0)
     @Property(
             domainEvent = TimestampDomainEvent.class
     )
@@ -114,14 +125,13 @@ public class StatusMessage implements HasTransactionId {
     }
 
     /**
-     * The unique identifier (a GUID) of the transaction in which this published event was persisted.
+     * Along with {@link #getSequence()}, uniquely identifies the {@link PublishedEvent} to which this status message relates.
      *
      * <p>
-     * The combination of ({@link #getTransactionId() transactionId}, {@link #getTimestamp()} timestamp}) makes up the
-     * {@link StatusMessagePK primary key}.
+     * The combination of ({@link #getTransactionId() transactionId}, {@link #getSequence()} and {@link #getTimestamp()} timestamp}) makes up the {@link StatusMessagePK priamry key}.
      */
     @javax.jdo.annotations.PrimaryKey
-    @javax.jdo.annotations.Column(allowsNull="false",length=JdoColumnLength.TRANSACTION_ID)
+    @javax.jdo.annotations.Column(allowsNull="false",length=JdoColumnLength.TRANSACTION_ID, position = 1)
     @Property(
             domainEvent = TransactionIdDomainEvent.class
     )
@@ -131,6 +141,29 @@ public class StatusMessage implements HasTransactionId {
     )
     @Getter @Setter
     private UUID transactionId;
+
+    //endregion
+
+    //region > sequence (property)
+
+    public static class SequenceDomainEvent extends PropertyDomainEvent<Integer> {
+    }
+
+    /**
+     * Along with {@link #getTransactionId()}, this is a 0-based additional identifier that uniquely identifies the
+     * {@link PublishedEvent} to which this status message relates.
+     *
+     * <p>
+     * The combination of ({@link #getTransactionId() transactionId}, {@link #getSequence() sequence}) makes up the
+     * primary key.
+     */
+    @javax.jdo.annotations.PrimaryKey
+    @javax.jdo.annotations.Column(position = 2)
+    @Property(
+            domainEvent = SequenceDomainEvent.class
+    )
+    @Getter @Setter
+    private int sequence;
 
     //endregion
 

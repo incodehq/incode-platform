@@ -13,8 +13,10 @@ public class StatusMessage {
 
     public static class Builder {
         private final StatusMessage statusMessage = new StatusMessage();
-        Builder(final String transactionId, final String message) {
+
+        Builder(final String transactionId, final int sequence, final String message) {
             statusMessage.transactionId = new StringValue(transactionId);
+            statusMessage.sequence = new IntValue(sequence);
             statusMessage.message = new StringValue(message);
         }
         public Builder withOid(final String objectType, final String identifier) {
@@ -41,8 +43,15 @@ public class StatusMessage {
         }
     }
 
+    /**
+     * @deprecated - use {@link #builder(String, int, String)}.
+     */
+    @Deprecated
     public static Builder builder(String transactionId, String message) {
-        return new Builder(transactionId, message);
+        return builder(transactionId, 0, message);
+    }
+    public static Builder builder(String transactionId, int sequence, String message) {
+        return new Builder(transactionId, sequence, message);
     }
 
     private static final ObjectWriter writer;
@@ -53,6 +62,7 @@ public class StatusMessage {
     }
 
     StringValue transactionId;
+    IntValue sequence = new IntValue(0);
     StringValue message;
     StringValue oid = new StringValue(null);
     StringValue uri = new StringValue(null);
@@ -61,6 +71,10 @@ public class StatusMessage {
 
     public StringValue getTransactionId() {
         return transactionId;
+    }
+
+    public IntValue getSequence() {
+        return sequence;
     }
 
     public StringValue getMessage() {
@@ -95,6 +109,7 @@ public class StatusMessage {
     public String toString() {
         return "[STATUS MESSAGE] \n" +
                 "transactionId: " + transactionId + "\n" +
+                "sequence     : " + sequence + "\n" +
                 "message      : " + message + "\n" +
                 "oid          : " + oid + "\n" +
                 "uri          : " + uri + "\n" +

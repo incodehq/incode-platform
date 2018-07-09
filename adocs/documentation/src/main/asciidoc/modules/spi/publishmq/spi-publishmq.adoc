@@ -282,24 +282,25 @@ If necessary the location of this config file can be overridden; see link:http:/
 
 
 
+== Database Migrations
+
+* https://github.com/incodehq/incode-platform/issues/88[#88] - add sequence to StatusMessage.
++
+Search for `issue-88-add-sequence-to-StatusMessage-pk.sql` in this repo.
+
+
+
+
 == Known issues
+
 
 None known at this time.
 
 
 
 
-== Dependencies
 
-In addition to Apache Isis, this module also depends upon:
-
-* link:http://activemq.apache.org[ActiveMQ]
-
-* (optional) link:http://camel.apache.org[Camel] +
-+
-
-
-== Dependencies
+== Submodules
 
 The publishmq module actually consists of four distinct submodules, which can be used to some extend independently.
 
@@ -418,3 +419,12 @@ For further details on 3rd-party dependencies, see:
 
 
 
+
+== Dependencies
+
+In addition to Apache Isis, this module also depends upon:
+
+* link:http://activemq.apache.org[ActiveMQ]
+
+* (optional) link:http://camel.apache.org[Camel] +
++

@@ -24,12 +24,15 @@ public class StatusMessageService {
 
     /**
      * Used within the URL (rather than the fully-qualified class name).
-     * @return
      */
     public String id() {
         return "StatusMessageService";
     }
 
+    /**
+     * @deprecated - use {@link #logMessage(String, int, String, String, String, Integer, String)} (supplying sequence number also) instead.
+     */
+    @Deprecated
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
             commandPersistence = CommandPersistence.NOT_PERSISTED,
@@ -53,10 +56,39 @@ public class StatusMessageService {
             @ParameterLayout(named = "detail")
             final String detail) {
 
+        logMessage(transactionId, 0, message, oid, uri, status, detail);
+    }
+
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            commandPersistence = CommandPersistence.NOT_PERSISTED,
+            publishing = Publishing.DISABLED
+    )
+    public void logMessage(
+            @ParameterLayout(named = "transactionId")
+            final String transactionId,
+            @ParameterLayout(named = "sequence")
+            final int sequence,
+            @ParameterLayout(named = "message")
+            final String message,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "oid")
+            final String oid,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "uri")
+            final String uri,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "status")
+            final Integer status,
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(named = "detail")
+            final String detail) {
+
         final StatusMessage statusMessage = repositoryService.instantiate(StatusMessage.class);
 
         statusMessage.setTimestamp(clockService.nowAsJavaSqlTimestamp());
         statusMessage.setTransactionId(UUID.fromString(transactionId));
+        statusMessage.setSequence(sequence);
         statusMessage.setMessage(message);
         statusMessage.setOid(oid);
         statusMessage.setUri(uri);
