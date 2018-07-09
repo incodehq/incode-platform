@@ -65,18 +65,9 @@
         <!--
         <isis.version>1.16.2</isis.version>
         -->
-        <incodeMavenmixinVersion>1.16.2</incodeMavenmixinVersion>
+
         <revision>1.16.3-SNAPSHOT</revision>
 
-
-        <!--
-        this needs to be a released version rather than -SNAPSHOT
-        (cannot build the mixins and then consume them within the same maven 'reactor')
-        -->
-        <incode-mavenmixin.version>${incodeMavenmixinVersion}</incode-mavenmixin.version>
-
-
-        <isis-maven-plugin.version>${isis.version}</isis-maven-plugin.version>
 
         <activemq.version>5.11.1</activemq.version>
         <assertj-core.version>3.6.2</assertj-core.version>
@@ -139,7 +130,7 @@
                 <plugin>
                     <groupId>org.apache.isis.tool</groupId>
                     <artifactId>isis-maven-plugin</artifactId>
-                    <version>${isis-maven-plugin.version}</version>
+                    <version>${isis.version}</version>
                 </plugin>
 
                 <plugin>
@@ -227,20 +218,6 @@
                 <version>${isis.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- maven mixins -->
-            <dependency>
-                <groupId>org.incode.mavenmixin</groupId>
-                <artifactId>incode-mavenmixin-swagger</artifactId>
-                <version>${incode-mavenmixin.version}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.mavenmixin</groupId>
-                <artifactId>incode-mavenmixin-validate</artifactId>
-                <version>${incode-mavenmixin.version}</version>
-                <type>pom</type>
             </dependency>
 
             <!-- maven deps -->
