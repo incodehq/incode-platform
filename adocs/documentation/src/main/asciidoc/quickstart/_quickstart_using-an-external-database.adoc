@@ -15,17 +15,6 @@ For example, to run the quickstart application against SQL Server:
 
 * create a new and empty database, eg `myappdb`, with corresponding user and password, `myappdbo/s3cr3t!`, say.
 
-* link:https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver[download] the `mssql-jdbc-6.2.1.jre8.jar` driver, and install locally using: +
-+
-[source,bash]
-----
-mvn install:install-file -Dfile=mssql-jdbc-6.2.1.jre8.jar \
-                     -DgroupId=com.microsoft.sqlserver \
-                     -DartifactId=jdbc \
-                     -Dversion=6.2.1 \
-                     -Dpackaging=jar
-----
-
 * edit the `webapp/pom.xml` to include the sqljdbc4 driver: +
 +
 [source,xml]
@@ -38,11 +27,11 @@ mvn install:install-file -Dfile=mssql-jdbc-6.2.1.jre8.jar \
         </property>
     </activation>
     <dependencies>
-       <dependency>
-           <groupId>com.microsoft.sqlserver</groupId>
-           <artifactId>jdbc</artifactId>
-           <version>6.2.1</version>
-       </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>6.4.0.jre8</version>
+        </dependency>
     </dependencies>
 </profile>
 ----

@@ -409,17 +409,11 @@
                 </property>
             </activation>
 
-            mvn install:install-file -Dfile=mssql-jdbc-6.2.1.jre8.jar ${symbol_escape}
-                                 -DgroupId=com.microsoft.sqlserver ${symbol_escape}
-                                 -DartifactId=jdbc ${symbol_escape}
-                                 -Dversion=6.2.1 ${symbol_escape}
-                                 -Dpackaging=jar
-
             <dependencies>
                <dependency>
-                   <groupId>com.microsoft.sqlserver</groupId>
-                   <artifactId>jdbc</artifactId>
-                   <version>6.2.1</version>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>mssql-jdbc</artifactId>
+                    <version>6.4.0.jre8</version>
                </dependency>
             </dependencies>
         </profile>

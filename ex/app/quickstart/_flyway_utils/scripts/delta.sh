@@ -12,7 +12,7 @@ if [ "$PROD_URL" == "" -o "$DEV_URL" == "" -o "$USERNAME" == "" -o "$PASSWORD" =
     exit 1
 fi
 
-CLASSPATH=$HOME/.m2/repository/com/microsoft/sqlserver/sqljdbc4/4.2-6225/sqljdbc4-4.2-6225.jar
+CLASSPATH=$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.4.0.jre8/mssql-jdbc-6.4.0.jre8.jar
 DRIVER=com.microsoft.sqlserver.jdbc.SQLServerDriver
 
 if [ "$DIFFTYPES" == "" ]; then
