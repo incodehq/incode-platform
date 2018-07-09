@@ -13,6 +13,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.HasTransactionId;
+import org.apache.isis.applib.services.RepresentsInteractionMemberExecution;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
@@ -34,37 +35,44 @@ import lombok.Setter;
             value="SELECT "
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
                     + "WHERE transactionId == :transactionId "
-                    + "ORDER BY timestamp DESC DESC"),
+                    + "ORDER BY timestamp DESC, sequence ASC"),
+    @javax.jdo.annotations.Query(
+            name="findByTransactionIdAndSequence", language="JDOQL",
+            value="SELECT "
+                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "WHERE transactionId == :transactionId "
+                    + "&&    sequence      == :sequence "
+                    + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTransactionIds", language="JDOQL",
             value="SELECT "
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
                     + "WHERE :transactionIds.contains(transactionId) "
-                    + "ORDER BY timestamp DESC DESC"),
+                    + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampBetween", language="JDOQL",  
+            name="findByTimestampBetween", language="JDOQL",
             value="SELECT "
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
-                    + "WHERE timestamp >= :from " 
+                    + "WHERE timestamp >= :from "
                     + "&&    timestamp <= :to "
-                    + "ORDER BY timestamp DESC, transactionId DESC"),
+                    + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampAfter", language="JDOQL",  
             value="SELECT "
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
                     + "WHERE timestamp >= :from "
-                    + "ORDER BY timestamp DESC, transactionId DESC"),
+                    + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBefore", language="JDOQL",  
             value="SELECT "
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
                     + "WHERE timestamp <= :to "
-                    + "ORDER BY timestamp DESC, transactionId DESC"),
+                    + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
             name="find", language="JDOQL",  
             value="SELECT "
                     + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
-                    + "ORDER BY timestamp DESC, transactionId DESC")
+                    + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC")
 })
 @javax.jdo.annotations.Indices( {
         @Index(
@@ -79,7 +87,7 @@ import lombok.Setter;
 @DomainObjectLayout(
         named = "Status Message"
 )
-public class StatusMessage implements HasTransactionId {
+public class StatusMessage implements HasTransactionId, RepresentsInteractionMemberExecution {
 
     //region > domain events
     public static abstract class PropertyDomainEvent<T>

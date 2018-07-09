@@ -9,6 +9,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
+import org.apache.isis.applib.services.RepresentsInteractionMemberExecution;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
@@ -17,8 +18,8 @@ import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
 
 /**
  * This mixin contributes a <tt>publishedEvent</tt> action to any other implementations of
- * {@link HasTransactionId}; that is: audit entries, and commands.  If there is more than
- * one {@link PublishedEvent} then only the first (ie top-most) is returned.
+ * {@link HasTransactionId}; that is: audit entries, commands, status messages.
+ * Will also filter by <tt>sequence</tt> if implements {@link RepresentsInteractionMemberExecution}.
  */
 @Mixin
 public class HasTransactionId_publishedEvent {
@@ -56,8 +57,13 @@ public class HasTransactionId_publishedEvent {
 
     private PublishedEvent findFirstEvent() {
         final UUID transactionId = hasTransactionId.getTransactionId();
-        final int sequenceForFirstEvent = 0;
-        return publishedEventRepository.findByTransactionIdAndSequence(transactionId, sequenceForFirstEvent);
+        final int sequence;
+        if (hasTransactionId instanceof RepresentsInteractionMemberExecution) {
+            sequence = ((RepresentsInteractionMemberExecution) hasTransactionId).getSequence();
+        } else {
+            sequence = 0;
+        }
+        return publishedEventRepository.findByTransactionIdAndSequence(transactionId, sequence);
     }
 
 

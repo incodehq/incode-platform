@@ -15,6 +15,7 @@ import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.HasUsername;
+import org.apache.isis.applib.services.RepresentsInteractionMemberExecution;
 import org.apache.isis.applib.services.publish.EventType;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.applib.util.TitleBuffer;
@@ -119,7 +120,8 @@ import lombok.Setter;
 @DomainObjectLayout(
         named = "Published Event"
 )
-public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransactionId, HasUsername {
+public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransactionId,
+        RepresentsInteractionMemberExecution, HasUsername {
 
     //region > domain events
     public static abstract class PropertyDomainEvent<T>

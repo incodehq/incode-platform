@@ -45,6 +45,18 @@ public class StatusMessageRepository {
 
     //endregion
 
+    //region > findByTransactionId
+
+    @Programmatic
+    public List<StatusMessage> findByTransactionIdAndSequence(final UUID transactionId, final int sequence) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(StatusMessage.class,
+                        "findByTransactionIdAndSequence",
+                        "transactionId", transactionId,
+                        "sequence", sequence));
+    }
+    //endregion
+
     //region > findByFromAndTo
 
     @Programmatic

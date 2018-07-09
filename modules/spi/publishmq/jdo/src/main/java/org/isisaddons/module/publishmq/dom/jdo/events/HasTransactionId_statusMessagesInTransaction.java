@@ -11,6 +11,7 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
+import org.apache.isis.applib.services.RepresentsInteractionMemberExecution;
 
 import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage;
@@ -35,7 +36,12 @@ public class HasTransactionId_statusMessagesInTransaction {
     @ActionLayout(contributed = Contributed.AS_ASSOCIATION)
     @CollectionLayout(defaultView = "table")
     public List<StatusMessage> $$() {
-        return statusMessageRepository.findByTransactionId(hasTransactionId.getTransactionId());
+        if(hasTransactionId instanceof RepresentsInteractionMemberExecution) {
+            final RepresentsInteractionMemberExecution rime = (RepresentsInteractionMemberExecution) hasTransactionId;
+            return statusMessageRepository.findByTransactionIdAndSequence(rime.getTransactionId(), rime.getSequence());
+        } else {
+            return statusMessageRepository.findByTransactionId(hasTransactionId.getTransactionId());
+        }
     }
 
 
