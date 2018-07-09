@@ -123,7 +123,7 @@ Update your classpath:
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom</artifactId>
-            <version>2.0.0-M1</version>
+            <version>${incode-platform.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -131,6 +131,8 @@ Update your classpath:
     </dependencies>
 </dependencyManagement>
 ----
++
+where `incode-platform.version` property is set appropriately for the version
 
 * by adding the `-dom-servicespi` dependency in your project's `dom` module's `pom.xml`: +
 +

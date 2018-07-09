@@ -64,7 +64,6 @@ Update your classpath by adding this dependency in your project's `webapp` modul
 <dependency>
     <groupId>org.isisaddons.module.flywaydb</groupId>
     <artifactId>isis-module-flywaydb-dom</artifactId>
-    <version>2.0.0-M1</version>
 </dependency>
 ----
 

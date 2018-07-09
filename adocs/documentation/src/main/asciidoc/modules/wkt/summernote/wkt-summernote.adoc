@@ -81,7 +81,6 @@ Add the component to your project's `dom` module's `pom.xml`:
 <dependency>
     <groupId>org.isisaddons.wicket.summernote</groupId>
     <artifactId>isis-wicket-summernote-cpt</artifactId>
-    <version>2.0.0-M1</version>
 </dependency>
 ----
 

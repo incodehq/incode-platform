@@ -183,12 +183,10 @@ public TogglzRule togglzRule = TogglzRule.allEnabled(TogglzDemoFeature.class);
 <dependency>
     <groupId>org.isisaddons.module.togglz</groupId>
     <artifactId>isis-module-togglz-glue</artifactId>
-    <version>2.0.0-M1</version>
 </dependency>
 <dependency>
     <groupId>org.isisaddons.module.security</groupId>
     <artifactId>isis-module-security-dom</artifactId>
-    <version>2.0.0-M1</version>
 </dependency>
 ----
 <1> or which ever is the latest version

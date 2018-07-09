@@ -160,7 +160,6 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.isisaddons.module.docx</groupId>
     <artifactId>isis-module-docx-dom</artifactId>
-    <version>2.0.0-M1</version>
 </dependency>
 ----
 

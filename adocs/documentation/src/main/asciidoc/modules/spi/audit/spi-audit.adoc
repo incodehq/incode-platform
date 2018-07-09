@@ -73,7 +73,6 @@ Update your classpath by adding this dependency in your project's `dom` module's
 <dependency>
     <groupId>org.isisaddons.module.audit</groupId>
     <artifactId>isis-module-audit-dom</artifactId>
-    <version>2.0.0-M1</version>
 </dependency>
 ----
 
@@ -204,7 +203,7 @@ As well as the `AuditingService` service (that implements the `AuditingService3`
 * `AuditingServiceRepository` provides the ability to search for persisted (`AuditEntry`) audit entries.
 None of its actions are visible in the user interface (they are all `@Programmatic`) and so this service is automatically registered.
 
-* `HasTransactionId_auditEntries` mixin contribues the `auditEntries` collection to the `HasTransactionId` interface.
+* `HasTransactionId_auditEntries` mixin contributes the `auditEntries` collection to the `HasTransactionId` interface.
 This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command, a published event or another audit entry is displayed.
 
 (As of 1.8.x and later) these services are automatically registered, meaning that any UI functionality they provide will appear in the user interface.

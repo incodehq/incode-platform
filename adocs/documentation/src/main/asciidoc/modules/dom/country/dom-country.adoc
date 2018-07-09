@@ -26,7 +26,6 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode.example.country</groupId>
     <artifactId>incode-example-country-dom</artifactId>
-    <version>2.0.0-M1</version>
 </dependency>
 ----
 
