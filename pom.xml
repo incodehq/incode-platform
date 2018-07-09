@@ -64,12 +64,14 @@
 
                 <module>modules</module>
 
-                <!-- quickstart app (module fixtures/demo usage, basis of quickstart archetype) -->
+<!--
+need to import ex/app/extended separately, because otherwise 'examples' is included in the reactor twice.
+
                 <module>ex/app/quickstart</module>
                 <module>ex/app/extended</module>
 
-                <!-- quickstart archetype generated from ex/app/quickstart  -->
                 <module>ex/arch/quickstart</module>
+-->
 
             </modules>
         </profile>
