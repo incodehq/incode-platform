@@ -40,26 +40,32 @@ public class PublishedEventPK implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + sequence;
         result = prime * result + ((transactionId == null) ? 0 : transactionId.hashCode());
+        result = prime * result + sequence;
         return result;
     }
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object o) {
+        if (this == o)
             return true;
-        if (obj == null)
+        if (o == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (getClass() != o.getClass())
             return false;
-        PublishedEventPK other = (PublishedEventPK) obj;
-        if (sequence != other.sequence)
-            return false;
+
+        PublishedEventPK other = (PublishedEventPK) o;
         if (transactionId == null) {
-            if (other.transactionId != null)
+            if (other.transactionId != null) {
                 return false;
-        } else if (!transactionId.equals(other.transactionId))
+            }
+        } else {
+            if (!transactionId.equals(other.transactionId)) {
+                return false;
+            }
+        }
+        if (sequence != other.sequence) {
             return false;
+        }
         return true;
     }
     //endregion

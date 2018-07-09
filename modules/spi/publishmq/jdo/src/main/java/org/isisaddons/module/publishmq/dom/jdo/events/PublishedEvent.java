@@ -208,7 +208,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
      * primary key.
      */
     @javax.jdo.annotations.PrimaryKey
-    @javax.jdo.annotations.Column(allowsNull="false",length=JdoColumnLength.TRANSACTION_ID)
+    @javax.jdo.annotations.Column(allowsNull="false",length=JdoColumnLength.TRANSACTION_ID, position = 0)
     @Property(
             domainEvent = TransactionIdDomainEvent.class
     )
@@ -233,6 +233,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
      * primary key.
      */
     @javax.jdo.annotations.PrimaryKey
+    @javax.jdo.annotations.Column(position = 1)
     @Property(
             domainEvent = SequenceDomainEvent.class
     )
