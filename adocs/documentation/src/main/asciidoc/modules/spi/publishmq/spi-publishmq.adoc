@@ -290,6 +290,9 @@ If necessary the location of this config file can be overridden; see link:http:/
 +
 Search for `issue-88-add-sequence-to-StatusMessage-pk.sql` in this repo.
 
+* https://github.com/incodehq/incode-platform/issues/89[#89] - change order of PublishedEvent pk
++
+Search for `issue-89-change-order-of-PublishedEvent-pk.sql` in this repo.
 
 
 
