@@ -19,8 +19,6 @@
         <isis-maven-plugin.swagger.appManifest>
             domainapp.appdefn.DomainAppAppManifestNoFlywayDb
         </isis-maven-plugin.swagger.appManifest>
-
-        <isis.version>${isisVersion}</isis.version>
     </properties>
 
 

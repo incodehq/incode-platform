@@ -61,11 +61,13 @@
         <jar-plugin.automaticModuleName></jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir></git-plugin.propertiesDir>
 
-        <isisVersion>1.16.2</isisVersion>
+        <isis.version>1.16.2.20180709-1350-5d9f4f7c</isis.version>
+        <!--
+        <isis.version>1.16.2</isis.version>
+        -->
         <incodeMavenmixinVersion>1.16.2</incodeMavenmixinVersion>
         <revision>1.16.3-SNAPSHOT</revision>
 
-        <isis.version>${isisVersion}</isis.version>
 
         <!--
         this needs to be a released version rather than -SNAPSHOT
@@ -112,7 +114,9 @@
 
         <wicked-charts.version>2.0.1</wicked-charts.version>
 
-        <wicket.version>7.8.0</wicket.version>
+        <!-- keep in sync with version used in isis -->
+        <wicket.version>7.9.0</wicket.version>
+
         <wicket-bootstrap-core.version>0.10.16</wicket-bootstrap-core.version>
 
         <wicket-fullcalendar.version>2.2.0</wicket-fullcalendar.version>
@@ -275,19 +279,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode.example.alias</groupId>
-                <artifactId>incode-example-alias-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.alias</groupId>
-                <artifactId>incode-example-alias-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.incode.module.base</groupId>
                 <artifactId>incode-module-base-dom</artifactId>
                 <version>${revision}</version>
@@ -295,123 +286,6 @@
             <dependency>
                 <groupId>org.incode.module.base</groupId>
                 <artifactId>incode-module-base-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.classification</groupId>
-                <artifactId>incode-example-classification-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.classification</groupId>
-                <artifactId>incode-example-classification-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.commchannel</groupId>
-                <artifactId>incode-example-commchannel-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.commchannel</groupId>
-                <artifactId>incode-example-commchannel-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.communications</groupId>
-                <artifactId>incode-example-communications-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.communications</groupId>
-                <artifactId>incode-example-communications-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.country</groupId>
-                <artifactId>incode-example-country-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.country</groupId>
-                <artifactId>incode-example-country-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.docfragment</groupId>
-                <artifactId>incode-example-docfragment-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.docfragment</groupId>
-                <artifactId>incode-example-docfragment-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.document</groupId>
-                <artifactId>incode-example-document-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.document</groupId>
-                <artifactId>incode-example-document-dom</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -438,19 +312,6 @@
             <dependency>
                 <groupId>org.incode.module.integtestsupport</groupId>
                 <artifactId>incode-module-integtestsupport-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.note</groupId>
-                <artifactId>incode-example-note-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.note</groupId>
-                <artifactId>incode-example-note-dom</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -787,19 +648,6 @@
                 <groupId>org.incode.module.slack</groupId>
                 <artifactId>incode-module-slack-main</artifactId>
                 <version>${revision}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.tags</groupId>
-                <artifactId>incode-example-tags-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.tags</groupId>
-                <artifactId>incode-example-tags-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -1257,69 +1105,187 @@
                 <version>${xdocreport.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.incode.example.alias</groupId>
+                <artifactId>incode-example-alias-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.alias</groupId>
+                <artifactId>incode-example-alias-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.classification</groupId>
+                <artifactId>incode-example-classification-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.classification</groupId>
+                <artifactId>incode-example-classification-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.commchannel</groupId>
+                <artifactId>incode-example-commchannel-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.commchannel</groupId>
+                <artifactId>incode-example-commchannel-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.country</groupId>
+                <artifactId>incode-example-country-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.country</groupId>
+                <artifactId>incode-example-country-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.document</groupId>
+                <artifactId>incode-example-document-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.document</groupId>
+                <artifactId>incode-example-document-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.note</groupId>
+                <artifactId>incode-example-note-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.note</groupId>
+                <artifactId>incode-example-note-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.tags</groupId>
+                <artifactId>incode-example-tags-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.tags</groupId>
+                <artifactId>incode-example-tags-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
     <profiles>
 
         <profile>
-            <id>default-modules</id>
+            <id>spi-publishmq</id>
             <activation>
                 <property>
-                    <name>!release-modules</name>
+                    <name>spi-publishmq</name>
                 </property>
             </activation>
             <modules>
-                <module>ext/flywaydb</module>
-                <module>ext/quartz</module>
-                <module>ext/togglz</module>
-
-                <module>lib/base</module>
-                <module>lib/docx</module>
-                <module>lib/excel</module>
-                <module>lib/fakedata</module>
-                <module>lib/fixturesupport</module>
-                <module>lib/freemarker</module>
-                <module>lib/integtestsupport</module>
-                <module>lib/jaxrsclient</module>
-                <module>lib/pdfbox</module>
-                <module>lib/poly</module>
-                <module>lib/servletapi</module>
-                <module>lib/slack</module>
-                <module>lib/stringinterpolator</module>
-                <module>lib/unittestsupport</module>
-                <module>lib/xdocreport</module>
-                <module>lib/zip</module>
-
-                <module>mml/paraname8</module>
-
-                <module>spi/audit</module>
-                <module>spi/command</module>
-                <module>spi/commandreplay</module>
-                <module>spi/errorrptjira</module>
-                <module>spi/errorrptslack</module>
                 <module>spi/publishmq</module>
-                <module>spi/security</module>
-                <module>spi/sessionlogger</module>
-                <module>spi/userimpersonate</module>
-
-                <module>wkt/excel</module>
-                <module>wkt/fullcalendar2</module>
-                <module>wkt/gmap3</module>
-                <module>wkt/pdfjs</module>
-                <module>wkt/summernote</module>
-                <module>wkt/wickedcharts</module>
             </modules>
         </profile>
 
         <profile>
-            <id>release-modules</id>
+            <id>default-modules</id>
             <activation>
                 <property>
-                    <name>release-modules</name>
+                    <name>!skip.default-modules</name>
                 </property>
             </activation>
-            <!-- almost same as default-modules, but adds in examples -->
             <modules>
                 <module>examples</module>
 

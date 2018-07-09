@@ -19,13 +19,12 @@
 
     <properties>
 
-        <isisVersion>1.16.2</isisVersion>
+        <isis.version>1.16.2</isis.version>
         <incodeMavenmixinVersion>1.16.3-SNAPSHOT</incodeMavenmixinVersion>
         <incodePlatformVersion>1.16.3-SNAPSHOT</incodePlatformVersion>
 
         <revision>1.16.3-SNAPSHOT</revision>
 
-        <isis.version>${isisVersion}</isis.version>
         <incode-platform.version>${incodePlatformVersion}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>

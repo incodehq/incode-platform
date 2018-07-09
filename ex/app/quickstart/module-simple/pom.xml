@@ -18,8 +18,6 @@
 
         <maven-checkstyle-plugin.configLocation>${project.parent.basedir}/_checks/checkstyle.xml</maven-checkstyle-plugin.configLocation>
         <maven-pmd-plugin.ruleset>${project.parent.basedir}/_checks/pmd.xml</maven-pmd-plugin.ruleset>
-
-        <isis.version>${isisVersion}</isis.version>
     </properties>
 
     <build>

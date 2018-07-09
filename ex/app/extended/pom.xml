@@ -20,9 +20,8 @@
     <properties>
 
         <revision>1.16.3-SNAPSHOT</revision>
-        <isisVersion>1.16.2</isisVersion>
 
-        <isis.version>${isisVersion}</isis.version>
+        <isis.version>1.16.2</isis.version>
         <incode-platform.version>${revision}</incode-platform.version>
 
         <lombok.version>1.16.20</lombok.version>
