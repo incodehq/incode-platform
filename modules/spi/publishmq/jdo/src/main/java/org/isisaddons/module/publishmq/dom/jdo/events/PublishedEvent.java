@@ -161,7 +161,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     //region > title (hidden property, unused)
     public static class TitleDomainEvent extends PropertyDomainEvent<String> { }
 
-    @javax.jdo.annotations.Column(allowsNull="false", length=255)
+    @javax.jdo.annotations.Column(allowsNull="false", length=255, position = 9)
     @Property(hidden = Where.EVERYWHERE)
     @Getter @Setter
     private String title;
@@ -170,7 +170,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     //region > user (property), getUsername()
     public static class UserDomainEvent extends PropertyDomainEvent<String> { }
 
-    @javax.jdo.annotations.Column(allowsNull="false", length=50)
+    @javax.jdo.annotations.Column(allowsNull="false", length=50, position = 10)
     @Property(
             domainEvent = UserDomainEvent.class
     )
@@ -189,7 +189,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     public static class TimestampDomainEvent extends PropertyDomainEvent<java.sql.Timestamp> { }
 
     @javax.jdo.annotations.Persistent
-    @javax.jdo.annotations.Column(allowsNull="false")
+    @javax.jdo.annotations.Column(allowsNull="false", position = 8)
     @Property(
             domainEvent = TimestampDomainEvent.class
     )
@@ -249,7 +249,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     public static class EventTypeDomainEvent extends PropertyDomainEvent<EventType> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.PublishedEvent.EVENT_TYPE)
+    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.PublishedEvent.EVENT_TYPE, position = 2)
     @Property(
             domainEvent = EventTypeDomainEvent.class
     )
@@ -261,7 +261,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
 
     public static class TargetClassDomainEvent extends PropertyDomainEvent<String> { }
 
-    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.TARGET_CLASS)
+    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.TARGET_CLASS, position = 6)
     @Property(
             domainEvent = TargetClassDomainEvent.class
     )
@@ -285,7 +285,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     /**
      * Only populated for {@link EventType#ACTION_INVOCATION}
      */
-    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.TARGET_ACTION)
+    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.TARGET_ACTION, position = 5)
     @Property(
             domainEvent = TargetActionDomainEvent.class
     )
@@ -306,7 +306,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     public static class TargetStrDomainEvent extends PropertyDomainEvent<String> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.BOOKMARK, name="target")
+    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.BOOKMARK, name="target", position = 7)
     @Property(
             domainEvent = TargetStrDomainEvent.class
     )
@@ -336,7 +336,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
      * consistency with other services (such as auditing and publishing) that may act on
      * properties rather than simply just actions.
      */
-    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.MEMBER_IDENTIFIER)
+    @javax.jdo.annotations.Column(allowsNull="true", length=JdoColumnLength.MEMBER_IDENTIFIER, position = 3)
     @Property(
             domainEvent = MemberIdentifierDomainEvent.class
     )
@@ -359,7 +359,7 @@ public class PublishedEvent extends DomainChangeJdoAbstract implements HasTransa
     public static class SerializedFormDomainEvent extends PropertyDomainEvent<String> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB", sqlType="LONGVARCHAR")
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB", sqlType="LONGVARCHAR", position = 4)
     @Property(
             domainEvent = SerializedFormDomainEvent.class
     )

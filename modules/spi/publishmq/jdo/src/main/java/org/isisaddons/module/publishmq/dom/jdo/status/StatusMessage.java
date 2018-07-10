@@ -180,7 +180,7 @@ public class StatusMessage implements HasTransactionId, RepresentsInteractionMem
     public static class MessageDomainEvent extends PropertyDomainEvent<String> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.StatusMessage.MESSAGE)
+    @javax.jdo.annotations.Column(allowsNull="false", length=JdoColumnLength.StatusMessage.MESSAGE, position = 4)
     @Property(
             domainEvent = MessageDomainEvent.class
     )
@@ -216,7 +216,7 @@ public class StatusMessage implements HasTransactionId, RepresentsInteractionMem
     public static class OidDomainEvent extends PropertyDomainEvent<String> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true", length = JdoColumnLength.BOOKMARK)
+    @javax.jdo.annotations.Column(allowsNull="true", length = JdoColumnLength.BOOKMARK, position = 5)
     @Property(
             domainEvent = OidDomainEvent.class
     )
@@ -230,7 +230,7 @@ public class StatusMessage implements HasTransactionId, RepresentsInteractionMem
     public static class UriDomainEvent extends PropertyDomainEvent<String> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true", length = JdoColumnLength.StatusMessage.URI)
+    @javax.jdo.annotations.Column(allowsNull="true", length = JdoColumnLength.StatusMessage.URI, position = 7)
     @Property(
             domainEvent = UriDomainEvent.class
     )
@@ -244,7 +244,7 @@ public class StatusMessage implements HasTransactionId, RepresentsInteractionMem
     public static class StatusDomainEvent extends PropertyDomainEvent<Integer> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true")
+    @javax.jdo.annotations.Column(allowsNull="true", position = 6)
     @Property(
             domainEvent = StatusDomainEvent.class
     )
@@ -258,7 +258,7 @@ public class StatusMessage implements HasTransactionId, RepresentsInteractionMem
     public static class DetailDomainEvent extends PropertyDomainEvent<String> {
     }
 
-    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB", sqlType="LONGVARCHAR")
+    @javax.jdo.annotations.Column(allowsNull="true", jdbcType="CLOB", sqlType="LONGVARCHAR", position = 3)
     @Property(
             domainEvent = DetailDomainEvent.class
     )
