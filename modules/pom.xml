@@ -451,6 +451,45 @@
             </dependency>
 
             <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-minioclient</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.jaxrsclient</groupId>
+                <artifactId>incode-module-minio-minioclient</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-docclient</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.jaxrsclient</groupId>
+                <artifactId>incode-module-minio-docclient</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-docserver</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.jaxrsclient</groupId>
+                <artifactId>incode-module-minio-docserver</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.isisaddons.module.pdfbox</groupId>
                 <artifactId>isis-module-pdfbox-dom</artifactId>
                 <version>${revision}</version>
@@ -1278,6 +1317,7 @@
                 <module>lib/freemarker</module>
                 <module>lib/integtestsupport</module>
                 <module>lib/jaxrsclient</module>
+                <module>lib/minio</module>
                 <module>lib/pdfbox</module>
                 <module>lib/poly</module>
                 <module>lib/servletapi</module>
