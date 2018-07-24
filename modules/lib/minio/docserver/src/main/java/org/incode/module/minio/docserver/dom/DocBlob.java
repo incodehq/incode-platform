@@ -8,7 +8,7 @@ import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.value.Blob;
 
-import org.incode.module.minio.docserver.spi.DocServiceBridge;
+import org.incode.module.minio.docserver.spi.DocBlobServiceBridge;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,36 +16,39 @@ import lombok.Setter;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
-        objectType = "incodeMinio.MinioDoc"
+        objectType = "incodeMinio.DocBlob"
 )
 @NoArgsConstructor
-public class MinioDoc implements ViewModel {
+public class DocBlob implements ViewModel {
 
-    public MinioDoc(final String bookmark) {
-        this.bookmark = bookmark;
+    public DocBlob(final String objectName) {
+        this.objectName = objectName;
     }
 
     @Programmatic
     @Override
-    public void viewModelInit(final String viewModel) {
-        bookmark = viewModel;
+    public void viewModelInit(final String memento) {
+        this.objectName = memento;
     }
 
     @Programmatic
     @Override
     public String viewModelMemento() {
-        return bookmark;
+        return objectName;
     }
 
     public String title() {
         return getBlob().getName();
     }
 
+
     /**
-     * Bookmark of the persisted Document entity in the Apache Isis app.
+     * Object name to use in Minio.
+     *
+     * Typically is the bookmark of the persisted entity in the Apache Isis app.
      */
     @Getter @Setter
-    private String bookmark;
+    private String objectName;
 
     /**
      * The corresponding Blob.
@@ -55,12 +58,11 @@ public class MinioDoc implements ViewModel {
      * </p>
      */
     public Blob getBlob() {
-        return docServiceBridge.blobFor(this);
+        return docBlobServiceBridge.blobFor(this);
     }
 
 
     @Inject
-    DocServiceBridge docServiceBridge;
-
+    DocBlobServiceBridge docBlobServiceBridge;
 
 }

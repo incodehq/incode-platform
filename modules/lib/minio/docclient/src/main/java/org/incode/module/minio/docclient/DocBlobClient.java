@@ -1,5 +1,10 @@
 package org.incode.module.minio.docclient;
 
+import java.net.URI;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -9,26 +14,31 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.incode.module.minio.docclient.archive.ArchiveArgs;
+import org.incode.module.minio.docclient.findToArchive.DocBlob;
+
 import lombok.Setter;
 
-public class MinioDocClient {
+public class DocBlobClient {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MinioDocClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocBlobClient.class);
 
     //region > constructor, fields
     private final ClientBuilder clientBuilder;
 
-    public MinioDocClient() {
+    public DocBlobClient() {
         clientBuilder = ClientBuilder.newBuilder();
     }
 
     /**
      * Will automatically call {@link #init()} since all properties already supplied.
      */
-    public MinioDocClient(final String base, final String username, final String password) {
+    public DocBlobClient(final String base, final String username, final String password) {
         this();
 
         setBase(base);
@@ -51,13 +61,15 @@ public class MinioDocClient {
 
 
     //region > init
-    private UriBuilder uriBuilder;
+    private URI findToArchiveUri;
+    private URI archiveUri;
 
     /**
      * Should be called once all properties have been injected.
      */
     public void init() {
-        uriBuilder = UriBuilder.fromUri(base + "services/incodeMinio.MinioDocService/actions/archive/invoke");
+        findToArchiveUri = UriBuilder.fromUri(base + "services/incodeMinio.DocBlobService/actions/findToArchive/invoke").build();
+        archiveUri = UriBuilder.fromUri(base + "services/incodeMinio.DocBlobService/actions/archive/invoke").build();
     }
 
     private void ensureInitialized() {
@@ -68,13 +80,9 @@ public class MinioDocClient {
 
     //endregion
 
-    //region > archive
+    //region > findToArchive
 
-    public void archive(ArchiveMessage.Builder archiveMessageBuilder) {
-        archive(archiveMessageBuilder.build());
-    }
-
-    public void archive(ArchiveMessage archiveMessage) {
+    public List<DocBlob> findToArchive() {
 
         ensureInitialized();
 
@@ -82,12 +90,57 @@ public class MinioDocClient {
         try {
             client = clientBuilder.build();
 
-            final WebTarget webTarget = client.target(uriBuilder.build());
+            final WebTarget webTarget = client.target(findToArchiveUri);
+
+            final Invocation.Builder invocationBuilder = webTarget.request();
+            invocationBuilder.header("Authorization", "Basic " + encode(username, password));
+            invocationBuilder.accept("application/json;profile=urn:org.apache.isis/v1;suppress=true");
+
+            final Invocation invocation = invocationBuilder.buildGet();
+
+            final Response response = invocation.invoke();
+
+            final int responseStatus = response.getStatus();
+            if (responseStatus != 200) {
+                LOG.warn("uri: " + findToArchiveUri + "; responseStatus: " + responseStatus);
+                return Collections.emptyList();
+            }
+
+            final String json = response.readEntity(String.class);
+            ObjectMapper mapper = new ObjectMapper();
+            DocBlob[] myObjects = mapper.readValue(json, DocBlob[].class);
+            return Arrays.asList(myObjects);
+
+        } catch(Exception ex) {
+            LOG.error("uri: " + findToArchiveUri, ex);
+        } finally {
+            closeQuietly(client);
+        }
+        return null;
+    }
+
+    //endregion
+
+    //region > archive
+
+    public void archive(ArchiveArgs.Builder archiveMessageBuilder) {
+        archive(archiveMessageBuilder.build());
+    }
+
+    public void archive(ArchiveArgs archiveArgs) {
+
+        ensureInitialized();
+
+        Client client = null;
+        try {
+            client = clientBuilder.build();
+
+            final WebTarget webTarget = client.target(archiveUri);
 
             final Invocation.Builder invocationBuilder = webTarget.request();
             invocationBuilder.header("Authorization", "Basic " + encode(username, password));
 
-            final ArchiveMessage entity = archiveMessage;
+            final ArchiveArgs entity = archiveArgs;
             final String json = entity.asJson();
 
             final Invocation invocation = invocationBuilder.buildPut(
@@ -97,11 +150,12 @@ public class MinioDocClient {
 
             final int responseStatus = response.getStatus();
             if (responseStatus != 200) {
-                // if failed to log message via REST service, then fallback by logging to slf4j
-                LOG.warn(archiveMessage.toString());
+                LOG.warn("uri: " + archiveUri + "; " + archiveArgs.toString());
+                return;
             }
+
         } catch(Exception ex) {
-            LOG.error(archiveMessage.toString(), ex);
+            LOG.error(archiveArgs.toString(), ex);
         } finally {
             closeQuietly(client);
         }

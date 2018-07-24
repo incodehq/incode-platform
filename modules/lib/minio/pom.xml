@@ -15,7 +15,7 @@
 
     <packaging>pom</packaging>
 
-    <name>Incode Platform Lib Minio Document Archiver</name>
+    <name>Incode Platform Lib Minio Archiver</name>
     <description>
         Parent module for the various submodules that make up the minio doc archiver utility.
     </description>

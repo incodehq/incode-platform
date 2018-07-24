@@ -9,26 +9,26 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
-import org.incode.module.minio.docserver.spi.DocServiceBridge;
+import org.incode.module.minio.docserver.spi.DocBlobServiceBridge;
 
 @DomainService(
         nature = NatureOfService.VIEW_REST_ONLY,
-        objectType = "incodeMinio.MinioDocService"
+        objectType = "incodeMinio.DocBlobService"
 )
-public class MinioDocService {
+public class DocBlobService {
 
     @Action(semantics = SemanticsOf.SAFE)
-    public List<MinioDoc> findToArchive() {
-        return docServiceBridge.findToArchive();
+    public List<DocBlob> findToArchive() {
+        return docBlobServiceBridge.findToArchive();
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
     public void archive(final String docBookmark, final String externalUrl) {
-        docServiceBridge.archive(docBookmark, externalUrl);
+        docBlobServiceBridge.archive(docBookmark, externalUrl);
     }
 
     @Inject
-    DocServiceBridge docServiceBridge;
+    DocBlobServiceBridge docBlobServiceBridge;
 
 }
 

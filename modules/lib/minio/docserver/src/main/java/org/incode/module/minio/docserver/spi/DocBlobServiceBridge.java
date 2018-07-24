@@ -8,23 +8,23 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.value.Blob;
 
-import org.incode.module.minio.docserver.dom.MinioDoc;
+import org.incode.module.minio.docserver.dom.DocBlob;
 
-public interface DocServiceBridge {
-
-    @Programmatic
-    List<MinioDoc> findToArchive();
+public interface DocBlobServiceBridge {
 
     @Programmatic
-    Blob blobFor(MinioDoc minioDoc);
+    List<DocBlob> findToArchive();
+
+    @Programmatic
+    Blob blobFor(DocBlob docBlob);
 
     @Programmatic
     void archive(String minioDoc, String externalUrl);
 
     @DomainService(nature = NatureOfService.DOMAIN, menuOrder = "" + Integer.MAX_VALUE)
-    class Noop implements DocServiceBridge {
+    class Noop implements DocBlobServiceBridge {
 
-        public List<MinioDoc> findToArchive() {
+        public List<DocBlob> findToArchive() {
             return Collections.emptyList();
         }
 
@@ -33,7 +33,7 @@ public interface DocServiceBridge {
             throw new UnsupportedOperationException();
         }
 
-        @Override public Blob blobFor(final MinioDoc minioDoc) {
+        @Override public Blob blobFor(final DocBlob docBlob) {
             throw new UnsupportedOperationException();
         }
     }

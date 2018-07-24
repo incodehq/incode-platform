@@ -12,7 +12,7 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Minio Document Archiver - Doc Server</name>
+    <name>Incode Platform Lib Minio Archiver - Doc Server</name>
     <description>
         Deployed within the Document Server (the Apache Isis application), provides REST API.
     </description>

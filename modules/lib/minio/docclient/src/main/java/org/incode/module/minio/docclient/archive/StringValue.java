@@ -1,4 +1,4 @@
-package org.incode.module.minio.docclient;
+package org.incode.module.minio.docclient.archive;
 
 public class StringValue {
     public final String value;

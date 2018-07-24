@@ -1,4 +1,4 @@
-package org.incode.module.minio.docclient;
+package org.incode.module.minio.docclient.archive;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,22 +9,22 @@ import lombok.Getter;
 /**
  * The arguments for MinioDoc#archive(...)
  */
-public class ArchiveMessage {
+public class ArchiveArgs {
 
     private static final ObjectWriter writer;
 
     public static class Builder {
-        private final ArchiveMessage archiveMessage = new ArchiveMessage();
+        private final ArchiveArgs archiveArgs = new ArchiveArgs();
 
         Builder(final String bookmark) {
-            archiveMessage.docBookmark = new StringValue(bookmark);
+            archiveArgs.docBookmark = new StringValue(bookmark);
         }
         public Builder withExternalUrl(String externalUrl) {
-            archiveMessage.externalUrl = new StringValue(externalUrl);
+            archiveArgs.externalUrl = new StringValue(externalUrl);
             return this;
         }
-        public ArchiveMessage build() {
-            return archiveMessage;
+        public ArchiveArgs build() {
+            return archiveArgs;
         }
     }
 
@@ -50,9 +50,10 @@ public class ArchiveMessage {
         }
     }
 
-    @Override
-    public String toString() {
-        return "externalUrl: " + externalUrl;
+    @Override public String toString() {
+        return "ArchiveArgs{" +
+                "docBookmark=" + docBookmark +
+                ", externalUrl=" + externalUrl +
+                '}';
     }
-
 }
