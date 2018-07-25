@@ -2,6 +2,10 @@ package org.incode.module.minio.minioarchtool;
 
 import java.io.IOException;
 
+import com.google.common.io.Resources;
+
+import org.apache.log4j.PropertyConfigurator;
+
 import org.incode.module.minio.docclient.DocBlobClient;
 import org.incode.module.minio.minioarchlib.MinioArchiver;
 import org.incode.module.minio.minioclient.MinioBlobClient;
@@ -14,6 +18,10 @@ import joptsimple.OptionSet;
 public class Main {
 
     public static void main(final String[] args) throws IOException {
+
+        PropertyConfigurator.configure(
+                Resources.getResource(Main.class, "logging.properties"));
+
         Main main = new Main(args);
 
         main.archiveAll();
