@@ -68,8 +68,18 @@ public class DocBlobClient {
      * Should be called once all properties have been injected.
      */
     public void init() {
-        findToArchiveUri = UriBuilder.fromUri(base + "services/incodeMinio.DocBlobService/actions/findToArchive/invoke").build();
-        archiveUri = UriBuilder.fromUri(base + "services/incodeMinio.DocBlobService/actions/archive/invoke").build();
+        ensureSet(this.base, "base");
+        ensureSet(this.username, "username");
+        ensureSet(this.password, "password");
+
+        findToArchiveUri = UriBuilder.fromUri(this.base + "services/incodeMinio.DocBlobService/actions/findToArchive/invoke").build();
+        archiveUri = UriBuilder.fromUri(this.base + "services/incodeMinio.DocBlobService/actions/archive/invoke").build();
+    }
+
+    private static void ensureSet(final String field, final String fieldName) {
+        if(field == null) {
+            throw new IllegalStateException(String.format("'%s' not set", fieldName));
+        }
     }
 
     private void ensureInitialized() {

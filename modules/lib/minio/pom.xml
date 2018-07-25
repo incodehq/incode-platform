@@ -56,11 +56,31 @@
 
     <dependencyManagement>
         <dependencies>
+
             <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-all</artifactId>
-                <version>${activemq.version}</version>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-minioclient</artifactId>
+                <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-docclient</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-minioarchlib</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-minioarchtool</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -68,6 +88,8 @@
         <module>blobclient</module>
         <module>docclient</module>
         <module>docserver</module>
+        <module>minioarchlib</module>
+        <module>minioarchtool</module>
     </modules>
 
 

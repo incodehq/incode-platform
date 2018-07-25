@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright 2014~2015 Dan Haywood
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+  either express or implied. See the License for the specific
+  language governing permissions and limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode.module.minio</groupId>
+        <artifactId>incode-module-minio-dom</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>incode-module-minio-minioarchtool</artifactId>
+
+    <name>Incode Platform Lib Minio Archiver - Tool</name>
+    <description>
+        Standalone utility for archiving documents to Minio
+    </description>
+
+    <packaging>jar</packaging>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-39</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>enforcerrelaxed</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>standard</artifactId>
+                        </mixin>
+                        <mixin>
+                            <groupId>com.danhaywood.mavenmixin</groupId>
+                            <artifactId>surefire</artifactId>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.incode.module.minio.minioarchtool.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <properties>
+        <jopt-simple.version>4.9</jopt-simple.version>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>net.sf.jopt-simple</groupId>
+                <artifactId>jopt-simple</artifactId>
+                <version>${jopt-simple.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>net.sf.jopt-simple</groupId>
+            <artifactId>jopt-simple</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.incode.module.minio</groupId>
+            <artifactId>incode-module-minio-minioarchlib</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+    </dependencies>
+
+
+</project>

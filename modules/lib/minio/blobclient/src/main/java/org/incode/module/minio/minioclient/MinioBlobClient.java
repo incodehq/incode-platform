@@ -80,10 +80,23 @@ public class MinioBlobClient {
 
     @SneakyThrows
     public void init()  {
+
+        ensureSet(this.url, "url");
+        ensureSet(this.accessKey, "accessKey");
+        ensureSet(this.secretKey, "secretKey");
+        ensureSet(this.bucket, "bucket");
+        ensureSet(this.prefix, "prefix");
+
         minioClient = new MinioClient(url, accessKey, secretKey);
 
         createBucketIfRequired();
         setBucketPolicy();
+    }
+
+    private static void ensureSet(final String field, final String fieldName) {
+        if(field == null) {
+            throw new IllegalStateException(String.format("'%s' not set", fieldName));
+        }
     }
 
     @SneakyThrows
