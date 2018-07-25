@@ -14,14 +14,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import lombok.Getter;
+import org.incode.module.minio.docclient.archive.ArchiveArgs;
+import org.incode.module.minio.docclient.archive.StringValue;
+
 import lombok.Setter;
 
 public class DocBlobClient {
@@ -128,8 +128,8 @@ public class DocBlobClient {
         ensureInitialized();
 
         ArchiveArgs archiveArgs = new ArchiveArgs();
-        archiveArgs.docBookmark = new StringValue(docBlob.getDocBookmark());
-        archiveArgs.externalUrl = new StringValue(externalUrl);
+        archiveArgs.setDocBookmark(new StringValue(docBlob.getDocBookmark()));
+        archiveArgs.setExternalUrl(new StringValue(externalUrl));
 
         Client client = null;
         try {
@@ -184,45 +184,4 @@ public class DocBlobClient {
     }
     //endregion
 
-    static class ArchiveArgs {
-
-        private static final ObjectWriter writer;
-        static {
-            final ObjectMapper mapper = new ObjectMapper();
-            writer = mapper.writer().withDefaultPrettyPrinter();
-        }
-
-        @Getter
-        StringValue docBookmark;
-        @Getter
-        StringValue externalUrl;
-
-        String asJson() {
-            try {
-                return writer.writeValueAsString(this);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        @Override
-        public String toString() {
-            return "ArchiveArgs{" +
-                    "docBookmark=" + docBookmark +
-                    ", externalUrl=" + externalUrl +
-                    '}';
-        }
-    }
-
-    static class StringValue {
-        final String value;
-        public StringValue(final String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-    }
 }
