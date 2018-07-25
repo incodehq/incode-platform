@@ -21,20 +21,20 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DocBlob implements ViewModel {
 
-    public DocBlob(final String objectName) {
-        this.objectName = objectName;
+    public DocBlob(final String docBookmark) {
+        this.docBookmark = docBookmark;
     }
 
     @Programmatic
     @Override
     public void viewModelInit(final String memento) {
-        this.objectName = memento;
+        this.docBookmark = memento;
     }
 
     @Programmatic
     @Override
     public String viewModelMemento() {
-        return objectName;
+        return docBookmark;
     }
 
     public String title() {
@@ -43,12 +43,27 @@ public class DocBlob implements ViewModel {
 
 
     /**
-     * Object name to use in Minio.
-     *
-     * Typically is the bookmark of the persisted entity in the Apache Isis app.
+     * Bookmark of the persisted entity whose blob can be archived subsequently
+     * (using {@link DocBlobService#archive(String, String)})
      */
     @Getter @Setter
-    private String objectName;
+    private String docBookmark;
+
+    /**
+     * The objectName to use within Minio.
+     *
+     * <p>
+     * By convention this is just the {@link #getDocBookmark()}; it is the responsibility of the
+     * Apache Isis application to act as the "meta-data". However, the Minio client will be configured
+     * to specify which bucket to store the object in, and may also add a "prefix" to the object name,
+     * eg for permissioning.
+     * </p>
+     *
+     * @return
+     */
+    public String getLocalObjectName() {
+        return docBookmark;
+    }
 
     /**
      * The corresponding Blob.

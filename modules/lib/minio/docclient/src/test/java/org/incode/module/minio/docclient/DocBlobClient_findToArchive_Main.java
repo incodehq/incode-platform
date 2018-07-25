@@ -2,8 +2,6 @@ package org.incode.module.minio.docclient;
 
 import java.util.List;
 
-import org.incode.module.minio.docclient.findToArchive.DocBlob;
-
 public class DocBlobClient_findToArchive_Main {
 
     public static void main(String[] args) {

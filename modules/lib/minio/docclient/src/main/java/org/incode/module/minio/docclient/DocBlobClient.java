@@ -14,14 +14,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.incode.module.minio.docclient.archive.ArchiveArgs;
-import org.incode.module.minio.docclient.findToArchive.DocBlob;
-
+import lombok.Getter;
 import lombok.Setter;
 
 public class DocBlobClient {
@@ -108,8 +108,8 @@ public class DocBlobClient {
 
             final String json = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
-            DocBlob[] myObjects = mapper.readValue(json, DocBlob[].class);
-            return Arrays.asList(myObjects);
+            DocBlob[] docBlobs = mapper.readValue(json, DocBlob[].class);
+            return Arrays.asList(docBlobs);
 
         } catch(Exception ex) {
             LOG.error("uri: " + findToArchiveUri, ex);
@@ -123,13 +123,13 @@ public class DocBlobClient {
 
     //region > archive
 
-    public void archive(ArchiveArgs.Builder archiveMessageBuilder) {
-        archive(archiveMessageBuilder.build());
-    }
-
-    public void archive(ArchiveArgs archiveArgs) {
+    public void archive(final DocBlob docBlob, final String externalUrl) {
 
         ensureInitialized();
+
+        ArchiveArgs archiveArgs = new ArchiveArgs();
+        archiveArgs.docBookmark = new StringValue(docBlob.getDocBookmark());
+        archiveArgs.externalUrl = new StringValue(externalUrl);
 
         Client client = null;
         try {
@@ -140,8 +140,7 @@ public class DocBlobClient {
             final Invocation.Builder invocationBuilder = webTarget.request();
             invocationBuilder.header("Authorization", "Basic " + encode(username, password));
 
-            final ArchiveArgs entity = archiveArgs;
-            final String json = entity.asJson();
+            final String json = archiveArgs.asJson();
 
             final Invocation invocation = invocationBuilder.buildPut(
                     Entity.entity(json, MediaType.APPLICATION_JSON_TYPE));
@@ -185,4 +184,45 @@ public class DocBlobClient {
     }
     //endregion
 
+    static class ArchiveArgs {
+
+        private static final ObjectWriter writer;
+        static {
+            final ObjectMapper mapper = new ObjectMapper();
+            writer = mapper.writer().withDefaultPrettyPrinter();
+        }
+
+        @Getter
+        StringValue docBookmark;
+        @Getter
+        StringValue externalUrl;
+
+        String asJson() {
+            try {
+                return writer.writeValueAsString(this);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "ArchiveArgs{" +
+                    "docBookmark=" + docBookmark +
+                    ", externalUrl=" + externalUrl +
+                    '}';
+        }
+    }
+
+    static class StringValue {
+        final String value;
+        public StringValue(final String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+    }
 }

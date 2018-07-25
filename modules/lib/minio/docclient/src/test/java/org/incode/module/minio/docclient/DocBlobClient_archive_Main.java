@@ -1,7 +1,5 @@
 package org.incode.module.minio.docclient;
 
-import org.incode.module.minio.docclient.archive.ArchiveArgs;
-
 public class DocBlobClient_archive_Main {
 
     public static void main(String[] args) {
@@ -11,10 +9,9 @@ public class DocBlobClient_archive_Main {
         docBlobClient.setPassword("pass");
         docBlobClient.init();
 
-        docBlobClient.archive(
-                ArchiveArgs.builder("incodedocuments.Document:27")
-                        .withExternalUrl("http://minio.int.prd.ecpnv.com/estatio-test/db/incodeDocument.Document/5")
-        );
+        final DocBlob docBlob = new DocBlob();
+        docBlob.docBookmark = "incodedocuments.Document:27";
+        docBlobClient.archive(docBlob, "http://minio.int.prd.ecpnv.com/estatio-test/db/incodeDocument.Document/5");
     }
 
 }
