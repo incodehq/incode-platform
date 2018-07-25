@@ -1,10 +1,16 @@
 package org.incode.module.minio.docclient.archive;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
 public class StringValue {
-    final String value;
-    public StringValue(final String value) {
-        this.value = value;
-    }
+
+    @Getter @Setter
+    String value;
 
     @Override
     public String toString() {
