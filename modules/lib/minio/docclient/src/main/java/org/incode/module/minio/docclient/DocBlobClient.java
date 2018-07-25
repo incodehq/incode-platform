@@ -92,7 +92,7 @@ public class DocBlobClient {
 
     //region > findToArchive
 
-    public List<DocBlob> findToArchive() {
+    public List<DocBlob> findToArchive(String caller) {
 
         ensureInitialized();
 
@@ -100,7 +100,7 @@ public class DocBlobClient {
         try {
             client = clientBuilder.build();
 
-            final WebTarget webTarget = client.target(findToArchiveUri);
+            final WebTarget webTarget = client.target(findToArchiveUri).queryParam("caller", caller);
 
             final Invocation.Builder invocationBuilder = webTarget.request();
             invocationBuilder.header("Authorization", "Basic " + encode(username, password));

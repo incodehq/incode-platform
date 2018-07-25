@@ -10,7 +10,6 @@ import static java.util.Arrays.asList;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-import joptsimple.OptionSpecBuilder;
 
 public class Main {
 
@@ -41,30 +40,24 @@ public class Main {
 
         final ArgumentAcceptingOptionSpec<String> m = parser.accepts("m")
                 .withRequiredArg().ofType(String.class)
-                .describedAs("Minio base URL");
-
+                .describedAs("Minio base URL")
+                .required();
         final ArgumentAcceptingOptionSpec<String> a = parser.accepts("a")
                 .withRequiredArg().ofType(String.class)
                 .describedAs("Minio Access Key")
                 .defaultsTo("minio");
-
         final ArgumentAcceptingOptionSpec<String> s = parser.accepts("s")
                 .withRequiredArg().ofType(String.class)
                 .describedAs("Minio Secret Key")
                 .defaultsTo("minio123");
-
         final ArgumentAcceptingOptionSpec<String> k = parser.accepts("k")
                 .withRequiredArg().ofType(String.class)
+                .required()
                 .describedAs("Minio Bucket");
-
         final ArgumentAcceptingOptionSpec<String> r = parser.accepts("r")
                 .withRequiredArg().ofType(String.class)
                 .describedAs("Minio ObjectName Prefix")
                 .defaultsTo("db");
-
-
-        final OptionSpecBuilder N = parser.accepts("N");
-
 
         parser.acceptsAll( asList( "h", "?" ), "show help" ).forHelp();
 
@@ -77,7 +70,7 @@ public class Main {
         docBlobClient.init();
 
         final MinioBlobClient minioBlobClient = new MinioBlobClient();
-        minioBlobClient.setUrl(optionSet.valueOf(u));
+        minioBlobClient.setUrl(optionSet.valueOf(m));
         minioBlobClient.setAccessKey(optionSet.valueOf(a));
         minioBlobClient.setSecretKey(optionSet.valueOf(s));
         minioBlobClient.setBucket(optionSet.valueOf(k));
@@ -90,7 +83,7 @@ public class Main {
     }
 
     private void archiveAll() {
-        minioArchiver.archiveAll();
+        minioArchiver.archiveAll("batch");
     }
 
 }

@@ -22,8 +22,8 @@ public class MinioArchiver  {
     @Setter
     private DocBlobClient docBlobClient;
 
-    public void archiveAll() {
-        final List<DocBlob> docBlobs = docBlobClient.findToArchive();
+    public void archiveAll(final String caller) {
+        final List<DocBlob> docBlobs = docBlobClient.findToArchive(caller);
         if(docBlobs == null) {
             // not yet available...
             return;

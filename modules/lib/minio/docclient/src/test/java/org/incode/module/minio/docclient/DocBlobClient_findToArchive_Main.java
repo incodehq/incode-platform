@@ -11,7 +11,7 @@ public class DocBlobClient_findToArchive_Main {
         docBlobClient.setPassword("pass");
         docBlobClient.init();
 
-        final List<DocBlob> toArchive = docBlobClient.findToArchive();
+        final List<DocBlob> toArchive = docBlobClient.findToArchive("test");
         for (final DocBlob docBlob : toArchive) {
             System.out.println(docBlob.toString());
         }

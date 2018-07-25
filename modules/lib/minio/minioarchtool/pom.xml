@@ -106,6 +106,10 @@ Copyright 2014~2015 Dan Haywood
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.incode.module.minio.minioarchtool.Main</mainClass>
                                 </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/cxf/bus-extensions.txt</resource>
+                                </transformer>
                             </transformers>
                         </configuration>
                     </execution>
@@ -117,6 +121,7 @@ Copyright 2014~2015 Dan Haywood
 
     <properties>
         <jopt-simple.version>4.9</jopt-simple.version>
+        <cxf-core.version>3.1.15</cxf-core.version>
     </properties>
 
 
@@ -127,6 +132,31 @@ Copyright 2014~2015 Dan Haywood
                 <artifactId>jopt-simple</artifactId>
                 <version>${jopt-simple.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                <version>${cxf-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-bindings-soap</artifactId>
+                <version>${cxf-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${cxf-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf-core.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -142,8 +172,28 @@ Copyright 2014~2015 Dan Haywood
         <dependency>
             <groupId>org.incode.module.minio</groupId>
             <artifactId>incode-module-minio-minioarchlib</artifactId>
-            <version>${revision}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-bindings-soap</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+        </dependency>
+
 
     </dependencies>
 

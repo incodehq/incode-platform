@@ -13,7 +13,7 @@ import org.incode.module.minio.docserver.dom.DocBlob;
 public interface DocBlobServiceBridge {
 
     @Programmatic
-    List<DocBlob> findToArchive();
+    List<DocBlob> findToArchive(String caller);
 
     @Programmatic
     Blob blobFor(DocBlob docBlob);
@@ -24,7 +24,7 @@ public interface DocBlobServiceBridge {
     @DomainService(nature = NatureOfService.DOMAIN, menuOrder = "" + Integer.MAX_VALUE)
     class Noop implements DocBlobServiceBridge {
 
-        public List<DocBlob> findToArchive() {
+        public List<DocBlob> findToArchive(String caller) {
             return Collections.emptyList();
         }
 

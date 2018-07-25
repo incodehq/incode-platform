@@ -18,8 +18,8 @@ import org.incode.module.minio.docserver.spi.DocBlobServiceBridge;
 public class DocBlobService {
 
     @Action(semantics = SemanticsOf.SAFE)
-    public List<DocBlob> findToArchive() {
-        return docBlobServiceBridge.findToArchive();
+    public List<DocBlob> findToArchive(String caller) {
+        return docBlobServiceBridge.findToArchive(caller);
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT)
