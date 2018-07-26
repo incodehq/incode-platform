@@ -91,7 +91,14 @@ public class Main {
     }
 
     private void archiveAll() {
-        minioArchiver.archiveAll("batch");
+        int numArchived = archiveSome();
+        while(numArchived > 0) {
+            numArchived = archiveSome();
+        }
+    }
+
+    private int archiveSome() {
+        return minioArchiver.archive("batch");
     }
 
 }

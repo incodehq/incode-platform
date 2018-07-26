@@ -22,11 +22,19 @@ public class MinioArchiver  {
     @Setter
     private DocBlobClient docBlobClient;
 
-    public void archiveAll(final String caller) {
+    /**
+     * Will archive as many as the DocBlobServer provides.
+     *
+     * <p>
+     *     The DocBlobServer may limit the number, to avoid large memory requirements.
+     * </p>
+     */
+    public int archive(final String caller) {
+
         final List<DocBlob> docBlobs = docBlobClient.findToArchive(caller);
         if(docBlobs == null) {
             // not yet available...
-            return;
+            return 0;
         }
 
         final int numDocs = docBlobs.size();
@@ -44,6 +52,7 @@ public class MinioArchiver  {
                             docBlob.getBlobFileName());
             docBlobClient.archive(docBlob, url.toExternalForm());
         }
+        return numDocs;
     }
 
 }

@@ -101,6 +101,7 @@ Copyright 2014~2015 Dan Haywood
                         <configuration>
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <finalName>minioarchtool</finalName>
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">

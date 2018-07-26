@@ -13,6 +13,8 @@ public class MinioBlobClient_Main {
 
         final MinioBlobClient minioBlobClient = new MinioBlobClient();
         minioBlobClient.setUrl("http://minio.int.prd.ecpnv.com");
+        //minioBlobClient.setUrl("http://minio.int.prd.ecpnv.com:9000");
+        //minioBlobClient.setUrl("http://10.101.51.46:9000");
         minioBlobClient.setAccessKey("minio");
         minioBlobClient.setSecretKey("minio123");
         minioBlobClient.setBucket("estatio-test");
