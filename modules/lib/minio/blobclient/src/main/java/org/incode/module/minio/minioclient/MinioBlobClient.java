@@ -121,7 +121,43 @@ public class MinioBlobClient {
             final String contentType,
             final byte[] bytes,
             final String metaFileName) {
-        return upload(objectName, contentType, bytes, ImmutableMap.of("File-Name", metaFileName));
+        return upload(objectName, contentType, bytes, ImmutableMap.of("File-Name", sanitize(metaFileName)));
+    }
+
+    /**
+     * as per https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
+     *
+     * @param str
+     * @return
+     */
+    static String sanitize(final String str) {
+        return str
+                    .replace("&","_")
+                    .replace("@","_")
+                    .replace(":","_")
+                    .replace(",","_")
+                    .replace("$","_")
+                    .replace("=","_")
+                    .replace("+","_")
+                    .replace("?","_")
+                    .replace(";","_")
+                    .replace("&","_")
+                    .replaceAll("[ ]+"," ")
+                    .replace("\\","")
+                    .replace("^","")
+                    .replace("`","")
+                    .replace(">","")
+                    .replace("<","")
+                    .replace("{","")
+                    .replace("}","")
+                    .replace("[","")
+                    .replace("]","")
+                    .replace("#","")
+                    .replace("%","")
+                    .replace("\"","")
+                    .replace("~","")
+                    .replace("|","")
+                ;
     }
 
     /**
