@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.incode.module.minio</groupId>
+    <artifactId>incode-module-minio-dom</artifactId>
+
+    <packaging>pom</packaging>
+
+    <name>Incode Platform Lib Minio Archiver</name>
+    <description>
+        Parent module for the various submodules that make up the minio doc archiver utility.
+    </description>
+
+    <url>https://github.com/incodehq/incode-platform</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:incodehq/incode-platform.git</connection>
+        <developerConnection>scm:git:git@github.com:incodehq/incode-platform.git</developerConnection>
+        <url>git@github.com:incodehq/incode-platform.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>dhaywood</id>
+            <name>Dan Haywood</name>
+            <email>dhaywood@incode.org</email>
+        </developer>
+        <developer>
+            <id>jvanderwal</id>
+            <name>Jeroen van der Wal</name>
+            <email>jvanderwal@incode.org</email>
+        </developer>
+        <developer>
+            <id>jdoornenbal</id>
+            <name>Johan Doornenbal</name>
+            <email>jdoornenbal@incode.org</email>
+        </developer>
+    </developers>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-minioclient</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-docclient</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-minioarchlib</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-minioarchtool</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>blobclient</module>
+        <module>docclient</module>
+        <module>docserver</module>
+        <module>minioarchlib</module>
+        <module>minioarchtool</module>
+    </modules>
+
+
+</project>

@@ -92,7 +92,7 @@
         <jbcrypt.version>0.3m</jbcrypt.version>
         <jdom.version>2.0.2</jdom.version>
         <jdom2.version>2.0.5</jdom2.version>
-        <lombok.version>1.16.20</lombok.version>
+        <lombok.version>1.18.0</lombok.version>
         <objenesis.version>2.2</objenesis.version>
         <ognl.version>3.0.8</ognl.version>
         <quartz-scheduler.version>2.2.1</quartz-scheduler.version>
@@ -445,6 +445,45 @@
             <dependency>
                 <groupId>org.incode.module.jaxrsclient</groupId>
                 <artifactId>incode-module-jaxrsclient-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-minioclient</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.jaxrsclient</groupId>
+                <artifactId>incode-module-minio-minioclient</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-docclient</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.jaxrsclient</groupId>
+                <artifactId>incode-module-minio-docclient</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-docserver</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.jaxrsclient</groupId>
+                <artifactId>incode-module-minio-docserver</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -1278,6 +1317,7 @@
                 <module>lib/freemarker</module>
                 <module>lib/integtestsupport</module>
                 <module>lib/jaxrsclient</module>
+                <module>lib/minio</module>
                 <module>lib/pdfbox</module>
                 <module>lib/poly</module>
                 <module>lib/servletapi</module>
