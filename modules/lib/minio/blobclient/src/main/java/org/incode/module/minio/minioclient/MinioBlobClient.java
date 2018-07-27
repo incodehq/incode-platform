@@ -2,6 +2,7 @@ package org.incode.module.minio.minioclient;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Map;
 
 import com.google.common.base.Charsets;
@@ -121,7 +122,14 @@ public class MinioBlobClient {
             final String contentType,
             final byte[] bytes,
             final String metaFileName) {
-        return upload(objectName, contentType, bytes, ImmutableMap.of("File-Name", sanitize(metaFileName)));
+        try {
+            final Map<String, String> headers = ImmutableMap.of("File-Name", sanitize(metaFileName));
+            return upload(objectName, contentType, bytes, headers);
+        } catch(Exception ex) {
+            // as a fallback, try to use save with no file name.
+            // (if this fails, then we really will give up and throw the exception).
+            return upload(objectName, contentType, bytes, Collections.emptyMap());
+        }
     }
 
     /**
