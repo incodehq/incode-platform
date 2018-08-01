@@ -172,13 +172,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
                 <version>1.0.0</version>
-                <configuration>
-                    <updatePomFile>true</updatePomFile>
-                    <pomElements>
-                        <dependencyManagement>resolve</dependencyManagement>
-                        <dependencies>resolve</dependencies>
-                    </pomElements>
-                </configuration>
                 <executions>
                     <execution>
                         <id>flatten</id>
@@ -186,6 +179,22 @@
                         <goals>
                             <goal>flatten</goal>
                         </goals>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                            <pomElements>
+                                <parent>resolve</parent>
+                                <name>resolve</name>
+                                <description>resolve</description>
+                                <url>resolve</url>
+                                <scm>resolve</scm>
+                                <developers>resolve</developers>
+                                <properties>resolve</properties>
+                                <build>resolve</build>
+                                <dependencyManagement>resolve</dependencyManagement>
+                                <dependencies>resolve</dependencies>
+                                <profiles>resolve</profiles>
+                            </pomElements>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>flatten.clean</id>
