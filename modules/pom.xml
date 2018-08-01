@@ -180,6 +180,7 @@
                             <goal>flatten</goal>
                         </goals>
                         <configuration>
+                            <flattenMode>bom</flattenMode>
                             <updatePomFile>true</updatePomFile>
                             <pomElements>
                                 <parent>resolve</parent>
@@ -189,7 +190,6 @@
                                 <scm>resolve</scm>
                                 <developers>resolve</developers>
                                 <properties>resolve</properties>
-                                <build>resolve</build>
                                 <dependencyManagement>resolve</dependencyManagement>
                                 <dependencies>resolve</dependencies>
                                 <profiles>resolve</profiles>
