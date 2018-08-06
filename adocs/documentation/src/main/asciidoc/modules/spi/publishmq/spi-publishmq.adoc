@@ -5,7 +5,7 @@
 :generate_pdf:
 :toc:
 
-This module (`isis-module-publishmq`) provides an implementation of Apache Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[`PublisherService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
+This module (`isis-module-publishmq`) provides an implementation of Apache Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[`PublisherService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn-1.3.xsd[`InteractionDto`] to an link:http://activemq.apache.org[ActiveMQ] queue.
 
 The xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart] app also demonstrates how this member interaction event (action invocation or property edit) can be routed using link:http://camel.apache.org[Apache Camel], whereby the payload is enriched using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer (obtaining additional information);
 
