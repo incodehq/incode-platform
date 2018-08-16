@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>org.incode.example.application</groupId>
-    <artifactId>incode-extended</artifactId>
+    <artifactId>incode-testapp</artifactId>
     <version>${revision}</version>
 
     <name>Incode Extended</name>
@@ -173,25 +173,25 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-appdefn</artifactId>
+                <artifactId>incode-testapp-appdefn</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-module-base</artifactId>
+                <artifactId>incode-testapp-module-base</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-module-fixtures</artifactId>
+                <artifactId>incode-testapp-module-fixtures</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-module-fixtures</artifactId>
+                <artifactId>incode-testapp-module-fixtures</artifactId>
                 <scope>test</scope>
                 <type>test-jar</type>
                 <version>${revision}</version>
@@ -199,37 +199,37 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-webapp</artifactId>
+                <artifactId>incode-testapp-webapp</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-integtests</artifactId>
+                <artifactId>incode-testapp-integtests</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-main-slack</artifactId>
+                <artifactId>incode-testapp-main-slack</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-example-appdefn</artifactId>
+                <artifactId>incode-testapp-example-appdefn</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-canonical</artifactId>
+                <artifactId>incode-testapp-canonical</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-extended-embeddedcamel</artifactId>
+                <artifactId>incode-testapp-embeddedcamel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -266,7 +266,6 @@
                 <module>../../../modules/spi/publishmq/jdo</module>
                 <module>../../../modules/spi/security</module>
                 <module>../../../modules/spi/sessionlogger</module>
-
                 <module>../../../modules/examples/alias/demo</module>
                 <module>../../../modules/examples/alias/dom</module>
                 <module>../../../modules/examples/classification/demo</module>

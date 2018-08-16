@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended</artifactId>
+        <artifactId>incode-testapp</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>incode-extended-module-fixtures</artifactId>
+    <artifactId>incode-testapp-module-fixtures</artifactId>
     <name>Incode Extended Fixtures Module</name>
 
     <properties>
@@ -111,7 +111,7 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-module-base</artifactId>
+            <artifactId>incode-testapp-module-base</artifactId>
         </dependency>
 
         <dependency>

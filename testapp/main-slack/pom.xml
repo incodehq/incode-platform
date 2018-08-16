@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended</artifactId>
+        <artifactId>incode-testapp</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>incode-extended-main-slack</artifactId>
+    <artifactId>incode-testapp-main-slack</artifactId>
 
     <packaging>jar</packaging>
 

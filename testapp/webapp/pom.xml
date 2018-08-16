@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended</artifactId>
+        <artifactId>incode-testapp</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>incode-extended-webapp</artifactId>
+    <artifactId>incode-testapp-webapp</artifactId>
     <name>Incode Extended Webapp</name>
 
     <description>
@@ -90,7 +90,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-appdefn</artifactId>
+            <artifactId>incode-testapp-appdefn</artifactId>
         </dependency>
 
         <dependency>

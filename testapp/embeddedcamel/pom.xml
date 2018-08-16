@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended</artifactId>
+        <artifactId>incode-testapp</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>incode-extended-embeddedcamel</artifactId>
+    <artifactId>incode-testapp-embeddedcamel</artifactId>
     <name>Incode Extended Ex Camel: Embedded</name>
 
     <description>
@@ -62,12 +62,12 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-module-fixtures</artifactId>
+            <artifactId>incode-testapp-module-fixtures</artifactId>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-canonical</artifactId>
+            <artifactId>incode-testapp-canonical</artifactId>
         </dependency>
 
         <dependency>

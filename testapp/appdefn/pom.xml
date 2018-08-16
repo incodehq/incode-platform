@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended</artifactId>
+        <artifactId>incode-testapp</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>incode-extended-appdefn</artifactId>
+    <artifactId>incode-testapp-appdefn</artifactId>
     <name>Incode Extended App Definition</name>
 
     <description>This defines the application (manifest) and runs application-level fixtures and integration (smoke) tests</description>
@@ -97,12 +97,12 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-embeddedcamel</artifactId>
+            <artifactId>incode-testapp-embeddedcamel</artifactId>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-module-fixtures</artifactId>
+            <artifactId>incode-testapp-module-fixtures</artifactId>
         </dependency>
 
         <!-- examples -->
@@ -369,7 +369,7 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>incode-extended-module-fixtures</artifactId>
+            <artifactId>incode-testapp-module-fixtures</artifactId>
             <scope>test</scope>
             <type>test-jar</type>
         </dependency>

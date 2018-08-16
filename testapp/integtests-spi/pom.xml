@@ -5,11 +5,11 @@
 
     <parent>
         <groupId>org.incode.example.application</groupId>
-        <artifactId>incode-extended</artifactId>
+        <artifactId>incode-testapp</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>incode-extended-integtests-spi</artifactId>
+    <artifactId>incode-testapp-integtests-spi</artifactId>
     <name>Incode Extended IntegTests for SPI</name>
 
     <build>
@@ -138,14 +138,14 @@
 
         <dependency>
             <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-extended-module-fixtures</artifactId>
+            <artifactId>incode-testapp-module-fixtures</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.incode.example.application</groupId>
-            <artifactId>incode-extended-embeddedcamel</artifactId>
+            <artifactId>incode-testapp-embeddedcamel</artifactId>
             <scope>test</scope>
         </dependency>
 
