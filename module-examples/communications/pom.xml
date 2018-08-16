@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../../modules/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.incode.example.communications</groupId>
+    <artifactId>incode-example-communications</artifactId>
+
+    <packaging>pom</packaging>
+
+    <name>Incode Platform Example Communications</name>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-demo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-demo</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-integtests</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.example.country</groupId>
+                <artifactId>incode-example-country-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.document</groupId>
+                <artifactId>incode-example-document-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-stringinterpolator-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-freemarker-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docrendering</groupId>
+                <artifactId>incode-example-docrendering-xdocreport-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <modules>
+		<module>demo</module>
+		<module>dom</module>
+		<module>integtests</module>
+	</modules>
+	
+</project>

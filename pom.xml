@@ -22,6 +22,20 @@
     </description>
 
     <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <property>
+                    <name>!skip.default</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules</module>
+                <module>module-examples</module>
+                <module>testapp</module>
+                <module>archetype/app/quickstart</module>
+            </modules>
+        </profile>
 
         <profile>
             <id>enhance</id>
@@ -31,19 +45,19 @@
                 </property>
             </activation>
             <modules>
-                <module>ex/app/quickstart/module-simple</module>
-                <module>ex/app/extended/module-fixtures</module>
+                <module>archetype/app/quickstart/module-simple</module>
+                <module>testapp/module-fixtures</module>
 
-                <module>modules/examples/alias</module>
-                <module>modules/examples/classification</module>
-                <module>modules/examples/communications</module>
-                <module>modules/examples/commchannel</module>
-                <module>modules/examples/country</module>
-                <module>modules/examples/docfragment</module>
-                <module>modules/examples/document</module>
-                <module>modules/examples/note</module>
-                <module>modules/examples/settings</module>
-                <module>modules/examples/tags</module>
+                <module>module-examples/alias</module>
+                <module>module-examples/classification</module>
+                <module>module-examples/communications</module>
+                <module>module-examples/commchannel</module>
+                <module>module-examples/country</module>
+                <module>module-examples/docfragment</module>
+                <module>module-examples/document</module>
+                <module>module-examples/note</module>
+                <module>module-examples/settings</module>
+                <module>module-examples/tags</module>
                 <module>modules/spi/audit</module>
                 <module>modules/spi/command</module>
                 <module>modules/spi/publishmq/jdo</module>
@@ -51,79 +65,6 @@
                 <module>modules/spi/sessionlogger</module>
             </modules>
         </profile>
-
-        <profile>
-            <!-- everything except mavenmixins (so can import all in one go into the IDE) -->
-            <id>default</id>
-            <activation>
-                <property>
-                    <name>!skip.default</name>
-                </property>
-            </activation>
-            <modules>
-
-                <module>modules</module>
-
-<!--
-need to import ex/app/extended separately, because otherwise 'examples' is included in the reactor twice.
-
-                <module>ex/app/quickstart</module>
-                <module>ex/app/extended</module>
-
-                <module>ex/arch/quickstart</module>
--->
-
-            </modules>
-        </profile>
-
-        <profile>
-            <id>modules</id>
-            <activation>
-                <property>
-                    <name>modules</name>
-                </property>
-            </activation>
-            <modules>
-                <module>modules</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>quickstart</id>
-            <activation>
-                <property>
-                    <name>archetype</name>
-                </property>
-            </activation>
-            <modules>
-                <module>ex/arch/quickstart</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>archetype</id>
-            <activation>
-                <property>
-                    <name>archetype</name>
-                </property>
-            </activation>
-            <modules>
-                <module>ex/arch/quickstart</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>extended</id>
-            <activation>
-                <property>
-                    <name>extended</name>
-                </property>
-            </activation>
-            <modules>
-                <module>ex/app/extended</module>
-            </modules>
-        </profile>
-
 	</profiles>
 
 
