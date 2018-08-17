@@ -25,7 +25,7 @@ import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 
-import org.incode.example.settings.SettingsModule;
+import org.incode.module.settings.SettingsModule;
 import org.incode.module.base.services.BaseServicesModule;
 
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;

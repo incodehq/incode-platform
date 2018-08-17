@@ -351,8 +351,8 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>org.incode.example.settings</groupId>
-                    <artifactId>incode-example-settings-dom</artifactId>
+                    <groupId>org.incode.module.settings</groupId>
+                    <artifactId>incode-module-settings-dom</artifactId>
                 </dependency>
             </dependencies>
         </profile>

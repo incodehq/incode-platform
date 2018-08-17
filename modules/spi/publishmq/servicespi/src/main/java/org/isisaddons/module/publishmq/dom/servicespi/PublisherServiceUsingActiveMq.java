@@ -75,16 +75,18 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
             jmsConnection = jmsConnectionFactory.createConnection();
         } catch (JMSException e) {
             LOG.error("Unable to create connection", e);
-            throw new RuntimeException(e);
         }
 
-        try {
-            jmsConnection.start();
-        } catch (JMSException e) {
-            LOG.error("Unable to start connection", e);
-            closeSafely(jmsConnection);
-            jmsConnection = null;
+        if(jmsConnection != null) {
+            try {
+                jmsConnection.start();
+            } catch (JMSException e) {
+                LOG.error("Unable to start connection", e);
+                closeSafely(jmsConnection);
+                jmsConnection = null;
+            }
         }
+
     }
 
     @PreDestroy
@@ -128,6 +130,11 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
     @Override
     public void publish(final Interaction.Execution<?, ?> execution) {
+
+        if(jmsConnection == null) {
+            LOG.warn("No JMS connection; interaction will not be published");
+            return;
+        }
 
         final InteractionDto interactionDto = InteractionDtoUtils.newInteractionDto(execution);
 

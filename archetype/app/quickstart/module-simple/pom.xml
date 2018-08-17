@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode.example.application</groupId>
+        <groupId>org.incode.platform.application</groupId>
         <artifactId>incode-quickstart</artifactId>
         <version>${revision}</version>
     </parent>

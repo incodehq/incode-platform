@@ -8,9 +8,9 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.isisaddons.module.togglz.glue.spi.FeatureState;
 import org.isisaddons.module.togglz.glue.spi.FeatureStateRepository;
 
-import org.incode.example.settings.dom.ApplicationSetting;
-import org.incode.example.settings.dom.ApplicationSettingsServiceRW;
-import org.incode.example.settings.dom.jdo.ApplicationSettingJdo;
+import org.incode.module.settings.dom.ApplicationSetting;
+import org.incode.module.settings.dom.ApplicationSettingsServiceRW;
+import org.incode.module.settings.dom.jdo.ApplicationSettingJdo;
 
 /**
  * Implements the togglz SPI and delegates to estatio's own wrapper around the settings service.

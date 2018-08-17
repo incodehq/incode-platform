@@ -631,19 +631,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode.example.settings</groupId>
-                <artifactId>incode-example-settings-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.example.settings</groupId>
-                <artifactId>incode-example-settings-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.isisaddons.module.stringinterpolator</groupId>
                 <artifactId>isis-module-stringinterpolator-dom</artifactId>
                 <version>${revision}</version>
@@ -673,6 +660,19 @@
                 <groupId>org.incode.module.slack</groupId>
                 <artifactId>incode-module-slack-main</artifactId>
                 <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.settings</groupId>
+                <artifactId>incode-module-settings-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.settings</groupId>
+                <artifactId>incode-module-settings-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -1155,6 +1155,8 @@
                 </property>
             </activation>
             <modules>
+                <module>dom/settings</module>
+
                 <module>ext/flywaydb</module>
                 <module>ext/quartz</module>
                 <module>ext/togglz</module>

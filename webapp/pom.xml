@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../modules/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.incode.platform.application</groupId>
+    <artifactId>incode-platformapp</artifactId>
+    <version>${revision}</version>
+
+    <name>Incode Extended</name>
+    <description>Domain application with example subdomains.</description>
+
+    <properties>
+
+        <revision>1.0.0-SNAPSHOT</revision>
+
+        <isis.version>1.16.2.20180709-1350-5d9f4f7c</isis.version>
+        <incode-platform.version>${revision}</incode-platform.version>
+
+        <spring.version>4.1.9.RELEASE</spring.version>
+        <jetty.version>9.4.3.v20170317</jetty.version>
+        <activemq-web.version>5.14.3</activemq-web.version>
+        <camel.version>2.16.3</camel.version>
+
+        <cxf-core.version>3.1.1</cxf-core.version>
+
+        <!-- override properties inherited from incode-parent -->
+        <activemq.version>${activemq-web.version}</activemq.version>
+        <ognl.version>3.0.9</ognl.version>
+
+        <xbean-spring.version>4.3</xbean-spring.version>
+        <jackson.version>1.9.12</jackson.version>
+
+        <snakeyaml.version>1.13</snakeyaml.version>
+
+        <jaxb-impl.version>2.2.11</jaxb-impl.version>
+        <jquery-selectors.version>0.2.4</jquery-selectors.version>
+
+
+    </properties>
+
+    <packaging>pom</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.incode</groupId>
+                <artifactId>incode-parent</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-appdefn</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-module-base</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-module-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-module-fixtures</artifactId>
+                <scope>test</scope>
+                <type>test-jar</type>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-webapp</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-integtests-ext</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-integtests-lib</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-integtests-mml</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-integtests-spi</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>incode-platformapp-main-slack</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>enhance</id>
+            <activation>
+                <property>
+                    <name>enhance</name>
+                </property>
+            </activation>
+            <modules>
+                <module>module-fixtures</module>
+
+                <module>../modules/spi/audit</module>
+                <module>../modules/spi/command</module>
+                <module>../modules/spi/publishmq/jdo</module>
+                <module>../modules/spi/security</module>
+                <module>../modules/spi/sessionlogger</module>
+
+                <module>integtests-ext</module>
+                <module>integtests-spi</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>default-modules</id>
+            <activation>
+                <property>
+                    <name>!skip.default</name>
+                </property>
+            </activation>
+            <modules>
+
+                <module>module-base</module>
+                <module>module-fixtures</module>
+
+                <module>integtests-ext</module>
+                <module>integtests-lib</module>
+                <module>integtests-spi</module>
+                <module>integtests-mml</module>
+
+                <module>appdefn</module>
+                <module>webapp</module>
+
+                <module>main-slack</module>
+            </modules>
+        </profile>
+
+    </profiles>
+</project>

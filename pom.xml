@@ -31,7 +31,7 @@
             </activation>
             <modules>
                 <module>modules</module>
-                <module>testapp</module>
+                <module>webapp</module>
                 <module>archetype/app/quickstart</module>
             </modules>
         </profile>
@@ -45,7 +45,7 @@
             </activation>
             <modules>
                 <module>archetype/app/quickstart/module-simple</module>
-                <module>testapp/module-fixtures</module>
+                <module>webapp/module-fixtures</module>
 
                 <module>modules/spi/audit</module>
                 <module>modules/spi/command</module>

@@ -267,7 +267,7 @@ public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
             org.isisaddons.module.security.SecurityModule.class,
-            org.incode.example.settings.SettingsModule.class,
+            org.incode.module.settings.SettingsModule.class,
             org.isisaddons.module.togglz.TogglzModule.class,
             ...
     );
