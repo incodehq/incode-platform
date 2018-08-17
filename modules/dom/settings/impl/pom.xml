@@ -3,175 +3,112 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-		<groupId>org.incode.module.settings</groupId>
-		<artifactId>incode-module-settings</artifactId>
+        <groupId>org.incode</groupId>
+        <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>incode-module-settings-dom</artifactId>
+    <groupId>org.incode.module.settings</groupId>
+    <artifactId>incode-module-settings</artifactId>
+	<version>${revision}</version>
 
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-	<name>Incode Platform Example Settings Impl</name>
-	<description>
-		A module providing settings persistence, enabling profiling, background execution and
-		extended auditing capabilities.
-	</description>
+	<name>Incode Platform Example Settings</name>
 
-    <url>https://github.com/incodehq/incode-platform</url>
+	<properties>
+		<revision>1.0.0-SNAPSHOT</revision>
+		<isis.version>1.16.2.20180709-1350-5d9f4f7c</isis.version>
+	</properties>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.incode.module.settings</groupId>
+                <artifactId>incode-module-settings-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.settings</groupId>
+                <artifactId>incode-module-settings-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.settings</groupId>
+                <artifactId>incode-module-settings-integtests</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
-    <scm>
-        <connection>scm:git:git@github.com:incodehq/incode-platform.git</connection>
-        <developerConnection>scm:git:git@github.com:incodehq/incode-platform.git</developerConnection>
-        <url>git@github.com:incodehq/incode-platform.git</url>
-    </scm>
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.docfragment</groupId>
+                <artifactId>incode-example-docfragment-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.example.communications</groupId>
+                <artifactId>incode-example-communications-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
 
-    <developers>
-        <developer>
-            <id>dhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dhaywood@incode.org</email>
-        </developer>
-        <developer>
-            <id>jvanderwal</id>
-            <name>Jeroen van der Wal</name>
-            <email>jvanderwal@incode.org</email>
-        </developer>
-        <developer>
-            <id>jdoornenbal</id>
-            <name>Johan Doornenbal</name>
-            <email>jdoornenbal@incode.org</email>
-        </developer>
-    </developers>
+        </dependencies>
+    </dependencyManagement>
 
-    <properties>
-        <isis-maven-plugin.validate.appManifest>
-            org.incode.module.settings.dom.SettingsModuleDomManifest
-        </isis-maven-plugin.validate.appManifest>
-
-        <jar-plugin.automaticModuleName>org.incode.module.settings</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/example/settings</git-plugin.propertiesDir>
-
-        <git-plugin.gitDir>${project.basedir}/../../../../.git</git-plugin.gitDir>
-    </properties>
-
-    <build>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>com.github.odavid.maven.plugins</groupId>
-                <artifactId>mixin-maven-plugin</artifactId>
-                <version>0.1-alpha-39</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <mixins>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>datanucleusenhance</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>enforcerrelaxed</artifactId>
-                        </mixin>
-<!--
-                        <mixin>
-                            <groupId>org.incode.mavenmixin</groupId>
-                            <artifactId>incode-mavenmixin-validate</artifactId>
-                        </mixin>
--->
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>sourceandjavadoc</artifactId>
-                        </mixin>
-                        <mixin>
-                            <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>surefire</artifactId>
-                        </mixin>
-                    </mixins>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-applib</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-        </dependency>
-
-        <!-- test -->
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-             <artifactId>isis-core-unittestsupport</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-            <scope>test</scope>
-            <type>test-jar</type>
-        </dependency>
-
-        <!-- provided -->
-         <dependency>
-             <groupId>org.projectlombok</groupId>
-             <artifactId>lombok</artifactId>
-             <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
-    <profiles>
-        <profile>
-            <id>git</id>
+    <modules>
+		<module>impl</module>
+		<module>integtests</module>
+	</modules>
+	
+	<profiles>
+		<profile>
+            <id>incode-cloud-maven</id>
             <activation>
                 <property>
-                    <name>!skip.git</name>
+                    <name>!skip.incode-cloud-maven</name>
                 </property>
             </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>pl.project13.maven</groupId>
-                        <artifactId>git-commit-id-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
+            <repositories>
+                <repository>
+                    <id>incode-cloud-maven</id>
+                    <url>https://repo.incode.cloud/repository/maven/</url>
+                    <name>Incode Cloud (maven)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </snapshots>
+                    <layout>default</layout>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>incode-cloud-maven</id>
+                    <name>Incode Cloud (maven)</name>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <url>https://repo.incode.cloud/repository/maven/</url>
+                    <layout>default</layout>
+                </pluginRepository>
+            </pluginRepositories>
         </profile>
-    </profiles>
-
+	</profiles>
 </project>
