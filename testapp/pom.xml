@@ -59,117 +59,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.incode.example</groupId>
-                <artifactId>incode-example</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.alias</groupId>
-                <artifactId>incode-example-alias</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.classification</groupId>
-                <artifactId>incode-example-classification</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.commchannel</groupId>
-                <artifactId>incode-example-commchannel</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.communications</groupId>
-                <artifactId>incode-example-communications</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.country</groupId>
-                <artifactId>incode-example-country</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.docfragment</groupId>
-                <artifactId>incode-example-docfragment</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-freemarker</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-stringinterpolator</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.docrendering</groupId>
-                <artifactId>incode-example-docrendering-xdocreport</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.document</groupId>
-                <artifactId>incode-example-document</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.note</groupId>
-                <artifactId>incode-example-note</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.settings</groupId>
-                <artifactId>incode-example-settings</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.example.tags</groupId>
-                <artifactId>incode-example-tags</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -215,29 +104,6 @@
                 <version>${revision}</version>
             </dependency>
 
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-testapp-example-appdefn</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-testapp-canonical</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-testapp-embeddedcamel</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -266,24 +132,6 @@
                 <module>../modules/spi/publishmq/jdo</module>
                 <module>../modules/spi/security</module>
                 <module>../modules/spi/sessionlogger</module>
-                <module>../module-examples/alias/demo</module>
-                <module>../module-examples/alias/dom</module>
-                <module>../module-examples/classification/demo</module>
-                <module>../module-examples/classification/dom</module>
-                <module>../module-examples/commchannel/demo</module>
-                <module>../module-examples/commchannel/dom</module>
-                <module>../module-examples/communications/demo</module>
-                <module>../module-examples/communications/dom</module>
-                <module>../module-examples/country/dom</module>
-                <module>../module-examples/docfragment/demo</module>
-                <module>../module-examples/docfragment/dom</module>
-                <module>../module-examples/document/demo</module>
-                <module>../module-examples/document/dom</module>
-                <module>../module-examples/note/demo</module>
-                <module>../module-examples/note/dom</module>
-                <module>../module-examples/settings/dom</module>
-                <module>../module-examples/tags/dom</module>
-                <module>../module-examples/tags/demo</module>
 
                 <module>integtests-spi</module>
             </modules>
@@ -297,8 +145,6 @@
                 </property>
             </activation>
             <modules>
-                <module>canonical</module>
-                <module>embeddedcamel</module>
 
                 <module>module-base</module>
                 <module>module-fixtures</module>
@@ -315,52 +161,5 @@
             </modules>
         </profile>
 
-        <profile>
-            <id>integtests-ext</id>
-            <activation>
-                <property>
-                    <name>integtests-ext</name>
-                </property>
-            </activation>
-            <modules>
-                <module>integtests-ext</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>integtests-lib</id>
-            <activation>
-                <property>
-                    <name>integtests-lib</name>
-                </property>
-            </activation>
-            <modules>
-                <module>integtests-lib</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>integtests-mml</id>
-            <activation>
-                <property>
-                    <name>integtests-mml</name>
-                </property>
-            </activation>
-            <modules>
-                <module>integtests-mml</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>integtests-spi</id>
-            <activation>
-                <property>
-                    <name>integtests-spi</name>
-                </property>
-            </activation>
-            <modules>
-                <module>integtests-spi</module>
-            </modules>
-        </profile>
     </profiles>
 </project>

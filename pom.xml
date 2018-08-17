@@ -31,7 +31,6 @@
             </activation>
             <modules>
                 <module>modules</module>
-                <module>module-examples</module>
                 <module>testapp</module>
                 <module>archetype/app/quickstart</module>
             </modules>
@@ -48,16 +47,6 @@
                 <module>archetype/app/quickstart/module-simple</module>
                 <module>testapp/module-fixtures</module>
 
-                <module>module-examples/alias</module>
-                <module>module-examples/classification</module>
-                <module>module-examples/communications</module>
-                <module>module-examples/commchannel</module>
-                <module>module-examples/country</module>
-                <module>module-examples/docfragment</module>
-                <module>module-examples/document</module>
-                <module>module-examples/note</module>
-                <module>module-examples/settings</module>
-                <module>module-examples/tags</module>
                 <module>modules/spi/audit</module>
                 <module>modules/spi/command</module>
                 <module>modules/spi/publishmq/jdo</module>

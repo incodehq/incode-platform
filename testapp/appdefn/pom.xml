@@ -191,7 +191,6 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <artifactId>incode-example-tags-demo</artifactId>
         </dependency>
 
-
         <!-- ext -->
         <dependency>
             <groupId>org.isisaddons.module.togglz</groupId>
