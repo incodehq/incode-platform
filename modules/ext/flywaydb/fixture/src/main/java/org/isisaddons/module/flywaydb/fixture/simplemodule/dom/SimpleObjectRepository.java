@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.simple.dom;
+package org.isisaddons.module.flywaydb.fixture.simplemodule.dom;
 
 import java.util.List;
 

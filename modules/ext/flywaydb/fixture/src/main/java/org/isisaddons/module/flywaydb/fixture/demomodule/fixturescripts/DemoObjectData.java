@@ -1,9 +1,10 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demo.fixture;
+package org.isisaddons.module.flywaydb.fixture.demomodule.fixturescripts;
 
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.isisaddons.module.flywaydb.fixture.demomodule.dom.DemoObject;
+
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 

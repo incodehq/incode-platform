@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.simple.dom;
+package org.isisaddons.module.flywaydb.fixture.simplemodule.dom;
 
 import java.util.List;
 
@@ -12,8 +12,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
-
-import org.incode.domainapp.extended.module.base.togglz.TogglzFeature;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -44,10 +42,6 @@ public class SimpleObjectMenu {
         return simpleObjectRepository.findByName(name);
     }
 
-    public boolean hideFindByName() {
-        return ! TogglzFeature.SimpleObject_findByName.isActive();
-    }
-
 
     public static class CreateDomainEvent extends ActionDomainEvent<SimpleObjectMenu> {}
     @Action(semantics = SemanticsOf.NON_IDEMPOTENT, domainEvent = CreateDomainEvent.class)
@@ -56,9 +50,6 @@ public class SimpleObjectMenu {
             @ParameterLayout(named="Name")
             final String name) {
         return simpleObjectRepository.create(name);
-    }
-    public boolean hideCreate() {
-        return ! TogglzFeature.SimpleObject_create.isActive();
     }
 
 

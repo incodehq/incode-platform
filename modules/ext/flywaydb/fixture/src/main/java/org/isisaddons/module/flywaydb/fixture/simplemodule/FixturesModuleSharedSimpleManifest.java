@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.simple;
+package org.isisaddons.module.flywaydb.fixture.simplemodule;
 
 import org.apache.isis.applib.AppManifestAbstract;
 

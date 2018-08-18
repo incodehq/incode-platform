@@ -14,6 +14,8 @@
     <artifactId>isis-module-publishmq-dom</artifactId>
     <name>Incode Platform SPI PublishMQ Impl</name>
 
+    <packaging>pom</packaging>
+
     <description>
         Parent module for the various submodules that make up the publishmq service.
     </description>

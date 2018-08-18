@@ -1,8 +1,8 @@
-package org.incode.domainapp.extended.module.fixtures.shared.simple.fixture;
+package org.isisaddons.module.flywaydb.fixture.simplemodule.fixturescripts;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObject;
+import org.isisaddons.module.flywaydb.fixture.simplemodule.dom.SimpleObject;
 
 public class SimpleObject_tearDown extends TeardownFixtureAbstract2 {
 

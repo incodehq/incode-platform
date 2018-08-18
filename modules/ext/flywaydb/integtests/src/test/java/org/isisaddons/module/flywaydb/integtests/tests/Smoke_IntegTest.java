@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
+import org.isisaddons.module.flywaydb.fixture.demomodule.dom.DemoObject;
+import org.isisaddons.module.flywaydb.fixture.demomodule.dom.DemoObjectMenu;
+import org.isisaddons.module.flywaydb.fixture.demomodule.fixturescripts.DemoObject_tearDown;
 import org.isisaddons.module.flywaydb.integtests.FlywayDbModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;

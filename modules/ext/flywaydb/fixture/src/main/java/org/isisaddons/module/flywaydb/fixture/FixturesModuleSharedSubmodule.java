@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared;
+package org.isisaddons.module.flywaydb.fixture;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

@@ -1,8 +1,8 @@
-package org.incode.domainapp.extended.module.fixtures.shared.todo.fixture;
+package org.isisaddons.module.flywaydb.fixture.todomodule.fixturescripts;
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
+import org.isisaddons.module.flywaydb.fixture.todomodule.dom.DemoToDoItem;
 
 public class DemoToDoItem_tearDown extends TeardownFixtureAbstract2 {
 

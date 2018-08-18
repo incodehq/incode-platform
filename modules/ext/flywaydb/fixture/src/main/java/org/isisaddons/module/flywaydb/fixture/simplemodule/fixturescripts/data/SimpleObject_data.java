@@ -1,8 +1,9 @@
-package org.incode.domainapp.extended.module.fixtures.shared.simple.fixture.data;
+package org.isisaddons.module.flywaydb.fixture.simplemodule.fixturescripts.data;
 
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import org.incode.domainapp.extended.module.fixtures.shared.simple.dom.SimpleObject;
+import org.isisaddons.module.flywaydb.fixture.simplemodule.dom.SimpleObject;
+
 import org.incode.module.fixturesupport.dom.data.DemoData;
 import org.incode.module.fixturesupport.dom.data.DemoDataPersistAbstract;
 

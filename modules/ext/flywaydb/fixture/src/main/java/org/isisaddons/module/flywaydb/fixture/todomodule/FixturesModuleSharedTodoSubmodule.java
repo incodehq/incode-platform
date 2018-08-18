@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.todo;
+package org.isisaddons.module.flywaydb.fixture.todomodule;
 
 import java.util.Set;
 
@@ -10,9 +10,8 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.flywaydb.fixture.todomodule.fixturescripts.DemoToDoItem_tearDown;
 import org.isisaddons.wicket.fullcalendar2.cpt.applib.FullCalendar2ApplibModule;
-
-import org.incode.domainapp.extended.module.fixtures.shared.todo.fixture.DemoToDoItem_tearDown;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleSharedTodoSubmodule extends ModuleAbstract {

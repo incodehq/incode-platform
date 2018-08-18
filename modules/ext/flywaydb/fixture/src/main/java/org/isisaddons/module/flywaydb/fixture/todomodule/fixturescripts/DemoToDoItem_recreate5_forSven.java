@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.todo.fixture;
+package org.isisaddons.module.flywaydb.fixture.todomodule.fixturescripts;
 
 public class DemoToDoItem_recreate5_forSven extends DemoToDoItem_recreate5_for {
 

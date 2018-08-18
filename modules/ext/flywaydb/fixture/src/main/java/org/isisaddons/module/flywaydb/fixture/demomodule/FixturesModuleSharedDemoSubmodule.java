@@ -1,11 +1,11 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demo;
+package org.isisaddons.module.flywaydb.fixture.demomodule;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demo.fixture.DemoObject_tearDown;
+import org.isisaddons.module.flywaydb.fixture.demomodule.fixturescripts.DemoObject_tearDown;
 
 @XmlRootElement(name = "module")
 public class FixturesModuleSharedDemoSubmodule extends ModuleAbstract {

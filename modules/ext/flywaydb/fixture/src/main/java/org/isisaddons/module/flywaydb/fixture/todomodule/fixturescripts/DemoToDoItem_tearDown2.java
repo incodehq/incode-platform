@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.todo.fixture;
+package org.isisaddons.module.flywaydb.fixture.todomodule.fixturescripts;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;

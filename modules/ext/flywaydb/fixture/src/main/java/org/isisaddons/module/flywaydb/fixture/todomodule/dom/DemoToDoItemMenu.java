@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.todo.dom;
+package org.isisaddons.module.flywaydb.fixture.todomodule.dom;
 
 import java.math.BigDecimal;
 import java.util.Collections;

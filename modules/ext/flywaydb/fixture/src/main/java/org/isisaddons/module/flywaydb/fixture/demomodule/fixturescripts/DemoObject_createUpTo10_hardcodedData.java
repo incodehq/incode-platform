@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demo.fixture;
+package org.isisaddons.module.flywaydb.fixture.demomodule.fixturescripts;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.incode.domainapp.extended.module.fixtures.shared.demo.dom.DemoObject;
+import org.isisaddons.module.flywaydb.fixture.demomodule.dom.DemoObject;
 
 import lombok.Getter;
 import lombok.Setter;

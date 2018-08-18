@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.demo.dom;
+package org.isisaddons.module.flywaydb.fixture.demomodule.dom;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;

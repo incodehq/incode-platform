@@ -101,11 +101,6 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>incode-platformapp-module-base</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.incode.module.fixturesupport</groupId>
             <artifactId>incode-module-fixturesupport-dom</artifactId>
         </dependency>

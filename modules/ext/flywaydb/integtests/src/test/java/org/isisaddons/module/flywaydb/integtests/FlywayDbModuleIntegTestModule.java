@@ -10,6 +10,7 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
+import org.isisaddons.module.flywaydb.fixture.FixturesModuleSharedSubmodule;
 
 @XmlRootElement(name = "module")
 public class FlywayDbModuleIntegTestModule extends ModuleAbstract {

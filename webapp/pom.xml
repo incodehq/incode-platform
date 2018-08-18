@@ -68,12 +68,6 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-platformapp-module-base</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>incode-platformapp-module-fixtures</artifactId>
                 <version>${revision}</version>
             </dependency>

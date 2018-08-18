@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.module.fixtures.shared.todo.fixture;
+package org.isisaddons.module.flywaydb.fixture.todomodule.fixturescripts;
 
 import java.math.BigDecimal;
 
@@ -8,10 +8,10 @@ import org.apache.isis.applib.clock.Clock;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Category;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItem;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.DemoToDoItemMenu;
-import org.incode.domainapp.extended.module.fixtures.shared.todo.dom.Subcategory;
+import org.isisaddons.module.flywaydb.fixture.todomodule.dom.Category;
+import org.isisaddons.module.flywaydb.fixture.todomodule.dom.DemoToDoItem;
+import org.isisaddons.module.flywaydb.fixture.todomodule.dom.DemoToDoItemMenu;
+import org.isisaddons.module.flywaydb.fixture.todomodule.dom.Subcategory;
 
 public class DemoToDoItem_recreate5_for extends FixtureScript {
 
