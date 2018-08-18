@@ -6,15 +6,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.module.togglz</groupId>
     <artifactId>isis-module-togglz-glue</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform Extension Togglz Impl</name>
+
     <description>
         A module providing togglz.
     </description>

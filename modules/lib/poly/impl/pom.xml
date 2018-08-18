@@ -7,15 +7,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.module.poly</groupId>
     <artifactId>isis-module-poly-dom</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform Lib Poly Impl</name>
+
     <description>
         A module providing helper classes for polymorphic relationships
         using the &quot;table-of-two-halves&quot; pattern.  Designed for use within

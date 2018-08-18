@@ -7,15 +7,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.module.sessionlogger</groupId>
     <artifactId>isis-module-sessionlogger-dom</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform SPI SessionLogger Impl</name>
+
     <description>
         A module to log when a user logs in or logs out, or when a user session timeout occurs.
     </description>

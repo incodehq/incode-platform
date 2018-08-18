@@ -11,8 +11,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.scratchpad.Scratchpad;
 
-import org.incode.domainapp.extended.module.fixtures.per_cpt.wkt.pdfjs.dom.DemoObjectWithBlob;
-
 @DomainService(nature = NatureOfService.DOMAIN)
 public class CssHighlighter extends AbstractSubscriber {
 

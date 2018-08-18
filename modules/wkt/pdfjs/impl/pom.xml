@@ -6,15 +6,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.wicket.pdfjs</groupId>
     <artifactId>isis-wicket-pdfjs-cpt</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform Wicket pdf.js Component</name>
+
     <description>
         A component for Apache Isis' Wicket viewer, allowing BLOBs containing PDFs 
 		to be rendered in a panel using pdf.js.

@@ -6,15 +6,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.wicket.wickedcharts</groupId>
     <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform Wicket WickedCharts Component</name>
+
     <description>
         A number of components for Apache Isis' Wicket viewer, to render a standalone
         chart or a bar chart for a collection of entities.

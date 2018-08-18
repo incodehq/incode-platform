@@ -1,11 +1,7 @@
 package org.incode.module.unittestsupport.dom.valuetypes;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 //import org.incode.module.base.dom.valuetypes.AbstractInterval;
 //import org.incode.module.base.dom.valuetypes.LocalDateInterval;
-import org.joda.time.LocalDate;
 
 /**
  * Factory methods for value types

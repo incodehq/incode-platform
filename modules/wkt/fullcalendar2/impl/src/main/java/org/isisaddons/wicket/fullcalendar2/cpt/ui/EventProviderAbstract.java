@@ -10,7 +10,6 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
-import org.apache.isis.core.metamodel.adapter.oid.OidMarshaller;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 

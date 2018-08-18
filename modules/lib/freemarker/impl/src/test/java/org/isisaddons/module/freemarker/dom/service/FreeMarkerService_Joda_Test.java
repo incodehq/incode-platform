@@ -1,13 +1,11 @@
 package org.isisaddons.module.freemarker.dom.service;
 
-import java.util.Locale;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

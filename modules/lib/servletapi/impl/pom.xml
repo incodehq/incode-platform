@@ -6,15 +6,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.module.servletapi</groupId>
     <artifactId>isis-module-servletapi-dom</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform Lib Servlet API Impl</name>
+
     <description>
         A module providing access to elements of the Servlet API.
     </description>

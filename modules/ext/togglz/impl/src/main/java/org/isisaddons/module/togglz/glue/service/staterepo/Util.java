@@ -2,7 +2,6 @@ package org.isisaddons.module.togglz.glue.service.staterepo;
 
 import org.apache.isis.core.metamodel.services.ServicesInjector;
 import org.apache.isis.core.runtime.system.context.IsisContext;
-import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 
 class Util {
 

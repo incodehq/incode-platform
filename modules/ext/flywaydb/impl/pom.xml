@@ -19,15 +19,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.module.flywaydb</groupId>
     <artifactId>isis-module-flywaydb-dom</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform Extension FlywayDB Impl</name>
+
     <description>
         A module integrating with FlywayDB by providing an implementation of DataNucleus' PersistenceManagerFactory
     </description>

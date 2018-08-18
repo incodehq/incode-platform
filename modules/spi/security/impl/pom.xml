@@ -6,15 +6,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.module.security</groupId>
     <artifactId>isis-module-security-dom</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform SPI Security Impl</name>
+
     <description>
         A module providing the ability to tag or label entities.
     </description>

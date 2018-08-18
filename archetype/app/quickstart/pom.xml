@@ -19,10 +19,10 @@
 
     <properties>
 
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.1.0-SNAPSHOT</revision>
 
         <isis.version>1.16.2</isis.version>
-        <incodePlatformVersion>1.0.0-SNAPSHOT</incodePlatformVersion>
+        <incodePlatformVersion>1.1.0-SNAPSHOT</incodePlatformVersion>
 
 
         <incode-platform.version>${incodePlatformVersion}</incode-platform.version>

@@ -1,8 +1,6 @@
 package org.isisaddons.wicket.summernote.cpt.ui.editor;
 
-import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
-import org.apache.isis.viewer.wicket.model.models.ValueModel;
 import org.apache.isis.viewer.wicket.ui.ComponentFactory;
 import org.apache.isis.viewer.wicket.ui.ComponentFactoryAbstract;
 import org.apache.isis.viewer.wicket.ui.ComponentType;

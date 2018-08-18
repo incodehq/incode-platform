@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.value.Password;
 
-import org.isisaddons.module.security.dom.password.PasswordEncryptionService;
 import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
 import org.isisaddons.module.security.dom.user.AccountType;

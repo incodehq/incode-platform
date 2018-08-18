@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.CoreMatchers.nullValue;
 
 public class ArchiveArgs_asJson_Test {
 

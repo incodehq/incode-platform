@@ -7,15 +7,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.module.stringinterpolator</groupId>
     <artifactId>isis-module-stringinterpolator-dom</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform Lib StringInterpolator Impl</name>
+
     <description>
         A module for generating (mail-merging) .stringinterpolator files
         based on a template .stringinterpolator and an input XML file. Designed for use within

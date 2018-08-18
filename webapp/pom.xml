@@ -19,7 +19,7 @@
 
     <properties>
 
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.1.0-SNAPSHOT</revision>
 
         <isis.version>1.16.2.20180709-1350-5d9f4f7c</isis.version>
         <incode-platform.version>${revision}</incode-platform.version>
@@ -143,11 +143,11 @@
             <modules>
                 <module>module-fixtures</module>
 
-                <module>../modules/spi/audit</module>
-                <module>../modules/spi/command</module>
+                <module>../modules/spi/audit/impl</module>
+                <module>../modules/spi/command/impl</module>
                 <module>../modules/spi/publishmq/jdo</module>
-                <module>../modules/spi/security</module>
-                <module>../modules/spi/sessionlogger</module>
+                <module>../modules/spi/security/impl</module>
+                <module>../modules/spi/sessionlogger/impl</module>
 
                 <module>integtests-ext</module>
                 <module>integtests-spi</module>
@@ -163,6 +163,7 @@
             </activation>
             <modules>
 
+<!--
                 <module>module-base</module>
                 <module>module-fixtures</module>
 
@@ -170,11 +171,13 @@
                 <module>integtests-lib</module>
                 <module>integtests-spi</module>
                 <module>integtests-mml</module>
+                <module>main-slack</module>
+
+-->
 
                 <module>appdefn</module>
                 <module>webapp</module>
 
-                <module>main-slack</module>
             </modules>
         </profile>
 

@@ -225,8 +225,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.module.settings</groupId>
-            <artifactId>incode-module-settings-dom</artifactId>
+            <groupId>org.isis.module.settings</groupId>
+            <artifactId>isis-module-settings-dom</artifactId>
         </dependency>
 
 

@@ -8,7 +8,6 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.audit.AuditerService;
-import org.apache.isis.applib.services.audit.AuditingService3;
 import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.repository.RepositoryService;
 

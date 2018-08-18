@@ -6,15 +6,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.incode.module.slack</groupId>
     <artifactId>incode-module-slack-dom</artifactId>
-
-    <packaging>jar</packaging>
-
     <name>Incode Platform Lib Slack API Impl</name>
+
     <description>
         A module for posting to Slack channels.
     </description>

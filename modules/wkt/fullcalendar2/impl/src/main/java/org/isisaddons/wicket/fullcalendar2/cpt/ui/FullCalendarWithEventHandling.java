@@ -4,8 +4,6 @@ import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
-import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
-import org.apache.isis.core.metamodel.adapter.oid.OidMarshaller;
 import org.apache.isis.core.metamodel.adapter.oid.RootOid;
 import org.apache.isis.core.runtime.system.context.IsisContext;
 import org.apache.isis.core.runtime.system.persistence.PersistenceSession;

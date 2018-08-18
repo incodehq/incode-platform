@@ -66,7 +66,7 @@
         <isis.version>1.16.2</isis.version>
         -->
 
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.1.0-SNAPSHOT</revision>
 
 
         <activemq.version>5.11.1</activemq.version>
@@ -229,7 +229,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- maven deps -->
+            <!-- isis maven deps -->
             <dependency>
                 <groupId>org.apache.isis.mavendeps</groupId>
                 <artifactId>isis-mavendeps-intellij</artifactId>
@@ -250,19 +250,77 @@
                 <type>pom</type>
             </dependency>
 
-            <!-- sub-modules -->
+
+            <!-- sub-modules: dom -->
+
             <dependency>
-                <groupId>org.isisaddons.metamodel.paraname8</groupId>
-                <artifactId>isis-metamodel-paraname8-dom</artifactId>
+                <groupId>org.isis.module.settings</groupId>
+                <artifactId>isis-module-settings-dom</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>org.isisaddons.metamodel.paraname8</groupId>
-                <artifactId>isis-metamodel-paraname8-dom</artifactId>
+                <groupId>org.isis.module.settings</groupId>
+                <artifactId>isis-module-settings-dom</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
+
+
+
+            <!-- sub-modules: ext -->
+
+            <dependency>
+                <groupId>org.isisaddons.module.flywaydb</groupId>
+                <artifactId>isis-module-flywaydb-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.flywaydb</groupId>
+                <artifactId>isis-module-flywaydb-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.flywaydb</groupId>
+                <artifactId>isis-module-flywaydb-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.quartz</groupId>
+                <artifactId>isis-module-quartz-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.quartz</groupId>
+                <artifactId>isis-module-quartz-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.togglz</groupId>
+                <artifactId>isis-module-togglz-glue</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.togglz</groupId>
+                <artifactId>isis-module-togglz-glue</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.togglz</groupId>
+                <artifactId>isis-module-togglz-fixture</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+
+            <!-- sub-modules: lib -->
 
             <dependency>
                 <groupId>org.incode.module.base</groupId>
@@ -272,6 +330,73 @@
             <dependency>
                 <groupId>org.incode.module.base</groupId>
                 <artifactId>incode-module-base-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.docx</groupId>
+                <artifactId>isis-module-docx-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.docx</groupId>
+                <artifactId>isis-module-docx-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.docx</groupId>
+                <artifactId>isis-module-docx-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.excel</groupId>
+                <artifactId>isis-module-excel-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.excel</groupId>
+                <artifactId>isis-module-excel-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.excel</groupId>
+                <artifactId>isis-module-excel-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.fakedata</groupId>
+                <artifactId>isis-module-fakedata-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.fakedata</groupId>
+                <artifactId>isis-module-fakedata-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.fakedata</groupId>
+                <artifactId>isis-module-fakedata-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.freemarker</groupId>
+                <artifactId>isis-module-freemarker-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.freemarker</groupId>
+                <artifactId>isis-module-freemarker-dom</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -304,149 +429,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incode.module.unittestsupport</groupId>
-                <artifactId>incode-module-unittestsupport-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.unittestsupport</groupId>
-                <artifactId>incode-module-unittestsupport-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.audit</groupId>
-                <artifactId>isis-module-audit-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.audit</groupId>
-                <artifactId>isis-module-audit-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.command</groupId>
-                <artifactId>isis-module-command-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.command</groupId>
-                <artifactId>isis-module-command-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.command</groupId>
-                <artifactId>isis-module-command-replay</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.command</groupId>
-                <artifactId>isis-module-command-replay</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.docx</groupId>
-                <artifactId>isis-module-docx-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.docx</groupId>
-                <artifactId>isis-module-docx-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.errorrptjira</groupId>
-                <artifactId>incode-module-errorrptjira-impl</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.errorrptjira</groupId>
-                <artifactId>incode-module-errorrptjira-impl</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.errorrptslack</groupId>
-                <artifactId>incode-module-errorrptslack-impl</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.errorrptslack</groupId>
-                <artifactId>incode-module-errorrptslack-impl</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.excel</groupId>
-                <artifactId>isis-module-excel-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.excel</groupId>
-                <artifactId>isis-module-excel-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.fakedata</groupId>
-                <artifactId>isis-module-fakedata-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.fakedata</groupId>
-                <artifactId>isis-module-fakedata-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.flywaydb</groupId>
-                <artifactId>isis-module-flywaydb-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.flywaydb</groupId>
-                <artifactId>isis-module-flywaydb-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.freemarker</groupId>
-                <artifactId>isis-module-freemarker-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.freemarker</groupId>
-                <artifactId>isis-module-freemarker-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.incode.module.jaxrsclient</groupId>
                 <artifactId>incode-module-jaxrsclient-dom</artifactId>
                 <version>${revision}</version>
@@ -465,7 +447,7 @@
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.jaxrsclient</groupId>
+                <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-minioclient</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
@@ -478,7 +460,7 @@
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.jaxrsclient</groupId>
+                <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-docclient</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
@@ -491,7 +473,7 @@
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>org.incode.module.jaxrsclient</groupId>
+                <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-docserver</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
@@ -519,6 +501,198 @@
             <dependency>
                 <groupId>org.isisaddons.module.poly</groupId>
                 <artifactId>isis-module-poly-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.poly</groupId>
+                <artifactId>isis-module-poly-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.servletapi</groupId>
+                <artifactId>isis-module-servletapi-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.servletapi</groupId>
+                <artifactId>isis-module-servletapi-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.servletapi</groupId>
+                <artifactId>isis-module-servletapi-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.slack</groupId>
+                <artifactId>incode-module-slack-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.slack</groupId>
+                <artifactId>incode-module-slack-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.slack</groupId>
+                <artifactId>incode-module-slack-main</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.stringinterpolator</groupId>
+                <artifactId>isis-module-stringinterpolator-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.stringinterpolator</groupId>
+                <artifactId>isis-module-stringinterpolator-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.stringinterpolator</groupId>
+                <artifactId>isis-module-stringinterpolator-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.unittestsupport</groupId>
+                <artifactId>incode-module-unittestsupport-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.unittestsupport</groupId>
+                <artifactId>incode-module-unittestsupport-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.xdocreport</groupId>
+                <artifactId>isis-module-xdocreport-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.xdocreport</groupId>
+                <artifactId>isis-module-xdocreport-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.zip</groupId>
+                <artifactId>incode-module-zip-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.zip</groupId>
+                <artifactId>incode-module-zip-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+
+
+            <!-- sub-modules: mml -->
+            <dependency>
+                <groupId>org.isisaddons.metamodel.paraname8</groupId>
+                <artifactId>isis-metamodel-paraname8-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.metamodel.paraname8</groupId>
+                <artifactId>isis-metamodel-paraname8-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+
+
+            <!-- sub-modules: spi -->
+            <dependency>
+                <groupId>org.isisaddons.module.audit</groupId>
+                <artifactId>isis-module-audit-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.audit</groupId>
+                <artifactId>isis-module-audit-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.audit</groupId>
+                <artifactId>isis-module-audit-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-dom</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-dom</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-replay</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.command</groupId>
+                <artifactId>isis-module-command-replay</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.errorrptjira</groupId>
+                <artifactId>incode-module-errorrptjira-impl</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.errorrptjira</groupId>
+                <artifactId>incode-module-errorrptjira-impl</artifactId>
+                <version>${revision}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.errorrptslack</groupId>
+                <artifactId>incode-module-errorrptslack-impl</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.incode.module.errorrptslack</groupId>
+                <artifactId>incode-module-errorrptslack-impl</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -577,18 +751,10 @@
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
-
             <dependency>
-                <groupId>org.isisaddons.module.quartz</groupId>
-                <artifactId>isis-module-quartz-dom</artifactId>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-fixtures</artifactId>
                 <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.quartz</groupId>
-                <artifactId>isis-module-quartz-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -603,18 +769,10 @@
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
-
             <dependency>
-                <groupId>org.isisaddons.module.servletapi</groupId>
-                <artifactId>isis-module-servletapi-dom</artifactId>
+                <groupId>org.isisaddons.module.security</groupId>
+                <artifactId>isis-module-security-fixtures</artifactId>
                 <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.servletapi</groupId>
-                <artifactId>isis-module-servletapi-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -625,64 +783,6 @@
             <dependency>
                 <groupId>org.isisaddons.module.sessionlogger</groupId>
                 <artifactId>isis-module-sessionlogger-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.stringinterpolator</groupId>
-                <artifactId>isis-module-stringinterpolator-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.stringinterpolator</groupId>
-                <artifactId>isis-module-stringinterpolator-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.slack</groupId>
-                <artifactId>incode-module-slack-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.slack</groupId>
-                <artifactId>incode-module-slack-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.slack</groupId>
-                <artifactId>incode-module-slack-main</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.settings</groupId>
-                <artifactId>incode-module-settings-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.settings</groupId>
-                <artifactId>incode-module-settings-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.isisaddons.module.togglz</groupId>
-                <artifactId>isis-module-togglz-glue</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.togglz</groupId>
-                <artifactId>isis-module-togglz-glue</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -701,32 +801,7 @@
                 <scope>test</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.isisaddons.module.xdocreport</groupId>
-                <artifactId>isis-module-xdocreport-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.isisaddons.module.xdocreport</groupId>
-                <artifactId>isis-module-xdocreport-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.incode.module.zip</groupId>
-                <artifactId>incode-module-zip-dom</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.incode.module.zip</groupId>
-                <artifactId>incode-module-zip-dom</artifactId>
-                <version>${revision}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-
+            <!-- sub-modules: wkt -->
             <dependency>
                 <groupId>org.isisaddons.wicket.excel</groupId>
                 <artifactId>isis-wicket-excel-cpt</artifactId>
@@ -778,6 +853,11 @@
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.isisaddons.wicket.pdfjs</groupId>
+                <artifactId>isis-wicket-pdfjs-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.wicket.summernote</groupId>
@@ -804,6 +884,12 @@
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.isisaddons.wicket.wickedcharts</groupId>
+                <artifactId>isis-wicket-wickedcharts-fixtures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
 
             <!-- 3rd party libraries -->
             <dependency>
@@ -1136,18 +1222,6 @@
     <profiles>
 
         <profile>
-            <id>spi-publishmq</id>
-            <activation>
-                <property>
-                    <name>spi-publishmq</name>
-                </property>
-            </activation>
-            <modules>
-                <module>spi/publishmq</module>
-            </modules>
-        </profile>
-
-        <profile>
             <id>default-modules</id>
             <activation>
                 <property>
@@ -1156,47 +1230,134 @@
             </activation>
             <modules>
                 <module>dom/settings/impl</module>
+                <module>dom/settings/integtests</module>
 
+                <module>ext/flywaydb/fixture</module>
                 <module>ext/flywaydb/impl</module>
+                <module>ext/flywaydb/integtests</module>
+
                 <module>ext/quartz/impl</module>
+
+                <module>ext/togglz/fixture</module>
                 <module>ext/togglz/impl</module>
+                <module>ext/togglz/integtests</module>
 
                 <module>lib/base/impl</module>
+
+                <module>lib/docx/fixture</module>
                 <module>lib/docx/impl</module>
+                <module>lib/docx/integtests</module>
+
+                <module>lib/excel/fixture</module>
                 <module>lib/excel/impl</module>
+                <module>lib/excel/integtests</module>
+
+                <module>lib/fakedata/fixture</module>
                 <module>lib/fakedata/impl</module>
+                <module>lib/fakedata/integtests</module>
+
                 <module>lib/fixturesupport/impl</module>
                 <module>lib/freemarker/impl</module>
                 <module>lib/integtestsupport/impl</module>
                 <module>lib/jaxrsclient/impl</module>
                 <module>lib/minio/impl</module>
                 <module>lib/pdfbox/impl</module>
+
+                <module>lib/poly/fixture</module>
                 <module>lib/poly/impl</module>
+                <module>lib/poly/integtests</module>
+
+                <module>lib/servletapi/fixture</module>
                 <module>lib/servletapi/impl</module>
+
                 <module>lib/slack/impl</module>
+                <module>lib/slack/main</module>
+
+                <module>lib/stringinterpolator/fixture</module>
                 <module>lib/stringinterpolator/impl</module>
+                <module>lib/stringinterpolator/integtests</module>
+
                 <module>lib/unittestsupport/impl</module>
                 <module>lib/xdocreport/impl</module>
                 <module>lib/zip/impl</module>
 
                 <module>mml/paraname8/impl</module>
 
+                <module>spi/audit/fixture</module>
                 <module>spi/audit/impl</module>
+                <module>spi/audit/integtests</module>
+
+                <module>spi/command/fixture</module>
                 <module>spi/command/impl</module>
+                <module>spi/command/integtests</module>
+
                 <module>spi/commandreplay/impl</module>
                 <module>spi/errorrptjira/impl</module>
                 <module>spi/errorrptslack/impl</module>
+
+                <module>spi/publishmq/fixture</module>
                 <module>spi/publishmq/impl</module>
+                <module>spi/publishmq/integtests</module>
+
+                <module>spi/security/fixture</module>
                 <module>spi/security/impl</module>
+                <module>spi/security/integtests</module>
+
                 <module>spi/sessionlogger/impl</module>
+                <module>spi/sessionlogger/integtests</module>
+
                 <module>spi/userimpersonate/impl</module>
 
                 <module>wkt/excel/impl</module>
                 <module>wkt/fullcalendar2/impl</module>
                 <module>wkt/gmap3/impl</module>
+
+                <module>wkt/pdfjs/fixture</module>
                 <module>wkt/pdfjs/impl</module>
+
                 <module>wkt/summernote/impl</module>
+                <module>wkt/wickedcharts/fixture</module>
                 <module>wkt/wickedcharts/impl</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>enhance</id>
+            <activation>
+                <property>
+                    <name>enhance</name>
+                </property>
+            </activation>
+            <modules>
+                <module>dom/settings/impl</module>
+                <module>dom/settings/integtests</module>
+
+                <module>ext/togglz/fixture</module>
+
+                <module>lib/docx/fixture</module>
+                <module>lib/excel/fixture</module>
+                <module>lib/fakedata/fixture</module>
+                <module>lib/fixturesupport/impl</module>
+                <module>lib/poly/fixture</module>
+                <module>lib/servletapi/fixture</module>
+                <module>lib/stringinterpolator/fixture</module>
+
+                <module>spi/audit/fixture</module>
+                <module>spi/audit/impl</module>
+
+                <module>spi/command/fixture</module>
+                <module>spi/command/impl</module>
+
+                <module>spi/publishmq/fixture</module>
+                <module>spi/publishmq/impl</module>
+
+                <module>spi/security/fixture</module>
+                <module>spi/security/impl</module>
+
+                <module>spi/sessionlogger/impl</module>
+
+                <module>wkt/pdfjs/fixture</module>
+                <module>wkt/wickedcharts/fixture</module>
             </modules>
         </profile>
 
@@ -1291,6 +1452,7 @@
                 </snapshotRepository>
             </distributionManagement>
         </profile>
+
     </profiles>
 
 </project>

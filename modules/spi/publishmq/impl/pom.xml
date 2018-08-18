@@ -7,15 +7,13 @@
         <groupId>org.incode</groupId>
         <artifactId>incode-parent</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.isisaddons.module.publishmq</groupId>
     <artifactId>isis-module-publishmq-dom</artifactId>
-
-    <packaging>pom</packaging>
-
     <name>Incode Platform SPI PublishMQ Impl</name>
+
     <description>
         Parent module for the various submodules that make up the publishmq service.
     </description>
