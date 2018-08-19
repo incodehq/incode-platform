@@ -17,7 +17,7 @@ import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "fixtureSpiSecurity.TenantedEntities",
+        objectType = "spiSecurityFixture.TenantedEntities",
         repositoryFor = TenantedEntity.class
 )
 @DomainServiceLayout(

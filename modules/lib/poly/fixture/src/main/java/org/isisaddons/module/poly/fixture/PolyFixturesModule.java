@@ -6,19 +6,19 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Case;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannel;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.FixedAsset;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Party;
-import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.contentlink.CaseContentLink;
-import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.contentlink.CaseContentLinkForFixedAsset;
-import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.contentlink.CaseContentLinkForParty;
-import org.isisaddons.module.poly.fixture.demoapp.polycaseprimary.dom.CasePrimaryContentLink;
-import org.isisaddons.module.poly.fixture.demoapp.polycaseprimary.dom.CasePrimaryContentLinkForFixedAsset;
-import org.isisaddons.module.poly.fixture.demoapp.polycaseprimary.dom.CasePrimaryContentLinkForParty;
-import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwnerLink;
-import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwnerLinkForFixedAsset;
-import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwnerLinkForParty;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.PolyDemoCase;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.PolyDemoCommunicationChannel;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.PolyDemoFixedAsset;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.PolyDemoParty;
+import org.isisaddons.module.poly.fixture.demoapp.poly_casecontent_module.dom.contentlink.PolyDemoCaseContentLink;
+import org.isisaddons.module.poly.fixture.demoapp.poly_casecontent_module.dom.contentlink.PolyDemoCaseContentLinkForFixedAsset;
+import org.isisaddons.module.poly.fixture.demoapp.poly_casecontent_module.dom.contentlink.PolyDemoCaseContentLinkForParty;
+import org.isisaddons.module.poly.fixture.demoapp.poly_caseprimary_module.dom.PolyDemoCasePrimaryContentLinkForParty;
+import org.isisaddons.module.poly.fixture.demoapp.poly_caseprimary_module.dom.PolyDemoPolyDemoCasePrimaryContentLink;
+import org.isisaddons.module.poly.fixture.demoapp.poly_caseprimary_module.dom.PolyDemoCasePrimaryContentLinkForFixedAsset;
+import org.isisaddons.module.poly.fixture.demoapp.poly_ccowner_module.dom.PolyDemoCommunicationChannelOwnerLink;
+import org.isisaddons.module.poly.fixture.demoapp.poly_ccowner_module.dom.PolyDemoCommunicationChannelOwnerLinkForFixedAsset;
+import org.isisaddons.module.poly.fixture.demoapp.poly_ccowner_module.dom.PolyDemoCommunicationChannelOwnerLinkForParty;
 
 @XmlRootElement(name = "module")
 public class PolyFixturesModule extends ModuleAbstract {
@@ -27,22 +27,22 @@ public class PolyFixturesModule extends ModuleAbstract {
         return new TeardownFixtureAbstract2() {
             @Override protected void execute(final ExecutionContext executionContext) {
 
-                deleteFrom(CaseContentLinkForFixedAsset.class);
-                deleteFrom(CaseContentLinkForParty.class);
-                deleteFrom(CaseContentLink.class);
+                deleteFrom(PolyDemoCaseContentLinkForFixedAsset.class);
+                deleteFrom(PolyDemoCaseContentLinkForParty.class);
+                deleteFrom(PolyDemoCaseContentLink.class);
 
-                deleteFrom(CasePrimaryContentLinkForFixedAsset.class);
-                deleteFrom(CasePrimaryContentLinkForParty.class);
-                deleteFrom(CasePrimaryContentLink.class);
+                deleteFrom(PolyDemoCasePrimaryContentLinkForFixedAsset.class);
+                deleteFrom(PolyDemoCasePrimaryContentLinkForParty.class);
+                deleteFrom(PolyDemoPolyDemoCasePrimaryContentLink.class);
 
-                deleteFrom(CommunicationChannelOwnerLinkForParty.class);
-                deleteFrom(CommunicationChannelOwnerLinkForFixedAsset.class);
-                deleteFrom(CommunicationChannelOwnerLink.class);
-                deleteFrom(CommunicationChannel.class);
+                deleteFrom(PolyDemoCommunicationChannelOwnerLinkForParty.class);
+                deleteFrom(PolyDemoCommunicationChannelOwnerLinkForFixedAsset.class);
+                deleteFrom(PolyDemoCommunicationChannelOwnerLink.class);
+                deleteFrom(PolyDemoCommunicationChannel.class);
 
-                deleteFrom(Party.class);
-                deleteFrom(FixedAsset.class);
-                deleteFrom(Case.class);
+                deleteFrom(PolyDemoParty.class);
+                deleteFrom(PolyDemoFixedAsset.class);
+                deleteFrom(PolyDemoCase.class);
             }
         };
     }

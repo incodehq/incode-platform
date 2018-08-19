@@ -20,7 +20,7 @@ import org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturehandlers.de
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "fixtureLibExcel.ExcelUploadServiceForDemoToDoItem"
+        objectType = "libExcelFixture.ExcelUploadServiceForDemoToDoItem"
 )
 @DomainServiceLayout(
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,

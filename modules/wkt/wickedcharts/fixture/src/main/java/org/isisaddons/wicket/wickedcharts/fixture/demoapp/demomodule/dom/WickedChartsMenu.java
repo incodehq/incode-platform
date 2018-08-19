@@ -31,12 +31,12 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 import org.isisaddons.wicket.wickedcharts.fixture.demoapp.todomodule.dom.Category;
-import org.isisaddons.wicket.wickedcharts.fixture.demoapp.todomodule.dom.WicketChartsDemoToDoItem;
-import org.isisaddons.wicket.wickedcharts.fixture.demoapp.todomodule.dom.WicketChartsDemoToDoItemMenu;
+import org.isisaddons.wicket.wickedcharts.fixture.demoapp.todomodule.dom.WickedChartsDemoToDoItem;
+import org.isisaddons.wicket.wickedcharts.fixture.demoapp.todomodule.dom.WickedChartsDemoToDoItemMenu;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "fixtureWktWickedCharts.WickedChartsMenu"
+        objectType = "wktWickedChartsFixture.WickedChartsMenu"
 )
 @DomainServiceLayout(
         named = "Wicket Components",
@@ -48,8 +48,8 @@ public class WickedChartsMenu {
     public WickedChart pieChart() {
         
         Map<Category, AtomicInteger> byCategory = Maps.newTreeMap();
-        List<WicketChartsDemoToDoItem> allToDos = demoToDoItemMenu.allInstances();
-        for (WicketChartsDemoToDoItem toDoItem : allToDos) {
+        List<WickedChartsDemoToDoItem> allToDos = demoToDoItemMenu.allInstances();
+        for (WickedChartsDemoToDoItem toDoItem : allToDos) {
             Category category = toDoItem.getCategory();
             AtomicInteger integer = byCategory.get(category);
             if(integer == null) {
@@ -112,6 +112,6 @@ public class WickedChartsMenu {
 
     
     @javax.inject.Inject
-    private WicketChartsDemoToDoItemMenu demoToDoItemMenu;
+    private WickedChartsDemoToDoItemMenu demoToDoItemMenu;
 
 }

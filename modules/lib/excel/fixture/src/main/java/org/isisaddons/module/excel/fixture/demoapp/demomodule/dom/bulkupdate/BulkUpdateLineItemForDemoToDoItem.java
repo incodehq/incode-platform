@@ -15,12 +15,12 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
 
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Category;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItemMenu;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItemMenu;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Subcategory;
 
 @DomainObject(
-        objectType = "fixtureLibExcel.BulkUpdateLineItemForDemoToDoItem"
+        objectType = "libExcelFixture.BulkUpdateLineItemForDemoToDoItem"
 )
 @DomainObjectLayout(
         named = "Bulk update line item",
@@ -32,7 +32,7 @@ public class BulkUpdateLineItemForDemoToDoItem
 
 
     public String title() {
-        final DemoToDoItem existingItem = getToDoItem();
+        final ExcelDemoToDoItem existingItem = getToDoItem();
         if(existingItem != null) {
             return "EXISTING: " + getContainer().titleOf(existingItem);
         }
@@ -60,16 +60,16 @@ public class BulkUpdateLineItemForDemoToDoItem
     // ToDoItem (optional property)
     // //////////////////////////////////////
     
-    private DemoToDoItem toDoItem;
+    private ExcelDemoToDoItem toDoItem;
 
     @MemberOrder(sequence="1")
-    public DemoToDoItem getToDoItem() {
+    public ExcelDemoToDoItem getToDoItem() {
         return toDoItem;
     }
-    public void setToDoItem(final DemoToDoItem toDoItem) {
+    public void setToDoItem(final ExcelDemoToDoItem toDoItem) {
         this.toDoItem = toDoItem;
     }
-    public void modifyToDoItem(final DemoToDoItem toDoItem) {
+    public void modifyToDoItem(final ExcelDemoToDoItem toDoItem) {
         setToDoItem(toDoItem);
         setDescription(toDoItem.getDescription());
         setCategory(toDoItem.getCategory());
@@ -211,8 +211,8 @@ public class BulkUpdateLineItemForDemoToDoItem
             semantics = SemanticsOf.IDEMPOTENT,
             invokeOn = InvokeOn.OBJECT_AND_COLLECTION
     )
-    public DemoToDoItem apply() {
-        DemoToDoItem item = getToDoItem();
+    public ExcelDemoToDoItem apply() {
+        ExcelDemoToDoItem item = getToDoItem();
         if(item == null) {
             // description must be unique, so check
             item = toDoItems.findToDoItemsByDescription(getDescription());
@@ -260,7 +260,7 @@ public class BulkUpdateLineItemForDemoToDoItem
     private BulkUpdateMenuForDemoToDoItem toDoItemExportImportService;
     
     @javax.inject.Inject
-    private DemoToDoItemMenu toDoItems;
+    private ExcelDemoToDoItemMenu toDoItems;
 
     @javax.inject.Inject
     private ActionInvocationContext actionInvocationContext;

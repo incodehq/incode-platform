@@ -16,15 +16,15 @@ import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Category;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItemMenu;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItemMenu;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Subcategory;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @DomainObject(
-        objectType = "fixtureLibExcel.ExcelUploadRowHandler4ToDoItem",
+        objectType = "libExcelFixture.ExcelUploadRowHandler4ToDoItem",
         nature = Nature.VIEW_MODEL
 )
 public class ExcelUploadRowHandler4ToDoItem implements ExcelFixtureRowHandler {
@@ -47,7 +47,7 @@ public class ExcelUploadRowHandler4ToDoItem implements ExcelFixtureRowHandler {
     @Override
     public List<Object> handleRow(final FixtureScript.ExecutionContext executionContext, final ExcelFixture excelFixture, final Object previousRow) {
         //final ExcelModuleDemoToDoItem toDoItem = wrapperFactory.wrap(toDoItems).newToDo(
-        final DemoToDoItem toDoItem = toDoItems.newToDoItem(
+        final ExcelDemoToDoItem toDoItem = toDoItems.newToDoItem(
                 description,
                 Category.Professional,
                 Subcategory.valueOf(subCategory),
@@ -59,7 +59,7 @@ public class ExcelUploadRowHandler4ToDoItem implements ExcelFixtureRowHandler {
     }
 
     @Inject
-    DemoToDoItemMenu toDoItems;
+    ExcelDemoToDoItemMenu toDoItems;
 
     @Inject
     WrapperFactory wrapperFactory;

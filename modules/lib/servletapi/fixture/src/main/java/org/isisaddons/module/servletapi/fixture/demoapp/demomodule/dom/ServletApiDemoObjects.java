@@ -14,7 +14,7 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "fixtureLibServletApi.ServletApiDemoObjects"
+        objectType = "libServletApiFixture.ServletApiDemoObjects"
 )
 @DomainServiceLayout(
         named = "Libraries",

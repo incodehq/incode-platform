@@ -24,7 +24,7 @@ import org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.bulkupdate.Bul
 import org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
 import org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
 import org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturescripts.DemoToDoItem_recreate_usingExcelFixture;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItemMenu;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItemMenu;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -37,7 +37,7 @@ public class ExcelModuleDemoToDoItemBulkUpdateManager_IntegTest extends ExcelMod
     }
 
     @Inject
-    private DemoToDoItemMenu toDoItems;
+    private ExcelDemoToDoItemMenu toDoItems;
 
     @javax.inject.Inject
     private BulkUpdateMenuForDemoToDoItem exportImportService;

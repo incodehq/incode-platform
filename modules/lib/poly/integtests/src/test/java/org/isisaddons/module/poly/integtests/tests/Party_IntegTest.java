@@ -12,10 +12,10 @@ import org.junit.rules.ExpectedException;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demoparty.Party_create3;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannel;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannels;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Party;
+import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demoparty.PolyDemoParty_create3;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.PolyDemoCommunicationChannel;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.PolyDemoCommunicationChannels;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.PolyDemoParty;
 import org.isisaddons.module.poly.integtests.PolyModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -29,18 +29,18 @@ public class Party_IntegTest extends PolyModuleIntegTestAbstract {
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
-    CommunicationChannels communicationChannelsMenu;
+    PolyDemoCommunicationChannels communicationChannelsMenu;
 
     public static class AddCommunicationChannel extends Party_IntegTest {
 
-        private Party_create3 fs;
-        private Party party;
+        private PolyDemoParty_create3 fs;
+        private PolyDemoParty party;
 
         @Before
         public void setUp() throws Exception {
 
             // given
-            fs = new Party_create3();
+            fs = new PolyDemoParty_create3();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -54,7 +54,7 @@ public class Party_IntegTest extends PolyModuleIntegTestAbstract {
             wrap(party).addCommunicationChannel("0207 123 4567");
 
             // then
-            List<CommunicationChannel> parties = party.getCommunicationChannels();
+            List<PolyDemoCommunicationChannel> parties = party.getCommunicationChannels();
             assertThat(parties.size(), is(1));
             assertThat(parties.get(0).getDetails(), is("0207 123 4567"));
 
@@ -72,7 +72,7 @@ public class Party_IntegTest extends PolyModuleIntegTestAbstract {
             wrap(party).addCommunicationChannel("0207 765 4321");
 
             // when
-            List<CommunicationChannel> parties = party.getCommunicationChannels();
+            List<PolyDemoCommunicationChannel> parties = party.getCommunicationChannels();
             assertThat(parties.size(), is(2));
             assertThat(parties.get(0).getDetails(), is("0207 123 4567"));
             assertThat(parties.get(1).getDetails(), is("0207 765 4321"));
@@ -96,14 +96,14 @@ public class Party_IntegTest extends PolyModuleIntegTestAbstract {
 
     public static class RemoveCommunicationChannel extends Party_IntegTest {
 
-        private Party_create3 fs;
-        private Party party;
+        private PolyDemoParty_create3 fs;
+        private PolyDemoParty party;
 
         @Before
         public void setUp() throws Exception {
 
             // given
-            fs = new Party_create3();
+            fs = new PolyDemoParty_create3();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -117,9 +117,9 @@ public class Party_IntegTest extends PolyModuleIntegTestAbstract {
         public void whenExists() throws Exception {
 
             // given
-            List<CommunicationChannel> communicationChannels = party.getCommunicationChannels();
+            List<PolyDemoCommunicationChannel> communicationChannels = party.getCommunicationChannels();
             assertThat(communicationChannels.size(), is(2));
-            final CommunicationChannel communicationChannel = communicationChannels.get(0);
+            final PolyDemoCommunicationChannel communicationChannel = communicationChannels.get(0);
 
             // when
             wrap(party).removeCommunicationChannel(communicationChannel);

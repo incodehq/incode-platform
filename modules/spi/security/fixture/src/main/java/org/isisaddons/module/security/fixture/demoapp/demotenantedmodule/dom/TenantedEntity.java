@@ -23,7 +23,7 @@ import lombok.Setter;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType= IdentityType.DATASTORE,
-        schema = "fixtureSpiSecurity"
+        schema = "spiSecurityFixture"
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy= IdGeneratorStrategy.NATIVE,

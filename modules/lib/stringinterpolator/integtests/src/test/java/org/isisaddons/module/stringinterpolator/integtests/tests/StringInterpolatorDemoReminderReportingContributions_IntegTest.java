@@ -9,10 +9,10 @@ import org.junit.Test;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 
-import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.contributions.DemoReminderStringInterpolatorContributions;
-import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminder;
-import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminderMenu;
-import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.scripts.DemoReminder_create4;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.contributions.OgnlDemoReminderStringInterpolatorContributions;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.OgnlDemoReminder;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.OgnlDemoReminderMenu;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.scripts.OgnlDemoReminder_create4;
 import org.isisaddons.module.stringinterpolator.integtests.StringInterpolatorModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -23,17 +23,17 @@ public class StringInterpolatorDemoReminderReportingContributions_IntegTest exte
 
     @Before
     public void setUpData() throws Exception {
-        runFixtureScript(new DemoReminder_create4());
+        runFixtureScript(new OgnlDemoReminder_create4());
     }
 
     @Inject
-    DemoReminderMenu reminderMenu;
+    OgnlDemoReminderMenu reminderMenu;
 
     @Inject
     IsisConfiguration configuration;
 
     @Inject
-    DemoReminderStringInterpolatorContributions toDoItemReportingContributions;
+    OgnlDemoReminderStringInterpolatorContributions toDoItemReportingContributions;
 
     public static class Open extends StringInterpolatorDemoReminderReportingContributions_IntegTest {
 
@@ -44,7 +44,7 @@ public class StringInterpolatorDemoReminderReportingContributions_IntegTest exte
             assertThat(configuration.getString("isis.website"), is("http://isis.apache.org"));
             assertThat(toDoItemReportingContributions.TEMPLATE, is("${properties['isis.website']}/${this.documentationPage}"));
 
-            final DemoReminder reminder = reminderMenu.listAllReminders().get(0);
+            final OgnlDemoReminder reminder = reminderMenu.listAllReminders().get(0);
             assertThat(reminder.getDocumentationPage(), is("documentation.html"));
 
             // when

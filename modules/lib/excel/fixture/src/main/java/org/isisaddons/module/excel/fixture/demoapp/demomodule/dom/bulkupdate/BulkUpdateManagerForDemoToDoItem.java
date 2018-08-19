@@ -27,7 +27,7 @@ import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.dom.WorksheetContent;
 import org.isisaddons.module.excel.dom.WorksheetSpec;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Category;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItem;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Subcategory;
 
 import lombok.Getter;
@@ -35,7 +35,7 @@ import lombok.Setter;
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
-        objectType = "fixtureLibExcel.BulkUpdateManagerForDemoToDoItem"
+        objectType = "libExcelFixture.BulkUpdateManagerForDemoToDoItem"
 )
 @DomainObjectLayout(
         named ="Import/export manager",
@@ -126,12 +126,12 @@ public class BulkUpdateManagerForDemoToDoItem {
     @SuppressWarnings("unchecked")
     @Collection
     @CollectionLayout(defaultView = "table")
-    public List<DemoToDoItem> getToDoItems() {
-        return container.allMatches(DemoToDoItem.class,
+    public List<ExcelDemoToDoItem> getToDoItems() {
+        return container.allMatches(ExcelDemoToDoItem.class,
                 Predicates.and(
-                    //DemoToDoItem.Predicates.thoseOwnedBy(currentUserName()),
-                    DemoToDoItem.Predicates.thoseCompleted(isComplete()),
-                    DemoToDoItem.Predicates.thoseCategorised(getCategory(), getSubcategory())));
+                    //ExcelDemoToDoItem.Predicates.thoseOwnedBy(currentUserName()),
+                    ExcelDemoToDoItem.Predicates.thoseCompleted(isComplete()),
+                    ExcelDemoToDoItem.Predicates.thoseCategorised(getCategory(), getSubcategory())));
     }
 
 
@@ -140,7 +140,7 @@ public class BulkUpdateManagerForDemoToDoItem {
     )
     public Blob export() {
         final String fileName = withExtension(getFileName(), ".xlsx");
-        final List<DemoToDoItem> items = getToDoItems();
+        final List<ExcelDemoToDoItem> items = getToDoItems();
         return toExcel(fileName, items);
     }
 
@@ -152,12 +152,12 @@ public class BulkUpdateManagerForDemoToDoItem {
         return fileName.endsWith(fileExtension) ? fileName : fileName + fileExtension;
     }
 
-    private Blob toExcel(final String fileName, final List<DemoToDoItem> items) {
+    private Blob toExcel(final String fileName, final List<ExcelDemoToDoItem> items) {
         final List<BulkUpdateLineItemForDemoToDoItem> toDoItemViewModels = Lists.transform(items, toLineItem());
         return excelService.toExcel(new WorksheetContent(toDoItemViewModels, WORKSHEET_SPEC), fileName);
     }
 
-    private Function<DemoToDoItem, BulkUpdateLineItemForDemoToDoItem> toLineItem() {
+    private Function<ExcelDemoToDoItem, BulkUpdateLineItemForDemoToDoItem> toLineItem() {
         return toDoItem -> {
             final BulkUpdateLineItemForDemoToDoItem template = new BulkUpdateLineItemForDemoToDoItem();
             template.modifyToDoItem(toDoItem);

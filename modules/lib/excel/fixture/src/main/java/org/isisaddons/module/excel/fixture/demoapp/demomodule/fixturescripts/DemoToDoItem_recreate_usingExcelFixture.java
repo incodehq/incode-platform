@@ -2,7 +2,7 @@ package org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturescripts;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.fixturescripts.DemoToDoItem_tearDown2;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.fixturescripts.ExcelDemoToDoItem_tearDown2;
 
 public class DemoToDoItem_recreate_usingExcelFixture extends FixtureScript {
 
@@ -21,7 +21,7 @@ public class DemoToDoItem_recreate_usingExcelFixture extends FixtureScript {
 
         final String ownedBy = this.user != null ? this.user : getContainer().getUser().getName();
 
-        executionContext.executeChild(this, new DemoToDoItem_tearDown2(ownedBy));
+        executionContext.executeChild(this, new ExcelDemoToDoItem_tearDown2(ownedBy));
         executionContext.executeChild(this, new DemoToDoItem_create_usingExcelFixture(ownedBy));
 
         getContainer().flush();

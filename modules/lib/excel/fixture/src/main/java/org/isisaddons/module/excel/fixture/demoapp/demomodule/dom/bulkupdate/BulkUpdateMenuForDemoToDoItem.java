@@ -20,12 +20,12 @@ import org.apache.isis.applib.services.memento.MementoService.Memento;
 
 import org.isisaddons.module.excel.dom.ExcelService;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Category;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItem;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Subcategory;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "fixtureLibExcel.BulkUpdateMenuForDemoToDoItem"
+        objectType = "libExcelFixture.BulkUpdateMenuForDemoToDoItem"
 )
 @DomainServiceLayout(
         named = "Excel",
@@ -107,7 +107,7 @@ public class BulkUpdateMenuForDemoToDoItem {
 
     void init(String mementoStr, BulkUpdateLineItemForDemoToDoItem lineItem) {
         final Memento memento = mementoService.parse(mementoStr);
-        lineItem.setToDoItem(bookmarkService.lookup(memento.get("toDoItem", Bookmark.class), DemoToDoItem.class));
+        lineItem.setToDoItem(bookmarkService.lookup(memento.get("toDoItem", Bookmark.class), ExcelDemoToDoItem.class));
         lineItem.setDescription(memento.get("description", String.class));
         lineItem.setCategory(memento.get("category", Category.class));
         lineItem.setSubcategory(memento.get("subcategory", Subcategory.class));

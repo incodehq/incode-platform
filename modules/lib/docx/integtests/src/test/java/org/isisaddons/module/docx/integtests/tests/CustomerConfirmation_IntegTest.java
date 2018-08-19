@@ -12,9 +12,9 @@ import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
 import org.isisaddons.module.docx.fixture.dom.democustconf.CustomerConfirmation;
-import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrder;
-import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrderMenu;
-import org.isisaddons.module.docx.fixture.fixturescripts.DemoOrderAndOrderLine_create4_hardcodedData;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DocxDemoOrder;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DocxDemoOrderMenu;
+import org.isisaddons.module.docx.fixture.fixturescripts.DocxDemoOrderAndOrderLine_create4_hardcodedData;
 import org.isisaddons.module.docx.integtests.DocxModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,20 +25,20 @@ public class CustomerConfirmation_IntegTest extends DocxModuleIntegTestAbstract 
 
     @Before
     public void setUpData() throws Exception {
-        runFixtureScript(new DemoOrderAndOrderLine_create4_hardcodedData());
+        runFixtureScript(new DocxDemoOrderAndOrderLine_create4_hardcodedData());
     }
 
     @Inject
-    private DemoOrderMenu orders;
+    private DocxDemoOrderMenu orders;
 
     @Inject
     private CustomerConfirmation customerConfirmation;
 
-    private DemoOrder order;
+    private DocxDemoOrder order;
 
     @Before
     public void setUp() throws Exception {
-        final List<DemoOrder> all = wrap(orders).listAllDemoOrders();
+        final List<DocxDemoOrder> all = wrap(orders).listAllDemoOrders();
         assertThat(all.size(), is(1));
 
         order = all.get(0);

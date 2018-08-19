@@ -22,11 +22,11 @@ import org.apache.isis.applib.value.Money;
 import org.apache.isis.applib.value.Password;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
-import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAll;
-import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAllMenu;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.FakeDataDemoObjectWithAll;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.FakeDataDemoObjectWithAllMenu;
 import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.EnumOf3;
-import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.fixturescripts.DemoObjectWithAll_create3;
-import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.fixturescripts.data.DemoObjectWithAll_update_withFakeData;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.fixturescripts.FakeDataDemoObjectWithAll_create3;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.fixturescripts.data.FakeDataDemoObjectWithAll_update_withFakeData;
 import org.isisaddons.module.fakedata.integtests.FakeDataModuleIntegTestAbstract;
 
 public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstract {
@@ -35,7 +35,7 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
     FixtureScripts fixtureScripts;
 
     @Inject
-    DemoObjectWithAllMenu fakeDataDemoObjects;
+    FakeDataDemoObjectWithAllMenu fakeDataDemoObjects;
 
     @Inject
     FakeDataService fakeDataService;
@@ -50,8 +50,8 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             // when
             //
 
-            final DemoObjectWithAll_create3 scenario =
-                    new DemoObjectWithAll_create3()
+            final FakeDataDemoObjectWithAll_create3 scenario =
+                    new FakeDataDemoObjectWithAll_create3()
                         .setNumberToCreate(1)
                         .setWithFakeData(false);
 
@@ -63,10 +63,10 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // then
             //
-            final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll();
+            final List<FakeDataDemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll();
             Assertions.assertThat(all.size()).isEqualTo(1);
 
-            DemoObjectWithAll fakeDataDemoObject = all.get(0);
+            FakeDataDemoObjectWithAll fakeDataDemoObject = all.get(0);
 
             Assertions.assertThat(fakeDataDemoObject.getSomeBooleanWrapper()).isNull();
             Assertions.assertThat(fakeDataDemoObject.getSomeCharacterWrapper()).isNull();
@@ -103,8 +103,8 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
     public static class FakeDataDemoObjectUpdateTest extends FakeDataDemoObjects_IntegTest {
 
-        DemoObjectWithAll fakeDataDemoObject;
-        DemoObjectWithAll_update_withFakeData updateScript;
+        FakeDataDemoObjectWithAll fakeDataDemoObject;
+        FakeDataDemoObjectWithAll_update_withFakeData updateScript;
 
         @Before
         public void setUp() throws Exception {
@@ -112,8 +112,8 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
             //
             // given
             //
-            final DemoObjectWithAll_create3 fs =
-                    new DemoObjectWithAll_create3()
+            final FakeDataDemoObjectWithAll_create3 fs =
+                    new FakeDataDemoObjectWithAll_create3()
                             .setNumberToCreate(1)
                             .setWithFakeData(false);
 
@@ -121,10 +121,10 @@ public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstra
 
             transactionService.nextTransaction();
 
-            final List<DemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll();
+            final List<FakeDataDemoObjectWithAll> all = wrap(fakeDataDemoObjects).listAllDemoObjectsWithAll();
             fakeDataDemoObject = all.get(0);
 
-            updateScript = new DemoObjectWithAll_update_withFakeData();
+            updateScript = new FakeDataDemoObjectWithAll_update_withFakeData();
         }
 
         @Test

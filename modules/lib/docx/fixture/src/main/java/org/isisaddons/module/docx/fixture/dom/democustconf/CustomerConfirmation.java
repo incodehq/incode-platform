@@ -35,8 +35,8 @@ import org.apache.isis.applib.value.Clob;
 import org.isisaddons.module.docx.dom.DocxService;
 import org.isisaddons.module.docx.dom.LoadTemplateException;
 import org.isisaddons.module.docx.dom.MergeException;
-import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrder;
-import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrderLine;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DocxDemoOrder;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DocxDemoOrderLine;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
@@ -63,7 +63,7 @@ public class CustomerConfirmation {
     )
     @MemberOrder(sequence = "10")
     public Blob downloadCustomerConfirmation(
-            final DemoOrder order) throws IOException, JDOMException, MergeException {
+            final DocxDemoOrder order) throws IOException, JDOMException, MergeException {
 
         final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
 
@@ -86,7 +86,7 @@ public class CustomerConfirmation {
     )
     @MemberOrder(sequence = "11")
     public Clob downloadCustomerConfirmationInputHtml(
-            final DemoOrder order) throws IOException, JDOMException, MergeException {
+            final DocxDemoOrder order) throws IOException, JDOMException, MergeException {
 
         final Document orderAsHtmlJdomDoc = asInputDocument(order);
 
@@ -112,7 +112,7 @@ public class CustomerConfirmation {
     )
     @MemberOrder(sequence = "10")
     public Blob downloadCustomerConfirmationAsPdf(
-            final DemoOrder order) throws IOException, JDOMException, MergeException {
+            final DocxDemoOrder order) throws IOException, JDOMException, MergeException {
 
         final org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
 
@@ -126,14 +126,14 @@ public class CustomerConfirmation {
         return new Blob(blobName, blobMimeType, blobBytes);
     }
 
-    private static org.w3c.dom.Document asInputW3cDocument(final DemoOrder order) throws JDOMException {
+    private static org.w3c.dom.Document asInputW3cDocument(final DocxDemoOrder order) throws JDOMException {
         final Document orderAsHtmlJdomDoc = asInputDocument(order);
 
         final DOMOutputter domOutputter = new DOMOutputter();
         return domOutputter.output(orderAsHtmlJdomDoc);
     }
 
-    private static Document asInputDocument(final DemoOrder order) {
+    private static Document asInputDocument(final DocxDemoOrder order) {
         final Element html = new Element("html");
         final Document document = new Document(html);
 
@@ -146,7 +146,7 @@ public class CustomerConfirmation {
         addPara(body, "Message", "plain", "Thank you for shopping with us!");
 
         final Element table = addTable(body, "Products");
-        for(final DemoOrderLine orderLine: order.getOrderLines()) {
+        for(final DocxDemoOrderLine orderLine: order.getOrderLines()) {
             addTableRow(table, new String[]{orderLine.getDescription(), orderLine.getCost().toString(), ""+orderLine.getQuantity()});
         }
 
@@ -163,7 +163,7 @@ public class CustomerConfirmation {
 
     private static final Function<String, String> TRIM = input -> input.trim();
 
-    private static Iterable<String> preferencesFor(final DemoOrder order) {
+    private static Iterable<String> preferencesFor(final DocxDemoOrder order) {
         final String preferences = order.getPreferences();
         if(preferences == null) {
             return Collections.emptyList();

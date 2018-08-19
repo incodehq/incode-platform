@@ -11,20 +11,18 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.docx.DocxModule;
-import org.isisaddons.module.docx.fixture.fixturescripts.DemoOrderAndOrderLine_tearDown;
+import org.isisaddons.module.docx.fixture.fixturescripts.DocxDemoOrderAndOrderLine_tearDown;
 
 @XmlRootElement(name = "module")
 public class DocxFixturesModule extends ModuleAbstract {
 
     @Override public Set<Module> getDependencies() {
-        return Sets.newHashSet(
-                new DocxModule()
-        );
+        return Sets.newHashSet(new DocxModule());
     }
 
     @Override
     public FixtureScript getTeardownFixture() {
-        return new DemoOrderAndOrderLine_tearDown();
+        return new DocxDemoOrderAndOrderLine_tearDown();
     }
 
 }

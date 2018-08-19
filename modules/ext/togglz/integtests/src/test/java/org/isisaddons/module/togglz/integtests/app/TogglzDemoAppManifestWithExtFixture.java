@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.togglz.fixture.demoapp.demomodule.fixturescripts.DemoObject_create3;
+import org.isisaddons.module.togglz.fixture.demoapp.demomodule.fixturescripts.TogglzDemoObject_create3;
 
 public class TogglzDemoAppManifestWithExtFixture extends TogglzExtAppManifest {
 
     @Override
     protected void overrideFixtures(final List<Class<? extends FixtureScript>> fixtureScripts) {
-        fixtureScripts.add(DemoObject_create3.class); }
+        fixtureScripts.add(TogglzDemoObject_create3.class); }
 
 
 }

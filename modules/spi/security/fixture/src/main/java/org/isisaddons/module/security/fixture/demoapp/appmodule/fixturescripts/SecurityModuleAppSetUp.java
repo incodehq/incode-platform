@@ -2,7 +2,7 @@ package org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.demo.AllExampleEntities;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.demo.Tenanted_and_NonTenanted_Entities;
 import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.dom.NonTenantedEntities;
 import org.isisaddons.module.security.seed.SeedUsersAndRolesFixtureScript;
 
@@ -19,7 +19,7 @@ public class SecurityModuleAppSetUp extends FixtureScript {
 
 
         //  example entities
-        executionContext.executeChild(this, new AllExampleEntities());
+        executionContext.executeChild(this, new Tenanted_and_NonTenanted_Entities());
 
     }
 

@@ -9,9 +9,9 @@ import org.junit.Test;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import org.isisaddons.module.flywaydb.fixture.demomodule.dom.DemoObject;
-import org.isisaddons.module.flywaydb.fixture.demomodule.dom.DemoObjectMenu;
-import org.isisaddons.module.flywaydb.fixture.demomodule.fixturescripts.DemoObject_tearDown;
+import org.isisaddons.module.flywaydb.fixture.demomodule.dom.FlywayDbDemoObject;
+import org.isisaddons.module.flywaydb.fixture.demomodule.dom.FlywayDbDemoObjectMenu;
+import org.isisaddons.module.flywaydb.fixture.demomodule.fixturescripts.FlywayDbDemoObject_tearDown;
 import org.isisaddons.module.flywaydb.integtests.FlywayDbModuleIntegTestAbstract;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,18 +23,18 @@ public class Smoke_IntegTest extends FlywayDbModuleIntegTestAbstract {
     @Inject
     TransactionService transactionService;
     @Inject
-    DemoObjectMenu menu;
+    FlywayDbDemoObjectMenu menu;
 
     @Test
     public void create() throws Exception {
 
         // given
-        fixtureScripts.runFixtureScript(new DemoObject_tearDown(), null);
+        fixtureScripts.runFixtureScript(new FlywayDbDemoObject_tearDown(), null);
         transactionService.nextTransaction();
 
 
         // when
-        List<DemoObject> all = wrap(menu).listAllDemoObjects();
+        List<FlywayDbDemoObject> all = wrap(menu).listAllDemoObjects();
 
         // then
         assertThat(all).isEmpty();
@@ -42,7 +42,7 @@ public class Smoke_IntegTest extends FlywayDbModuleIntegTestAbstract {
 
 
         // when
-        final DemoObject fred = wrap(menu).createDemoObject("Fred");
+        final FlywayDbDemoObject fred = wrap(menu).createDemoObject("Fred");
         transactionService.flushTransaction();
 
         // then
@@ -53,7 +53,7 @@ public class Smoke_IntegTest extends FlywayDbModuleIntegTestAbstract {
 
 
         // when
-        final DemoObject bill = wrap(menu).createDemoObject("Bill");
+        final FlywayDbDemoObject bill = wrap(menu).createDemoObject("Bill");
         transactionService.flushTransaction();
 
         // then

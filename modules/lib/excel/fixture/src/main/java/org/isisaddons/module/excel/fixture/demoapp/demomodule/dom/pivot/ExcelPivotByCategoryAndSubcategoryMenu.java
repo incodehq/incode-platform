@@ -15,11 +15,11 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItem;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "fixtureLibExcel.ExcelPivotByCategoryAndSubcategoryMenu"
+        objectType = "libExcelFixture.ExcelPivotByCategoryAndSubcategoryMenu"
 )
 @DomainServiceLayout(
         named = "Excel",
@@ -47,7 +47,7 @@ public class ExcelPivotByCategoryAndSubcategoryMenu {
 
     private List<ExcelPivotByCategoryAndSubcategory> vm1list(){
         List<ExcelPivotByCategoryAndSubcategory> result = new ArrayList<>();
-        for (DemoToDoItem todo : getToDoItems()){
+        for (ExcelDemoToDoItem todo : getToDoItems()){
             result.add(
                     new ExcelPivotByCategoryAndSubcategory(
                             todo.getCategory(),
@@ -59,8 +59,8 @@ public class ExcelPivotByCategoryAndSubcategoryMenu {
         return result;
     }
 
-    private List<DemoToDoItem> getToDoItems() {
-        return container.allInstances(DemoToDoItem.class);
+    private List<ExcelDemoToDoItem> getToDoItems() {
+        return container.allInstances(ExcelDemoToDoItem.class);
     }
 
     @javax.inject.Inject

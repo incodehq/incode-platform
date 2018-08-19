@@ -4,17 +4,17 @@ import java.util.Comparator;
 
 import com.google.common.collect.Ordering;
 
-public class DependenciesComparator implements Comparator<WicketChartsDemoToDoItem> {
+public class DependenciesComparator implements Comparator<WickedChartsDemoToDoItem> {
     @Override
-    public int compare(final WicketChartsDemoToDoItem p, final WicketChartsDemoToDoItem q) {
-        final Ordering<WicketChartsDemoToDoItem> byDescription = new Ordering<WicketChartsDemoToDoItem>() {
-            public int compare(final WicketChartsDemoToDoItem p, final WicketChartsDemoToDoItem q) {
-                return Ordering.natural().nullsFirst().onResultOf(WicketChartsDemoToDoItem::getDescription)
+    public int compare(final WickedChartsDemoToDoItem p, final WickedChartsDemoToDoItem q) {
+        final Ordering<WickedChartsDemoToDoItem> byDescription = new Ordering<WickedChartsDemoToDoItem>() {
+            public int compare(final WickedChartsDemoToDoItem p, final WickedChartsDemoToDoItem q) {
+                return Ordering.natural().nullsFirst().onResultOf(WickedChartsDemoToDoItem::getDescription)
                         .compare(p, q);
             }
         };
         return byDescription
-                .compound(Ordering.<WicketChartsDemoToDoItem>natural())
+                .compound(Ordering.<WickedChartsDemoToDoItem>natural())
                 .compare(p, q);
     }
 }

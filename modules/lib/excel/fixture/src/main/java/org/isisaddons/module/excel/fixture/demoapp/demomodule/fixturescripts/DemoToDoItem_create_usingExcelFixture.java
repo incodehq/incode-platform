@@ -11,7 +11,7 @@ import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturehandlers.demotodoitem.DemoToDoItemRowHandler;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItem;
 
 import lombok.Getter;
 
@@ -29,7 +29,7 @@ public class DemoToDoItem_create_usingExcelFixture extends FixtureScript {
 
 
     @Getter
-    private List<DemoToDoItem> todoItems = Lists.newArrayList();
+    private List<ExcelDemoToDoItem> todoItems = Lists.newArrayList();
 
     @Override
     public void execute(ExecutionContext executionContext) {
@@ -51,7 +51,7 @@ public class DemoToDoItem_create_usingExcelFixture extends FixtureScript {
         getContainer().flush();
     }
 
-    private List<DemoToDoItem> load(
+    private List<ExcelDemoToDoItem> load(
             final ExecutionContext executionContext,
             final String resourceName) {
         final URL excelResource = Resources.getResource(getClass(), resourceName);
@@ -59,7 +59,7 @@ public class DemoToDoItem_create_usingExcelFixture extends FixtureScript {
         excelFixture.setExcelResourceName(resourceName);
         executionContext.executeChild(this, excelFixture);
 
-        return (List<DemoToDoItem>) excelFixture.getObjects();
+        return (List<ExcelDemoToDoItem>) excelFixture.getObjects();
     }
 
     // //////////////////////////////////////

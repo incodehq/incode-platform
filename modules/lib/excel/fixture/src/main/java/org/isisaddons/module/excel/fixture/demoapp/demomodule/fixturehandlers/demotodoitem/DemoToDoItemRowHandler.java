@@ -13,8 +13,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.isisaddons.module.excel.dom.ExcelFixture;
 import org.isisaddons.module.excel.dom.ExcelFixtureRowHandler;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Category;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
-import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItemMenu;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItemMenu;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Subcategory;
 
 import lombok.Getter;
@@ -53,7 +53,7 @@ public class DemoToDoItemRowHandler implements ExcelFixtureRowHandler {
         final LocalDate dueBy = daysFromToday(daysFromToday);
         final String user = executionContext.getParameter("user");
         final String username = user != null && user.length() > 0 ? user : container.getUser().getName();
-        DemoToDoItem toDoItem = toDoItemRepository.findToDoItemsByDescription(description);
+        ExcelDemoToDoItem toDoItem = toDoItemRepository.findToDoItemsByDescription(description);
         if(toDoItem != null) {
             toDoItem.setCategory(category);
             toDoItem.setSubcategory(subcategory);
@@ -77,7 +77,7 @@ public class DemoToDoItemRowHandler implements ExcelFixtureRowHandler {
 
 
     @javax.inject.Inject
-    private DemoToDoItemMenu toDoItemRepository;
+    private ExcelDemoToDoItemMenu toDoItemRepository;
 
     @javax.inject.Inject
     private DomainObjectContainer container;

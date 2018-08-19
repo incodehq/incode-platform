@@ -246,7 +246,7 @@
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>org.incode.domainapp.extended.webapp.DomainAppWicketApplication</param-value>
+            <param-value>org.incode.platformapp.webapp.DomainAppWicketApplication</param-value>
         </init-param>
     </filter>
     <filter-mapping>

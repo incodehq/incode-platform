@@ -13,10 +13,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
-import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demofixedasset.FixedAsset_create6;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannel;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannels;
-import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.FixedAsset;
+import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demofixedasset.PolyDemoFixedAsset_create6;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.PolyDemoCommunicationChannel;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.PolyDemoCommunicationChannels;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.PolyDemoFixedAsset;
 import org.isisaddons.module.poly.integtests.PolyModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -31,15 +31,15 @@ public class FixedAsset_IntegTest extends PolyModuleIntegTestAbstract {
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
-    CommunicationChannels communicationChannelsMenu;
+    PolyDemoCommunicationChannels communicationChannelsMenu;
 
-    FixedAsset_create6 fs;
-    FixedAsset fixedAsset;
+    PolyDemoFixedAsset_create6 fs;
+    PolyDemoFixedAsset fixedAsset;
 
     @Before
     public void setUp() throws Exception {
 
-        fs = new FixedAsset_create6();
+        fs = new PolyDemoFixedAsset_create6();
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();
 
@@ -57,10 +57,10 @@ public class FixedAsset_IntegTest extends PolyModuleIntegTestAbstract {
             transactionService.nextTransaction();
 
             // then
-            final List<CommunicationChannel> all = communicationChannelsMenu.listAllCommunicationChannels();
+            final List<PolyDemoCommunicationChannel> all = communicationChannelsMenu.listAllCommunicationChannels();
             assertThat(all.size(), is(1));
 
-            final CommunicationChannel communicationChannel = fixedAsset.getCommunicationChannel();
+            final PolyDemoCommunicationChannel communicationChannel = fixedAsset.getCommunicationChannel();
             assertThat(communicationChannel.getDetails(), is("0207 123 4567"));
         }
 
