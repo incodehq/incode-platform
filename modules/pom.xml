@@ -1322,46 +1322,6 @@
         </profile>
 
         <profile>
-            <id>enhance</id>
-            <activation>
-                <property>
-                    <name>enhance</name>
-                </property>
-            </activation>
-            <modules>
-                <module>dom/settings/impl</module>
-                <module>dom/settings/integtests</module>
-
-                <module>ext/togglz/fixture</module>
-
-                <module>lib/docx/fixture</module>
-                <module>lib/excel/fixture</module>
-                <module>lib/fakedata/fixture</module>
-                <module>lib/fixturesupport/impl</module>
-                <module>lib/poly/fixture</module>
-                <module>lib/servletapi/fixture</module>
-                <module>lib/stringinterpolator/fixture</module>
-
-                <module>spi/audit/fixture</module>
-                <module>spi/audit/impl</module>
-
-                <module>spi/command/fixture</module>
-                <module>spi/command/impl</module>
-
-                <module>spi/publishmq/fixture</module>
-                <module>spi/publishmq/impl</module>
-
-                <module>spi/security/fixture</module>
-                <module>spi/security/impl</module>
-
-                <module>spi/sessionlogger/impl</module>
-
-                <module>wkt/pdfjs/fixture</module>
-                <module>wkt/wickedcharts/fixture</module>
-            </modules>
-        </profile>
-
-        <profile>
             <id>release</id>
             <!--
             this profile is not part of the module, but is required to be defined as a profile

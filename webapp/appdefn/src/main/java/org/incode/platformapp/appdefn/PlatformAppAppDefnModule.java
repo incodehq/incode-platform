@@ -70,9 +70,9 @@ import org.incode.platformapp.appdefn.togglz.TogglzFeatureProviderModule;
  *
  */
 @XmlRootElement(name = "module")
-public class ExtendedAppAppDefnModule extends ModuleAbstract {
+public class PlatformAppAppDefnModule extends ModuleAbstract {
 
-    public ExtendedAppAppDefnModule() {
+    public PlatformAppAppDefnModule() {
         withConfigurationPropertiesFile(getClass(),
                 "isis.properties",
                 "authentication_shiro.properties",

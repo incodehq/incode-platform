@@ -7,10 +7,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.incode.platformapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
-public class ExtendedAppAppManifest extends AppManifestAbstract2 {
+public class PlatformAppAppManifest extends AppManifestAbstract2 {
 
-    public ExtendedAppAppManifest() {
-        super(Builder.forModule(new ExtendedAppAppDefnModule()));
+    public PlatformAppAppManifest() {
+        super(Builder.forModule(new PlatformAppAppDefnModule()));
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
 import org.incode.domainapp.extended.appdefn.overrides.MyTranslationResolver;
-import org.incode.platformapp.appdefn.ExtendedAppAppDefnModule;
+import org.incode.platformapp.appdefn.PlatformAppAppDefnModule;
 
 public abstract class ExtendedAppIntegTestAbstract extends IntegrationTestAbstract3 {
 
@@ -22,7 +22,7 @@ public abstract class ExtendedAppIntegTestAbstract extends IntegrationTestAbstra
     }
 
     @XmlRootElement(name = "module")
-    public static class MyModule extends ExtendedAppAppDefnModule {
+    public static class MyModule extends PlatformAppAppDefnModule {
         @Override
         public Set<Module> getDependencies() {
             final Set<Module> dependencies = super.getDependencies();

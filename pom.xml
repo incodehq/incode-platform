@@ -36,7 +36,45 @@
             </modules>
         </profile>
 
-	</profiles>
+        <profile>
+            <id>enhance</id>
+            <activation>
+                <property>
+                    <name>enhance</name>
+                </property>
+            </activation>
+            <modules>
+                <module>modules/dom/settings/impl</module>
+
+                <module>modules/ext/togglz/fixture</module>
+
+                <module>modules/lib/docx/fixture</module>
+                <module>modules/lib/excel/fixture</module>
+                <module>modules/lib/fakedata/fixture</module>
+                <module>modules/lib/poly/fixture</module>
+                <module>modules/lib/servletapi/fixture</module>
+                <module>modules/lib/stringinterpolator/fixture</module>
+
+                <module>modules/spi/audit/fixture</module>
+                <module>modules/spi/audit/impl</module>
+
+                <module>modules/spi/command/fixture</module>
+                <module>modules/spi/command/impl</module>
+
+                <module>modules/spi/publishmq/fixture</module>
+                <module>modules/spi/publishmq/impl/jdo</module>
+
+                <module>modules/spi/security/fixture</module>
+                <module>modules/spi/security/impl</module>
+
+                <module>modules/spi/sessionlogger/impl</module>
+
+                <module>modules/wkt/pdfjs/fixture</module>
+                <module>modules/wkt/wickedcharts/fixture</module>
+            </modules>
+        </profile>
+
+    </profiles>
 
 
 </project>
