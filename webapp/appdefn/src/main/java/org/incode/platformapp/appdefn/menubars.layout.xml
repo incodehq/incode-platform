@@ -2,323 +2,212 @@
 <mb3:menuBars xsi:schemaLocation="http://isis.apache.org/applib/layout/menubars/bootstrap3 http://isis.apache.org/applib/layout/menubars/bootstrap3/menubars.xsd http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/links http://isis.apache.org/applib/layout/links/links.xsd" xmlns:cpt="http://isis.apache.org/applib/layout/component" xmlns:lnk="http://isis.apache.org/applib/layout/links" xmlns:mb3="http://isis.apache.org/applib/layout/menubars/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <mb3:primary>
         <mb3:menu>
-            <mb3:named>Shared Fixture</mb3:named>
+            <mb3:named>Extensions</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureSharedDemo.DemoObjectMenu" id="listAllDemoObjects">
-                    <cpt:named>List All Demo Objects</cpt:named>
+                <mb3:serviceAction objectType="extFlywayDbFixture.FlywayDbDemoObjectMenu" id="listAllDemoObjects">
+                    <cpt:named>(FlywayDb) List All Demo Objects</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSharedDemo.DemoObjectMenu" id="createDemoObject">
-                    <cpt:named>Create Demo Object</cpt:named>
+                <mb3:serviceAction objectType="extFlywayDbFixture.FlywayDbDemoObjectMenu" id="createDemoObject">
+                    <cpt:named>(FlywayDb) Create Demo Object</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSharedDemo.DemoObjectMenu" id="findDemoObjectByName">
-                    <cpt:named>Find Demo Object By Name</cpt:named>
+                <mb3:serviceAction objectType="extFlywayDbFixture.FlywayDbDemoObjectMenu" id="findDemoObjectByName">
+                    <cpt:named>(FlywayDb) Find Demo Object By Name</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureSharedSimple.SimpleObjectMenu" id="listAll">
-                    <cpt:named>List All Simple Objects</cpt:named>
+                <mb3:serviceAction objectType="extTogglzFixture.TogglzDemoObjectMenu" id="listAllDemoObjects">
+                    <cpt:named>(Togglz) List All Demo Objects</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSharedSimple.SimpleObjectMenu" id="findByName">
-                    <cpt:named>Find Simple Objects By Name</cpt:named>
+                <mb3:serviceAction objectType="extTogglzFixture.TogglzDemoObjectMenu" id="createDemoObject">
+                    <cpt:named>(Togglz) Create Demo Object</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSharedSimple.SimpleObjectMenu" id="create">
-                    <cpt:named>Create Simple Object</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="fixtureShared.DemoToDoItemMenu" id="toDoItemsNotYetComplete">
-                    <cpt:named>To Do Items Not Yet Complete</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureShared.DemoToDoItemMenu" id="toDoItemsComplete">
-                    <cpt:named>To Do Items Complete</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureShared.DemoToDoItemMenu" id="newToDoItem">
-                    <cpt:named>New To Do Item</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureShared.DemoToDoItemMenu" id="allMyToDoItems">
-                    <cpt:named>All My To Do Items</cpt:named>
+                <mb3:serviceAction objectType="extTogglzFixture.TogglzDemoObjectMenu" id="findDemoObjectByName">
+                    <cpt:named>(Togglz) Find Demo Object By Name</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
         <mb3:menu>
             <mb3:named>Libraries</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibDocx.DemoOrderMenu" id="listAllDemoOrders">
+                <mb3:serviceAction objectType="libDocxFixture.DocxDemoOrderMenu" id="listAllDemoOrders">
                     <cpt:named>(Docx) List All Demo Orders</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureLibDocx.DemoOrderMenu" id="createDemoOrder">
+                <mb3:serviceAction objectType="libDocxFixture.DocxDemoOrderMenu" id="createDemoOrder">
                     <cpt:named>(Docx) Create Demo Order</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibExcel.BulkUpdateMenuForDemoToDoItem" id="bulkUpdateManager">
+                <mb3:serviceAction objectType="libExcelFixture.ExcelDemoToDoItemMenu" id="toDoItemsNotYetComplete">
+                    <cpt:named>(Excel To Do Items Not Yet Complete</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="libExcelFixture.ExcelDemoToDoItemMenu" id="toDoItemsComplete">
+                    <cpt:named>(Excel) To Do Items Complete</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="libExcelFixture.ExcelDemoToDoItemMenu" id="newToDoItem">
+                    <cpt:named>(Excel) New To Do Item</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="libExcelFixture.ExcelDemoToDoItemMenu" id="allMyToDoItems">
+                    <cpt:named>(Excel) All To Do Items</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+            <mb3:section>
+                <mb3:serviceAction objectType="libExcelFixture.BulkUpdateMenuForDemoToDoItem" id="bulkUpdateManager">
                     <cpt:named>(Excel) Bulk Update Manager</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibExcel.ExcelPivotByCategoryAndSubcategoryMenu" id="downloadDemoPivotsheet">
+                <mb3:serviceAction objectType="libExcelFixture.ExcelPivotByCategoryAndSubcategoryMenu" id="downloadDemoPivotsheet">
                     <cpt:named>(Excel) Download Demo Pivotsheet</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibFakeData.DemoObjectWithAllMenu" id="listAllDemoObjectsWithAll">
+                <mb3:serviceAction objectType="libExcelFixture.ExcelUploadServiceForDemoToDoItem" id="uploadSpreadsheet">
+                    <cpt:named>(Excel) Upload Spreadsheet</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+            <mb3:section>
+                <mb3:serviceAction objectType="libFakeDataFixture.FakeDataDemoObjectWithAllMenu" id="listAllDemoObjectsWithAll">
                     <cpt:named>(Fake Data) List All Demo Objects With All</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureLibFakeData.DemoObjectWithAllMenu" id="createDemoObjectWithAll">
+                <mb3:serviceAction objectType="libFakeDataFixture.FakeDataDemoObjectWithAllMenu" id="createDemoObjectWithAll">
                     <cpt:named>(Fake Data) Create Demo Object With All</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibPoly.Cases" id="listAllCases">
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoCases" id="listAllCases">
                     <cpt:named>(Poly) List All Cases</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureLibPoly.Cases" id="createCase">
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoCases" id="createCase">
                     <cpt:named>(Poly) Create Case</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibPoly.CommunicationChannels" id="listAllCommunicationChannels">
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoCommunicationChannels" id="listAllCommunicationChannels">
                     <cpt:named>(Poly) List All Communication Channels</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibPoly.FixedAssets" id="listAllFixedAssets">
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoFixedAssets" id="listAllFixedAssets">
                     <cpt:named>(Poly) List All Fixed Assets</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureLibPoly.FixedAssets" id="createFixedAsset">
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoFixedAssets" id="createFixedAsset">
                     <cpt:named>(Poly) Create Fixed Asset</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibPoly.Parties" id="listAllParties">
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoParties" id="listAllParties">
                     <cpt:named>(Poly) List All Parties</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureLibPoly.Parties" id="createParty">
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoParties" id="createParty">
                     <cpt:named>(Poly) Create Party</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibServletApi.ServletApiDemoObjects" id="listAllServletApiDemoObjects">
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoParties" id="listAllParties">
+                    <cpt:named>(Poly) List All Parties</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="libPolyFixture.PolyDemoParties" id="createParty">
+                    <cpt:named>(Poly) Create Party</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+            <mb3:section>
+                <mb3:serviceAction objectType="libServletApiFixture.ServletApiDemoObjects" id="listAllServletApiDemoObjects">
                     <cpt:named>(Servlet Api) List All Servlet Api Demo Objects</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureLibServletApi.ServletApiDemoObjects" id="createServletApiDemoObject">
+                <mb3:serviceAction objectType="libServletApiFixture.ServletApiDemoObjects" id="createServletApiDemoObject">
                     <cpt:named>(Servlet Api) Create Servlet Api Demo Object</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibStringInterpolator.DemoReminderMenu" id="newReminder">
+                <mb3:serviceAction objectType="libStringInterpolatorFixture.OgnlDemoReminderMenu" id="newReminder">
                     <cpt:named>(String Interpolator) New Reminder</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureLibStringInterpolator.DemoReminderMenu" id="listAllReminders">
+                <mb3:serviceAction objectType="libStringInterpolatorFixture.OgnlDemoReminderMenu" id="listAllReminders">
                     <cpt:named>(String Interpolator) List All Reminders</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-        </mb3:menu>
-        <mb3:menu>
-            <mb3:named>Wicket Components</mb3:named>
-            <mb3:section>
-                <mb3:serviceAction objectType="fixtureShared.DemoToDoItemMenu" id="toDoItemsNotYetComplete">
-                    <cpt:named>(FullCalendar) To Do Items Not Yet Complete</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureShared.DemoToDoItemMenu" id="toDoItemsComplete">
-                    <cpt:named>(FullCalendar) To Do Items Complete</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureShared.DemoToDoItemMenu" id="newToDoItem">
-                    <cpt:named>(FullCalendar) New To Do Item</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureShared.DemoToDoItemMenu" id="allMyToDoItems">
-                    <cpt:named>(FullCalendar) All My To Do Items</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="fixtureWktPdfjs.DemoObjectWithBlobMenu" id="listAllDemoObjectsWithBlob">
-                    <cpt:named>(Pdf.js) List All Demo Objects With Blob</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureWktPdfjs.DemoObjectWithBlobMenu" id="createDemoObjectWithBlob">
-                    <cpt:named>(Pdf.js) Create Demo Object With Blob</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="fixtureWktWickedCharts.WickedChartsMenu" id="pieChart">
-                    <cpt:named>(Wicket Charts) Pie Chart</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
         <mb3:menu>
             <mb3:named>SPI Modules</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureSpiAudit.SomeAuditedObjects" id="listAllSomeAuditedObjects">
-                    <cpt:named>List All Some Audited Objects</cpt:named>
+                <mb3:serviceAction objectType="spiAuditFixture.SomeAuditedObjects" id="listAllSomeAuditedObjects">
+                    <cpt:named>(Audit) List All Some Audited Objects</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSpiAudit.SomeAuditedObjects" id="createSomeAuditedObject">
-                    <cpt:named>Create Some Audited Object</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="fixtureSpiAudit.SomeNotAuditedObjects" id="listAllSomeNotAuditedObjects">
-                    <cpt:named>List All Some Not Audited Objects</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSpiAudit.SomeNotAuditedObjects" id="createSomeNotAuditedObject">
-                    <cpt:named>Create Some Not Audited Object</cpt:named>
+                <mb3:serviceAction objectType="spiAuditFixture.SomeAuditedObjects" id="createSomeAuditedObject">
+                    <cpt:named>(Audit) Create Some Audited Object</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureSpiCommand.SomeCommandAnnotatedObjects" id="listAllSomeCommandAnnotatedObjects">
-                    <cpt:named>List All Some Command Annotated Objects</cpt:named>
+                <mb3:serviceAction objectType="spiAuditFixture.SomeNotAuditedObjects" id="listAllSomeNotAuditedObjects">
+                    <cpt:named>(Audit) List All Some Not Audited Objects</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSpiCommand.SomeCommandAnnotatedObjects" id="createSomeCommandAnnotatedObject">
-                    <cpt:named>Create Some Command Annotated Object</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="fixtureSpiPublishMq.PublishMqDemoObjects" id="listAllPublishMqDemoObjects">
-                    <cpt:named>List All Publish Mq Demo Objects</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSpiPublishMq.PublishMqDemoObjects" id="createPublishMqDemoObject">
-                    <cpt:named>Create Publish Mq Demo Object</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSpiPublishMq.PublishMqDemoObjects" id="incrementAllPublishMqDemoObjects">
-                    <cpt:named>Increment All Publish Mq Demo Objects</cpt:named>
+                <mb3:serviceAction objectType="spiAuditFixture.SomeNotAuditedObjects" id="createSomeNotAuditedObject">
+                    <cpt:named>(Audit) Create Some Not Audited Object</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureSpiSecurity.TenantedEntities" id="listAllTenantedEntities">
-                    <cpt:named>List All Tenanted Entities</cpt:named>
+                <mb3:serviceAction objectType="spiCommandFixture.SomeCommandAnnotatedObjects" id="listAllSomeCommandAnnotatedObjects">
+                    <cpt:named>(Command) List All Some Command Annotated Objects</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSpiSecurity.TenantedEntities" id="createTenantedEntity">
-                    <cpt:named>Create Tenanted Entity</cpt:named>
+                <mb3:serviceAction objectType="spiCommandFixture.SomeCommandAnnotatedObjects" id="createSomeCommandAnnotatedObject">
+                    <cpt:named>(Command) Create Some Command Annotated Object</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="fixtureSpiSecurity.NonTenantedEntities" id="listAllNonTenantedEntities">
-                    <cpt:named>List All Non Tenanted Entities</cpt:named>
+                <mb3:serviceAction objectType="spiPublishMqFixture.PublishMqDemoObjects" id="listAllPublishMqDemoObjects">
+                    <cpt:named>(PublishMq) List All Publish Mq Demo Objects</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="fixtureSpiSecurity.NonTenantedEntities" id="createNonTenantedEntity">
-                    <cpt:named>Create Non Tenanted Entity</cpt:named>
+                <mb3:serviceAction objectType="spiPublishMqFixture.PublishMqDemoObjects" id="createPublishMqDemoObject">
+                    <cpt:named>(PublishMq) Create Publish Mq Demo Object</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="spiPublishMqFixture.PublishMqDemoObjects" id="incrementAllPublishMqDemoObjects">
+                    <cpt:named>(PublishMq) Increment All Publish Mq Demo Objects</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+            <mb3:section>
+                <mb3:serviceAction objectType="spiSecurityFixture.TenantedEntities" id="listAllTenantedEntities">
+                    <cpt:named>(Security) List All Tenanted Entities</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="spiSecurityFixture.TenantedEntities" id="createTenantedEntity">
+                    <cpt:named>(Security) Create Tenanted Entity</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+            <mb3:section>
+                <mb3:serviceAction objectType="spiSecurityFixture.NonTenantedEntities" id="listAllNonTenantedEntities">
+                    <cpt:named>(Security) List All Non Tenanted Entities</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="spiSecurityFixture.NonTenantedEntities" id="createNonTenantedEntity">
+                    <cpt:named>(Security) Create Non Tenanted Entity</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
         <mb3:menu>
-            <mb3:named>Examples</mb3:named>
+            <mb3:named>Wicket Components</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="aliasDemoShared.AliasedObjectMenu" id="listAllAliasedObjects">
-                    <cpt:named>(Alias) List All Aliased Objects</cpt:named>
+                <mb3:serviceAction objectType="wktWickedChartsFixture.WickedChartsDemoToDoItemMenu" id="toDoItemsNotYetComplete">
+                    <cpt:named>(FullCalendar/WickedCharts) To Do Items Not Yet Complete</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="aliasDemoShared.AliasedObjectMenu" id="createAliasedObject">
-                    <cpt:named>(Alias) Create Aliased Object</cpt:named>
+                <mb3:serviceAction objectType="wktWickedChartsFixture.WickedChartsDemoToDoItemMenu" id="toDoItemsComplete">
+                    <cpt:named>(FullCalendar/WickedCharts) To Do Items Complete</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="aliasDemoShared.AliasedObjectMenu" id="findAliasedObjectByName">
-                    <cpt:named>(Alias) Find Aliased Object By Name</cpt:named>
+                <mb3:serviceAction objectType="wktWickedChartsFixture.WickedChartsDemoToDoItemMenu" id="newToDoItem">
+                    <cpt:named>(FullCalendar/WickedCharts) New To Do Item</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="wktWickedChartsFixture.WickedChartsDemoToDoItemMenu" id="allMyToDoItems">
+                    <cpt:named>(FullCalendar/WickedCharts) All My To Do Items</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="classificationDemoShared.SomeClassifiedObjectMenu" id="listAllOfSomeClassifiedObjects">
-                    <cpt:named>(Classification) List All Of Some Classified Objects</cpt:named>
+                <mb3:serviceAction objectType="wktPdfJsFixture.PdfJsDemoObjectWithBlobMenu" id="listAllDemoObjectsWithBlob">
+                    <cpt:named>(Pdf.js) List All Demo Objects With Blob</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="classificationDemoShared.SomeClassifiedObjectMenu" id="createSomeClassifiedObject">
-                    <cpt:named>(Classification) Create Some Classified Object</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="classificationDemoShared.OtherClassifiedObjectMenu" id="listAllOtherObjectsWithAtPath">
-                    <cpt:named>(Classification) List All Other Objects With At Path</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="classificationDemoShared.OtherClassifiedObjectMenu" id="createOtherObjectWithAtPath">
-                    <cpt:named>(Classification) Create Other Object With At Path</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="classificationDemoUsage.TaxonomyMenu" id="listAllTaxonomies">
-                    <cpt:named>(Classification) List All Taxonomies</cpt:named>
+                <mb3:serviceAction objectType="wktPdfJsFixture.PdfJsDemoObjectWithBlobMenu" id="createDemoObjectWithBlob">
+                    <cpt:named>(Pdf.js) Create Demo Object With Blob</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
             <mb3:section>
-                <mb3:serviceAction objectType="commChannelDemoShared.CommChannelCustomerMenu" id="listAllDemoObjects">
-                    <cpt:named>(Comm Channel) List All Comm Channel Customers</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="commChannelDemoShared.CommChannelCustomerMenu" id="createDemoObject">
-                    <cpt:named>(Comm Channel) Create Comm Channel Customer</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="commChannelDemoShared.CommChannelCustomerMenu" id="findDemoObjectByName">
-                    <cpt:named>(Comm Channel) Find Comm Channel Customer By Name</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="communicationsDemoShared.CommsCustomerMenu" id="listAllDemoObjectsWithNotes">
-                    <cpt:named>(Communications) List All Comms Customers</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="communicationsDemoShared.CommsCustomerMenu" id="findDemoObjectsWithNotesByName">
-                    <cpt:named>(Communications) Find Comms Customers By Name</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="communicationsDemoShared.CommsCustomerMenu" id="createDemoObjectWithNotes">
-                    <cpt:named>(Communications) Create Comms Customer</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="docfragmentDemoUsage.DocFragmentMenu" id="listAllDocFragments">
-                    <cpt:named>(Doc Fragment) List All Doc Fragments</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="docfragmentDemoUsage.DocFragmentMenu" id="createDocFragment">
-                    <cpt:named>(Doc Fragment) Create Doc Fragment</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="docFragmentDemoShared.DocFragCustomerMenu" id="listAllDemoCustomers">
-                    <cpt:named>(Doc Fragment) List All Demo Customers</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="docFragmentDemoShared.DocFragInvoiceMenu" id="listAllDemoInvoices">
-                    <cpt:named>(Doc Fragment) List All Demo Invoices</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="documentsDemoShared.DocDemoObjectWithNotesMenu" id="listAllDemoObjectsWithNotes">
-                    <cpt:named>(Documents) List All Demo Objects With Notes</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="documentsDemoShared.DocDemoObjectWithNotesMenu" id="findDemoObjectsWithNotesByName">
-                    <cpt:named>(Documents) Find Demo Objects With Notes By Name</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="documentsDemoShared.DocDemoObjectWithNotesMenu" id="createDemoObjectWithNotes">
-                    <cpt:named>(Documents) Create Demo Object With Notes</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="documentDemoShared.DocOtherObjectMenu" id="listAllOtherObjects">
-                    <cpt:named>(Documents) List All Other Objects</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="documentDemoShared.DocOtherObjectMenu" id="createOtherObjects">
-                    <cpt:named>(Documents) Create Other Objects</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="documentDemoShared.DocDemoObjectWithUrlMenu" id="listAllDemoObjectsWithUrl">
-                    <cpt:named>(Documents) List All Demo Objects With Url</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="documentDemoShared.DocDemoObjectWithUrlMenu" id="createDemoObjectWithUrl">
-                    <cpt:named>(Documents) Create Demo Object With Url</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="doocumentDemoUsage.DocumentTypeMenu" id="allDocumentTypes">
-                    <cpt:named>(Documents) All Document Types</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="noteDemoShared.NotableObjectMenu" id="listAllDemoObjects">
-                    <cpt:named>(Notes) List All Demo Objects</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="noteDemoShared.NotableObjectMenu" id="createDemoObject">
-                    <cpt:named>(Notes) Create Demo Object</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="noteDemoShared.NotableObjectMenu" id="findDemoObjectByName">
-                    <cpt:named>(Notes) Find Demo Object By Name</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="tagsDemoUsage.DemoTaggableEntityMenu" id="listAllTaggableObjects">
-                    <cpt:named>(Tag) List All Taggable Objects</cpt:named>
-                </mb3:serviceAction>
-                <mb3:serviceAction objectType="tagsDemoUsage.DemoTaggableEntityMenu" id="createTaggableEntity">
-                    <cpt:named>(Tag) Create Taggable Entity</cpt:named>
+                <mb3:serviceAction objectType="wktWickedChartsFixture.WickedChartsMenu" id="pieChart">
+                    <cpt:named>(Wicket Charts) Pie Chart</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
@@ -572,11 +461,6 @@
             <mb3:section>
                 <mb3:serviceAction objectType="isisApplib.HsqlDbManagerMenu" id="hsqlDbManager">
                     <cpt:named>HSQL DB Manager</cpt:named>
-                </mb3:serviceAction>
-            </mb3:section>
-            <mb3:section>
-                <mb3:serviceAction objectType="fixtureLibExcel.ExcelUploadServiceForDemoToDoItem" id="uploadSpreadsheet">
-                    <cpt:named>Upload Spreadsheet</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>

@@ -46,6 +46,7 @@
             <modules>
                 <module>modules/dom/settings/impl</module>
 
+                <module>modules/ext/flywaydb/fixture</module>
                 <module>modules/ext/togglz/fixture</module>
 
                 <module>modules/lib/docx/fixture</module>

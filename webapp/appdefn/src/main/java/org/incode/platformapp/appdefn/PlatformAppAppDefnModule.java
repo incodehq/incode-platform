@@ -23,6 +23,7 @@ import org.isisaddons.module.docx.fixture.DocxFixturesModule;
 import org.isisaddons.module.excel.ExcelModule;
 import org.isisaddons.module.excel.fixture.ExcelFixturesModule;
 import org.isisaddons.module.fakedata.fixture.FakeDataFixturesModule;
+import org.isisaddons.module.flywaydb.fixture.FlywayDbFixturesModule;
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.poly.PolyModule;
@@ -95,6 +96,7 @@ public class PlatformAppAppDefnModule extends ModuleAbstract {
     public Set<Module> getDependencies() {
         final HashSet<Module> dependencies = Sets.newHashSet(
                 new TogglzFeatureProviderModule(),
+                new FlywayDbFixturesModule(),
                 new CommandModule(),    // expected by quartz config
                 new SecurityModule()    // expected by shiro config
         );

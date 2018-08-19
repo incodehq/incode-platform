@@ -18,41 +18,113 @@
         </bs3:col>
     </bs3:row>
 
-    <bs3:row>
-        <bs3:col span="4">
-            <cpt:collection defaultView="hidden" id="demoReminders"/>
-        </bs3:col>
-        <bs3:col span="4">
-            <cpt:collection defaultView="hidden" id="sharedDemoObjects"/>
-        </bs3:col>
-        <bs3:col span="4">
-            <cpt:collection defaultView="hidden" id="demoToDoItemsNotYetComplete"/>
-            <cpt:collection defaultView="hidden" id="sharedDemoToDoItems"/>
-        </bs3:col>
-    </bs3:row>
-
 
     <bs3:row>
         <bs3:col span="12">
             <bs3:tabGroup>
+                <bs3:tab name="Extensions">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="Flyway Db">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <cpt:collection defaultView="table" id="extFlywayDbDemoObjects"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Quartz">
+                                    <bs3:row>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Togglz">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <cpt:collection defaultView="table" id="extTogglzDemoObjects"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
                 <bs3:tab name="Libraries">
                     <bs3:row>
-                        <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="libDocxDemoOrders"/>
-                        </bs3:col>
-                        <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="libFakeDataDemoObjectsWithAll"/>
-                        </bs3:col>
-                        <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="libPolyCases"/>
-                            <cpt:collection defaultView="table" id="libPolyCommunicationChannels"/>
-                            <cpt:collection defaultView="table" id="libPolyFixedAssets"/>
-                            <cpt:collection defaultView="table" id="libPolyParties"/>
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="Docx">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <cpt:collection defaultView="table" id="libDocxDemoOrders"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Excel">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <cpt:collection defaultView="table" id="libExcelDemoObjects"/>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <cpt:collection defaultView="table" id="libExcelDemoToDoItems"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="FakeData">
+                                    <bs3:row>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="FakeData">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <cpt:collection defaultView="table" id="libFakeDataDemoObjectsWithAll"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Poly">
+                                    <bs3:row>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="libPolyCases"/>
+                                            <cpt:collection defaultView="table" id="libPolyCommunicationChannels"/>
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="libPolyFixedAssets"/>
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="libPolyParties"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="ServletApi">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <cpt:collection defaultView="table" id="libServletApiDemoObjects"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="StringInterpolator">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <cpt:collection defaultView="table" id="libStringInterpolatorDemoReminders"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
                         </bs3:col>
                     </bs3:row>
                     <bs3:row>
                         <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="libServletApiDemoObjects"/>
                         </bs3:col>
                         <bs3:col span="4">
                         </bs3:col>
@@ -62,62 +134,114 @@
                 </bs3:tab>
                 <bs3:tab name="SPI Modules">
                     <bs3:row>
-                        <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="auditEntries">
-                                <cpt:named>Audit Entries (contributed)</cpt:named>
-                            </cpt:collection>
-                            <cpt:collection defaultView="table" id="spiAuditAuditEntries"/>
-                            <cpt:collection defaultView="table" id="spiAuditSomeAuditedObjects"/>
-                            <cpt:collection defaultView="table" id="spiAuditSomeNotAuditedObjects"/>
-                        </bs3:col>
-                        <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="commands">
-                                <cpt:named>Commands (contributed)</cpt:named>
-                            </cpt:collection>
-                            <cpt:collection defaultView="table" id="spiCommandCommands"/>
-                            <cpt:collection defaultView="table" id="spiCommandSomeCommandAnnotatedObjects"/>
-                        </bs3:col>
-                        <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="spiPublishMqDemoObjects"/>
-                            <cpt:collection defaultView="table" id="spiPublishMqPublishedEvents"/>
-                            <cpt:collection defaultView="table" id="spiPublishMqStatusMessages"/>
-                        </bs3:col>
-                    </bs3:row>
-                    <bs3:row>
-                        <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="spiSecurityApplicationPermissions"/>
-                            <cpt:collection defaultView="table" id="spiSecurityApplicationRoles"/>
-                            <cpt:collection defaultView="table" id="spiSecurityApplicationTenancies"/>
-                            <cpt:collection defaultView="table" id="spiSecurityApplicationUsers"/>
-                            <cpt:collection defaultView="table" id="spiSecurityNonTenantedEntities"/>
-                            <cpt:collection defaultView="table" id="spiSecurityTenantedEntities"/>
-                        </bs3:col>
-                        <bs3:col span="4">
-                            <cpt:collection defaultView="table" id="spiSessionLoggerSessionLogEntries"/>
-                        </bs3:col>
-                        <bs3:col span="4">
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="Audit">
+                                    <bs3:row>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="auditEntries">
+                                                <cpt:named>Audit Entries (contributed)</cpt:named>
+                                            </cpt:collection>
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="spiAuditAuditEntries"/>
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="spiAuditSomeAuditedObjects"/>
+                                            <cpt:collection defaultView="table" id="spiAuditSomeNotAuditedObjects"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Command">
+                                    <bs3:row>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="spiCommandSomeCommandAnnotatedObjects"/>
+                                        </bs3:col>
+                                        <bs3:col span="8">
+                                            <cpt:collection defaultView="table" id="spiCommandCommands"/>
+                                            <cpt:collection defaultView="table" id="commands">
+                                                <cpt:named>Commands (contributed)</cpt:named>
+                                            </cpt:collection>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Publish MQ">
+                                    <bs3:row>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="spiPublishMqDemoObjects"/>
+                                        </bs3:col>
+                                        <bs3:col span="8">
+                                            <cpt:collection defaultView="table" id="spiPublishMqPublishedEvents"/>
+                                            <cpt:collection defaultView="table" id="spiPublishMqStatusMessages"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Security">
+                                    <bs3:row>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="spiSecurityNonTenantedEntities"/>
+                                            <cpt:collection defaultView="table" id="spiSecurityTenantedEntities"/>
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="spiSecurityApplicationUsers"/>
+                                            <cpt:collection defaultView="table" id="spiSecurityApplicationRoles"/>
+                                            <cpt:collection defaultView="table" id="spiSecurityApplicationTenancies"/>
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                            <cpt:collection defaultView="table" id="spiSecurityApplicationPermissions"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Session Logger">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <cpt:collection defaultView="table" id="spiSessionLoggerSessionLogEntries"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
                 <bs3:tab name="Wicket Components">
                     <bs3:row>
-                        <bs3:col span="6">
-                            <cpt:fieldSet name="pdf.js">
-                                <cpt:action id="previous"/>
-                                <cpt:action id="next"/>
-                                <cpt:property id="idx"/>
-                                <cpt:property id="wktPdfjsNumObjects"/>
-                                <cpt:property id="wktPdfjsSelected"/>
-                                <cpt:property id="blob"/>
-                            </cpt:fieldSet>
-                            <cpt:collection defaultView="table" id="wktPdfjsDemoObjectsWithBlob"/>
-                        </bs3:col>
-                        <bs3:col span="6">
-                            <!-- fullcalendar -->
-                            <cpt:collection defaultView="table" id="demoToDoItemsNotYetComplete"/>
-                            <cpt:collection defaultView="table" id="sharedDemoToDoItems"/>
-                        </bs3:col>
-                        <bs3:col span="4">
+                        <bs3:col span="12">
+                            <bs3:tabGroup>
+                                <bs3:tab name="FullCalendar / WickedCharts">
+                                    <bs3:row>
+                                        <bs3:col span="12">
+                                            <cpt:collection defaultView="table" id="demoToDoItemsNotYetComplete"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="pdf.js">
+                                    <bs3:row>
+                                        <bs3:col span="6">
+                                            <cpt:fieldSet name="pdf.js">
+                                                <cpt:action id="previous"/>
+                                                <cpt:action id="next"/>
+                                                <cpt:property id="idx"/>
+                                                <cpt:property id="wktPdfjsNumObjects"/>
+                                                <cpt:property id="wktPdfjsSelected"/>
+                                                <cpt:property id="blob"/>
+                                            </cpt:fieldSet>
+                                        </bs3:col>
+                                        <bs3:col span="6">
+                                            <cpt:collection defaultView="table" id="wktPdfjsDemoObjectsWithBlob"/>
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                                <bs3:tab name="Togglz">
+                                    <bs3:row>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                        <bs3:col span="4">
+                                        </bs3:col>
+                                    </bs3:row>
+                                </bs3:tab>
+                            </bs3:tabGroup>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>

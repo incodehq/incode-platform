@@ -64,6 +64,8 @@ import org.isisaddons.module.servletapi.fixture.demoapp.demomodule.dom.ServletAp
 import org.isisaddons.module.sessionlogger.dom.SessionLogEntry;
 import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.OgnlDemoReminder;
 import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.OgnlDemoReminderMenu;
+import org.isisaddons.module.togglz.fixture.demoapp.demomodule.dom.TogglzDemoObject;
+import org.isisaddons.module.togglz.fixture.demoapp.demomodule.dom.TogglzDemoObjectRepository;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
 import org.isisaddons.wicket.pdfjs.fixture.demoapp.demomodule.dom.PdfJsDemoObjectWithBlob;
 import org.isisaddons.wicket.pdfjs.fixture.demoapp.demomodule.dom.PdfJsDemoObjectWithBlobMenu;
@@ -81,8 +83,8 @@ public class HomePageViewModel {
         return "Home page";
     }
 
-    // shared.demo
-    public List<FlywayDbDemoObject> getSharedDemoObjects() {
+    // ext.flywayDb
+    public List<FlywayDbDemoObject> getExtFlywayDbDemoObjects() {
         return demoObjectRepository.listAll();
     }
 
@@ -90,18 +92,13 @@ public class HomePageViewModel {
     FlywayDbDemoObjectRepository demoObjectRepository;
 
 
-    // shared.simple
-
-
-    // shared.todo
-
-    public List<ExcelDemoToDoItem> getSharedDemoToDoItems() {
-        return demoToDoItemMenu.allInstances();
+    // ext.togglz
+    public List<TogglzDemoObject> getExtTogglzDemoObjects() {
+        return togglzDemoObjectRepository.listAll();
     }
 
     @javax.inject.Inject
-    ExcelDemoToDoItemMenu demoToDoItemMenu;
-
+    TogglzDemoObjectRepository togglzDemoObjectRepository;
 
 
     // lib.docx
@@ -114,6 +111,15 @@ public class HomePageViewModel {
 
 
     // lib.excel
+
+    public List<ExcelDemoToDoItem> getLibExcelDemoToDoItems() {
+        return demoToDoItemMenu.allInstances();
+    }
+
+    @javax.inject.Inject
+    ExcelDemoToDoItemMenu demoToDoItemMenu;
+
+
     @javax.inject.Inject
     BulkUpdateMenuForDemoToDoItem bulkUpdateMenuForDemoToDoItem;
 
@@ -176,7 +182,7 @@ public class HomePageViewModel {
 
     // lib.stringinterpolator
 
-    public List<OgnlDemoReminder> getDemoReminders() {
+    public List<OgnlDemoReminder> getLibStringInterpolatorDemoReminders() {
         return demoReminderMenu.listAllReminders();
     }
 
