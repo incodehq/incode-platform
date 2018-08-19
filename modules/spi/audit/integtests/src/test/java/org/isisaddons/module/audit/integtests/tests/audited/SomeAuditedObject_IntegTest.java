@@ -107,7 +107,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         assertThat(timestamp, is(notNullValue()));
         assertThat(transactionId, is(notNullValue()));
         assertThat(auditEntry1.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry1.getTargetStr(), startsWith("fixturespiaudit.SomeAuditedObject:"));
+        assertThat(auditEntry1.getTargetStr(), startsWith("spiauditfixture.SomeAuditedObject:"));
         assertThat(auditEntry1.getMemberIdentifier(), is(SomeAuditedObject.class.getName() + "#name"));
         assertThat(auditEntry1.getPropertyId(), is("name"));
         assertThat(auditEntry1.getPreValue(), is("[NEW]"));
@@ -122,7 +122,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         final UUID transactionId2 = auditEntry1.getTransactionId();
         assertThat(transactionId2, is(transactionId));
         assertThat(auditEntry2.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry1.getTargetStr(), startsWith("fixturespiaudit.SomeAuditedObject:"));
+        assertThat(auditEntry1.getTargetStr(), startsWith("spiauditfixture.SomeAuditedObject:"));
         assertThat(auditEntry2.getMemberIdentifier(), is(SomeAuditedObject.class.getName() + "#number"));
         assertThat(auditEntry2.getPropertyId(), is("number"));
         assertThat(auditEntry2.getPreValue(), is("[NEW]"));
@@ -163,7 +163,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         assertThat(timestamp, is(notNullValue()));
         assertThat(transactionId, is(notNullValue()));
         assertThat(auditEntry1.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry1.getTargetStr(), startsWith("fixturespiaudit.SomeAuditedObject:"));
+        assertThat(auditEntry1.getTargetStr(), startsWith("spiauditfixture.SomeAuditedObject:"));
         assertThat(auditEntry1.getMemberIdentifier(), is(SomeAuditedObject.class.getName() + "#name"));
         assertThat(auditEntry1.getPropertyId(), is("name"));
         assertThat(auditEntry1.getPreValue(), is("Foo"));
@@ -178,7 +178,7 @@ public class SomeAuditedObject_IntegTest extends AuditModuleIntegTestAbstract {
         final UUID transactionId2 = auditEntry1.getTransactionId();
         assertThat(transactionId2, is(transactionId));
         assertThat(auditEntry2.getTargetClass(), is("Some Audited Object"));
-        assertThat(auditEntry2.getTargetStr(), startsWith("fixturespiaudit.SomeAuditedObject:"));
+        assertThat(auditEntry2.getTargetStr(), startsWith("spiauditfixture.SomeAuditedObject:"));
         assertThat(auditEntry2.getMemberIdentifier(), is(SomeAuditedObject.class.getName() + "#number"));
         assertThat(auditEntry2.getPropertyId(), is("number"));
         assertThat(auditEntry2.getPreValue(), is(nullValue()));

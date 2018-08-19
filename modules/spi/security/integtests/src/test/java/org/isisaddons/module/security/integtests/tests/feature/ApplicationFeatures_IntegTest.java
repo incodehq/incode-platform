@@ -56,12 +56,8 @@ public class ApplicationFeatures_IntegTest extends SecurityModuleIntegTestAbstra
             assertThat(packages.size(), greaterThan(0));
 
             assertThat(packages, transformedBy(ApplicationFeature.Functions.GET_ID, containsAtLeast(
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.tenanted"),
-                    ApplicationFeatureId.newPackage("org.incode.domainapp.extended.module.fixtures.per_cpt.spi.security.dom.demo.nontenanted")
+                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.fixture.demoapp.demotenantedmodule.dom"),
+                    ApplicationFeatureId.newPackage("org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.dom")
             )));
         }
 

@@ -62,12 +62,6 @@
         </plugins>
     </build>
 
-    <properties>
-        <isis.integTest.module>
-            org.incode.domainapp.extended.integtests.lib.IntegTestsLibModule
-        </isis.integTest.module>
-    </properties>
-
     <dependencies>
 
         <dependency>
