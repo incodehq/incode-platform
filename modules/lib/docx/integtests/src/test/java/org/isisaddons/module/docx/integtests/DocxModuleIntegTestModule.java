@@ -9,6 +9,8 @@ import com.google.common.collect.Sets;
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
+import org.isisaddons.module.docx.DocxModule;
+import org.isisaddons.module.docx.fixture.DocxFixturesModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
 
 @XmlRootElement(name = "module")
@@ -18,7 +20,7 @@ public class DocxModuleIntegTestModule extends ModuleAbstract {
         final Set<Module> dependencies = super.getDependencies();
         dependencies.addAll(Sets.newHashSet(
                 new DocxModule(),
-                new FixturesModuleLibDocxSubmodule(),
+                new DocxFixturesModule(),
                 new FakeDataModule()
         ));
         return dependencies;

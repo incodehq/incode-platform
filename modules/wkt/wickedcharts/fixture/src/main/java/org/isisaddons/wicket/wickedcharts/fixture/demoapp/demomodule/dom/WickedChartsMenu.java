@@ -30,6 +30,9 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
+import org.isisaddons.wicket.wickedcharts.fixture.demoapp.todomodule.dom.Category;
+import org.isisaddons.wicket.wickedcharts.fixture.demoapp.todomodule.dom.WicketChartsDemoToDoItem;
+import org.isisaddons.wicket.wickedcharts.fixture.demoapp.todomodule.dom.WicketChartsDemoToDoItemMenu;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
@@ -45,8 +48,8 @@ public class WickedChartsMenu {
     public WickedChart pieChart() {
         
         Map<Category, AtomicInteger> byCategory = Maps.newTreeMap();
-        List<DemoToDoItem> allToDos = demoToDoItemMenu.allInstances();
-        for (DemoToDoItem toDoItem : allToDos) {
+        List<WicketChartsDemoToDoItem> allToDos = demoToDoItemMenu.allInstances();
+        for (WicketChartsDemoToDoItem toDoItem : allToDos) {
             Category category = toDoItem.getCategory();
             AtomicInteger integer = byCategory.get(category);
             if(integer == null) {
@@ -109,6 +112,6 @@ public class WickedChartsMenu {
 
     
     @javax.inject.Inject
-    private DemoToDoItemMenu demoToDoItemMenu;
+    private WicketChartsDemoToDoItemMenu demoToDoItemMenu;
 
 }

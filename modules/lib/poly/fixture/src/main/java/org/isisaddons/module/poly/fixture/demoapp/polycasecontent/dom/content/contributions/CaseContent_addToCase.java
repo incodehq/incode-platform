@@ -7,6 +7,12 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Case;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Cases;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.content.CaseContent;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.content.CaseContentService;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.contentlink.CaseContentLinks;
+
 @Mixin(method = "act")
 public class CaseContent_addToCase {
 

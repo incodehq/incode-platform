@@ -10,6 +10,7 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
+import org.isisaddons.module.security.fixture.SecurityFixturesModule;
 
 @XmlRootElement(name = "module")
 public class SecurityModuleIntegTestModule extends ModuleAbstract {
@@ -26,7 +27,7 @@ public SecurityModuleIntegTestModule() {
 @Override
     public Set<Module> getDependencies() {
         return Sets.newHashSet(
-                new FixturesModuleSpiSecuritySubmodule(),
+                new SecurityFixturesModule(),
                 new FakeDataModule()
         );
     }

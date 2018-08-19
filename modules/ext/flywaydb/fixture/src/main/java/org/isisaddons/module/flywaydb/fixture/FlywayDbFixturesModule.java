@@ -5,5 +5,5 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.isis.applib.ModuleAbstract;
 
 @XmlRootElement(name = "module")
-public class FixturesModuleSharedSubmodule extends ModuleAbstract {
+public class FlywayDbFixturesModule extends ModuleAbstract {
 }

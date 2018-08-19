@@ -133,15 +133,6 @@
         <dependency>
             <groupId>org.isis.module.settings</groupId>
             <artifactId>isis-module-settings-dom</artifactId>
-            <!-- we have to use an old version because this module was removed in 1.16.0 -->
-            <version>1.15.1.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.incode.platform.application</groupId>
-            <artifactId>incode-platformapp-module-fixtures</artifactId>
-            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

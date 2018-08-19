@@ -12,6 +12,8 @@ import org.junit.rules.ExpectedException;
 
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.SecurityModuleAppTearDown;
+import org.isisaddons.module.security.integtests.SecurityModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;

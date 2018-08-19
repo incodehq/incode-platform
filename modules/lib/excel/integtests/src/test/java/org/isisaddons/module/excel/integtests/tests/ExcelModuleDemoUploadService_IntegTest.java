@@ -13,6 +13,13 @@ import org.junit.Test;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.value.Blob;
 
+import org.isisaddons.module.excel.dom.util.ExcelFileBlobConverter;
+import org.isisaddons.module.excel.integtests.ExcelModuleIntegTestAbstract;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturehandlers.excelupload.ExcelUploadServiceForDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItemMenu;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.fixturescripts.DemoToDoItem_tearDown;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 

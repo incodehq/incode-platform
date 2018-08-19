@@ -75,13 +75,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.platform.application</groupId>
-            <artifactId>incode-platformapp-module-fixtures</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>
             <artifactId>isis-mavendeps-testing</artifactId>
             <type>pom</type>

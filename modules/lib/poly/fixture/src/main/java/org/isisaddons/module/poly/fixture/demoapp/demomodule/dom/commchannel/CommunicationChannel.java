@@ -18,6 +18,10 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwner;
+import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwnerLink;
+import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwnerLinks;
+
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
         schema = "fixtureLibPoly"

@@ -2,6 +2,9 @@ package org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminder;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminderMenu;
+
 public class DemoReminder_create4 extends FixtureScript {
 
 

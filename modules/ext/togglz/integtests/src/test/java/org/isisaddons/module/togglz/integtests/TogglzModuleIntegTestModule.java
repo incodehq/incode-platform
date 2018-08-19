@@ -10,6 +10,7 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
+import org.isisaddons.module.togglz.fixture.TogglzFixturesModule;
 
 @XmlRootElement(name = "module")
 public class TogglzModuleIntegTestModule extends ModuleAbstract {
@@ -18,7 +19,7 @@ public class TogglzModuleIntegTestModule extends ModuleAbstract {
     public Set<Module> getDependencies() {
         final Set<Module> dependencies = super.getDependencies();
         dependencies.addAll(Sets.newHashSet(
-                new FixturesModuleSharedDemoSubmodule(),
+                new TogglzFixturesModule(),
                 new FakeDataModule()
         ));
         return dependencies;

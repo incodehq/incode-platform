@@ -2,6 +2,9 @@ package org.isisaddons.module.command.fixture.demoapp.demomodule.fixturescripts;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObject;
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObjects;
+
 public class SomeCommandAnnotatedObject_create3 extends FixtureScript {
 
     @Override

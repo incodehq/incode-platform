@@ -22,6 +22,8 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.wrapper.WrapperFactory;
 import org.apache.isis.schema.utils.jaxbadapters.PersistentEntityAdapter;
 
+import org.isisaddons.module.publishmq.fixture.demoapp.touchmodule.dom.Touchable;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

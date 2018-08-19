@@ -9,6 +9,15 @@ import org.junit.Test;
 
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.SecurityModuleAppTearDown;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.dom.NonTenantedEntities;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.dom.NonTenantedEntity;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fixturescripts.sub.NonTenantedEntity_createBar;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fixturescripts.sub.NonTenantedEntity_createBaz;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fixturescripts.sub.NonTenantedEntity_createBip;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fixturescripts.sub.NonTenantedEntity_createBop;
+import org.isisaddons.module.security.integtests.SecurityModuleIntegTestAbstract;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

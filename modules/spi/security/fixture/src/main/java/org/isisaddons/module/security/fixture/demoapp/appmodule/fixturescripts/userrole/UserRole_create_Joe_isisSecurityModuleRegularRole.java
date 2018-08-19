@@ -1,5 +1,6 @@
 package org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.userrole;
 
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.users.ApplicationUser_create_Joe;
 import org.isisaddons.module.security.seed.scripts.IsisModuleSecurityRegularUserRoleAndPermissions;
 
 public class UserRole_create_Joe_isisSecurityModuleRegularRole extends AbstractUserRoleFixtureScript {

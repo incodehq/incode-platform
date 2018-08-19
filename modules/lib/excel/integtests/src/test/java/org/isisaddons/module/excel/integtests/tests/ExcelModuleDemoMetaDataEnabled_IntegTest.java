@@ -12,6 +12,10 @@ import org.apache.isis.applib.fixturescripts.FixtureResult;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.isisaddons.module.excel.integtests.ExcelModuleIntegTestAbstract;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturehandlers.demotodoitem.DemoToDoItemRowHandler2;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturescripts.DemoFixture_extending_ExcelFixture2;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 

@@ -9,6 +9,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.isisaddons.module.stringinterpolator.dom.StringInterpolatorService;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminder;
 
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY,

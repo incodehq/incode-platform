@@ -17,6 +17,10 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.dom.AuditingServiceRepository;
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.notaudited.SomeNotAuditedObject;
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.notaudited.SomeNotAuditedObjects;
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.fixturescripts.SomeAuditedObject_and_SomeNonAuditedObject_create3;
+import org.isisaddons.module.audit.integtests.AuditModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;

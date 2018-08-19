@@ -68,20 +68,6 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>incode-platformapp-module-fixtures</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>incode-platformapp-module-fixtures</artifactId>
-                <scope>test</scope>
-                <type>test-jar</type>
-                <version>${revision}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>incode-platformapp-webapp</artifactId>
                 <version>${revision}</version>
             </dependency>

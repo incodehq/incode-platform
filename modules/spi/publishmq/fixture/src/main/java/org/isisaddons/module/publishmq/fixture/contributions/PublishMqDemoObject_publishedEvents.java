@@ -15,6 +15,7 @@ import org.apache.isis.applib.services.bookmark.BookmarkService2;
 
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
+import org.isisaddons.module.publishmq.fixture.demoapp.demomodule.dom.PublishMqDemoObject;
 
 @Mixin
 public class PublishMqDemoObject_publishedEvents {

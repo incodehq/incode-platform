@@ -1,6 +1,8 @@
 package org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.users;
 
 import org.isisaddons.module.security.dom.user.AccountType;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.roles.sub.RoleAndPermissions_create_exampleGuest;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.roles.sub.RoleAndPremissions_create_exampleNoGuest;
 
 /**
  * Intended to be assigned to roles ({@link RoleAndPermissions_create_exampleGuest} and

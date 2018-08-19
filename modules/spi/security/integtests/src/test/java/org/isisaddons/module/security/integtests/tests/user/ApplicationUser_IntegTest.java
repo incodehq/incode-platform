@@ -17,7 +17,14 @@ import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyRepository;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
-
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.SecurityModuleAppTearDown;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.roles.RolesAndPermissions_create2;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.roles.sub.RoleAndPermissions_create_exampleRegularRole;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.tenancy.ApplicationTenancy_create10;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.tenancy.sub.ApplicationTenancy_create_France;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.tenancy.sub.ApplicationTenancy_create_Sweden;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.users.ApplicationUser_create_Sven;
+import org.isisaddons.module.security.integtests.SecurityModuleIntegTestAbstract;
 import org.isisaddons.module.security.seed.scripts.IsisModuleSecurityAdminRoleAndPermissions;
 
 import static org.hamcrest.CoreMatchers.allOf;

@@ -6,6 +6,8 @@ import org.togglz.junit.TogglzRule;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
+import org.isisaddons.module.togglz.fixture.feature.TogglzFeature;
+
 public abstract class TogglzModuleIntegTestAbstract extends IntegrationTestAbstract3 {
 
     @Rule

@@ -16,11 +16,38 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.audit.dom.AuditEntry;
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.audited.SomeAuditedObject;
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.audited.SomeAuditedObjects;
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.notaudited.SomeNotAuditedObject;
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.notaudited.SomeNotAuditedObjects;
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObject;
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObjects;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrder;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrderMenu;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.pivot.ExcelPivotByCategoryAndSubcategoryMenu;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturehandlers.excelupload.ExcelUploadServiceForDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItemMenu;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAll;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAllMenu;
+import org.isisaddons.module.flywaydb.fixture.demomodule.dom.DemoObject;
+import org.isisaddons.module.flywaydb.fixture.demomodule.dom.DemoObjectRepository;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Case;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Cases;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannel;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannels;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.FixedAsset;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.FixedAssets;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Parties;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Party;
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
 import org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage;
+import org.isisaddons.module.publishmq.fixture.demoapp.demomodule.dom.PublishMqDemoObject;
+import org.isisaddons.module.publishmq.fixture.demoapp.demomodule.dom.PublishMqDemoObjects;
 import org.isisaddons.module.security.dom.permission.ApplicationPermission;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionMenu;
 import org.isisaddons.module.security.dom.role.ApplicationRole;
@@ -29,8 +56,17 @@ import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancyMenu;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.dom.NonTenantedEntities;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.dom.NonTenantedEntity;
+import org.isisaddons.module.security.fixture.demoapp.demotenantedmodule.dom.TenantedEntities;
+import org.isisaddons.module.security.fixture.demoapp.demotenantedmodule.dom.TenantedEntity;
+import org.isisaddons.module.servletapi.fixture.demoapp.demomodule.dom.ServletApiDemoObject;
 import org.isisaddons.module.sessionlogger.dom.SessionLogEntry;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminder;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminderMenu;
 import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewer;
+import org.isisaddons.wicket.pdfjs.fixture.demoapp.demomodule.dom.PdfJsDemoObjectWithBlob;
+import org.isisaddons.wicket.pdfjs.fixture.demoapp.demomodule.dom.PdfJsDemoObjectWithBlobMenu;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -277,11 +313,11 @@ public class HomePageViewModel {
 
     // wkt.pdfjs
 
-    public List<DemoObjectWithBlob> getWktPdfjsDemoObjectsWithBlob() {
+    public List<PdfJsDemoObjectWithBlob> getWktPdfjsDemoObjectsWithBlob() {
         return demoObjectWithBlobMenu.listAllDemoObjectsWithBlob();
     }
     @javax.inject.Inject
-    DemoObjectWithBlobMenu demoObjectWithBlobMenu;
+    PdfJsDemoObjectWithBlobMenu demoObjectWithBlobMenu;
 
     @PdfJsViewer(initialPageNum = 1, initialScale = Scale._1_00, initialHeight = 600)
     public Blob getBlob() {
@@ -302,8 +338,8 @@ public class HomePageViewModel {
 
 
     @XmlTransient
-    public DemoObjectWithBlob getWktPdfjsSelected() {
-        final List<DemoObjectWithBlob> demoObjectsWithBlob = getWktPdfjsDemoObjectsWithBlob();
+    public PdfJsDemoObjectWithBlob getWktPdfjsSelected() {
+        final List<PdfJsDemoObjectWithBlob> demoObjectsWithBlob = getWktPdfjsDemoObjectsWithBlob();
         return demoObjectsWithBlob.isEmpty() ? null : demoObjectsWithBlob.get(getIdx());
     }
 

@@ -11,6 +11,9 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Case;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.contentlink.CaseContentLink;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.contentlink.CaseContentLinks;
 
 @DomainService(
         nature = NatureOfService.DOMAIN

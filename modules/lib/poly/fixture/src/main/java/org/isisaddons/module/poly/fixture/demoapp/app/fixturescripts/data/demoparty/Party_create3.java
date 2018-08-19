@@ -8,6 +8,8 @@ import com.google.common.collect.Lists;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Party;
+
 import lombok.Getter;
 import lombok.experimental.Accessors;
 

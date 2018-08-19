@@ -2,6 +2,9 @@ package org.isisaddons.module.servletapi.fixture.scripts;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.servletapi.fixture.demoapp.demomodule.dom.ServletApiDemoObject;
+import org.isisaddons.module.servletapi.fixture.demoapp.demomodule.dom.ServletApiDemoObjects;
+
 public class ServletApiDemoObject_create3 extends FixtureScript {
 
     @Override

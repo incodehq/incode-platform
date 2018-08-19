@@ -11,6 +11,11 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.eventbus.AbstractDomainEvent;
 
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Case;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.contributions.Case_removeFromCaseContent;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.content.CaseContent;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.content.contributions.CaseContent_removeFromCase;
+
 @DomainService(
         nature = NatureOfService.DOMAIN
 )

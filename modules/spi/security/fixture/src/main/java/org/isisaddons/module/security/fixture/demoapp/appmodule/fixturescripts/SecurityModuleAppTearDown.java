@@ -6,6 +6,8 @@ import org.isisaddons.module.security.dom.permission.ApplicationPermission;
 import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.tenancy.ApplicationTenancy;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.dom.NonTenantedEntity;
+import org.isisaddons.module.security.fixture.demoapp.demotenantedmodule.dom.TenantedEntity;
 
 public class SecurityModuleAppTearDown extends TeardownFixtureAbstract2 {
 

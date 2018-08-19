@@ -13,6 +13,10 @@ import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.DisabledException;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
+import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demofixedasset.FixedAsset_create6;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannel;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannels;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.FixedAsset;
 import org.isisaddons.module.poly.integtests.PolyModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;

@@ -10,6 +10,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.background.BackgroundService2;
 import org.apache.isis.applib.services.factory.FactoryService;
 
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObject;
+
 @Mixin
 public class SomeCommandAnnotatedObject_changeDescriptionExplicitlyInBackground {
 

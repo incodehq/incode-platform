@@ -9,6 +9,12 @@ import org.junit.Test;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.contributions.DemoReminderStringInterpolatorContributions;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminder;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminderMenu;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.scripts.DemoReminder_create4;
+import org.isisaddons.module.stringinterpolator.integtests.StringInterpolatorModuleIntegTestAbstract;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 

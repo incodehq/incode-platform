@@ -10,6 +10,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.background.BackgroundService2;
 import org.apache.isis.applib.services.user.UserService;
 
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObject;
+
 @DomainService(
         nature = NatureOfService.DOMAIN
 )

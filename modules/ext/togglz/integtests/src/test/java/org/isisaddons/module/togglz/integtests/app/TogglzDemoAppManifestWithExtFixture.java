@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.togglz.fixture.demoapp.demomodule.fixturescripts.DemoObject_create3;
+
 public class TogglzDemoAppManifestWithExtFixture extends TogglzExtAppManifest {
 
     @Override

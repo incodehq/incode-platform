@@ -10,6 +10,8 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
+import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.StringInterpolatorFixturesSubmodule;
 
 @XmlRootElement(name = "module")
 public class StringInterpolatorModuleIntegTestModule extends ModuleAbstract {
@@ -23,7 +25,7 @@ public class StringInterpolatorModuleIntegTestModule extends ModuleAbstract {
         final Set<Module> dependencies = super.getDependencies();
         dependencies.addAll(Sets.newHashSet(
                 new StringInterpolatorModule(),
-                new FixturesModuleLibStringInterpolatorSubmodule(),
+                new StringInterpolatorFixturesSubmodule(),
                 new FakeDataModule()
         ));
         return dependencies;

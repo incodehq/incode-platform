@@ -96,41 +96,62 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
 
     <dependencies>
 
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>incode-platformapp-module-fixtures</artifactId>
-        </dependency>
-
-
         <!-- dom -->
         <dependency>
             <groupId>org.isis.module.settings</groupId>
             <artifactId>isis-module-settings-dom</artifactId>
         </dependency>
 
+
         <!-- ext -->
+        <dependency>
+            <groupId>org.isisaddons.module.flywaydb</groupId>
+            <artifactId>isis-module-flywaydb-fixtures</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.togglz</groupId>
+            <artifactId>isis-module-togglz-fixture</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.isisaddons.module.togglz</groupId>
             <artifactId>isis-module-togglz-glue</artifactId>
         </dependency>
+
 
         <!-- lib -->
         <dependency>
             <groupId>org.incode.module.base</groupId>
             <artifactId>incode-module-base-dom</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.docx</groupId>
             <artifactId>isis-module-docx-dom</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.isisaddons.module.docx</groupId>
+            <artifactId>isis-module-docx-fixtures</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.excel</groupId>
             <artifactId>isis-module-excel-dom</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.isisaddons.module.excel</groupId>
+            <artifactId>isis-module-excel-fixtures</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.fakedata</groupId>
             <artifactId>isis-module-fakedata-dom</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.fakedata</groupId>
+            <artifactId>isis-module-fakedata-fixtures</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.freemarker</groupId>
             <artifactId>isis-module-freemarker-dom</artifactId>
@@ -147,22 +168,39 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <groupId>org.isisaddons.module.pdfbox</groupId>
             <artifactId>isis-module-pdfbox-dom</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.poly</groupId>
             <artifactId>isis-module-poly-dom</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.isisaddons.module.poly</groupId>
+            <artifactId>isis-module-poly-fixtures</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.servletapi</groupId>
             <artifactId>isis-module-servletapi-dom</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.isisaddons.module.servletapi</groupId>
+            <artifactId>isis-module-servletapi-fixtures</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.incode.module.slack</groupId>
             <artifactId>incode-module-slack-dom</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.stringinterpolator</groupId>
             <artifactId>isis-module-stringinterpolator-dom</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.stringinterpolator</groupId>
+            <artifactId>isis-module-stringinterpolator-fixtures</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.xdocreport</groupId>
             <artifactId>isis-module-xdocreport-dom</artifactId>
@@ -171,6 +209,7 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <groupId>org.incode.module.zip</groupId>
             <artifactId>incode-module-zip-dom</artifactId>
         </dependency>
+
 
         <!-- mml -->
         <dependency>
@@ -185,9 +224,19 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <artifactId>isis-module-audit-dom</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.isisaddons.module.audit</groupId>
+            <artifactId>isis-module-audit-fixtures</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.command</groupId>
             <artifactId>isis-module-command-dom</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.command</groupId>
+            <artifactId>isis-module-command-fixtures</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.command</groupId>
             <artifactId>isis-module-command-replay</artifactId>
@@ -200,6 +249,7 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <groupId>org.incode.module.errorrptslack</groupId>
             <artifactId>incode-module-errorrptslack-impl</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-jdo</artifactId>
@@ -209,9 +259,19 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-fixtures</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.module.security</groupId>
             <artifactId>isis-module-security-dom</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.security</groupId>
+            <artifactId>isis-module-security-fixtures</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.sessionlogger</groupId>
             <artifactId>isis-module-sessionlogger-dom</artifactId>
@@ -235,17 +295,28 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <groupId>org.isisaddons.wicket.gmap3</groupId>
             <artifactId>isis-wicket-gmap3-cpt</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.isisaddons.wicket.summernote</groupId>
-            <artifactId>isis-wicket-summernote-cpt</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.isisaddons.wicket.pdfjs</groupId>
             <artifactId>isis-wicket-pdfjs-cpt</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.isisaddons.wicket.pdfjs</groupId>
+            <artifactId>isis-wicket-pdfjs-fixtures</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.wicket.summernote</groupId>
+            <artifactId>isis-wicket-summernote-cpt</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.isisaddons.wicket.wickedcharts</groupId>
             <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.wicket.wickedcharts</groupId>
+            <artifactId>isis-wicket-wickedcharts-fixtures</artifactId>
         </dependency>
 
 
@@ -285,13 +356,6 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <artifactId>isis-mavendeps-testing</artifactId>
             <type>pom</type>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>incode-platformapp-module-fixtures</artifactId>
-            <scope>test</scope>
-            <type>test-jar</type>
         </dependency>
 
         <dependency>

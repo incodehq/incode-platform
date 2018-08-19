@@ -18,6 +18,14 @@ import org.junit.Test;
 
 import org.apache.isis.applib.value.Blob;
 
+import org.isisaddons.module.excel.dom.ExcelService;
+import org.isisaddons.module.excel.integtests.ExcelModuleIntegTestAbstract;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.bulkupdate.BulkUpdateLineItemForDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.bulkupdate.BulkUpdateManagerForDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.bulkupdate.BulkUpdateMenuForDemoToDoItem;
+import org.isisaddons.module.excel.fixture.demoapp.demomodule.fixturescripts.DemoToDoItem_recreate_usingExcelFixture;
+import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.DemoToDoItemMenu;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

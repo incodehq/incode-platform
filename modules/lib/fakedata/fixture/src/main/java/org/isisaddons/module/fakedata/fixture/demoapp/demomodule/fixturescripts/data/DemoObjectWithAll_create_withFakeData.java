@@ -4,6 +4,8 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAll;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAllMenu;
 
 import lombok.Getter;
 import lombok.Setter;

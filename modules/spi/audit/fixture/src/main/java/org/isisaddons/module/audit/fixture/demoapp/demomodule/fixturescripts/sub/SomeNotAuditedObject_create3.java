@@ -2,6 +2,9 @@ package org.isisaddons.module.audit.fixture.demoapp.demomodule.fixturescripts.su
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.notaudited.SomeNotAuditedObject;
+import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.notaudited.SomeNotAuditedObjects;
+
 public class SomeNotAuditedObject_create3 extends FixtureScript {
 
     @Override

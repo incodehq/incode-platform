@@ -12,6 +12,12 @@ import org.junit.rules.ExpectedException;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.wrapper.InvalidException;
 
+import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demoparty.Party_create3;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannel;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannels;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Party;
+import org.isisaddons.module.poly.integtests.PolyModuleIntegTestAbstract;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

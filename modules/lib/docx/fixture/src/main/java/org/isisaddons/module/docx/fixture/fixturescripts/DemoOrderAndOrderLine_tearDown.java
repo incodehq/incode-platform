@@ -1,7 +1,10 @@
-package org.isisaddons.module.docx.fixture.scripts;
+package org.isisaddons.module.docx.fixture.fixturescripts;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
+
+import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrder;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrderLine;
 
 public class DemoOrderAndOrderLine_tearDown extends TeardownFixtureAbstract2 {
 

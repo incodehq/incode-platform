@@ -10,7 +10,7 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.fakedata.FakeDataModule;
-import org.isisaddons.module.flywaydb.fixture.FixturesModuleSharedSubmodule;
+import org.isisaddons.module.flywaydb.fixture.FlywayDbFixturesModule;
 
 @XmlRootElement(name = "module")
 public class FlywayDbModuleIntegTestModule extends ModuleAbstract {
@@ -19,7 +19,7 @@ public class FlywayDbModuleIntegTestModule extends ModuleAbstract {
     public Set<Module> getDependencies() {
         final Set<Module> dependencies = super.getDependencies();
         dependencies.addAll(Sets.newHashSet(
-                new FixturesModuleSharedSubmodule(),
+                new FlywayDbFixturesModule(),
                 new FakeDataModule()
         ));
         return dependencies;

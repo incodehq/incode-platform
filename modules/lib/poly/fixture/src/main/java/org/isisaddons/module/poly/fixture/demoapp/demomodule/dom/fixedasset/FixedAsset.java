@@ -23,6 +23,12 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannel;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.content.CaseContent;
+import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwner;
+import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwnerLink;
+import org.isisaddons.module.poly.fixture.demoapp.polyccowner.dom.CommunicationChannelOwnerLinks;
+
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
         schema = "fixtureLibPoly"

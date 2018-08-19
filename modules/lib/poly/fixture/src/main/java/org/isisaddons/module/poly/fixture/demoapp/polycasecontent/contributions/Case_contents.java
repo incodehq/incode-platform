@@ -10,6 +10,10 @@ import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Case;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.content.CaseContent;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.content.CaseContentService;
+
 @Mixin(method = "coll")
 public class Case_contents {
 

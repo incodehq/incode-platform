@@ -2,6 +2,8 @@ package org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.
 
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.demoapp.demomodule.dom.DemoReminder;
+
 public class DemoReminder_tearDown extends TeardownFixtureAbstract2 {
 
     @Override

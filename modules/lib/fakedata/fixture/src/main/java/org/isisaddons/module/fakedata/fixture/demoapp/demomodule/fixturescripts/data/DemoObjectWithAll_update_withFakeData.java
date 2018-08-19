@@ -18,6 +18,8 @@ import org.apache.isis.applib.value.Money;
 import org.apache.isis.applib.value.Password;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAll;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.EnumOf3;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -3,6 +3,8 @@ package org.isisaddons.module.command.fixture.demoapp.demomodule.dom.contributio
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Mixin;
 
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObject;
+
 @Mixin
 public class SomeCommandAnnotatedObj_updateCopyOfColorBySubscribedBackgrndMixinAct {
 

@@ -15,6 +15,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Party;
+
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.DATASTORE,
         schema = "fixtureLibPoly"

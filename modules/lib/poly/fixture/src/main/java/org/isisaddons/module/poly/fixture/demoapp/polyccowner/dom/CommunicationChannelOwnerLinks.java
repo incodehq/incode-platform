@@ -13,6 +13,7 @@ import org.apache.isis.applib.services.bookmark.Bookmark;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
 import org.isisaddons.module.poly.dom.PolymorphicAssociationLink;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.commchannel.CommunicationChannel;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,

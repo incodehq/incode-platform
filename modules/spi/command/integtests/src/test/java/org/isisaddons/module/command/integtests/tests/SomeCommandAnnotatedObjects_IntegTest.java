@@ -14,6 +14,10 @@ import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.isisaddons.module.command.dom.BackgroundCommandServiceJdoRepository;
 import org.isisaddons.module.command.dom.CommandJdo;
 import org.isisaddons.module.command.dom.CommandServiceJdoRepository;
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObject;
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObjects;
+import org.isisaddons.module.command.fixture.demoapp.demomodule.fixturescripts.SomeCommandAnnotatedObject_create3;
+import org.isisaddons.module.command.integtests.CommandModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.empty;

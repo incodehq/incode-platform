@@ -10,6 +10,11 @@ import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
+import org.isisaddons.module.publishmq.fixture.demoapp.demomodule.dom.PublishMqDemoObject;
+import org.isisaddons.module.publishmq.fixture.demoapp.demomodule.dom.PublishMqDemoObjects;
+import org.isisaddons.module.publishmq.fixture.demoapp.demomodule.fixturescripts.PublishMqDemoObject_create3;
+import org.isisaddons.module.publishmq.integtests.PublishMqModuleIntegTestAbstract;
+
 public class PublishMqDemoObjects_IntegTest extends PublishMqModuleIntegTestAbstract {
 
     @Inject

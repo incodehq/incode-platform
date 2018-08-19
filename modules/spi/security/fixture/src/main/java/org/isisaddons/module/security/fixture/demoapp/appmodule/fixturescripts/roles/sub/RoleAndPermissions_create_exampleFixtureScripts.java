@@ -2,6 +2,7 @@ package org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.
 
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionMode;
 import org.isisaddons.module.security.dom.permission.ApplicationPermissionRule;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.SecurityModuleAppSetUp;
 import org.isisaddons.module.security.seed.scripts.AbstractRoleAndPermissionsFixtureScript;
 
 public class RoleAndPermissions_create_exampleFixtureScripts extends AbstractRoleAndPermissionsFixtureScript {

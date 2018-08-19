@@ -11,16 +11,18 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.scratchpad.Scratchpad;
 
+import org.isisaddons.wicket.pdfjs.fixture.demoapp.demomodule.dom.PdfJsDemoObjectWithBlob;
+
 @DomainService(nature = NatureOfService.DOMAIN)
 public class CssHighlighter extends AbstractSubscriber {
 
     @EventHandler
     @Subscribe
-    public void on(DemoObjectWithBlob.CssClassUiEvent ev) {
+    public void on(PdfJsDemoObjectWithBlob.CssClassUiEvent ev) {
         if(getContext() == null) {
             return;
         }
-        DemoObjectWithBlob selectedDemoObject = getContext().getWktPdfjsSelected();
+        PdfJsDemoObjectWithBlob selectedDemoObject = getContext().getWktPdfjsSelected();
         if(ev.getSource() == selectedDemoObject) {
             ev.setCssClass("selected");
         }

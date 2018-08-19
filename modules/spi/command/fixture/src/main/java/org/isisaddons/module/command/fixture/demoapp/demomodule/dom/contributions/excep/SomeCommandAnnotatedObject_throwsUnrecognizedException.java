@@ -5,6 +5,8 @@ import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
+import org.isisaddons.module.command.fixture.demoapp.demomodule.dom.SomeCommandAnnotatedObject;
+
 @Mixin
 public class SomeCommandAnnotatedObject_throwsUnrecognizedException {
 

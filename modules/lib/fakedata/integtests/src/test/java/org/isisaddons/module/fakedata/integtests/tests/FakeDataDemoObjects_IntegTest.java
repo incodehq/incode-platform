@@ -22,6 +22,12 @@ import org.apache.isis.applib.value.Money;
 import org.apache.isis.applib.value.Password;
 
 import org.isisaddons.module.fakedata.dom.FakeDataService;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAll;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.DemoObjectWithAllMenu;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.dom.EnumOf3;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.fixturescripts.DemoObjectWithAll_create3;
+import org.isisaddons.module.fakedata.fixture.demoapp.demomodule.fixturescripts.data.DemoObjectWithAll_update_withFakeData;
+import org.isisaddons.module.fakedata.integtests.FakeDataModuleIntegTestAbstract;
 
 public class FakeDataDemoObjects_IntegTest extends FakeDataModuleIntegTestAbstract {
 

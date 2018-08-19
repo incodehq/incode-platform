@@ -10,8 +10,7 @@ import org.incode.domainapp.extended.appdefn.seed.security.SeedSuperAdministrato
 public class ExtendedAppAppManifest extends AppManifestAbstract2 {
 
     public ExtendedAppAppManifest() {
-        super(Builder.forModule(new FixturesModuleLibExcelSubmodule()));
-//        super(Builder.forModule(new ExtendedAppAppDefnModule()));
+        super(Builder.forModule(new ExtendedAppAppDefnModule()));
     }
 
     @Override

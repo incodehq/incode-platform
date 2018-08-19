@@ -10,6 +10,8 @@ import org.apache.isis.applib.annotation.NatureOfService;
 
 import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.roles.sub.RoleAndPermissions_create_exampleFixtureScripts;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.roles.sub.RoleAndPermissions_create_exampleRegularRole;
 import org.isisaddons.module.security.userreg.SecurityModuleAppUserRegistrationServiceAbstract;
 
 /**

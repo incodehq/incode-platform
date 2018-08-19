@@ -8,7 +8,7 @@ import org.apache.isis.applib.AppManifestAbstract2;
 public class FixturesManifest extends AppManifestAbstract2 {
 
     public static final Builder BUILDER = Builder.forModule(
-            new FixturesModule()
+            new FlywayDbFixturesModule()
     );
 
     public FixturesManifest() {

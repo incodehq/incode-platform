@@ -11,6 +11,8 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.title.TitleService;
 
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.content.CaseContent;
+
 @Mixin(method = "prop")
 public class CaseContent_title {
 

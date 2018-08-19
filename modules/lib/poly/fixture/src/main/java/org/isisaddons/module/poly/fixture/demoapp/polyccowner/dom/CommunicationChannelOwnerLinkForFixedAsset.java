@@ -15,6 +15,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.FixedAsset;
+
 @javax.jdo.annotations.PersistenceCapable(
         identityType = IdentityType.DATASTORE,
         schema = "fixtureLibPoly"
@@ -30,7 +32,8 @@ public class CommunicationChannelOwnerLinkForFixedAsset extends CommunicationCha
         @EventHandler
         @Subscribe
         public void on(final CommunicationChannelOwnerLink.InstantiateEvent ev) {
-            if(ev.getPolymorphicReference() instanceof FixedAsset) {
+            if(ev.getPolymorphicReference() instanceof
+                    FixedAsset) {
                 ev.setSubtype(CommunicationChannelOwnerLinkForFixedAsset.class);
             }
         }

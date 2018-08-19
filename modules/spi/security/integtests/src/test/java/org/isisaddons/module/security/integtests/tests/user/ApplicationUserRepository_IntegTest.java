@@ -17,6 +17,8 @@ import org.isisaddons.module.security.dom.role.ApplicationRoleRepository;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserMenu;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.SecurityModuleAppTearDown;
+import org.isisaddons.module.security.integtests.SecurityModuleIntegTestAbstract;
 
 import static org.apache.isis.core.integtestsupport.ThrowableMatchers.causedBy;
 import static org.hamcrest.CoreMatchers.not;

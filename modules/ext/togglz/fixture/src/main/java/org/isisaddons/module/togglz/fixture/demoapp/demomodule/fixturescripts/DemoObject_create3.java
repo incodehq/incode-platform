@@ -2,6 +2,9 @@ package org.isisaddons.module.togglz.fixture.demoapp.demomodule.fixturescripts;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.togglz.fixture.demoapp.demomodule.dom.DemoObject;
+import org.isisaddons.module.togglz.fixture.demoapp.demomodule.dom.DemoObjectRepository;
+
 public class DemoObject_create3 extends FixtureScript {
 
     @Override

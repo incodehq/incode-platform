@@ -7,6 +7,7 @@ import org.isisaddons.module.security.dom.role.ApplicationRole;
 import org.isisaddons.module.security.dom.user.AccountType;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
 import org.isisaddons.module.security.dom.user.ApplicationUserRepository;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.Util;
 
 public abstract class AbstractUserFixtureScript extends FixtureScript {
 

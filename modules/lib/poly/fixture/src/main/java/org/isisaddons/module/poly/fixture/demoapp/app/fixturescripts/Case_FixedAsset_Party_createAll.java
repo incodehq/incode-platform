@@ -6,6 +6,15 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.democasemgmt.Case_create3;
+import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demofixedasset.FixedAsset_create6;
+import org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demoparty.Party_create3;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.casemgmt.Case;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.fixedasset.FixedAsset;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Party;
+import org.isisaddons.module.poly.fixture.demoapp.polycasecontent.dom.contentlink.CaseContentLinks;
+import org.isisaddons.module.poly.fixture.demoapp.polycaseprimary.contributions.Case_makePrimary;
+
 public class Case_FixedAsset_Party_createAll extends FixtureScript {
 
     private Case_create3 createCases;

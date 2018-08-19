@@ -2,6 +2,7 @@ package org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.
 
 import org.isisaddons.module.security.dom.user.AccountType;
 import org.isisaddons.module.security.dom.user.ApplicationUser;
+import org.isisaddons.module.security.fixture.demoapp.appmodule.fixturescripts.tenancy.sub.ApplicationTenancy_create_Italy;
 
 public class ApplicationUser_create_Bert_in_Italy extends AbstractUserFixtureScript {
 

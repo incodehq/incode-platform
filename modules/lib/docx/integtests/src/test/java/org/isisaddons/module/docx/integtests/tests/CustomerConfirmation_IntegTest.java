@@ -11,6 +11,10 @@ import org.junit.Test;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
+import org.isisaddons.module.docx.fixture.dom.democustconf.CustomerConfirmation;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrder;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrderMenu;
+import org.isisaddons.module.docx.fixture.fixturescripts.DemoOrderAndOrderLine_create4_hardcodedData;
 import org.isisaddons.module.docx.integtests.DocxModuleIntegTestAbstract;
 
 import static org.hamcrest.CoreMatchers.is;

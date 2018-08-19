@@ -2,6 +2,9 @@ package org.isisaddons.module.poly.fixture.demoapp.app.fixturescripts.data.demop
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Parties;
+import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.Party;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

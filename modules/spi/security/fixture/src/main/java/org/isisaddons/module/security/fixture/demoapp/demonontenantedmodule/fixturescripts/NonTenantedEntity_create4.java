@@ -2,6 +2,12 @@ package org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fix
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.dom.NonTenantedEntities;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fixturescripts.sub.NonTenantedEntity_createBar;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fixturescripts.sub.NonTenantedEntity_createBaz;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fixturescripts.sub.NonTenantedEntity_createBip;
+import org.isisaddons.module.security.fixture.demoapp.demonontenantedmodule.fixturescripts.sub.NonTenantedEntity_createBop;
+
 public class NonTenantedEntity_create4 extends FixtureScript {
 
     @Override

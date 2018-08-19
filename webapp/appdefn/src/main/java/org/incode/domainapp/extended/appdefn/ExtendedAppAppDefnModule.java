@@ -14,35 +14,50 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 
 import org.isisaddons.module.audit.AuditModule;
+import org.isisaddons.module.audit.fixture.AuditFixturesModule;
 import org.isisaddons.module.command.CommandModule;
+import org.isisaddons.module.command.fixture.CommandFixturesModule;
 import org.isisaddons.module.command.replay.CommandReplayModule;
 import org.isisaddons.module.docx.DocxModule;
+import org.isisaddons.module.docx.fixture.DocxFixturesModule;
 import org.isisaddons.module.excel.ExcelModule;
+import org.isisaddons.module.excel.fixture.ExcelFixturesModule;
+import org.isisaddons.module.fakedata.fixture.FakeDataFixturesModule;
 import org.isisaddons.module.freemarker.dom.FreeMarkerModule;
 import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.poly.PolyModule;
+import org.isisaddons.module.poly.fixture.PolyFixturesModule;
 import org.isisaddons.module.publishmq.dom.jdo.PublishMqSpiJdoModule;
 import org.isisaddons.module.publishmq.dom.servicespi.PublishMqSpiServicesModule;
+import org.isisaddons.module.publishmq.fixture.PublishMqFixturesModule;
+import org.isisaddons.module.quartz.dom.QuartzModule;
 import org.isisaddons.module.security.SecurityModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
+import org.isisaddons.module.security.fixture.SecurityFixturesModule;
 import org.isisaddons.module.servletapi.ServletApiModule;
+import org.isisaddons.module.servletapi.fixture.ServletApiFixturesModule;
 import org.isisaddons.module.sessionlogger.SessionLoggerModule;
 import org.isisaddons.module.stringinterpolator.StringInterpolatorModule;
+import org.isisaddons.module.stringinterpolator.fixture.lib.stringinterpolator.StringInterpolatorFixturesSubmodule;
 import org.isisaddons.module.togglz.TogglzModule;
+import org.isisaddons.module.togglz.fixture.TogglzFixturesModule;
 import org.isisaddons.module.xdocreport.dom.XDocReportModule;
 import org.isisaddons.wicket.excel.cpt.ui.ExcelUiModule;
 import org.isisaddons.wicket.fullcalendar2.cpt.ui.FullCalendar2UiModule;
 import org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule;
 import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
+import org.isisaddons.wicket.pdfjs.fixture.PdfjsFixturesModule;
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
+import org.isisaddons.wicket.wickedcharts.fixture.WickedChartsFixturesModule;
 
-import org.incode.module.settings.SettingsModule;
+import org.incode.domainapp.extended.appdefn.togglz.TogglzFeatureProviderModule;
 import org.incode.module.base.services.BaseServicesModule;
 import org.incode.module.errorrptjira.ErrorReportingJiraModule;
 import org.incode.module.errorrptslack.ErrorReportingSlackModule;
 import org.incode.module.jaxrsclient.JaxRsClientModule;
+import org.incode.module.settings.SettingsModule;
 import org.incode.module.slack.SlackModule;
 import org.incode.module.userimpersonate.UserImpersonateModule;
 import org.incode.module.zip.ZipModule;
@@ -79,9 +94,7 @@ public class ExtendedAppAppDefnModule extends ModuleAbstract {
     @Override
     public Set<Module> getDependencies() {
         final HashSet<Module> dependencies = Sets.newHashSet(
-                new FixturesModule(),
-
-                new SettingsModule(),   // expected by togglz
+                new TogglzFeatureProviderModule(),
                 new CommandModule(),    // expected by quartz config
                 new SecurityModule()    // expected by shiro config
         );
@@ -97,8 +110,10 @@ public class ExtendedAppAppDefnModule extends ModuleAbstract {
 
     private void appendExtModulesTo(Set<Module> dependencies) {
         final HashSet<ModuleAbstract> mods = Sets.newHashSet(
-                new SettingsModule(),   // expected by togglz
-                new TogglzModule()
+                new SettingsModule(),   // implementation of togglz provider
+                new QuartzModule(),
+                new TogglzModule(),
+                new TogglzFixturesModule()
         );
         dependencies.addAll(mods);
     }
@@ -106,15 +121,30 @@ public class ExtendedAppAppDefnModule extends ModuleAbstract {
     private void appendLibModulesTo(Set<Module> dependencies) {
         final HashSet<ModuleAbstract> mods = Sets.newHashSet(
                 new BaseServicesModule(),
+
                 new DocxModule(),
+                new DocxFixturesModule(),
+
                 new ExcelModule(),
+                new ExcelFixturesModule(),
+
+                new FakeDataFixturesModule(),
+
                 new FreeMarkerModule(),
                 new JaxRsClientModule(),
                 new PdfBoxModule(),
+
                 new PolyModule(),
+                new PolyFixturesModule(),
+
                 new ServletApiModule(),
+                new ServletApiFixturesModule(),
+
                 new SlackModule(),
+
                 new StringInterpolatorModule(),
+                new StringInterpolatorFixturesSubmodule(),
+
                 new XDocReportModule(),
                 new ZipModule()
         );
@@ -124,13 +154,22 @@ public class ExtendedAppAppDefnModule extends ModuleAbstract {
     private void appendSpiModulesTo(Set<Module> dependencies) {
         final HashSet<ModuleAbstract> mods = Sets.newHashSet(
                 new AuditModule(),
+                new AuditFixturesModule(),
+
                 new CommandModule(),            // expected by quartz config
+                new CommandFixturesModule(),
+
                 new CommandReplayModule(),
                 new ErrorReportingJiraModule(),
                 new ErrorReportingSlackModule(),
+
                 new PublishMqSpiServicesModule(),
                 new PublishMqSpiJdoModule(),
+                new PublishMqFixturesModule(),
+
                 new SecurityModule(),            // expected by shiro config
+                new SecurityFixturesModule(),
+
                 new SessionLoggerModule(),
                 new UserImpersonateModule()
         );
@@ -143,8 +182,12 @@ public class ExtendedAppAppDefnModule extends ModuleAbstract {
                 new FullCalendar2UiModule(),
                 new Gmap3ApplibModule(),
                 new SummernoteUiModule(),
+
                 new PdfjsCptModule(),
-                new WickedChartsUiModule()
+                new PdfjsFixturesModule(),
+
+                new WickedChartsUiModule(),
+                new WickedChartsFixturesModule()
         );
         dependencies.addAll(mods);
     }

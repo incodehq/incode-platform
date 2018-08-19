@@ -1,4 +1,4 @@
-package org.isisaddons.module.docx.fixture.scripts;
+package org.isisaddons.module.docx.fixture.fixturescripts;
 
 import java.math.BigDecimal;
 
@@ -6,6 +6,9 @@ import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.clock.ClockService;
+
+import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrder;
+import org.isisaddons.module.docx.fixture.dom.demoorder.DemoOrderMenu;
 
 public class DemoOrderAndOrderLine_create4_hardcodedData extends FixtureScript {
 
