@@ -37,15 +37,7 @@ build-package-push:
           -Drevision=$REVISION \
           $CORE_ADDITIONAL_OPTS
     - cd modules
-    - mvn -s .m2/settings.xml \
-          --batch-mode \
-          deploy  \
-          -Drevision=$REVISION  \
-          -Ddeploy-modules \
-          -Dskip.default-modules \
-          -DskipTests  \
-          -Dnexus-deploy  \
-          -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL
+    - mvn -s .m2/settings.xml --batch-mode deploy  -Drevision=$REVISION  -Ddeploy-modules -Dskip.default-modules -DskipTests  -Dnexus-deploy  -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL
     - cd ..
 
 
