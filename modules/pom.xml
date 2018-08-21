@@ -1313,10 +1313,10 @@
         </profile>
 
         <profile>
-            <id>deploy</id>
+            <id>deploy-modules</id>
             <activation>
                 <property>
-                    <name>deploy</name>
+                    <name>deploy-modules</name>
                 </property>
             </activation>
             <modules>
@@ -1364,6 +1364,14 @@
                 <module>wkt/summernote/impl</module>
                 <module>wkt/wickedcharts/impl</module>
             </modules>
+        </profile>
+        <profile>
+            <id>deploy</id>
+            <activation>
+                <property>
+                    <name>deploy</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
 

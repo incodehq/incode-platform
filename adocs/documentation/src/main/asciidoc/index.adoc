@@ -166,6 +166,9 @@ It can either be inherited from, or added as a dependency:
 == Interim Releases
 
 Interim releases of the modules are available at link:https://repo.incode.cloud[].
+
+Available interim releases can be found using link:https://repo.incode.cloud/#browse/search/maven=attributes.maven2.artifactId%3Dincode-parent[]
+
 To use interim releases, add this profile:
 
 [source,xml]

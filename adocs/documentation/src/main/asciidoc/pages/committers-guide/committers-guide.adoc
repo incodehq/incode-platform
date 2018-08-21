@@ -134,6 +134,7 @@ Then, release and tag using:
 ----
 mvn clean deploy               \
     -Ddeploy                   \
+    -Ddeploy-modules           \
     -Dskip.default-modules     \
     -Drelease=$INCODE_REL      \
     -Dskip.isis-swagger        \
