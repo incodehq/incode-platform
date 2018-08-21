@@ -142,7 +142,7 @@ xref:modules/wkt/wickedcharts/wkt-wickedcharts.adoc#[Wickedcharts]
 
 
 
-[[parent pom]]
+[[parent-pom]]
 == Parent POM
 
 The `org.incode:incode-parent` parent POM declares all of the platform modules.
@@ -162,6 +162,7 @@ It can either be inherited from, or added as a dependency:
 ----
 
 
+[[interim-releases]]
 == Interim Releases
 
 Interim releases of the modules are available at link:https://repo.incode.cloud[].
@@ -210,6 +211,6 @@ To use interim releases, add this profile:
 </profile>
 ----
 
-Alternatively, use `https://github.com/incodehq/incode-build[org.incode:incode-build]` as the parent for your projects; it already declares this Maven repository.
+Alternatively, inherit from either `org.incode:incode-parent` or from _its_ parent, `https://github.com/incodehq/incode-build[org.incode:incode-build]`; the latter declares this Maven repository.
 
 
