@@ -106,17 +106,31 @@
                     <ul class="dropdown-menu">
 
                         <li><a href="<%= (attr :_basedir) %>modules/incode-parent.html">Parent POM</a></li>
+
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Modules</li>
+                        <li><a href="<%= (attr :_basedir) %>modules/dom/dom.html">(Sub)domains</a></li>
+                        <li><a href="<%= (attr :_basedir) %>modules/ext/ext.html">Extensions</a></li>
                         <li><a href="<%= (attr :_basedir) %>modules/lib/lib.html">Libraries</a></li>
+                        <li><a href="<%= (attr :_basedir) %>modules/mml/mml.html">MetaModel Facets</a></li>
                         <li><a href="<%= (attr :_basedir) %>modules/spi/spi.html">SPI Implementations</a></li>
                         <li><a href="<%= (attr :_basedir) %>modules/wkt/wkt.html">Wicket Components</a></li>
-                        <li><a href="<%= (attr :_basedir) %>modules/mml/mml.html">MetaModel Facets</a></li>
-                        <li><a href="<%= (attr :_basedir) %>modules/ext/ext.html">Extensions</a></li>
 
                        <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Examples</li>
-                        <li><a href="<%= (attr :_basedir) %>modules/dom/dom.html">Example Subdomains</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Resources<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Build & Maven-mixins</li>
+                        <li><a href="https://github.com/incodehq/incode-build">Incode Build</a></li>
+
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Examples (to fork)</li>
+                        <li><a href="https://github.com/incodehq/incode-camel">Incode Camel</a></li>
+                        <li><a href="https://github.com/incodehq/incode-examples">Incode (Sub)domain Examples</a></li>
                     </ul>
                 </li>
 
@@ -125,9 +139,15 @@
                     <ul class="dropdown-menu">
 
                         <li class="dropdown-header">Source code</li>
+                        <li class="dropdown-header">Source code</li>
                         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li>
                         <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li>
                         <li><a href="<%= (attr :_basedir) %>pages/change-log/change-log.html">Change Log</a></li>
+
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">CI & Binaries</li>
+                        <li><a href="https://gitlab.com/incodehq-public/incode-platform">Gitlab Mirror (CI)</a></li>
+                        <li><a href="https://repo.incode.cloud">repo.incode.cloud (Nexus Repo)</a></li>
 
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Guides</li>
@@ -135,6 +155,7 @@
                         <li><a href="<%= (attr :_basedir) %>pages/committers-guide/committers-guide.html">Committers guide</a></li>
 
                         <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Other</li>
                         <li><a href="<%= (attr :_basedir) %>pages/license.html">License</a></li>
                         <li><a href="<%= (attr :_basedir) %>pages/thanks.html">Thanks</a></li>
 

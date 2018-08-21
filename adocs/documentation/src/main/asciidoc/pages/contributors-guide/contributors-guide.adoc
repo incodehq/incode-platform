@@ -12,85 +12,43 @@ This guide provides guidance to those looking to build the platform from source,
 
 [monotree]
 ----
-+ _mothballed/           # unused from previous demo apps (eg fake SOAP external system)
 + adocs/
  - documentation/     # docs and website source
- - search/            # node.js scripts to generate searchable index
+ - search/            # node.js scripts to generate search index
  - template/          # HTML template/styling for website
-+ ex/
++ archetype/
  + app/
   - quickstart/    # quickstart application
-  - extended/      # extended quickstart, with example subdomain modules
  + arch/
   - quickstart/    # quickstart archetype
-- mavenmixins/
 + modules/               # modules making up the platform
  - pom.xml            # org.incode:incode-parent
- - dom/               # example subdomains
+ - dom/               # subdomains
  - ext/               # extensions
  - lib/               # libraries
  - mml/               # metamodel facets
  - spi/               # Core framework SPI (hook) implementations
  - wkt/               # Wicket viewer components
++ platformapp/           # webapp used to test/develop the platform
 ----
 
 [[__contributors-guide_building]]
 == Building
 
-The platform must be built in the following order:
-
-* `mavenmixins/` - maven mixins, which is depended on by:
-
-* `modules/` - modules, which is depended on by:
-
-* `ex/app/quickstart/` - quickstart example app, which is used as the template for:
-
-* `ex/app/archetype/` - quickstart archetype
-
-
-[[__contributors-guide_building-the-mavenmixins]]
-=== Building the mavenmixins
-
-These must be built first, because the modules depend upon them.
+The platform is built simply from the root directory:
 
 [source,bash]
-----
-cd mavenmixins
-mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o
-----
+-----
+mvn clean install
+-----
+
+This builds the `modules`, `platformapp` and `quickstart` app.
+
+The `quickstart` archetype (reverse engineered from the `quickstart` application) is built through a separate process.
 
 
-=== Building Modules
+== Testing & Developing
 
-To build all modules, use:
+Load the `platformapp`
 
-[source,bash]
-----
-cd modules
-mvn clean install -o
-----
-
-Running in parallel requires disabling the Apache Isis Maven plugin (it is currently not thread-safe):
-
-[source,bash]
-----
-mvn clean install -o -T1C -Dskip.isis-validate -Dskip.isis-swagger
-----
-
-To build an individual module, use:
-
-[source,bash]
-----
-mvn clean install  -D dom-alias -Dskip.default -o -Dskip.isis-validate -Dskip.isis-swagger
-----
-
-=== Building Quickstart App
-
-Finally, build the example quickstart app
-
-[source,bash]
-----
-cd ex/app/quickstart
-mvn clean install -o
-----
 

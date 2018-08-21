@@ -1,0 +1,26 @@
+[[dom]]
+= Subdomains
+:_basedir: ../../
+:_imagesdir: images/
+:generate_pdf:
+:toc:
+
+Subdomain modules provide business functionality reusable in many different contexts, such as application/user settings.
+
+They are distinguished from xref:../lib/lib.adoc#[libraries] in that they define their own set of persistent entities and supporting services.
+
+
+[cols="1a,3a", options="header"]
+|===
+
+^.>| Module
+^.>| Description
+
+
+| xref:settings/dom-settings.adoc#[Settings]
+| Provides the ability to persist global (application) settings and per-user settings.
+
+
+|===
+
+

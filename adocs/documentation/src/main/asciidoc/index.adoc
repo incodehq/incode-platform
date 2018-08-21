@@ -8,9 +8,10 @@ pass:[<br/>]
 
 The Incode Platform provides a number of _modules_ for use with the link:http://isis.apache.org[Apache Isis] framework.
 These are all released as ready-to-use binaries.
-In addition, the _examples_ modules are provided as source code - which provide some supporting subdomains such as notes and documents - can be easily forked and adapted for use in your own applications.
 
 The platform also provides a _"quickstart"_ Maven archetype which can be used to quickly set up your own pre-configured applications.
+
+There are also a number of companion/supporting websites, accessible from the "Other Resources" menu, above.
 
 
 
@@ -47,15 +48,22 @@ The modules fall into six broad categories, summarised in the table below:
 [cols="^1a,^1a,^1a,^1a,^1a,^1a,^1a", options="header,footer", frame="all", grid="none"]
 |===
 
+^.^| xref:modules/dom/dom.adoc#[_(Sub)domains_]
+^.^| xref:modules/ext/ext.adoc#[_Extensions_]
 2.+^.^| xref:modules/lib/lib.adoc#[_Libraries_]
+^.^| xref:modules/wkt/mml.adoc#[_Metamodel +
+Facets_]
 ^.^| xref:modules/spi/spi.adoc#[_SPI +
 Implementations_]
 ^.^| xref:modules/wkt/wkt.adoc#[_Wicket Components_]
-^.^| xref:modules/ext/ext.adoc#[_Extensions_]
-2.+^.^| xref:modules/dom/dom.adoc#[_Example +
-Subdomains & Libraries_]
 
+| xref:modules/dom/settings/dom-settings.adoc#[Settings]
 
+| xref:modules/ext/flywaydb/ext-flywaydb.adoc#[FlywayDB]
+
+xref:modules/ext/quartz/ext-quartz.adoc#[Quartz]
+
+xref:modules/ext/togglz/ext-togglz.adoc#[Togglz]
 |
 
 xref:modules/lib/base/lib-base.adoc#[Base]
@@ -74,7 +82,6 @@ xref:modules/lib/integtestsupport/lib-integtestsupport.adoc#[IntegTesting Suppor
 
 xref:modules/lib/jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client]
 
-xref:modules/lib/slack/lib-slack.adoc#[Slack]
 
 |
 
@@ -84,6 +91,8 @@ xref:modules/lib/poly/lib-poly.adoc#[Polymorphic Associations]
 
 xref:modules/lib/servletapi/lib-servletapi.adoc#[Servlet API]
 
+xref:modules/lib/slack/lib-slack.adoc#[Slack]
+
 xref:modules/lib/stringinterpolator/lib-stringinterpolator.adoc#[StringInterpolator (OGNL)]
 
 xref:modules/lib/unittestsupport/lib-unittestsupport.adoc#[Unit Testing Support]
@@ -91,12 +100,13 @@ xref:modules/lib/unittestsupport/lib-unittestsupport.adoc#[Unit Testing Support]
 xref:modules/lib/xdocreport/lib-xdocreport.adoc#[XDocReport]
 
 xref:modules/lib/zip/lib-zip.adoc#[Zip]
+| xref:modules/mml/paraname8/mml-paraname8.adoc#[Paraname8]
 
 |
 
 xref:modules/spi/audit/spi-audit.adoc#[Audit]
 
-xref:modules/spi/command/spi-command.adoc#[Command + Replay]
+xref:modules/spi/command/spi-command.adoc#[Command Replay]
 
 xref:modules/spi/errorrptjira/spi-errorrptjira.adoc#[Error Report (JIRA)]
 
@@ -109,6 +119,7 @@ xref:modules/spi/security/spi-security.adoc#[Security]
 xref:modules/spi/sessionlogger/spi-sessionlogger.adoc#[Sessionlogger]
 
 xref:modules/spi/userimpersonate/spi-userimpersonate.adoc#[User Impersonation]
+
 
 |
 
@@ -126,52 +137,79 @@ xref:modules/wkt/wickedcharts/wkt-wickedcharts.adoc#[Wickedcharts]
 
 
 
-| xref:modules/ext/flywaydb/ext-flywaydb.adoc#[FlywayDB]
-
-xref:modules/ext/quartz/ext-quartz.adoc#[Quartz]
-
-xref:modules/ext/togglz/ext-togglz.adoc#[Togglz]
-
-
-|
-
-xref:modules/dom/alias/dom-alias.adoc#[Alias]
-
-xref:modules/dom/classification/dom-classification.adoc#[Classification]
-
-xref:modules/dom/commchannel/dom-commchannel.adoc#[Comm Channel]
-
-xref:modules/dom/communications/dom-communications.adoc#[Communications]
-
-xref:modules/dom/country/dom-country.adoc#[Country]
-
-xref:modules/dom/docfragment/dom-docfragment.adoc#[Doc Fragment]
-
-xref:modules/dom/docrendering-freemarker/lib-docrendering-freemarker.adoc#[Freemarker DocRendering]
-
-xref:modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.adoc#[StringInterpolator DocRendering]
-
-xref:modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.adoc#[XdocReport DocRendering]
-
-|
-
-xref:modules/dom/document/dom-document.adoc#[Document]
-
-xref:modules/dom/note/dom-note.adoc#[Note]
-
-xref:modules/dom/settings/dom-settings.adoc#[Settings]
-
-xref:modules/dom/tags/dom-tags.adoc#[Tags]
-
-
-
 |===
 
 
-The xref:modules/lib/lib.adoc#[_Libraries_], xref:modules/spi/spi.adoc#[_SPI Implementations_], xref:modules/wkt/wkt.adoc#[_Wicket Components_] and xref:modules/ext/ext.adoc#[_Extensions_] are intended to be used as ready-to-use binaries.
-So far as possible these modules will support semantic versioning to prevent breakages between versions.
-If you have enhancements to these, raise a pull request.
 
-In contrast, the xref:modules/dom/dom.adoc#[_Example Subdomains & Libraries_] are provided as a "starter-for-ten" for use within your own applications.
-You are welcome to raise pull requests, but you are also encouraged just to fork and adapt the code as you see fit.
-For this reason, semantic versioning is not being used for the examples; new versions could have breaking changes.
+
+[[parent pom]]
+== Parent POM
+
+The `org.incode:incode-parent` parent POM declares all of the platform modules.
+It can either be inherited from, or added as a dependency:
+
+[source,xml]
+----
+<dependencyManagement>
+    <dependencies>
+        <group>org.incode</group>
+        <artifactId>incode-parent</artifactId>
+        <version>1.6.2</version>               <!--1-->
+        <scope>import</scope>
+        <type>pom</type>
+    </dependencies>
+</dependencyManagement>
+----
+
+
+== Interim Releases
+
+Interim releases of the modules are available at link:https://repo.incode.cloud[].
+To use interim releases, add this profile:
+
+[source,xml]
+----
+<profile>
+    <id>incode-cloud-maven</id>
+    <activation>
+        <property>
+            <name>!skip.incode-cloud-maven</name>
+        </property>
+    </activation>
+    <repositories>
+        <repository>
+            <id>incode-cloud-maven</id>
+            <url>https://repo.incode.cloud/repository/maven/</url>
+            <name>Incode Cloud (maven)</name>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>incode-cloud-maven</id>
+            <name>Incode Cloud (maven)</name>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <url>https://repo.incode.cloud/repository/maven/</url>
+            <layout>default</layout>
+        </pluginRepository>
+    </pluginRepositories>
+</profile>
+----
+
+Alternatively, use `https://github.com/incodehq/incode-build[org.incode:incode-build]` as the parent for your projects; it already declares this Maven repository.
+
+

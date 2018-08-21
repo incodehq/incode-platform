@@ -8,7 +8,7 @@
 Extension modules sit "outside" the Apache Isis framework, extending the functionality of the overall webapp.
 
 
-[cols="2a,3a,1a,1a,1a", options="header"]
+[cols="1a,3a,1a,2a,1a", options="header"]
 |===
 
 ^.>| Module
@@ -43,7 +43,10 @@ Factory] (DataNucleus).
 
 
 | none; configured in `web.xml`
-| xref:../../dom/settings/dom-settings.adoc#[settings subdomain] (for feature persistence).
+| Requires an implementation of `FeatureStateRepository`.
+
+The platformapp provides an implementation using the xref:../../dom/settings/dom-settings.adoc#[settings subdomain].
+
 | link:http://www.togglz.org[Togglz]
 
 
