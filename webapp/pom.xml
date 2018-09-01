@@ -21,7 +21,7 @@
 
         <revision>1.1.0-SNAPSHOT</revision>
 
-        <isis.version>1.16.2.20180901-0724-904197ca</isis.version>
+        <isis.version>1.16.2.20180901-1118-f0b0e090</isis.version>
         <incode-platform.version>${revision}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
