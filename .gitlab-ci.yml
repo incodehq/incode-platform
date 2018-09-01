@@ -13,7 +13,7 @@ before_script:
   - export REVISION=$BASELINE.$(date +%Y%m%d)-$(date +%H%M)-$(echo $CI_COMMIT_SHA | cut -c1-8)
 
 #
-# TODO: uncomment next 2 sections if decide to configure & build incode-extended-app as a Docker image
+# TODO: uncomment next 2 sections if decide to configure & build webapp/incode-platformapp as a Docker image
 #
 
 #services:
@@ -42,7 +42,7 @@ build-package-push:
 
 
 #
-# TODO: uncomment if we decide to configure & build the incode-extended app as a Docker image
+# TODO: uncomment if we decide to configure & build webapp/incode-platformapp as a Docker image
 #
 #
 # requires the additional following gitlab secret variables
@@ -57,7 +57,7 @@ build-package-push:
 #
 #
 #
-#    - cd example/app/extended
+#    - cd webapp
 #    - >
 #      mvn --batch-mode \
 #          install \

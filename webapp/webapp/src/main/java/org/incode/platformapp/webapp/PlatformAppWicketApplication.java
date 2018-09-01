@@ -40,7 +40,7 @@ import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchThemeProvid
  * </pre>
  * 
  */
-public class DomainAppWicketApplication extends IsisWicketApplication {
+public class PlatformAppWicketApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 

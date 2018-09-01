@@ -21,9 +21,9 @@ import org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerAdvisor;
 import org.incode.platformapp.appdefn.services.homepage.HomePageViewModel;
 
 @DomainService(nature = NatureOfService.DOMAIN)
-public class PdfJsViewerAdvisorForDomainApp implements PdfJsViewerAdvisor {
+public class PdfJsViewerAdvisorForPlatformApp implements PdfJsViewerAdvisor {
 
-    public static final Logger LOG = LoggerFactory.getLogger(PdfJsViewerAdvisorForDomainApp.class);
+    public static final Logger LOG = LoggerFactory.getLogger(PdfJsViewerAdvisorForPlatformApp.class);
 
     // a more sophisticated implementation would use some sort of MRU/LRU cache.
     private final Map<InstanceKey.TypeKey, Advice.TypeAdvice> typeAdviceByTypeKey = Maps.newHashMap();

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.incode.domainapp.extended.appdefn;
+package org.incode.platformapp.appdefn;
 
 import javax.inject.Inject;
 
@@ -26,7 +26,7 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.services.jaxb.JaxbService;
 import org.apache.isis.applib.services.metamodel.MetaModelService4;
 
-public class ExtendedAppBootstrapIntegTest extends ExtendedAppIntegTestAbstract {
+public class PlatformAppBootstrapIntegTest extends PlatformAppIntegTestAbstract {
 
     @Test
     public void serializes_module() throws Exception {

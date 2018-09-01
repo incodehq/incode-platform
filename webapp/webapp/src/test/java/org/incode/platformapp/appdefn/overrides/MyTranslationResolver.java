@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.appdefn.overrides;
+package org.incode.platformapp.appdefn.overrides;
 
 import java.util.List;
 

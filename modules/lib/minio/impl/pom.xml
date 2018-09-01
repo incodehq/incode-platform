@@ -20,40 +20,6 @@
         Parent module for the various submodules that make up the minio doc archiver utility.
     </description>
 
-    <url>https://github.com/incodehq/incode-platform</url>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:git@github.com:incodehq/incode-platform.git</connection>
-        <developerConnection>scm:git:git@github.com:incodehq/incode-platform.git</developerConnection>
-        <url>git@github.com:incodehq/incode-platform.git</url>
-    </scm>
-
-    <developers>
-        <developer>
-            <id>dhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dhaywood@incode.org</email>
-        </developer>
-        <developer>
-            <id>jvanderwal</id>
-            <name>Jeroen van der Wal</name>
-            <email>jvanderwal@incode.org</email>
-        </developer>
-        <developer>
-            <id>jdoornenbal</id>
-            <name>Johan Doornenbal</name>
-            <email>jdoornenbal@incode.org</email>
-        </developer>
-    </developers>
-
     <dependencyManagement>
         <dependencies>
 
@@ -92,5 +58,47 @@
         <module>minioarchtool</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>flatten</id>
+            <activation>
+                <property>
+                    <name>revision</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <version>1.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                                <configuration>
+                                    <flattenMode>bom</flattenMode>
+                                    <updatePomFile>true</updatePomFile>
+                                    <pomElements>
+                                        <parent>resolve</parent>
+                                    </pomElements>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>flatten.clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

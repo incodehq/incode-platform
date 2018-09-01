@@ -21,7 +21,7 @@
 
         <revision>1.1.0-SNAPSHOT</revision>
 
-        <isis.version>1.16.2.20180709-1350-5d9f4f7c</isis.version>
+        <isis.version>1.16.2.20180901-0724-904197ca</isis.version>
         <incode-platform.version>${revision}</incode-platform.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
@@ -121,16 +121,11 @@
                 </property>
             </activation>
             <modules>
-                <module>module-fixtures</module>
-
                 <module>../modules/spi/audit/impl</module>
                 <module>../modules/spi/command/impl</module>
-                <module>../modules/spi/publishmq/jdo</module>
+                <module>../modules/spi/publishmq/impl/jdo</module>
                 <module>../modules/spi/security/impl</module>
                 <module>../modules/spi/sessionlogger/impl</module>
-
-                <module>integtests-ext</module>
-                <module>integtests-spi</module>
             </modules>
         </profile>
 
@@ -142,23 +137,50 @@
                 </property>
             </activation>
             <modules>
-
-<!--
-                <module>module-base</module>
-                <module>module-fixtures</module>
-
-                <module>integtests-ext</module>
-                <module>integtests-lib</module>
-                <module>integtests-spi</module>
-                <module>integtests-mml</module>
-                <module>main-slack</module>
-
--->
-
                 <module>appdefn</module>
                 <module>webapp</module>
-
             </modules>
+        </profile>
+
+        <profile>
+            <id>flatten</id>
+            <activation>
+                <property>
+                    <name>revision</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <version>1.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                                <configuration>
+                                    <flattenMode>bom</flattenMode>
+                                    <updatePomFile>true</updatePomFile>
+                                    <pomElements>
+                                        <parent>resolve</parent>
+                                    </pomElements>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>flatten.clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
     </profiles>

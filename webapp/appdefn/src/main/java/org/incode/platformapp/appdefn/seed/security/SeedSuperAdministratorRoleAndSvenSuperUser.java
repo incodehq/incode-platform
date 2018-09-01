@@ -49,7 +49,7 @@ public class SeedSuperAdministratorRoleAndSvenSuperUser extends FixtureScript {
 
     public static class DomainAppSuperAdministratorRole extends AbstractRoleAndPermissionsFixtureScript {
 
-        public static final String ROLE_NAME = "domainapp-super-admin";
+        public static final String ROLE_NAME = "super-admin";
 
         public DomainAppSuperAdministratorRole() {
             super(ROLE_NAME, "Super administrator");
@@ -60,7 +60,6 @@ public class SeedSuperAdministratorRoleAndSvenSuperUser extends FixtureScript {
             newPackagePermissions(
                     ApplicationPermissionRule.ALLOW,
                     ApplicationPermissionMode.CHANGING,
-                    "domainapp",
                     "org");
         }
 

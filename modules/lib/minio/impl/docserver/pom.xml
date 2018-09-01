@@ -18,8 +18,8 @@
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.docclient</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/lib/minio/docclient</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.docserver</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/lib/minio/docserver</git-plugin.propertiesDir>
 
         <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
     </properties>
@@ -125,6 +125,48 @@
                     <plugin>
                         <groupId>pl.project13.maven</groupId>
                         <artifactId>git-commit-id-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>flatten</id>
+            <activation>
+                <property>
+                    <name>revision</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <version>1.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                                <configuration>
+                                    <flattenMode>defaults</flattenMode>
+                                    <updatePomFile>true</updatePomFile>
+                                    <pomElements>
+                                        <name>resolve</name>
+                                        <description>resolve</description>
+                                        <dependencies>resolve</dependencies>
+                                    </pomElements>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>flatten.clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>

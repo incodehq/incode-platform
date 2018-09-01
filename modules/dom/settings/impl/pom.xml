@@ -18,47 +18,13 @@
 		extended auditing capabilities.
 	</description>
 
-    <url>https://github.com/incodehq/incode-platform</url>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:git@github.com:incodehq/incode-platform.git</connection>
-        <developerConnection>scm:git:git@github.com:incodehq/incode-platform.git</developerConnection>
-        <url>git@github.com:incodehq/incode-platform.git</url>
-    </scm>
-
-    <developers>
-        <developer>
-            <id>dhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dhaywood@incode.org</email>
-        </developer>
-        <developer>
-            <id>jvanderwal</id>
-            <name>Jeroen van der Wal</name>
-            <email>jvanderwal@incode.org</email>
-        </developer>
-        <developer>
-            <id>jdoornenbal</id>
-            <name>Johan Doornenbal</name>
-            <email>jdoornenbal@incode.org</email>
-        </developer>
-    </developers>
-
     <properties>
         <isis-maven-plugin.validate.appManifest>
             org.incode.module.settings.dom.SettingsModuleDomManifest
         </isis-maven-plugin.validate.appManifest>
 
-        <jar-plugin.automaticModuleName>org.incode.module.settings</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/example/settings</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.dom.settings</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/dom/settings</git-plugin.propertiesDir>
 
         <git-plugin.gitDir>${project.basedir}/../../../../.git</git-plugin.gitDir>
     </properties>

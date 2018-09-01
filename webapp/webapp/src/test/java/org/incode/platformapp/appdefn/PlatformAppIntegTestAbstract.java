@@ -1,4 +1,4 @@
-package org.incode.domainapp.extended.appdefn;
+package org.incode.platformapp.appdefn;
 
 import java.util.Set;
 
@@ -8,16 +8,15 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract3;
 
-import org.incode.domainapp.extended.appdefn.overrides.MyTranslationResolver;
-import org.incode.platformapp.appdefn.PlatformAppAppDefnModule;
+import org.incode.platformapp.appdefn.overrides.MyTranslationResolver;
 
-public abstract class ExtendedAppIntegTestAbstract extends IntegrationTestAbstract3 {
+public abstract class PlatformAppIntegTestAbstract extends IntegrationTestAbstract3 {
 
     public static ModuleAbstract module() {
         return new MyModule();
     }
 
-    protected ExtendedAppIntegTestAbstract() {
+    protected PlatformAppIntegTestAbstract() {
         super(module());
     }
 

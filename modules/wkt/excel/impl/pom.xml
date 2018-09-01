@@ -20,40 +20,6 @@
         downloaded as Excel spreadsheets.
     </description>
 
-    <url>https://github.com/incodehq/incode-platform</url>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:git@github.com:incodehq/incode-platform.git</connection>
-        <developerConnection>scm:git:git@github.com:incodehq/incode-platform.git</developerConnection>
-        <url>git@github.com:incodehq/incode-platform.git</url>
-    </scm>
-
-    <developers>
-        <developer>
-            <id>dhaywood</id>
-            <name>Dan Haywood</name>
-            <email>dhaywood@incode.org</email>
-        </developer>
-        <developer>
-            <id>jvanderwal</id>
-            <name>Jeroen van der Wal</name>
-            <email>jvanderwal@incode.org</email>
-        </developer>
-        <developer>
-            <id>jdoornenbal</id>
-            <name>Johan Doornenbal</name>
-            <email>jdoornenbal@incode.org</email>
-        </developer>
-    </developers>
-
     <properties>
         <jar-plugin.automaticModuleName>org.incode.platform.wkt.excel</jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir>org/incode/platform/wkt/excel</git-plugin.propertiesDir>
@@ -138,6 +104,48 @@
                     <plugin>
                         <groupId>pl.project13.maven</groupId>
                         <artifactId>git-commit-id-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>flatten</id>
+            <activation>
+                <property>
+                    <name>revision</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <version>1.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                                <configuration>
+                                    <flattenMode>defaults</flattenMode>
+                                    <updatePomFile>true</updatePomFile>
+                                    <pomElements>
+                                        <name>resolve</name>
+                                        <description>resolve</description>
+                                        <dependencies>resolve</dependencies>
+                                    </pomElements>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>flatten.clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>

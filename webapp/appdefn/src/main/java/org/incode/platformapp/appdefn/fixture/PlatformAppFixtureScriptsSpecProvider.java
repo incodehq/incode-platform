@@ -12,12 +12,12 @@ import org.apache.isis.applib.services.fixturespec.FixtureScriptsSpecificationPr
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class ExendedAppFixtureScriptsSpecProvider implements FixtureScriptsSpecificationProvider {
+public class PlatformAppFixtureScriptsSpecProvider implements FixtureScriptsSpecificationProvider {
 
     @Override
     public FixtureScriptsSpecification getSpecification() {
         return FixtureScriptsSpecification
-                .builder(ExendedAppFixtureScriptsSpecProvider.class)
+                .builder(PlatformAppFixtureScriptsSpecProvider.class)
                 .with(FixtureScripts.MultipleExecutionStrategy.EXECUTE)
                 .withRunScriptDefault(RecreateDemoFixtures.class)
                 .withRunScriptDropDown(FixtureScriptsSpecification.DropDownPolicy.CHOICES)
