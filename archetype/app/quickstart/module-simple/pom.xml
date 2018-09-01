@@ -89,6 +89,8 @@
                 </configuration>
             </plugin>
 
+            <!--
+            TODO: reinstate, seems to deadlock on bootstrap?
             <plugin>
                 <groupId>org.apache.isis.tool</groupId>
                 <artifactId>isis-maven-plugin</artifactId>
@@ -117,6 +119,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            -->
         </plugins>
     </build>
 
