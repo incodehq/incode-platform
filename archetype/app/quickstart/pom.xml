@@ -19,9 +19,9 @@
 
     <properties>
 
-        <revision>1.1.0-SNAPSHOT</revision>
+        <revision>SNAPSHOT</revision>
 
-        <isis.version>1.16.2.20180901-1118-f0b0e090</isis.version>
+        <isis.version>1.16.2.20180921-0633-408d6647</isis.version>
         <incodePlatformVersion>1.1.0-SNAPSHOT</incodePlatformVersion>
 
 

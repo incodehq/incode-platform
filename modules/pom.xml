@@ -61,12 +61,9 @@
         <jar-plugin.automaticModuleName></jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir></git-plugin.propertiesDir>
 
-        <isis.version>1.16.2.20180901-1118-f0b0e090</isis.version>
-        <!--
-        <isis.version>1.16.2</isis.version>
-        -->
+        <isis.version>1.16.2.20180921-0633-408d6647</isis.version>
 
-        <revision>1.1.0-SNAPSHOT</revision>
+        <revision>SNAPSHOT</revision>
 
 
         <activemq.version>5.11.1</activemq.version>
