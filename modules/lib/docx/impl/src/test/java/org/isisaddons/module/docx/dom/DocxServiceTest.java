@@ -11,6 +11,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -249,9 +250,10 @@ public class DocxServiceTest {
         public void setUp() throws Exception {
             super.setUp();
 
-            // :-( font mapping issues on Travis and CloudBees
+            // :-( font mapping issues when running in CI environments
             assumeThat(System.getenv("TRAVIS"), is(nullValue()));
             assumeThat(System.getenv("JENKINS_URL"), is(nullValue()));
+            assumeThat(System.getenv("GITLAB_CI"), is(nullValue()));
         }
 
         @Test
