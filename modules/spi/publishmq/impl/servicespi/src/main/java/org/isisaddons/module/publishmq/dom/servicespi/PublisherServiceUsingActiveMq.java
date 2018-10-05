@@ -29,8 +29,6 @@ import org.apache.isis.applib.services.publish.PublisherService;
 import org.apache.isis.schema.ixn.v1.InteractionDto;
 import org.apache.isis.schema.utils.InteractionDtoUtils;
 
-import org.isisaddons.module.publishmq.PublishMqModule;
-
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
@@ -39,14 +37,16 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     private static final Logger LOG = LoggerFactory.getLogger(PublisherServiceUsingActiveMq.class);
 
     //region > keys
-    private static final String ROOT = PublishMqModule.class.getPackage().getName() + ".";
+    public static final String ROOT = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".";
 
-    public static final String KEY_VM_TRANSPORT_URL = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".vmTransportUri";
+    public static final String KEY_VM_TRANSPORT_URL = ROOT + "vmTransportUri";
     public static final String KEY_VM_TRANSPORT_URL_DEFAULT = "vm://broker";
 
-    public static final String KEY_MEMBER_INTERACTIONS_QUEUE = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".memberInteractionsQueue";
+    public static final String KEY_MEMBER_INTERACTIONS_QUEUE = ROOT + "memberInteractionsQueue";
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT = "memberInteractionsQueue";
     //endregion
+    public static final String KEY_ENABLED = ROOT + "enabled";
+    public static final String KEY_ENABLED_DEFAULT = "true";
 
     //region > fields
 
@@ -58,6 +58,8 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     private String vmTransportUrl;
     String memberInteractionsQueueName;
 
+    private boolean enabled;
+
     //endregion
 
     //region > init, shutdown
@@ -65,10 +67,25 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     @PostConstruct
     public void init(Map<String,String> properties) {
 
+        enabled = properties.getOrDefault(KEY_ENABLED, KEY_ENABLED_DEFAULT).equalsIgnoreCase("true");
+
         vmTransportUrl = properties.getOrDefault(KEY_VM_TRANSPORT_URL, KEY_VM_TRANSPORT_URL_DEFAULT);
         memberInteractionsQueueName = properties.getOrDefault(KEY_MEMBER_INTERACTIONS_QUEUE,
                 KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT);
 
+        memberInteractionsQueueName = properties.getOrDefault(KEY_MEMBER_INTERACTIONS_QUEUE,
+                KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT);
+
+        if(!enabled) {
+            LOG.warn("Service NOT enabled");
+            return;
+        }
+
+        connect();
+
+    }
+
+    void connect() {
         jmsConnectionFactory = new ActiveMQConnectionFactory(vmTransportUrl);
 
         try {
@@ -86,7 +103,6 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
                 jmsConnection = null;
             }
         }
-
     }
 
     @PreDestroy
@@ -131,6 +147,11 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     @Override
     public void publish(final Interaction.Execution<?, ?> execution) {
 
+        if(!enabled) {
+            LOG.info("Service NOT enabled; interaction will not be published");
+            return;
+        }
+
         if(jmsConnection == null) {
             LOG.warn("No JMS connection; interaction will not be published");
             return;
@@ -143,7 +164,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         sendUsingJms(interactionDto);
     }
 
-    private String sendUsingJms(final InteractionDto interactionDto) {
+    private void sendUsingJms(final InteractionDto interactionDto) {
         final String xml = InteractionDtoUtils.toXml(interactionDto);
 
         Session session = null;
@@ -173,7 +194,6 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
             session.commit();
 
-            return xml;
         } catch (JMSException e) {
             rollback(session);
             throw new ApplicationException("Failed to publish message", e);

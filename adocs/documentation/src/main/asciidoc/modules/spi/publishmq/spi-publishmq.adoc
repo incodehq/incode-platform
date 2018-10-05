@@ -173,6 +173,20 @@ For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pag
 
 
 
+=== Configuration Properties
+
+In `isis.properties`:
+
+[source,ini]
+.isis.properties
+----
+isis.services.PublisherServiceUsingActiveMq.vmTransportUri=vm://broker
+isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue=memberInteractionsQueue
+isis.services.PublisherServiceUsingActiveMq.enabled=true
+----
+
+The properties shown above are the defaults.
+
 
 === Bootstrapping
 
@@ -198,7 +212,7 @@ You might also need to specify the package for any new services that you have wr
 Configure ActiveMQ so that the publishing service implementation can post to a queue called `memberInteractionsQueue`.
 
 In the xref:../../../quickstart/quickstart-with-embedded-camel.adoc#[quickstart with embedded camel] app this is done using Spring (link:webapp/src/main/resources/activemq-config.xml[activemq-config.xml]):
-+
+
 [source,xml]
 ----
 <beans
