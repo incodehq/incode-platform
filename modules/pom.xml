@@ -61,11 +61,10 @@
         <jar-plugin.automaticModuleName></jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir></git-plugin.propertiesDir>
 
-        <isis.version>1.16.2.20180921-0633-408d6647</isis.version>
+        <isis.version>1.16.2.20181005-1119-4919e6ce</isis.version>
 
         <!-- DO NOT CHANGE: versioning is specified externally in CI using -Drevision=... -->
         <revision>1.0.0-SNAPSHOT</revision>
-
 
         <activemq.version>5.11.1</activemq.version>
         <assertj-core.version>3.6.2</assertj-core.version>

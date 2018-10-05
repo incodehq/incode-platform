@@ -19,10 +19,13 @@
 
     <properties>
 
+		<!-- 
+		hmm: not sure why these two are needed, because inherited from incode-parent;  commenting out to see...
         <revision>1.0.0-SNAPSHOT</revision>
-
-        <isis.version>1.16.2.20180921-0633-408d6647</isis.version>
         <incode-platform.version>${revision}</incode-platform.version>
+		-->
+
+        <isis.version>1.16.2.20181005-1119-4919e6ce</isis.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
         <jetty.version>9.4.3.v20170317</jetty.version>

@@ -20,10 +20,9 @@
     <properties>
 
         <revision>1.0.0-SNAPSHOT</revision>
+        <incodePlatformVersion>${revision}</incodePlatformVersion>
 
-        <isis.version>1.16.2.20180921-0633-408d6647</isis.version>
-        <incodePlatformVersion>1.0.0-SNAPSHOT</incodePlatformVersion>
-
+        <isis.version>1.16.2.20181005-1119-4919e6ce</isis.version>
 
         <incode-platform.version>${incodePlatformVersion}</incode-platform.version>
 
