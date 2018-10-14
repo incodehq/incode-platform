@@ -206,7 +206,7 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IRequestListener {
 
             // Wicket 8 migration: previously this was urlFor(IResourceListener.INTERFACE, null);
             final CharSequence url = urlFor(getPage().getPageClass(), null);
-            
+
             config.withDocumentUrl(url);
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
 
