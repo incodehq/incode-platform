@@ -2,13 +2,12 @@ package org.isisaddons.wicket.pdfjs.cpt.ui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 
 import com.google.common.io.Resources;
 
 import org.apache.commons.io.Charsets;
 import org.apache.wicket.Component;
-import org.apache.wicket.IResourceListener;
+import org.apache.wicket.IRequestListener;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -47,7 +46,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
 /**
  *
  */
-class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener {
+class PdfJsViewerPanel extends ScalarPanelAbstract implements IRequestListener {
 
     private static final long serialVersionUID = 1L;
 
@@ -71,6 +70,15 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
             throw new RuntimeException(e);
         }
 
+    }
+
+    /**
+     * from migration notes (https://cwiki.apache.org/confluence/display/WICKET/Migration+to+Wicket+8.0):
+     * "If you implemented IResourceListener previously, you have to override IRequestListener#rendersPage() now to return false."
+     */
+    @Override
+    public boolean rendersPage() {
+        return false;
     }
 
     interface Updater{
@@ -160,16 +168,18 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
 
     private void updateAdvisors(final Updater updater) {
         PdfJsViewerAdvisor.InstanceKey instanceKey = buildKey();
-        List<PdfJsViewerAdvisor> advisors = getServicesInjector().lookupServices(PdfJsViewerAdvisor.class);
-        if(advisors != null) {
-            for (final PdfJsViewerAdvisor advisor : advisors) {
-                updater.update(advisor, instanceKey);
-            }
-        }
+        getServicesInjector().streamServices(PdfJsViewerAdvisor.class)
+                .forEach(advisor -> updater.update(advisor, instanceKey));
     }
 
     private PdfJsViewerAdvisor.InstanceKey buildKey() {
-        UserService userService = getServicesInjector().lookupService(UserService.class);
+        return getServicesInjector().lookupService(UserService.class)
+            .map(this::toInstanceKey)
+            .orElseThrow(() -> new IllegalStateException(
+                                    "Could not locate UserService"));
+    }
+
+    private PdfJsViewerAdvisor.InstanceKey toInstanceKey(UserService userService) {
         String userName = userService.getUser().getName();
 
         ScalarModel model = getModel();
@@ -180,6 +190,7 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
 
         return new PdfJsViewerAdvisor.InstanceKey(objectType, identifier, propertyId, userName);
     }
+
 
     @Override
     protected MarkupContainer addComponentForRegular() {
@@ -192,7 +203,11 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
             final PdfJsViewerFacet pdfJsViewerFacet = scalarModel.getFacet(PdfJsViewerFacet.class);
             final PdfJsViewerAdvisor.InstanceKey instanceKey = buildKey();
             final PdfJsConfig config = pdfJsViewerFacet != null ? pdfJsViewerFacet.configFor(instanceKey) : new PdfJsConfig();
-            config.withDocumentUrl(urlFor(IResourceListener.INTERFACE, null));
+
+            // Wicket 8 migration: previously this was urlFor(IResourceListener.INTERFACE, null);
+            final CharSequence url = urlFor(getPage().getPageClass(), null);
+            
+            config.withDocumentUrl(url);
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
 
             MarkupContainer prevPageButton = createComponent("prevPage", config);
@@ -280,8 +295,12 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         response.render(JavaScriptHeaderItem.forScript(script, "pdfJsViewerCallbacks"));
     }
 
+    /**
+     * per migration notes (https://cwiki.apache.org/confluence/display/WICKET/Migration+to+Wicket+8.0)
+     * Assume this replaces IResourceListener#onResourceRequested()
+     */
     @Override
-    public void onResourceRequested() {
+    public void onRequest() {
         Blob pdfBlob = getBlob();
         if (pdfBlob != null) {
             final byte[] bytes = pdfBlob.getBytes();
@@ -303,7 +322,7 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IResourceListener 
         Blob pdfBlob = null;
         final ObjectAdapter adapter = getModel().getObject();
         if (adapter != null) {
-            pdfBlob = (Blob) adapter.getObject();
+            pdfBlob = (Blob) adapter.getPojo();
         }
         return pdfBlob;
     }

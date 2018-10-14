@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-build</artifactId>
-        <version>2.5</version>
+        <version>7</version>
         <relativePath/>
     </parent>
 
@@ -61,15 +61,16 @@
         <jar-plugin.automaticModuleName></jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir></git-plugin.propertiesDir>
 
-        <isis.version>1.16.2.20181013-0849-db3408cf</isis.version>
+        <isis.version>2.0.0-M2.20181013-0849-e575aa4a</isis.version>
 
         <!-- DO NOT CHANGE: versioning is specified externally in CI using -Drevision=... -->
         <revision>1.0.0-SNAPSHOT</revision>
 
         <activemq.version>5.11.1</activemq.version>
         <assertj-core.version>3.6.2</assertj-core.version>
+        <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <assertj-guava.version>3.1.0</assertj-guava.version>
-        <axon-core.version>2.4.4</axon-core.version>
+        <axon-core.version>3.3.5</axon-core.version>
         <camel.version>2.15.2</camel.version>
         <commons-codec.version>1.7</commons-codec.version>
         <commons-lang3.version>3.1</commons-lang3.version>
@@ -100,14 +101,19 @@
         <spring.version>4.1.6.RELEASE</spring.version>
         <togglz.version>2.1.0.Final</togglz.version>
 
+
         <wicked-charts.version>2.0.1</wicked-charts.version>
 
         <!-- keep in sync with version used in isis -->
-        <wicket.version>7.9.0</wicket.version>
+        <wicket.version>8.1.0</wicket.version>
 
-        <wicket-bootstrap-core.version>0.10.16</wicket-bootstrap-core.version>
+        <jdo-api.version>3.1</jdo-api.version>
 
+        <wicket-bootstrap-core.version>2.0.4</wicket-bootstrap-core.version>
+
+        <!-- this should probably move to 3.0? -->
         <wicket-fullcalendar.version>2.2.0</wicket-fullcalendar.version>
+
         <wicketstuff-gmap3.version>${wicket.version}</wicketstuff-gmap3.version>
 
         <xdocreport.version>1.0.6</xdocreport.version>
@@ -160,6 +166,13 @@
                         <abbrevLength>7</abbrevLength>
                     </configuration>
 
+                </plugin>
+
+                <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
+                <!-- TODO: should move up to mavenmixin -->
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.0</version>
                 </plugin>
 
             </plugins>
@@ -847,6 +860,34 @@
                 <version>${activemq.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-core</artifactId>
+                <version>${axon-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.jupiter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.jdo</groupId>
+                <artifactId>jdo-api</artifactId>
+                <version>${jdo-api.version}</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj-core.version}</version>
@@ -1178,95 +1219,95 @@
                 </property>
             </activation>
             <modules>
-                <module>dom/settings/impl</module>
-                <module>dom/settings/integtests</module>
+                <!--<module>dom/settings/impl</module>-->
+                <!--<module>dom/settings/integtests</module>-->
 
-                <module>ext/flywaydb/fixture</module>
-                <module>ext/flywaydb/impl</module>
-                <module>ext/flywaydb/integtests</module>
+                <!--<module>ext/flywaydb/fixture</module>-->
+                <!--<module>ext/flywaydb/impl</module>-->
+                <!--<module>ext/flywaydb/integtests</module>-->
 
-                <module>ext/quartz/impl</module>
+                <!--<module>ext/quartz/impl</module>-->
 
-                <module>ext/togglz/fixture</module>
-                <module>ext/togglz/impl</module>
-                <module>ext/togglz/integtests</module>
+                <!--<module>ext/togglz/fixture</module>-->
+                <!--<module>ext/togglz/impl</module>-->
+                <!--<module>ext/togglz/integtests</module>-->
 
                 <module>lib/base/impl</module>
 
-                <module>lib/docx/fixture</module>
-                <module>lib/docx/impl</module>
-                <module>lib/docx/integtests</module>
+                <!--<module>lib/docx/fixture</module>-->
+                <!--<module>lib/docx/impl</module>-->
+                <!--<module>lib/docx/integtests</module>-->
 
-                <module>lib/excel/fixture</module>
-                <module>lib/excel/impl</module>
-                <module>lib/excel/integtests</module>
+                <!--<module>lib/excel/fixture</module>-->
+                <!--<module>lib/excel/impl</module>-->
+                <!--<module>lib/excel/integtests</module>-->
 
-                <module>lib/fakedata/fixture</module>
                 <module>lib/fakedata/impl</module>
-                <module>lib/fakedata/integtests</module>
+                <!--<module>lib/fakedata/fixture</module>-->
+                <!--<module>lib/fakedata/integtests</module>-->
 
-                <module>lib/fixturesupport/impl</module>
-                <module>lib/freemarker/impl</module>
-                <module>lib/integtestsupport/impl</module>
-                <module>lib/jaxrsclient/impl</module>
-                <module>lib/minio/impl</module>
-                <module>lib/pdfbox/impl</module>
+                <!--<module>lib/fixturesupport/impl</module>-->
+                <!--<module>lib/freemarker/impl</module>-->
+                <!--<module>lib/integtestsupport/impl</module>-->
+                <!--<module>lib/jaxrsclient/impl</module>-->
+                <!--<module>lib/minio/impl</module>-->
+                <!--<module>lib/pdfbox/impl</module>-->
 
-                <module>lib/poly/fixture</module>
-                <module>lib/poly/impl</module>
-                <module>lib/poly/integtests</module>
+                <!--<module>lib/poly/fixture</module>-->
+                <!--<module>lib/poly/impl</module>-->
+                <!--<module>lib/poly/integtests</module>-->
 
-                <module>lib/servletapi/fixture</module>
-                <module>lib/servletapi/impl</module>
+                <!--<module>lib/servletapi/fixture</module>-->
+                <!--<module>lib/servletapi/impl</module>-->
 
-                <module>lib/slack/impl</module>
-                <module>lib/slack/main</module>
+                <!--<module>lib/slack/impl</module>-->
+                <!--<module>lib/slack/main</module>-->
 
-                <module>lib/stringinterpolator/fixture</module>
-                <module>lib/stringinterpolator/impl</module>
-                <module>lib/stringinterpolator/integtests</module>
+                <!--<module>lib/stringinterpolator/fixture</module>-->
+                <!--<module>lib/stringinterpolator/impl</module>-->
+                <!--<module>lib/stringinterpolator/integtests</module>-->
 
-                <module>lib/unittestsupport/impl</module>
-                <module>lib/xdocreport/impl</module>
-                <module>lib/zip/impl</module>
+                <!--<module>lib/unittestsupport/impl</module>-->
+                <!--<module>lib/xdocreport/impl</module>-->
+                <!--<module>lib/zip/impl</module>-->
 
                 <module>mml/paraname8/impl</module>
 
-                <module>spi/audit/fixture</module>
-                <module>spi/audit/impl</module>
-                <module>spi/audit/integtests</module>
+                <!--<module>spi/audit/fixture</module>-->
+                <!--<module>spi/audit/impl</module>-->
+                <!--<module>spi/audit/integtests</module>-->
 
-                <module>spi/command/fixture</module>
-                <module>spi/command/impl</module>
-                <module>spi/command/integtests</module>
+                <!--<module>spi/command/fixture</module>-->
+                <!--<module>spi/command/impl</module>-->
+                <!--<module>spi/command/integtests</module>-->
 
-                <module>spi/commandreplay/impl</module>
-                <module>spi/errorrptjira/impl</module>
-                <module>spi/errorrptslack/impl</module>
+                <!--<module>spi/commandreplay/impl</module>-->
+                <!--<module>spi/errorrptjira/impl</module>-->
+                <!--<module>spi/errorrptslack/impl</module>-->
 
-                <module>spi/publishmq/fixture</module>
-                <module>spi/publishmq/impl</module>
-                <module>spi/publishmq/integtests</module>
+                <!--<module>spi/publishmq/fixture</module>-->
+                <!--<module>spi/publishmq/impl</module>-->
+                <!--<module>spi/publishmq/integtests</module>-->
 
-                <module>spi/security/fixture</module>
-                <module>spi/security/impl</module>
-                <module>spi/security/integtests</module>
+                <!--<module>spi/security/fixture</module>-->
+                <!--<module>spi/security/impl</module>-->
+                <!--<module>spi/security/integtests</module>-->
 
-                <module>spi/sessionlogger/impl</module>
-                <module>spi/sessionlogger/integtests</module>
+                <!--<module>spi/sessionlogger/impl</module>-->
+                <!--<module>spi/sessionlogger/integtests</module>-->
 
-                <module>spi/userimpersonate/impl</module>
+                <!--<module>spi/userimpersonate/impl</module>-->
 
-                <module>wkt/excel/impl</module>
-                <module>wkt/fullcalendar2/impl</module>
-                <module>wkt/gmap3/impl</module>
+                <!--<module>wkt/excel/impl</module>-->
+                <!--<module>wkt/fullcalendar2/impl</module>-->
+                <!--<module>wkt/gmap3/impl</module>-->
 
-                <module>wkt/pdfjs/fixture</module>
+                <!--<module>wkt/pdfjs/fixture</module>-->
                 <module>wkt/pdfjs/impl</module>
 
-                <module>wkt/summernote/impl</module>
-                <module>wkt/wickedcharts/fixture</module>
-                <module>wkt/wickedcharts/impl</module>
+                <!--<module>wkt/summernote/impl</module>-->
+                <!--<module>wkt/wickedcharts/fixture</module>-->
+                <!--<module>wkt/wickedcharts/impl</module>-->
             </modules>
         </profile>
 

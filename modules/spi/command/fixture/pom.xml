@@ -98,11 +98,6 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
         </dependency>
 
         <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-wrapper</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.incode.module.fixturesupport</groupId>
             <artifactId>incode-module-fixturesupport-dom</artifactId>
         </dependency>

@@ -127,11 +127,6 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-wrapper</artifactId>
-        </dependency>
-
         <!-- test -->
 	    <dependency>
             <groupId>org.apache.isis.mavendeps</groupId>

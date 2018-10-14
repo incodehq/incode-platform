@@ -1,16 +1,15 @@
 package org.isisaddons.module.fakedata.dom;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.io.ByteSource;
-import com.google.common.io.Resources;
+import java.util.stream.Collectors;
+
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.value.Blob;
+import org.apache.isis.commons.internal.resources._Resources;
 
 public class IsisBlobs extends AbstractRandomValueGenerator{
 
@@ -49,18 +48,10 @@ public class IsisBlobs extends AbstractRandomValueGenerator{
     }
 
     private static List<String> fileNamesEndingWith(final String suffix) {
-        return Lists.newArrayList(Iterables.filter(IsisBlobs.fileNames, endsWith(suffix)));
+        return IsisBlobs.fileNames.stream()
+                .filter(input -> input.endsWith(suffix))
+                .collect(Collectors.toList());
     }
-
-    private static Predicate<String> endsWith(final String suffix) {
-        return new Predicate<String>() {
-            @Override
-            public boolean apply(final String input) {
-                return input.endsWith(suffix);
-            }
-        };
-    }
-
 
     private Blob asBlob(final List<String> fileNames) {
         final int randomIdx = fake.ints().upTo(fileNames.size());
@@ -69,15 +60,25 @@ public class IsisBlobs extends AbstractRandomValueGenerator{
     }
 
     private static Blob asBlob(final String fileName) {
-        final URL resource = Resources.getResource(IsisBlobs.class, "blobs/" + fileName);
-        final ByteSource byteSource = Resources.asByteSource(resource);
-        final byte[] bytes;
+        //final URL resource = _Resources.getResourceUrl(IsisBlobs.class, "blobs/" + fileName);
+        final InputStream inputStream = _Resources.load(IsisBlobs.class, "blobs/" + fileName);
+        //final ByteSource byteSource = _Resources.asByteSource(resource);
         try {
-            bytes = byteSource.read();
+            final byte[] bytes = toByteArray(inputStream);
             return new Blob(fileName, mimeTypeFor(fileName), bytes);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static byte[] toByteArray(InputStream in) throws IOException {
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = in.read(buffer)) != -1) {
+            os.write(buffer, 0, len);
+        }
+        return os.toByteArray();
     }
 
     private static String mimeTypeFor(final String fileName) {

@@ -1,19 +1,18 @@
 package org.isisaddons.module.fakedata.dom;
 
 import java.io.IOException;
-import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
-import com.google.common.base.Charsets;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.io.CharSource;
-import com.google.common.io.Resources;
+import java.util.stream.Collectors;
+
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.value.Clob;
+import org.apache.isis.commons.internal.resources._Resources;
 
 public class IsisClobs extends AbstractRandomValueGenerator{
+
+    private static final Charset CHARSET_ASCII = Charset.forName("US-ASCII");
 
     public IsisClobs(final FakeDataService fakeDataService) {
         super(fakeDataService);
@@ -79,17 +78,11 @@ public class IsisClobs extends AbstractRandomValueGenerator{
     }
 
     private static List<String> fileNamesEndingWith(final String suffix) {
-        return Lists.newArrayList(Iterables.filter(IsisClobs.fileNames, endsWith(suffix)));
+        return IsisClobs.fileNames.stream()
+                .filter(input -> input.endsWith(suffix))
+                .collect(Collectors.toList());
     }
 
-    private static Predicate<String> endsWith(final String suffix) {
-        return new Predicate<String>() {
-            @Override
-            public boolean apply(final String input) {
-                return input.endsWith(suffix);
-            }
-        };
-    }
 
     private Clob asClob(final List<String> fileNames) {
         final int randomIdx = fake.ints().upTo(fileNames.size());
@@ -98,11 +91,9 @@ public class IsisClobs extends AbstractRandomValueGenerator{
     }
 
     private static Clob asClob(final String fileName) {
-        final URL resource = Resources.getResource(IsisBlobs.class, "clobs/" + fileName);
-        final CharSource charSource = Resources.asCharSource(resource, Charsets.US_ASCII);
-        final String chars;
         try {
-            chars = charSource.read();
+            final String chars =
+                    _Resources.loadAsString(IsisBlobs.class, "clobs/" + fileName, CHARSET_ASCII);
             return new Clob(fileName, mimeTypeFor(fileName), chars);
         } catch (IOException e) {
             throw new RuntimeException(e);

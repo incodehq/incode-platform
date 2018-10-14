@@ -43,7 +43,7 @@ public class PdfViewerPanelComponentFactory extends ComponentFactoryAbstract {
         if (objectAdapter == null) {
             return false;
         }
-        final Object modelObject = objectAdapter.getObject();
+        final Object modelObject = objectAdapter.getPojo();
         if (!(modelObject instanceof Blob)) {
             return false;
         }

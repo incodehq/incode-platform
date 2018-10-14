@@ -1,41 +1,44 @@
 package org.incode.module.base.dom.utils;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
+import java.util.Arrays;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public final class StringUtils {
 
     private StringUtils() {
     }
 
-    private static Function<String, String> LOWER_CASE_THEN_CAPITALIZE = new Function<String, String>() {
-        @Override
-        public String apply(final String input) {
-            return input != null? StringUtils.capitalize(input.toLowerCase()): null;
-        }
-    };
+    private static Function<String, String> LOWER_CASE_THEN_CAPITALIZE =
+            input -> input != null? StringUtils.capitalize(input.toLowerCase()): null;
 
-    private static Function<String, String> UPPER_CASE = new Function<String, String>() {
-        @Override
-        public String apply(final String input) {
-            return input != null? input.toUpperCase(): null;
-        }
-    };
+    private static Function<String, String> UPPER_CASE =
+            input -> input != null? input.toUpperCase(): null;
 
     public static String enumTitle(final String string) {
         if(string == null) {
             return null;
         }
-        return Joiner.on(" ").join(Iterables.transform(Splitter.on("_").split(string), LOWER_CASE_THEN_CAPITALIZE));
+        return splitAndJoin(string, "_", LOWER_CASE_THEN_CAPITALIZE, " ");
     }
 
     public static String enumDeTitle(final String string) {
         if(string == null) {
             return null;
         }
-        return Joiner.on("_").join(Iterables.transform(Splitter.on(" ").split(string), UPPER_CASE));
+        return splitAndJoin(string, " ", UPPER_CASE, "_");
+    }
+
+    static String splitAndJoin(
+            final String string,
+            final String splitOn,
+            final Function<String, String> mapWith,
+            final String joinOn) {
+        return String.join(joinOn,
+                Arrays.stream(string.split(splitOn))
+                        .map(mapWith)
+                        .collect(Collectors.toList())
+        );
     }
 
     public static String wildcardToCaseInsensitiveRegex(final String pattern) {

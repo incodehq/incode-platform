@@ -8,11 +8,11 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 import org.apache.commons.lang.math.RandomUtils;
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN
@@ -290,12 +290,11 @@ public class FakeDataService {
 
     // //////////////////////////////////////
 
-    // //////////////////////////////////////
 
     @Inject
     ClockService clockService;
 
     @Inject
-    DomainObjectContainer container;
+    RepositoryService repositoryService;
 
 }

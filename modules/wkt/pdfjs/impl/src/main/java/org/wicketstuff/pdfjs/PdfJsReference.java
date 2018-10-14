@@ -1,13 +1,13 @@
 package org.wicketstuff.pdfjs;
 
+import java.util.List;
+
 import org.apache.wicket.Application;
-import org.apache.wicket.ajax.WicketEventJQueryResourceReference;
+import org.apache.wicket.ajax.WicketAjaxJQueryResourceReference;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
-
-import java.util.List;
 
 public class PdfJsReference extends JQueryPluginResourceReference {
 
@@ -22,9 +22,10 @@ public class PdfJsReference extends JQueryPluginResourceReference {
         final List<HeaderItem> dependencies = super.getDependencies();
         ResourceReference wicketEventReference;
         if (Application.exists()) {
-            wicketEventReference = Application.get().getJavaScriptLibrarySettings().getWicketEventReference();
+            wicketEventReference = Application.get()
+                    .getJavaScriptLibrarySettings().getJQueryReference();
         } else {
-            wicketEventReference = WicketEventJQueryResourceReference.get();
+            wicketEventReference = WicketAjaxJQueryResourceReference.get();
         }
         dependencies.add(JavaScriptHeaderItem.forReference(wicketEventReference));
         return dependencies;

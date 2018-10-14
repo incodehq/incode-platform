@@ -1,18 +1,19 @@
 package org.incode.module.base.dom.with;
 
+import java.util.Objects;
 import java.util.SortedSet;
-
-import com.google.common.base.Objects;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Sets;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.commons.internal.collections._Sets;
 
 import org.incode.module.base.dom.Chained;
 
@@ -30,9 +31,8 @@ public interface WithIntervalContiguous<T extends WithIntervalContiguous<T>>
      * <p>
      * Implementations where successive intervals are NOT contiguous should instead implement {@link Chained}.
      */
-    @Hidden(where=Where.ALL_TABLES)
-    @Disabled
-    @Optional
+    @Property(editing = Editing.DISABLED, optionality = Optionality.OPTIONAL)
+    @PropertyLayout(hidden = Where.ALL_TABLES)
     public T getPredecessor();
 
     /**
@@ -45,9 +45,8 @@ public interface WithIntervalContiguous<T extends WithIntervalContiguous<T>>
      * <p>
      * Implementations where successive intervals are NOT contiguous should instead implement {@link Chained}.
      */
-    @Hidden(where=Where.ALL_TABLES)
-    @Disabled
-    @Optional
+    @Property(editing = Editing.DISABLED, optionality = Optionality.OPTIONAL)
+    @PropertyLayout(hidden = Where.ALL_TABLES)
     public T getSuccessor();
     
     
@@ -60,7 +59,7 @@ public interface WithIntervalContiguous<T extends WithIntervalContiguous<T>>
      * This will typically (always) be a derived collection obtained
      * by filtering a collection of the "parent".
      */
-    @Disabled
+    @Property(editing = Editing.DISABLED)
     public SortedSet<T> getTimeline();
     
 
@@ -165,47 +164,34 @@ public interface WithIntervalContiguous<T extends WithIntervalContiguous<T>>
         // //////////////////////////////////////
 
         @Programmatic
-        public T getPredecessor(final SortedSet<T> siblings, final Predicate<? super T> filter) {
+        public T getPredecessor(final SortedSet<T> siblings, final Predicate<T> filter) {
             return WithInterval.Util.firstElseNull(
                     siblings,
-                    com.google.common.base.Predicates.<T>and(
-                            filter,
-                            endDatePreceding(withInterval.getStartDate())));
+                    filter.and(endDatePreceding(withInterval.getStartDate())))
+                    ;
         }
 
         @Programmatic
-        public T getSuccessor(final SortedSet<T> siblings, final Predicate<? super T> filter) {
+        public T getSuccessor(final SortedSet<T> siblings, final Predicate<T> filter) {
             return WithInterval.Util.firstElseNull(
                     siblings,
-                    com.google.common.base.Predicates.<T>and(
-                            filter,
-                            startDateFollowing(withInterval.getEndDate())));
+                    filter.and(startDateFollowing(withInterval.getEndDate())));
 
         }
 
         private Predicate<T> startDateFollowing(final LocalDate date) {
-            return new Predicate<T>() {
-                @Override
-                public boolean apply(final T ar) {
-                    return date != null && ar != null && Objects.equal(ar.getStartDate(), date.plusDays(1));
-                }
-            };
+            return ar -> date != null && ar != null && Objects.equals(ar.getStartDate(), date.plusDays(1));
         }
 
         private Predicate<T> endDatePreceding(final LocalDate date) {
-            return new Predicate<T>() {
-                @Override
-                public boolean apply(final T ar) {
-                    return date != null && ar != null && Objects.equal(ar.getEndDate(), date.minusDays(1));
-                }
-            };
+            return ar -> date != null && ar != null && Objects.equals(ar.getEndDate(), date.minusDays(1));
         }
 
         // //////////////////////////////////////
 
         @Programmatic
         public SortedSet<T> getTimeline(final SortedSet<T> siblings, final Predicate<? super T> filter) {
-            return Sets.newTreeSet(Sets.filter(siblings, filter));
+            return _Sets.newTreeSet(siblings.stream().filter(filter).collect(Collectors.toSet()));
         }
         
         // //////////////////////////////////////

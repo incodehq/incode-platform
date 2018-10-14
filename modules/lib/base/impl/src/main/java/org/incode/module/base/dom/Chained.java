@@ -1,8 +1,9 @@
 package org.incode.module.base.dom;
 
-import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Where;
 
 import org.incode.module.base.dom.with.WithInterval;
@@ -19,9 +20,8 @@ public interface Chained<T extends Chained<T>> {
      * Implementations where successive intervals are contiguous should instead implement 
      * {@link WithIntervalContiguous}.
      */
-    @Hidden(where=Where.ALL_TABLES)
-    @Disabled
-    @Optional
+    @Property(editing = Editing.DISABLED, optionality = Optionality.OPTIONAL)
+    @PropertyLayout(hidden = Where.ALL_TABLES)
     public T getPrevious();
 
     /**
@@ -32,9 +32,8 @@ public interface Chained<T extends Chained<T>> {
      * Implementations where successive intervals are contiguous should instead implement 
      * {@link WithIntervalContiguous}.
      */
-    @Hidden(where=Where.ALL_TABLES)
-    @Disabled
-    @Optional
+    @Property(editing = Editing.DISABLED, optionality = Optionality.OPTIONAL)
+    @PropertyLayout(hidden = Where.ALL_TABLES)
     public T getNext();
     
     

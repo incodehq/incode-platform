@@ -1,16 +1,14 @@
 package org.incode.module.base.dom.with;
 
-import java.util.Iterator;
 import java.util.SortedSet;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
+import java.util.function.Predicate;
 
 import org.joda.time.LocalDate;
 
-import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
 
 import org.incode.module.base.dom.valuetypes.LocalDateInterval;
 
@@ -20,12 +18,10 @@ public interface WithInterval<T extends WithInterval<T>> extends WithStartDate {
      * The start date of the interval.
      * 
      * <p>
-     * A value of <tt>null</tt> implies that the
-     * {@link #getWithIntervalParent() parent}'s start date should be used. If
-     * that is <tt>null</tt>, then implies 'the beginning of time'.
+     * A value of <tt>null</tt> implies that the parent's start date should be used.
+     * If that is <tt>null</tt>, then implies 'the beginning of time'.
      */
-    @Disabled
-    @Optional
+    @Property(editing = Editing.DISABLED, optionality = Optionality.OPTIONAL)
     public LocalDate getStartDate();
 
     public void setStartDate(LocalDate startDate);
@@ -34,12 +30,10 @@ public interface WithInterval<T extends WithInterval<T>> extends WithStartDate {
      * The end date of the interval.
      * 
      * <p>
-     * A value of <tt>null</tt> implies that the
-     * {@link #getWithIntervalParent() parent}'s end date should be used. If
-     * that is <tt>null</tt>, then implies 'the end of time'.
+     * A value of <tt>null</tt> implies that the parent's end date should be used.
+     * If that is <tt>null</tt>, then implies 'the end of time'.
      */
-    @Optional
-    @Disabled
+    @Property(editing = Editing.DISABLED, optionality = Optionality.OPTIONAL)
     public LocalDate getEndDate();
 
     public void setEndDate(LocalDate endDate);
@@ -113,9 +107,7 @@ public interface WithInterval<T extends WithInterval<T>> extends WithStartDate {
 
         public static <T extends WithInterval<T>> T firstElseNull(
                 final SortedSet<T> roles, final Predicate<T> predicate) {
-            final Iterable<T> filter = Iterables.filter(roles, predicate);
-            final Iterator<T> iterator = filter.iterator();
-            return iterator.hasNext() ? iterator.next() : null;
+            return roles.stream().filter(predicate).findFirst().orElse(null);
         }
     }
     
@@ -128,11 +120,7 @@ public interface WithInterval<T extends WithInterval<T>> extends WithStartDate {
          * status is the specified value.
          */
         public static <T extends WithInterval<T>> Predicate<T> whetherCurrentIs(final boolean current) {
-            return new Predicate<T>() {
-                public boolean apply(final T candidate) {
-                    return candidate != null && candidate.isCurrent() == current;
-                }
-            };
+            return candidate -> candidate != null && candidate.isCurrent() == current;
         }
 
     }

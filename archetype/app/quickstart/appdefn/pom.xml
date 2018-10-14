@@ -158,11 +158,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-wrapper</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.isisaddons.metamodel.paraname8</groupId>
             <artifactId>isis-metamodel-paraname8-dom</artifactId>
         </dependency>

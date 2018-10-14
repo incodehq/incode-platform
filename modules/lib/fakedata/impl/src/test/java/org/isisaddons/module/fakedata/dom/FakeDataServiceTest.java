@@ -9,10 +9,8 @@ import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
+import org.assertj.core.util.Lists;
+import org.assertj.core.util.Sets;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 import org.joda.time.DateTime;
@@ -22,8 +20,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.services.clock.ClockService;
+import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 import org.apache.isis.applib.value.Money;
@@ -40,7 +38,7 @@ public class FakeDataServiceTest {
     FakeDataService fakeDataService;
 
     @Mock
-    DomainObjectContainer mockContainer;
+    RepositoryService mockRepositoryService;
 
     @Mock
     ClockService mockClockService;
@@ -48,7 +46,7 @@ public class FakeDataServiceTest {
     @Before
     public void setUp() throws Exception {
         fakeDataService = new FakeDataService();
-        fakeDataService.container = mockContainer;
+        fakeDataService.repositoryService = mockRepositoryService;
         fakeDataService.clockService = mockClockService;
         fakeDataService.init();
 
@@ -289,12 +287,7 @@ public class FakeDataServiceTest {
             final Collection<Object> ints = Lists.newArrayList(Arrays.asList(new Object(), thisOne, new Object()));
 
             for (int i = 0; i < 1000; i++) {
-                final Object rand = fakeDataService.collections().anyOfExcept(ints, new Predicate<Object>() {
-                    @Override
-                    public boolean apply(final Object obj) {
-                        return obj == thisOne;
-                    }
-                });
+                final Object rand = fakeDataService.collections().anyOfExcept(ints, obj -> obj == thisOne);
                 seen.add(rand);
             }
 
@@ -327,12 +320,7 @@ public class FakeDataServiceTest {
            final Collection<Integer> ints = Lists.newArrayList(Arrays.asList(1, 2, 3, 4));
 
            for (int i = 0; i < 1000; i++) {
-               final int rand = fakeDataService.collections().anyOfExcept(ints, new Predicate<Integer>() {
-                   @Override
-                   public boolean apply(final Integer integer) {
-                       return integer == 2;
-                   }
-               });
+               final int rand = fakeDataService.collections().anyOfExcept(ints, integer -> integer == 2);
                 seen.add(rand);
            }
 
