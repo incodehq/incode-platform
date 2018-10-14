@@ -22,7 +22,7 @@
         <revision>1.0.0-SNAPSHOT</revision>
         <incodePlatformVersion>${revision}</incodePlatformVersion>
 
-        <isis.version>1.16.2.20181013-0849-db3408cf</isis.version>
+        <isis.version>2.0.0-M2.20181014-1816-6cf1fa90</isis.version>
 
         <incode-platform.version>${incodePlatformVersion}</incode-platform.version>
 

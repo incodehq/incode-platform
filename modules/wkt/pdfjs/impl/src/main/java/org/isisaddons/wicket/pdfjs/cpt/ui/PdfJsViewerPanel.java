@@ -12,6 +12,8 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.core.request.handler.ListenerRequestHandler;
+import org.apache.wicket.core.request.handler.PageAndComponentProvider;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -205,8 +207,9 @@ class PdfJsViewerPanel extends ScalarPanelAbstract implements IRequestListener {
             final PdfJsConfig config = pdfJsViewerFacet != null ? pdfJsViewerFacet.configFor(instanceKey) : new PdfJsConfig();
 
             // Wicket 8 migration: previously this was urlFor(IResourceListener.INTERFACE, null);
-            final CharSequence url = urlFor(getPage().getPageClass(), null);
-
+            final CharSequence url = urlFor(
+                    new ListenerRequestHandler(
+                            new PageAndComponentProvider(getPage(), this)));
             config.withDocumentUrl(url);
             PdfJsPanel pdfJsPanel = new PdfJsPanel(ID_SCALAR_VALUE, config);
 

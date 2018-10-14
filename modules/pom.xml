@@ -61,7 +61,7 @@
         <jar-plugin.automaticModuleName></jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir></git-plugin.propertiesDir>
 
-        <isis.version>2.0.0-M2.20181013-0849-e575aa4a</isis.version>
+        <isis.version>2.0.0-M2.20181014-1816-6cf1fa90</isis.version>
 
         <!-- DO NOT CHANGE: versioning is specified externally in CI using -Drevision=... -->
         <revision>1.0.0-SNAPSHOT</revision>
