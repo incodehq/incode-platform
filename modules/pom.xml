@@ -1328,7 +1328,7 @@
                 <module>lib/base/impl</module>
                 <!--<module>lib/docx/impl</module>-->
                 <!--<module>lib/excel/impl</module>-->
-                <!--<module>lib/fakedata/impl</module>-->
+                <module>lib/fakedata/impl</module>
                 <!--<module>lib/fixturesupport/impl</module>-->
                 <!--<module>lib/freemarker/impl</module>-->
                 <!--<module>lib/integtestsupport/impl</module>-->
