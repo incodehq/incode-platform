@@ -65,6 +65,7 @@
 
         <!-- DO NOT CHANGE: versioning is specified externally in CI using -Drevision=... -->
         <revision>1.0.0-SNAPSHOT</revision>
+        <incode-platform.version>${revision}</incode-platform.version>
 
         <activemq.version>5.11.1</activemq.version>
         <assertj-core.version>3.6.2</assertj-core.version>
@@ -218,12 +219,12 @@
             <dependency>
                 <groupId>org.isis.module.settings</groupId>
                 <artifactId>isis-module-settings-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isis.module.settings</groupId>
                 <artifactId>isis-module-settings-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -235,30 +236,30 @@
             <dependency>
                 <groupId>org.isisaddons.module.flywaydb</groupId>
                 <artifactId>isis-module-flywaydb-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.flywaydb</groupId>
                 <artifactId>isis-module-flywaydb-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.flywaydb</groupId>
                 <artifactId>isis-module-flywaydb-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.quartz</groupId>
                 <artifactId>isis-module-quartz-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.quartz</groupId>
                 <artifactId>isis-module-quartz-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -266,19 +267,19 @@
             <dependency>
                 <groupId>org.isisaddons.module.togglz</groupId>
                 <artifactId>isis-module-togglz-glue</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.togglz</groupId>
                 <artifactId>isis-module-togglz-glue</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.togglz</groupId>
                 <artifactId>isis-module-togglz-fixture</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
 
@@ -287,12 +288,12 @@
             <dependency>
                 <groupId>org.incode.module.base</groupId>
                 <artifactId>incode-module-base-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.base</groupId>
                 <artifactId>incode-module-base-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -300,66 +301,66 @@
             <dependency>
                 <groupId>org.isisaddons.module.docx</groupId>
                 <artifactId>isis-module-docx-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.docx</groupId>
                 <artifactId>isis-module-docx-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.docx</groupId>
                 <artifactId>isis-module-docx-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.excel</groupId>
                 <artifactId>isis-module-excel-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.excel</groupId>
                 <artifactId>isis-module-excel-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.excel</groupId>
                 <artifactId>isis-module-excel-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.fakedata</groupId>
                 <artifactId>isis-module-fakedata-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.fakedata</groupId>
                 <artifactId>isis-module-fakedata-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.fakedata</groupId>
                 <artifactId>isis-module-fakedata-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.freemarker</groupId>
                 <artifactId>isis-module-freemarker-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.freemarker</groupId>
                 <artifactId>isis-module-freemarker-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -367,12 +368,12 @@
             <dependency>
                 <groupId>org.incode.module.fixturesupport</groupId>
                 <artifactId>incode-module-fixturesupport-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.fixturesupport</groupId>
                 <artifactId>incode-module-fixturesupport-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -380,12 +381,12 @@
             <dependency>
                 <groupId>org.incode.module.integtestsupport</groupId>
                 <artifactId>incode-module-integtestsupport-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.integtestsupport</groupId>
                 <artifactId>incode-module-integtestsupport-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -393,12 +394,12 @@
             <dependency>
                 <groupId>org.incode.module.jaxrsclient</groupId>
                 <artifactId>incode-module-jaxrsclient-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.jaxrsclient</groupId>
                 <artifactId>incode-module-jaxrsclient-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -406,12 +407,12 @@
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-minioclient</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-minioclient</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -419,12 +420,12 @@
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-docclient</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-docclient</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -432,12 +433,12 @@
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-docserver</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-docserver</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -445,12 +446,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.pdfbox</groupId>
                 <artifactId>isis-module-pdfbox-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.pdfbox</groupId>
                 <artifactId>isis-module-pdfbox-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -458,84 +459,84 @@
             <dependency>
                 <groupId>org.isisaddons.module.poly</groupId>
                 <artifactId>isis-module-poly-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.poly</groupId>
                 <artifactId>isis-module-poly-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.poly</groupId>
                 <artifactId>isis-module-poly-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.servletapi</groupId>
                 <artifactId>isis-module-servletapi-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.servletapi</groupId>
                 <artifactId>isis-module-servletapi-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.servletapi</groupId>
                 <artifactId>isis-module-servletapi-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.incode.module.slack</groupId>
                 <artifactId>incode-module-slack-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.slack</groupId>
                 <artifactId>incode-module-slack-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.slack</groupId>
                 <artifactId>incode-module-slack-main</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.stringinterpolator</groupId>
                 <artifactId>isis-module-stringinterpolator-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.stringinterpolator</groupId>
                 <artifactId>isis-module-stringinterpolator-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.stringinterpolator</groupId>
                 <artifactId>isis-module-stringinterpolator-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.incode.module.unittestsupport</groupId>
                 <artifactId>incode-module-unittestsupport-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.unittestsupport</groupId>
                 <artifactId>incode-module-unittestsupport-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -543,12 +544,12 @@
             <dependency>
                 <groupId>org.isisaddons.module.xdocreport</groupId>
                 <artifactId>isis-module-xdocreport-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.xdocreport</groupId>
                 <artifactId>isis-module-xdocreport-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -556,12 +557,12 @@
             <dependency>
                 <groupId>org.incode.module.zip</groupId>
                 <artifactId>incode-module-zip-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.zip</groupId>
                 <artifactId>incode-module-zip-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -572,12 +573,12 @@
             <dependency>
                 <groupId>org.isisaddons.metamodel.paraname8</groupId>
                 <artifactId>isis-metamodel-paraname8-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.metamodel.paraname8</groupId>
                 <artifactId>isis-metamodel-paraname8-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -588,48 +589,48 @@
             <dependency>
                 <groupId>org.isisaddons.module.audit</groupId>
                 <artifactId>isis-module-audit-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.audit</groupId>
                 <artifactId>isis-module-audit-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.audit</groupId>
                 <artifactId>isis-module-audit-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-replay</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.command</groupId>
                 <artifactId>isis-module-command-replay</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -637,12 +638,12 @@
             <dependency>
                 <groupId>org.incode.module.errorrptjira</groupId>
                 <artifactId>incode-module-errorrptjira-impl</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.errorrptjira</groupId>
                 <artifactId>incode-module-errorrptjira-impl</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -650,12 +651,12 @@
             <dependency>
                 <groupId>org.incode.module.errorrptslack</groupId>
                 <artifactId>incode-module-errorrptslack-impl</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.errorrptslack</groupId>
                 <artifactId>incode-module-errorrptslack-impl</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -663,89 +664,89 @@
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-jdo</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-jdo</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-camel</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-camel</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.security</groupId>
                 <artifactId>isis-module-security-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.security</groupId>
                 <artifactId>isis-module-security-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.security</groupId>
                 <artifactId>isis-module-security-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.module.sessionlogger</groupId>
                 <artifactId>isis-module-sessionlogger-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.sessionlogger</groupId>
                 <artifactId>isis-module-sessionlogger-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -753,12 +754,12 @@
             <dependency>
                 <groupId>org.incode.module.userimpersonate</groupId>
                 <artifactId>incode-module-userimpersonate-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.userimpersonate</groupId>
                 <artifactId>incode-module-userimpersonate-dom</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -767,12 +768,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.excel</groupId>
                 <artifactId>isis-wicket-excel-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.excel</groupId>
                 <artifactId>isis-wicket-excel-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -780,12 +781,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
                 <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.fullcalendar2</groupId>
                 <artifactId>isis-wicket-fullcalendar2-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -793,12 +794,12 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.gmap3</groupId>
                 <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.gmap3</groupId>
                 <artifactId>isis-wicket-gmap3-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -806,30 +807,30 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.pdfjs</groupId>
                 <artifactId>isis-wicket-pdfjs-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.pdfjs</groupId>
                 <artifactId>isis-wicket-pdfjs-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.pdfjs</groupId>
                 <artifactId>isis-wicket-pdfjs-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.isisaddons.wicket.summernote</groupId>
                 <artifactId>isis-wicket-summernote-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.summernote</groupId>
                 <artifactId>isis-wicket-summernote-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -837,19 +838,19 @@
             <dependency>
                 <groupId>org.isisaddons.wicket.wickedcharts</groupId>
                 <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.wickedcharts</groupId>
                 <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.wicket.wickedcharts</groupId>
                 <artifactId>isis-wicket-wickedcharts-fixtures</artifactId>
-                <version>${project.version}</version>
+                <version>${incode-platform.version}</version>
             </dependency>
 
 
