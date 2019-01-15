@@ -1,4 +1,4 @@
-p<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,7 +14,7 @@ p<?xml version="1.0" encoding="UTF-8"?>
     <name>Incode Platform Wicket WickedCharts Component</name>
 
     <description>
-        A number of componepnts for Apache Isis' Wicket viewer, to render a standalone
+        A number of components for Apache Isis' Wicket viewer, to render a standalone
         chart or a bar chart for a collection of entities.
         Uses wickedcharts Wicket component, a wrapper around HighCharts JS.  Note that a
         HighCharts license is required for any commercial usage.
