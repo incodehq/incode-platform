@@ -10,9 +10,9 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.isis.module.settings</groupId>
-    <artifactId>isis-module-settings-integtests</artifactId>
-    <name>Incode Platform Example Settings IntegTests</name>
+    <groupId>org.incode.module.settings</groupId>
+    <artifactId>incode-module-settings-integtests</artifactId>
+    <name>Incode Platform Module Settings IntegTests</name>
 
     <build>
         <resources>
@@ -101,8 +101,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.isis.module.settings</groupId>
-            <artifactId>isis-module-settings-dom</artifactId>
+            <groupId>org.incode.module.settings</groupId>
+            <artifactId>incode-module-settings-dom</artifactId>
             <version>${revision}</version>
         </dependency>
 

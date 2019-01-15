@@ -9,9 +9,9 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.isis.module.settings</groupId>
-    <artifactId>isis-module-settings-dom</artifactId>
-	<name>Incode Platform Example Settings Impl</name>
+    <groupId>org.incode.module.settings</groupId>
+    <artifactId>incode-module-settings-dom</artifactId>
+	<name>Incode Platform Module Settings Impl</name>
 
 	<description>
 		A module providing settings persistence, enabling profiling, background execution and
