@@ -281,6 +281,12 @@
                         <groupId>ognl</groupId>
                         <artifactId>ognl</artifactId>
                         <version>${ognl.version}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.javassist</groupId>
+                                <artifactId>javassist</artifactId>
+                            </exclusion>
+                        </exclusions>
                     </dependency>
 
                 </dependencies>
