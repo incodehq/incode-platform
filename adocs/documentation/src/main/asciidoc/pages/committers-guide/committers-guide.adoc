@@ -136,7 +136,7 @@ mvn clean deploy               \
     -Ddeploy                   \
     -Ddeploy-modules           \
     -Dskip.default-modules     \
-    -Drelease=$INCODE_REL      \
+    -Drevision=$INCODE_REL      \
     -Dskip.isis-swagger        \
     -Dskip.isis-validate       \
     -Dpgp.secretkey=keyring:id=$INCODE_KEYID \
