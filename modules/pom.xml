@@ -70,7 +70,7 @@
         <assertj-core.version>3.6.2</assertj-core.version>
         <assertj-guava.version>3.1.0</assertj-guava.version>
         <axon-core.version>2.4.4</axon-core.version>
-        <camel.version>2.15.2</camel.version>
+        <camel.version>2.17.6</camel.version>
         <commons-codec.version>1.7</commons-codec.version>
         <commons-lang3.version>3.1</commons-lang3.version>
         <commons-logging.version>1.1.1</commons-logging.version>
