@@ -66,7 +66,7 @@
         <!-- DO NOT CHANGE: versioning is specified externally in CI using -Drevision=... -->
         <revision>1.0.0-SNAPSHOT</revision>
 
-        <activemq.version>5.11.1</activemq.version>
+        <activemq.version>5.14.3</activemq.version>
         <assertj-core.version>3.6.2</assertj-core.version>
         <assertj-guava.version>3.1.0</assertj-guava.version>
         <axon-core.version>2.4.4</axon-core.version>
