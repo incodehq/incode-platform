@@ -85,7 +85,6 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-settings[Maven Central Repo].
 
-For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
 
 
 === Bootstrapping

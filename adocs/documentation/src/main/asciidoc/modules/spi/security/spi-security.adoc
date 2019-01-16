@@ -471,7 +471,7 @@ If using the `PasswordEncryptionServiceUsingJBcrypt` service (discussed below), 
 
 Check for later releases by searching [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-security-dom).
 
-For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
+
 
 
 [[__spi-security_shiro-configuration]]

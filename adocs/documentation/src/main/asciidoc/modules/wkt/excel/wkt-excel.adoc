@@ -55,7 +55,7 @@ You should then find that a new view is provided for all collections of entities
 Check for later releases by searching link:http://search.maven.org/#search|ga|1|isis-wicket-excel-cpt[Maven Central Repo].
 
 
-For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
+
 
 
 

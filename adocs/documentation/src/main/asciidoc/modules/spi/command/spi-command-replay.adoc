@@ -263,7 +263,7 @@ Update your classpath by adding this dependency in your webapp project's `pom.xm
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-command-replay[Maven Central Repo].
 
-For instructions on how to use the latest `-SNAPSHOT`, see the xref:../../../pages/contributors-guide/contributors-guide.adoc#[contributors guide].
+
 
 
 
