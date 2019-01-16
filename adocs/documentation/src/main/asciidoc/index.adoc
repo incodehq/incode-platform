@@ -83,7 +83,9 @@ xref:modules/lib/integtestsupport/lib-integtestsupport.adoc#[IntegTesting Suppor
 xref:modules/lib/jaxrsclient/lib-jaxrsclient.adoc#[JAX-RS Client]
 
 
+
 |
+xref:modules/lib/minio/lib-minio.adoc#[Minio]
 
 xref:modules/lib/pdfbox/lib-pdfbox.adoc#[PDFBox]
 
