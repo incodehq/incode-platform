@@ -8,13 +8,13 @@
         <artifactId>incode-module-minio-dom</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>incode-module-minio-minioclient</artifactId>
+    <artifactId>incode-module-minio-common</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Minio Archiver - Minio Client</name>
+    <name>Incode Platform Lib Minio Archiver - Common</name>
     <description>
-        Facade for Minio itself
+        Common library
     </description>
 
     <properties>
@@ -91,13 +91,13 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.module.minio</groupId>
-            <artifactId>incode-module-minio-common</artifactId>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <!-- test -->

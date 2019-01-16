@@ -405,12 +405,12 @@
 
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
-                <artifactId>incode-module-minio-docclient</artifactId>
+                <artifactId>incode-module-minio-dopclient</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
-                <artifactId>incode-module-minio-docclient</artifactId>
+                <artifactId>incode-module-minio-dopclient</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
@@ -418,12 +418,12 @@
 
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
-                <artifactId>incode-module-minio-docserver</artifactId>
+                <artifactId>incode-module-minio-dopserver</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
-                <artifactId>incode-module-minio-docserver</artifactId>
+                <artifactId>incode-module-minio-dopserver</artifactId>
                 <version>${revision}</version>
                 <type>test-jar</type>
                 <scope>test</scope>

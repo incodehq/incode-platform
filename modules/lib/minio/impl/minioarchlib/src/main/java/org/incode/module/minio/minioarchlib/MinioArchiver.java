@@ -6,9 +6,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.incode.module.minio.docclient.DocBlob;
-import org.incode.module.minio.docclient.DocBlobClient;
-import org.incode.module.minio.minioclient.MinioBlobClient;
+import org.incode.module.minio.common.DomainObjectPropertyValue;
+import org.incode.module.minio.dopclient.DomainObjectPropertyClient;
+import org.incode.module.minio.minioclient.MinioUploadClient;
 
 import lombok.Setter;
 
@@ -17,40 +17,36 @@ public class MinioArchiver  {
     private static final Logger LOG = LoggerFactory.getLogger(MinioArchiver.class);
 
     @Setter
-    private MinioBlobClient minioBlobClient;
+    private MinioUploadClient minioUploadClient;
 
     @Setter
-    private DocBlobClient docBlobClient;
+    private DomainObjectPropertyClient domainObjectPropertyClient;
 
     /**
-     * Will archive as many as the DocBlobServer provides.
+     * Will archive as many as the DomainObjectPropertyServer provides.
      *
      * <p>
-     *     The DocBlobServer may limit the number, to avoid large memory requirements.
+     *     The DomainObjectPropertyServer may limit the number, to avoid large memory requirements.
      * </p>
      */
     public int archive(final String caller) {
 
-        final List<DocBlob> docBlobs = docBlobClient.findToArchive(caller);
-        if(docBlobs == null) {
+        final List<DomainObjectPropertyValue> values = domainObjectPropertyClient.findToArchive(caller);
+        if(values == null) {
             // not yet available...
             return 0;
         }
 
-        final int numDocs = docBlobs.size();
+        final int numDocs = values.size();
         LOG.info("{} documents found to archive", numDocs);
 
         int i=0;
-        for (final DocBlob docBlob : docBlobs) {
+        for (final DomainObjectPropertyValue dopv : values) {
 
-            LOG.info("{} of {}: {}: {}", (++i), numDocs, docBlob.getDocBookmark(), docBlob.getBlobFileName());
+            LOG.info("{} of {}: {}#{}: {}", (++i), numDocs, dopv.getSourceBookmark(), dopv.getSourceProperty(), dopv.getFileName());
 
-            final String docBookmark = docBlob.getDocBookmark();
-            final URL url =
-                    minioBlobClient.upload(
-                            docBookmark, docBlob.getBlobContentType(), docBlob.getBlobByteArray(),
-                            docBlob.getBlobFileName());
-            docBlobClient.archive(docBlob, url.toExternalForm());
+            final URL url = minioUploadClient.upload(dopv);
+            domainObjectPropertyClient.archive(dopv, url.toExternalForm());
         }
         return numDocs;
     }

@@ -8,18 +8,18 @@
         <artifactId>incode-module-minio-dom</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>incode-module-minio-minioclient</artifactId>
+    <artifactId>incode-module-minio-dopclient</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Minio Archiver - Minio Client</name>
+    <name>Incode Platform Lib Minio Archiver - Doc Client</name>
     <description>
-        Facade for Minio itself
+        Facade for accessing Document Server (the Apache Isis application)
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.minioclient</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/lib/minio/minioclient</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.docclient</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/lib/minio/docclient</git-plugin.propertiesDir>
 
         <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
     </properties>
@@ -37,18 +37,6 @@
                 </excludes>
             </resource>
         </resources>
-        <testResources>
-            <testResource>
-                <filtering>false</filtering>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -96,11 +84,23 @@
         </dependency>
 
         <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <!-- test -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-client</artifactId>
+            <version>3.1.5</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>

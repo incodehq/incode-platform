@@ -109,7 +109,7 @@ Copyright 2014~2015 Dan Haywood
 
         <dependency>
             <groupId>org.incode.module.minio</groupId>
-            <artifactId>incode-module-minio-docclient</artifactId>
+            <artifactId>incode-module-minio-dopclient</artifactId>
         </dependency>
 
 		<dependency>
