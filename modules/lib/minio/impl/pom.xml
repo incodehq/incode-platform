@@ -51,7 +51,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>blobclient</module>
+        <module>minioclient</module>
         <module>docclient</module>
         <module>docserver</module>
         <module>minioarchlib</module>
