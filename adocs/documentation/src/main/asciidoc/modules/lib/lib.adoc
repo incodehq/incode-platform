@@ -51,6 +51,11 @@ The random values generated can then be used within unit and integration tests.
 | link:http://cxf.apache.org/docs/jax-rs-client-api.html[Apache CXF]
 
 
+| xref:minio/lib-minio.adoc#[Minio Library]
+| Provides a library and supporting SPIs to archive BLOBs from Documents into a Minio service
+| link:https://www.minio.io/[Minio]
+
+
 | xref:pdfbox/lib-pdfbox.adoc#[PDFBox Library]
 | Provides a wrapper around _Apache PDFBox_.
 | link:https://pdfbox.apache.org[Apache PDFBox]
