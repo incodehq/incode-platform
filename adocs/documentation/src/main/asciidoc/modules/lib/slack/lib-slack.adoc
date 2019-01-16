@@ -50,7 +50,6 @@ Update your classpath by adding this dependency in your `dom` project's `pom.xml
 <dependency>
     <groupId>org.incode.module.slack</groupId>
     <artifactId>incode-module-slack-dom</artifactId>
-    <version>1.16.1</version>
 </dependency>
 ----
 

@@ -86,7 +86,6 @@ Update your classpath by adding this dependency in your `dom` project's `pom.xml
 <dependency>
     <groupId>org.incode.module.errorrptslack</groupId>
     <artifactId>incode-module-errorrptslack-impl</artifactId>
-    <version>1.16.1</version>
 </dependency>
 ----
 

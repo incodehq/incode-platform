@@ -258,7 +258,6 @@ Update your classpath by adding this dependency in your webapp project's `pom.xm
 <dependency>
     <groupId>org.isisaddons.module.command</groupId>
     <artifactId>isis-module-command-replay</artifactId>
-    <version>1.16.1</version>
 </dependency>
 ----
 

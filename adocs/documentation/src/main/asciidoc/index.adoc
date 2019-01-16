@@ -154,7 +154,7 @@ It can either be inherited from, or added as a dependency:
     <dependencies>
         <group>org.incode</group>
         <artifactId>incode-parent</artifactId>
-        <version>1.6.2</version>
+        <version>1.17.0</version>
         <scope>import</scope>
         <type>pom</type>
     </dependencies>

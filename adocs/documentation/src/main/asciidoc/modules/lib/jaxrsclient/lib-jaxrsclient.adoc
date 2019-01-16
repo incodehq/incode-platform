@@ -20,7 +20,6 @@ Update your classpath by adding this dependency in your dom project's `pom.xml`:
 <dependency>
     <groupId>org.incode.module.jaxrsclient</groupId>
     <artifactId>incode-module-jaxrsclient-dom</artifactId>
-    <version>1.16.1</version>
 </dependency>
 ----
 
