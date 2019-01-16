@@ -12,14 +12,14 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Minio Archiver - Doc Server</name>
+    <name>Incode Platform Lib Minio Archiver - Dop Server</name>
     <description>
-        Deployed within the Document Server (the Apache Isis application), provides REST API.
+        Deployed within the Domain Object Property Server (the Apache Isis application), provides REST API.
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.docserver</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/lib/minio/docserver</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.dopserver</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/lib/minio/dopserver</git-plugin.propertiesDir>
 
         <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
     </properties>

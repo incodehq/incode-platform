@@ -12,14 +12,14 @@
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Minio Archiver - Doc Client</name>
+    <name>Incode Platform Lib Minio Archiver - Dop Client</name>
     <description>
-        Facade for accessing Document Server (the Apache Isis application)
+        Facade for accessing Domain Object Property Server (the Apache Isis application)
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.docclient</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/lib/minio/docclient</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.dopclient</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/lib/minio/dopclient</git-plugin.propertiesDir>
 
         <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
     </properties>

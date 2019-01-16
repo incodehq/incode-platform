@@ -18,8 +18,8 @@
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.minioclient</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/lib/minio/minioclient</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.common</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/lib/minio/common</git-plugin.propertiesDir>
 
         <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
     </properties>
