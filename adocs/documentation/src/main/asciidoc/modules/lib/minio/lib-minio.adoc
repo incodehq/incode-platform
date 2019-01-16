@@ -342,7 +342,8 @@ Check for later releases by searching http://search.maven.org/#search|ga|1|incod
 
 === Bootstrapping
 
-
+The SPI service implementation must be included in the application bootstrapping.
+Typically this is done by defining an owning `Module` and then including that module in the application's `AppManifest`.
 
 
 == Known issues / Limitations
