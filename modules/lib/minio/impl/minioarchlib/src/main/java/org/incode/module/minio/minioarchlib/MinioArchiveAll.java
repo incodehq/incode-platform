@@ -12,9 +12,9 @@ import org.incode.module.minio.minioclient.MinioUploadClient;
 
 import lombok.Setter;
 
-public class MinioArchiver  {
+public class MinioArchiveAll {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MinioArchiver.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MinioArchiveAll.class);
 
     @Setter
     private MinioUploadClient minioUploadClient;
@@ -46,7 +46,7 @@ public class MinioArchiver  {
             LOG.info("{} of {}: {}#{}: {}", (++i), numDocs, dopv.getSourceBookmark(), dopv.getSourceProperty(), dopv.getFileName());
 
             final URL url = minioUploadClient.upload(dopv);
-            domainObjectPropertyClient.archive(dopv, url.toExternalForm());
+            domainObjectPropertyClient.archived(dopv, url.toExternalForm());
         }
         return numDocs;
     }

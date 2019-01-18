@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArchiveArgs {
+public class ArchivedArgs {
 
     private static final ObjectWriter writer;
     static {
@@ -23,6 +23,8 @@ public class ArchiveArgs {
     StringValue sourceBookmark;
     @Getter @Setter
     StringValue sourceProperty;
+    @Getter @Setter
+    TypeValue type;
     @Getter @Setter
     StringValue externalUrl;
 
@@ -36,9 +38,10 @@ public class ArchiveArgs {
 
     @Override
     public String toString() {
-        return "ArchiveArgs{" +
+        return "ArchivedArgs{" +
                 "sourceBookmark=" + sourceBookmark +
                 "sourceProperty=" + sourceProperty +
+                "type=" + type +
                 ", externalUrl=" + externalUrl +
                 '}';
     }

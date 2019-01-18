@@ -1,7 +1,6 @@
 package org.incode.module.minio.dopclient;
 
 import org.incode.module.minio.common.DomainObjectPropertyValue;
-import org.incode.module.minio.dopclient.DomainObjectPropertyClient;
 
 public class DomainObjectPropertyClient_archive_Main {
 
@@ -16,7 +15,7 @@ public class DomainObjectPropertyClient_archive_Main {
         domainObjectPropertyValue.setSourceBookmark("incodedocuments.Document:27");
         domainObjectPropertyValue.setSourceProperty("blob");
         domainObjectPropertyClient
-                .archive(domainObjectPropertyValue, "http://minio.int.prd.ecpnv.com/estatio-test/db/incodeDocument.Document/5");
+                .archived(domainObjectPropertyValue, "http://minio.int.prd.ecpnv.com/estatio-test/db/incodeDocument.Document/5");
     }
 
 }

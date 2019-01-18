@@ -21,20 +21,32 @@ public class DomainObjectPropertyService {
 
     @Action(semantics = SemanticsOf.SAFE)
     public List<DomainObjectPropertyValueViewModel> findToArchive(String caller) {
-        return domainObjectPropertyServiceBridge.findToArchive(caller)
+        return domainObjectPropertyServiceBridge.findToArchive()
                 .stream()
                 .map(DomainObjectPropertyValueViewModel::new)
                 .collect(Collectors.toList());
     }
 
+    @Action(semantics = SemanticsOf.SAFE)
+    public DomainObjectPropertyValueViewModel readSingle(
+            final String caller,
+            final String sourceBookmark,
+            final String sourceProperty) {
+        return domainObjectPropertyServiceBridge
+                .inspect(sourceBookmark, sourceProperty)
+                .map(DomainObjectPropertyValueViewModel::new)
+                .orElse(null);
+
+    }
+
     @Action(semantics = SemanticsOf.IDEMPOTENT)
-    public void archive(
+    public void archived(
             final String sourceBookmark,
             final String sourceProperty,
             final DomainObjectProperty.Type type,
             final String externalUrl) {
         final DomainObjectProperty dop = new DomainObjectProperty(sourceBookmark, sourceProperty, type);
-        domainObjectPropertyServiceBridge.archive(dop, externalUrl);
+        domainObjectPropertyServiceBridge.archived(dop, externalUrl);
     }
 
     @Inject

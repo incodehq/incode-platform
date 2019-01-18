@@ -7,7 +7,7 @@ import com.google.common.io.Resources;
 import org.apache.log4j.PropertyConfigurator;
 
 import org.incode.module.minio.dopclient.DomainObjectPropertyClient;
-import org.incode.module.minio.minioarchlib.MinioArchiver;
+import org.incode.module.minio.minioarchlib.MinioArchiveAll;
 import org.incode.module.minio.minioclient.MinioUploadClient;
 
 import static java.util.Arrays.asList;
@@ -27,7 +27,7 @@ public class Main {
         main.archiveAll();
     }
 
-    private final MinioArchiver minioArchiver;
+    private final MinioArchiveAll minioArchiveAll;
 
     public Main(String[] args) {
 
@@ -82,12 +82,12 @@ public class Main {
         minioUploadClient.setAccessKey(optionSet.valueOf(a));
         minioUploadClient.setSecretKey(optionSet.valueOf(s));
         minioUploadClient.setBucket(optionSet.valueOf(k));
-        minioUploadClient.setPrefix(optionSet.valueOf(r));
+        minioUploadClient.setInstance(optionSet.valueOf(r));
         minioUploadClient.init();
 
-        minioArchiver = new MinioArchiver();
-        minioArchiver.setDomainObjectPropertyClient(domainObjectPropertyClient);
-        minioArchiver.setMinioUploadClient(minioUploadClient);
+        minioArchiveAll = new MinioArchiveAll();
+        minioArchiveAll.setDomainObjectPropertyClient(domainObjectPropertyClient);
+        minioArchiveAll.setMinioUploadClient(minioUploadClient);
     }
 
     private void archiveAll() {
@@ -98,7 +98,7 @@ public class Main {
     }
 
     private int archiveSome() {
-        return minioArchiver.archive("batch");
+        return minioArchiveAll.archive("batch");
     }
 
 }

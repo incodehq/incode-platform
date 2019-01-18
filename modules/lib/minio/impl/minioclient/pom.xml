@@ -86,11 +86,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.incode.module.base</groupId>
-            <artifactId>incode-module-base-dom</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.incode.module.minio</groupId>
             <artifactId>incode-module-minio-common</artifactId>
         </dependency>

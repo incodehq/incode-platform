@@ -32,7 +32,7 @@ public class DomainObjectPropertyValueViewModel {
 
     public DomainObjectPropertyValueViewModel(final DomainObjectProperty domainObjectProperty) {
         this.sourceBookmark = domainObjectProperty.getBookmark();
-        this.sourceProperty = domainObjectProperty.getBookmark();
+        this.sourceProperty = domainObjectProperty.getProperty();
     }
 
     public String title() {

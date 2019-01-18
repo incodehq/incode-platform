@@ -18,35 +18,7 @@
     <description>Domain application with example subdomains.</description>
 
     <properties>
-
-		<!-- 
-		hmm: not sure why these two are needed, because inherited from incode-parent;  commenting out to see...
-        <revision>1.0.0-SNAPSHOT</revision>
-        <incode-platform.version>${revision}</incode-platform.version>
-		-->
-
         <isis.version>1.17.0</isis.version>
-
-        <spring.version>4.1.9.RELEASE</spring.version>
-        <jetty.version>9.4.3.v20170317</jetty.version>
-        <activemq-web.version>5.14.3</activemq-web.version>
-        <camel.version>2.16.3</camel.version>
-
-        <cxf-core.version>3.1.1</cxf-core.version>
-
-        <!-- override properties inherited from incode-parent -->
-        <activemq.version>${activemq-web.version}</activemq.version>
-        <ognl.version>3.0.9</ognl.version>
-
-        <xbean-spring.version>4.3</xbean-spring.version>
-        <jackson.version>1.9.12</jackson.version>
-
-        <snakeyaml.version>1.13</snakeyaml.version>
-
-        <jaxb-impl.version>2.2.11</jaxb-impl.version>
-        <jquery-selectors.version>0.2.4</jquery-selectors.version>
-
-
     </properties>
 
     <packaging>pom</packaging>
@@ -61,7 +33,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
 
             <dependency>
                 <groupId>${project.groupId}</groupId>

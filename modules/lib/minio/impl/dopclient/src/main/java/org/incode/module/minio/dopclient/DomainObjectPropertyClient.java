@@ -20,8 +20,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.incode.module.minio.common.DomainObjectPropertyValue;
-import org.incode.module.minio.dopclient.archive.ArchiveArgs;
+import org.incode.module.minio.dopclient.archive.ArchivedArgs;
 import org.incode.module.minio.dopclient.archive.StringValue;
+import org.incode.module.minio.dopclient.archive.TypeValue;
 
 import lombok.Setter;
 
@@ -63,7 +64,8 @@ public class DomainObjectPropertyClient {
 
     //region > init
     private URI findToArchiveUri;
-    private URI archiveUri;
+    private URI readSingleUri;
+    private URI archivedUri;
 
     /**
      * Should be called once all properties have been injected.
@@ -73,8 +75,9 @@ public class DomainObjectPropertyClient {
         ensureSet(this.username, "username");
         ensureSet(this.password, "password");
 
-        findToArchiveUri = UriBuilder.fromUri(this.base + "services/incodeMinio.DocBlobService/actions/findToArchive/invoke").build();
-        archiveUri = UriBuilder.fromUri(this.base + "services/incodeMinio.DocBlobService/actions/archive/invoke").build();
+        findToArchiveUri = UriBuilder.fromUri(this.base + "services/incodeMinio.DomainObjectPropertyService/actions/findToArchive/invoke").build();
+        readSingleUri = UriBuilder.fromUri(this.base + "services/incodeMinio.DomainObjectPropertyService/actions/readSingle/invoke").build();
+        archivedUri = UriBuilder.fromUri(this.base + "services/incodeMinio.DomainObjectPropertyService/actions/archived/invoke").build();
     }
 
     private static void ensureSet(final String field, final String fieldName) {
@@ -132,27 +135,75 @@ public class DomainObjectPropertyClient {
 
     //endregion
 
-    //region > archive
+    //region > readSingle
 
-    public void archive(final DomainObjectPropertyValue domainObjectPropertyValue, final String externalUrl) {
+    public DomainObjectPropertyValue readSingle(
+            final String caller,
+            final String sourceBookmark,
+            final String sourceProperty) {
 
         ensureInitialized();
-
-        final ArchiveArgs archiveArgs = new ArchiveArgs();
-        archiveArgs.setSourceBookmark(new StringValue(domainObjectPropertyValue.getSourceBookmark()));
-        archiveArgs.setSourceProperty(new StringValue(domainObjectPropertyValue.getSourceProperty()));
-        archiveArgs.setExternalUrl(new StringValue(externalUrl));
 
         Client client = null;
         try {
             client = clientBuilder.build();
 
-            final WebTarget webTarget = client.target(archiveUri);
+            final WebTarget webTarget = client.target(readSingleUri)
+                                                .queryParam("caller", caller)
+                                                .queryParam("sourceBookmark", sourceBookmark)
+                                                .queryParam("sourceProperty", sourceProperty);
+
+            final Invocation.Builder invocationBuilder = webTarget.request();
+            invocationBuilder.header("Authorization", "Basic " + encode(username, password));
+            invocationBuilder.accept("application/json;profile=urn:org.apache.isis/v1;suppress=true");
+
+            final Invocation invocation = invocationBuilder.buildGet();
+
+            final Response response = invocation.invoke();
+
+            final int responseStatus = response.getStatus();
+            if (responseStatus != 200) {
+                LOG.warn("uri: " + readSingleUri + "; responseStatus: " + responseStatus);
+                return null;
+            }
+
+            final String json = response.readEntity(String.class);
+            final ObjectMapper mapper = new ObjectMapper();
+            final DomainObjectPropertyValue domainObjectPropertyValue = mapper.readValue(json, DomainObjectPropertyValue.class);
+            return domainObjectPropertyValue;
+
+        } catch(Exception ex) {
+            LOG.error("uri: " + readSingleUri, ex);
+        } finally {
+            closeQuietly(client);
+        }
+        return null;
+    }
+
+    //endregion
+
+    //region > archived
+
+    public void archived(final DomainObjectPropertyValue domainObjectPropertyValue, final String externalUrl) {
+
+        ensureInitialized();
+
+        final ArchivedArgs archivedArgs = new ArchivedArgs();
+        archivedArgs.setSourceBookmark(new StringValue(domainObjectPropertyValue.getSourceBookmark()));
+        archivedArgs.setSourceProperty(new StringValue(domainObjectPropertyValue.getSourceProperty()));
+        archivedArgs.setType(new TypeValue(domainObjectPropertyValue.getType()));
+        archivedArgs.setExternalUrl(new StringValue(externalUrl));
+
+        Client client = null;
+        try {
+            client = clientBuilder.build();
+
+            final WebTarget webTarget = client.target(archivedUri);
 
             final Invocation.Builder invocationBuilder = webTarget.request();
             invocationBuilder.header("Authorization", "Basic " + encode(username, password));
 
-            final String json = archiveArgs.asJson();
+            final String json = archivedArgs.asJson();
 
             final Invocation invocation = invocationBuilder.buildPut(
                     Entity.entity(json, MediaType.APPLICATION_JSON_TYPE));
@@ -161,12 +212,12 @@ public class DomainObjectPropertyClient {
 
             final int responseStatus = response.getStatus();
             if (responseStatus != 200) {
-                LOG.warn("uri: " + archiveUri + "; " + archiveArgs.toString());
+                LOG.warn("uri: " + archivedUri + "; " + archivedArgs.toString());
                 return;
             }
 
         } catch(Exception ex) {
-            LOG.error(archiveArgs.toString(), ex);
+            LOG.error(archivedArgs.toString(), ex);
         } finally {
             closeQuietly(client);
         }
@@ -194,6 +245,7 @@ public class DomainObjectPropertyClient {
             // ignore so as to avoid overriding any pending exceptions in calling 'finally' block.
         }
     }
+
     //endregion
 
 }

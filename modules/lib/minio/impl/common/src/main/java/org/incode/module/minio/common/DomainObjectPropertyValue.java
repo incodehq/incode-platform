@@ -1,5 +1,7 @@
 package org.incode.module.minio.common;
 
+import java.nio.charset.StandardCharsets;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,11 +40,13 @@ public class DomainObjectPropertyValue {
     public DomainObjectPropertyValue(
             final String sourceBookmark,
             final String sourceProperty,
+            final Type type,
             final String blobFileName,
             final String blobContentType,
             final byte[] blobBytes) {
         this.sourceBookmark = sourceBookmark;
         this.sourceProperty = sourceProperty;
+        this.type = type;
         this.blob = new ParsedBlob(blobFileName, blobContentType, blobBytes).asEncodedString();
     }
 
@@ -139,12 +143,28 @@ public class DomainObjectPropertyValue {
         }
     }
 
+    public byte[] asBytes() {
+        final Type type = getType();
+
+        final byte[] bytes;
+        switch (type) {
+        case BLOB:
+            bytes = getBlobByteArray();
+            break;
+        case CLOB:
+            bytes = getClobCharacters().getBytes(StandardCharsets.UTF_8);
+            break;
+        default:
+            throw new IllegalStateException(String.format("Unknown type: '%s'", type));
+        }
+        return bytes;
+    }
+
     /**
      * Derived, is the byte array from {@link #getBlob()}, unencoded from its base 64 representation,
      * or <code>null</code> if {@link #getType()} indicates this is a {@link Type#CLOB clob}.
      */
-    @JsonIgnore
-    public byte[] getBlobByteArray() {
+    private byte[] getBlobByteArray() {
         switch (getType()) {
         case BLOB:
             if (parsedBlob == null) {
@@ -162,8 +182,7 @@ public class DomainObjectPropertyValue {
      * Derived, is the characters from {@link #getClob()}, or <code>null</code> if {@link #getType()} indicates
      * this is a {@link Type#BLOB blob}.
      */
-    @JsonIgnore
-    public String getClobCharacters() {
+    private String getClobCharacters() {
         switch (getType()) {
         case BLOB:
             return null;
@@ -176,6 +195,7 @@ public class DomainObjectPropertyValue {
             throw new IllegalStateException(String.format("Unknown type: %s", getType()));
         }
     }
+
 
     @Override
     public String toString() {
