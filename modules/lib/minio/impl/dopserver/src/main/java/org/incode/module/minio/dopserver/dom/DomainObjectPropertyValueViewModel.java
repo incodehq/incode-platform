@@ -33,10 +33,11 @@ public class DomainObjectPropertyValueViewModel {
     public DomainObjectPropertyValueViewModel(final DomainObjectProperty domainObjectProperty) {
         this.sourceBookmark = domainObjectProperty.getBookmark();
         this.sourceProperty = domainObjectProperty.getProperty();
+        this.type = domainObjectProperty.getType();
     }
 
     public String title() {
-        return String.format("%s#%s", getSourceBookmark(), getSourceProperty());
+        return String.format("%s#%s (%s)", getSourceBookmark(), getSourceProperty(), getType());
     }
 
 
