@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
@@ -122,6 +123,7 @@ public class DomainObjectPropertyClient {
 
             final String json = response.readEntity(String.class);
             final ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
             final DomainObjectPropertyValue[] domainObjectPropertyValues = mapper.readValue(json, DomainObjectPropertyValue[].class);
             return Arrays.asList(domainObjectPropertyValues);
 
@@ -169,6 +171,7 @@ public class DomainObjectPropertyClient {
 
             final String json = response.readEntity(String.class);
             final ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
             final DomainObjectPropertyValue domainObjectPropertyValue = mapper.readValue(json, DomainObjectPropertyValue.class);
             return domainObjectPropertyValue;
 
