@@ -28,31 +28,31 @@ image::{_imagesdir}/design-sketch.png[width="800px",link="{_imagesdir}/design-sk
 The central algorithm is implemented by `MinioArchiver` (in the `incode-module-minio-minioarchlib` submodule).
 This:
 
-* calls `DocBlobClient` to obtain a list of all documents that need to be archived.
+* calls `DomainObjectPropertyClient` to obtain a list of all documents that need to be archived.
 +
-The `DocBlobClient` is the `incode-module-minio-docclient` submodule.
+The `DomainObjectPropertyClient` is the `incode-module-minio-dopclient` submodule.
 
-* The `DocBlobClient` in turn makes a REST call to `DocBlobService`, hosted by the Apache Isis webapp.
+* The `DomainObjectClient` in turn makes a REST call to `DomainObjectPropertyService`, hosted by the Apache Isis webapp.
 +
-The `DocBlobService` is in the `incode-module-minio-docserver` submodule, and so this is the one dependency that an Apache Isis webapp has on the Minio library.
+The `DomainObjectPropertyService` is in the `incode-module-minio-dopserver` submodule, and so this is the one dependency that an Apache Isis webapp has on the Minio library.
 
-* within the Apache Isis webapp, the `DocBlobService` delegates to the `DocBlobServiceBridge`.
+* within the Apache Isis webapp, the `DomainObjectPropertyService` delegates to the `DomainObjectPropertyServiceBridge`.
 +
 This is an SPI that the consuming application is required to implement.
-Typically this is likely to delegate to some repository service to obtain entity/ies that have blobs, eg documents.
+Typically this is likely to delegate to some repository service to obtain entity/ies that have blobs/clobs, eg documents.
 
-* for each of the returned blobs, the `MinioArchiver` then calls the `MinioBlobClient` to upload the blob into Minio itself.
+* for each of the returned blobs, the `MinioArchiver` then calls the `MinioUploadClient` to upload the blob into Minio itself (clobs are converted to UTF-8 encoded byte arrays).
 This returns back a URL.
 +
-The `MinioBlobClient` is in the `incode-module-minio-minioclient` submodule.
+The `MinioUploadClient` is in the `incode-module-minio-minioclient` submodule.
 
-* for each blob and its corresponding URI, the `MinioArchiver` then calls the `DocBlobClient` once more, this time to indicate that the blob has been archived.
+* for each blob and its corresponding URI, the `MinioArchiver` then calls the `DomainObjectPropertyClient` once more, this time to indicate that the blob has been archived.
 
-* the `DocBlobClient` in turn again makes a REST call up to `DocBlobService`, hosted on the Apache Isis webapp.
+* the `DomainObjectPropertyClient` in turn again makes a REST call up to `DomainObjectPropertyService`, hosted on the Apache Isis webapp.
 
-* once more the `DocBlobService` delegates to the `DocBlobServiceBridge` SPI.
+* once more the `DomainObjectPropertyService` delegates to the `DomainObjectPropertyServiceBridge` SPI.
 +
-The implementation of this (provided by the consuming application) will typically delete the blob from the original entity, and in its place store the URI as a pointer to Minio.
+The implementation of this (provided by the consuming application) will typically delete the blob/clob from the original entity, and in its place store the provided URL as a pointer to the content now stored in Minio.
 +
 [NOTE]
 ====
@@ -60,7 +60,7 @@ It's the responsibility of the consuming application to download the content fro
 ====
 
 The `MinioArchiver` described above is packaged as a library, so will typically be called periodically from some sort of integration solution.
-As the diagram above suggests, this could be accompllished using Apache Camel, whereby a `MinioArchiverProcessor` (not part of this library) acts as a simple wrapper that calls the `MinioArchiver`.
+As the diagram above suggests, this could be accomplished using Apache Camel, whereby a `MinioArchiverProcessor` (not part of this library) acts as a simple wrapper that calls the `MinioArchiver`.
 That processer in turn might be scheduled to run periodically, say once an hour.
 
 When first deploying this solution, there will probably be a need to archive historical blobs.
@@ -86,25 +86,106 @@ The `Main` utility in the `incode-module-minio-minioarchtool` is a standalone ut
 [[__lib-minio_url-format]]
 == URL format
 
-The format of the URLs created by `MinioBlobClient is:
+The format of the URLs created by `MinioUploadClient` is:
 
-`http://minioserver/prod/myapp/cust.Customer/1234`
+`http://minioserver/myapp/prod/cust.Customer/1234/photo`
 
 where:
 
-* "http://minioserver" is the base URL which hosts the server
-* "prod" is the S3 bucket to use; typically this represents an environment such as dev, test or production
-* "myapp" is a fixed prefix.
-This represents the original app from which the Blob was obtained, and therefore how to interpret the remainder of the URL
-* "cust.Customer/1234" is the identifier of (in this case) a customer.
+* `http://minioserver`
++
+is the base URL which hosts the server
+
+* `myapp`
++
+is the S3 _bucket_ to use.
+This represents the application with responsibility for the Blob, and therefore how to interpret the remainder of the URL.
++
+[IMPORTANT]
+====
+This concept is discussed further below.
+====
+
+* `prod`
++
+is a fixed value representing the particular _instance_ of the application that is running, such as "dev", "test" or "prod".
+
+* "cust.Customer/1234"
++
+is the identifier of (in this case) a customer.
 It corresponds to the bookmark of the Apache Isis application (having replaced '/' with ':').
 
+* `photo`
++
+is the property containing the blob
 
-[NOTE]
-====
-The above scheme means that only one blob can be persisted per object instance.
-A future enhancement would be to allow multiple blobs to be persisted (corresponding to different properties of the original entity in the Apache Isis webapp).
-====
+The concept of bucket is very important and is discussed further below.
+
+=== (Application) Buckets
+
+In addition to the Apache Isis webapp using minio, there may well be other applications on the network that are acting as minio clients, such as file scanner or OCR engine.
+The URL scheme is designed to accommodate this, with the _bucket_ acting as a namespace for all blobs that belong (which is to say, were created by) a particular application.
+
+Note that the bucket corresponds to the owning the application as a piece of software, rather than a particular instance of the application running in production or test, for example.
+The remainder of the URL (after the bucket prefix) therefore must be unique across all such instances.
+
+In the case of this minio library, the remaining URL includes an _instance_ portion to distinguish the various instances of the application that may be running, and then relies upon the intrinsic uniqueness that Apache Isis itself guarantees of the `Bookmark` of every domain object.
+
+Other clients of minio (file scanner or OCR) are free to use some other scheme, for example physical barcodes on documents, or a random GUID.
+To reiterate, the responsibility of generating a unique suffix (across all instances) within a bucket is the responsibility of the application that owns that particular bucket.
+
+=== "Foreign" References
+
+While all URLs within a particular bucket have an application as their owner, it _is_ valid for one application to refer to URLs created by some other application.
+
+For example, a scanning/OCR system might upload PDFs into minio, and use a barcode physically attached to each PDF to form the unique id.
+Such a minio blob might have a URL of `http://minioserver/scanner/0100112401`, where `0100112401` is the barcode number.
+
+If this PDF was to be handled by the Apache Isis webapp (eg it represented an invoice to be paid), then a `Document` entity of some sort could be created in the Apache Isis webapp which referenced that external URL.
+So, while the `Document` entity is part of the Apache Isis app, it references a minio image that was created by some other app (the scanning app).
+
+
+=== Application-specific Metadata
+
+Minio (as an implementation of Amazon S3) allows HTTP headers to be associated with any given blob.
+Two are specified by default:
+
+* `Content-Type` : also known as the mime-type, for example "image/jpeg"
+* `File-Name` : the file name, eg "butterfly.jpg"
+
+In addition, S3 allows custom metadata to be associated; such metadata must have the prefix "X-Amz-Meta-".
+The `MinioUploadClient` will automatically prefix any custom metadata headers.
+However, it will also include the bucket name as a secondary prefix.
+
+For example, for the bucket "MyApp", all keys will have the prefix "X-Amz-Meta-MyApp-".
+If the key already has this prefix, then only the missing parts will be associated.
+
+.Custom metadata prefixes
+[cols="1a,1a", options="header"]
+|===
+
+| Key provided
+| Actual key used
+
+| Foo
+| X-Amz-Meta-MyApp-Foo
+
+| MyApp-Foo
+| X-Amz-Meta-MyApp-Foo
+
+| X-Amz-Meta-MyApp-Foo
+| X-Amz-Meta-MyApp-Foo
+
+|===
+
+The upload client adds the bucket as a second-level prefix in order to support "foreign" references, explained earlier.
+For example:
+
+* if the scanner application creates the blob `http://minioserver/scanner/0100112401`, then it might attach the metadata `X-Amz-Meta-Scanner-ScannedBy=john.doe`.
+
+* later on, another application might reference this same URL but add its own metadata, eg `X-Amz-Meta-InvoiceApp-ApprovedBy=freda.smith`.
+
+This therefore provides a scheme whereby metadata can be added by various interested apps to an image originally uploaded by any arbitrary other app.
 
 
 == Integration solution (eg Apache Camel)
@@ -120,15 +201,7 @@ Update your classpath by adding these dependencies to your `pom.xml`:
 ----
 <dependency>
     <groupId>org.incode.module.minio</groupId>
-    <artifactId>incode-module-minio-minioclient</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.incode.module.minio</groupId>
-    <artifactId>incode-module-minio-archlib</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.incode.module.minio</groupId>
-    <artifactId>incode-module-minio-docclient</artifactId>
+    <artifactId>incode-module-minio-minioarchlib</artifactId>
 </dependency>
 ----
 
@@ -144,7 +217,7 @@ If using Apache Camel as the integration solution, then the code below can be us
 ----
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.incode.module.minio.minioarchlib.MinioArchiver;
+import org.incode.module.minio.minioarchlib.MinioArchiveAll;
 import lombok.Setter;
 
 public class MinioArchiverProcessor implements Processor {
@@ -196,13 +269,13 @@ If running inside of Apache Camel and using Spring to configure the components:
     </bean>
 
     <bean id="minioArchiver"
-          class="org.incode.module.minio.minioarchlib.MinioArchiver">
-        <property name="docBlobClient" ref="docBlobClient"/>
-        <property name="minioBlobClient" ref="minioBlobClient"/>
+          class="org.incode.module.minio.minioarchlib.MinioArchiveAll">
+        <property name="dopClient" ref="domainObjectPropertyClient"/>
+        <property name="minioUploadClient" ref="minioUploadClient"/>
     </bean>
 
-    <bean id="minioBlobClient"
-          class="org.incode.module.minio.minioclient.MinioBlobClient"
+    <bean id="minioUploadClient"
+          class="org.incode.module.minio.minioclient.MinioUploadClient"
           init-method="init">
         <property name="url"       value="${minio.baseUrl}"/>
         <property name="accessKey" value="${minio.accessKey}"/>
@@ -211,14 +284,15 @@ If running inside of Apache Camel and using Spring to configure the components:
         <property name="prefix"    value="${minio.prefix}"/>
     </bean>
 
-    <bean id="docBlobClient"
-          class="org.incode.module.minio.docclient.DocBlobClient"
+    <bean id="domainObjectPropertyClient"
+          class="org.incode.module.minio.dopclient.DomainObjectPropertyClient"
           init-method="init">
         <property name="base" value="${apacheIsisWebapp.baseUrl}"/>
         <property name="username" value="${apacheIsisWebapp.username}"/>
         <property name="password" value="${apacheIsisWebapp.password}"/>
     </bean>
 
+    ...
 </beans>
 ----
 
@@ -271,59 +345,72 @@ This section describes the responsibilities of the Apache Isis webapp that has d
 
 === SPI
 
-The consuming Apache Isis application is required to implement the `DocBlobServiceBridge` SPI:
+The consuming Apache Isis application is required to implement the `DomainObjectPropertyProvider` SPI.
+It uses the `DomainObjectProperty` is a DTO that identifies the source entity and property which holds the blob or clob, also indicating which type it is:
 
 [source,java]
-.DocBlobServiceBridge.java
+.DomainObjectProperty.java
 ----
-public interface DocBlobServiceBridge {
+@Data
+@AllArgsConstructor
+public class DomainObjectProperty {
 
-    @Programmatic
-    List<DocBlob> findToArchive(String caller);
+    public enum Type { BLOB,CLOB }
 
-    @Programmatic
-    Blob blobFor(DocBlob docBlob);
+    private final String bookmark;
+    private final String property;
+    private final Type type;
 
-    @Programmatic
-    void archive(String docBookmark, String externalUrl);
-}
-----
-
-where `DocBlob` is a view model that in effect just wraps the identity of the source entity which holds the blob:
-
-[source,java]
-.DocBlob.java
-----
-@DomainObject(
-        nature = Nature.VIEW_MODEL,
-        objectType = "incodeMinio.DocBlob"
-)
-public class DocBlob implements ViewModel {
-
-    public DocBlob(final String docBookmark) {
-        this.docBookmark = docBookmark;
+    public DomainObjectProperty(final Bookmark bookmark, final String property, final Type type) {
+        this(bookmark.toString(), property, type);
     }
-
-    @Getter
-    private String docBookmark;     // <1>
-
-    ...
 }
 ----
-<1> Bookmark of the persisted entity which holds the blob to be archived (or may have been archived).
 
-In the implementation of this SPI, the application can create `DocBlob` instances simply using the regular `BookmarkService`:
+There can be multiple implementations of `DomainObjectPropertyProvider`, and all will be called following a chain-of-responsibility pattern.
+The SPI for `DomainObjectPropertyProvider` itself is:
 
 [source,java]
+.DomainObjectPropertyProvider.java
 ----
-final Bookmark bookmark = bookmarkService.bookmarkFor(entity);
-return new DocBlob(bookmark.toString());
-----
+public interface DomainObjectPropertyProvider {
 
+    void findToArchive(List<DomainObjectProperty> appendTo);                 // <1>
+
+    boolean supportsBlobFor(Object domainObject, DomainObjectProperty dop);                 // <2>
+    Blob blobFor(Object domainObject, DomainObjectProperty dop);                            // <3>
+    void blobArchived(Object domainObject, DomainObjectProperty dop, String externalUrl);   // <4>
+
+    boolean supportsClobFor(Object domainObject, DomainObjectProperty dop);                 // <5>
+    Clob clobFor(Object domainObject, DomainObjectProperty dop);                            // <5>
+    void clobArchived(Object domainObject, DomainObjectProperty dop, String externalUrl);   // <5>
+}
+----
+<1> For all domain objects with properties requiring archiving, create a `DomainObjectProperty` and append to the provided list.
++
+A typical implementation will run a query against a specific repository (eg `DocumentRepository`) and find newly-created instances with ``Blob``s or ``Clob``s to be archived.
+
+<2> Acts as a guard for the `blobFor(...)` and `blobArchived(...)` methods that follow, allowing an implementation to indicate whether it recognises the provided domain object and associated `DomainObjectProperty`.
++
+A typical implementation should check the type of the provided `domainObject` and also optionally the `DomainObjectProperty`.
++
 [NOTE]
 ====
-The `DocBlobServiceBridge` SPI is slightly inconsistent; the `archive(...)` method ought to take a `DocBlob` rather than a `docBookmark`.
+Strictly speaking the identity of the domain object is also encoded in `DomainObjectProperty`, and so passing in the domain object is redundant.
+However, it makes for a more convenient API, and saves the implementation having to lookup the domain object using the `BookmarkService`.
 ====
+
+<3> Extracts the blob from the specified domain object, for the property specified by `DomainObjectProperty`.
++
+A typical implementation will just return the value of the appropriate property of the domain object.
+
+<4> Once the blob has been archived off to minio, then this method is called to notify the domain object that of the external URL.
++
+A typical implementation will store the external URL somewhere, quite possibly in the source entity, and the may nullify the blob.
+
+<5> Equivalent methods for clobs rather than blobs.
+
+
 
 === Classpath
 
@@ -333,11 +420,11 @@ Update your classpath by adding these dependencies to your `pom.xml`:
 ----
 <dependency>
     <groupId>org.incode.module.minio</groupId>
-    <artifactId>incode-module-minio-docserver</artifactId>
+    <artifactId>incode-module-minio-dopserver</artifactId>
 </dependency>
 ----
 
-Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-minio-docserver[Maven Central Repo].
+Check for later releases by searching http://search.maven.org/#search|ga|1|incode-module-minio-dopserver[Maven Central Repo].
 
 
 === Bootstrapping
@@ -345,41 +432,27 @@ Check for later releases by searching http://search.maven.org/#search|ga|1|incod
 The SPI service implementation must be included in the application bootstrapping.
 Typically this is done by defining an owning `Module` and then including that module in the application's `AppManifest`.
 
+=== Related Services
 
-== Known issues / Limitations
+As a convenience, the library also provides `BlobClobDownloadService`:
 
-* This implementation only supports one blob/clob property per domain type.
-
-* It also doesn't distinguish between different domain types which may require archiving.
-This makes it the responsibility of the SPI to "assemble" the lists of all domain entities which may require archival (eg ``Document``s, ``Command``s, ``PublishedEvent``s) rather than each being archived separately.
-
-* The library also doesn't provide any support for the consuming application to retrieving blobs from Minio.
-This is accomplished easily enough though, eg:
-+
 [source,java]
+.BlobClobDownloadService.java
 ----
-final String minioUrl = ...
+@DomainService( ... )
+public class BlobClobDownloadService {
 
-final URL url = new URL(minioUrl);
+    public Blob downloadBlob(
+            final String documentName,
+            final String externalUrl)
+            throws IOException, ApplicationException { ... }
 
-final HttpURLConnection httpConn = openConnection(url);
-if (httpConn == null) {
-    return null;
+    @Programmatic
+    public Clob downloadClob(
+            final String documentName,
+            final String externalUrl)
+            throws IOException, ApplicationException { ... }
 }
-
-final String contentType = httpConn.getContentType();
-
-final MimeType mimeType = determineMimeType(contentType);
-if (mimeType == null) {
-    return null;
-}
-
-httpConn.disconnect();
-
-final ByteSource byteSource = Resources.asByteSource(url);
-final byte[] bytes = byteSource.read();
-
-return new Blob(document.getName(), mimeType.getBaseType(), bytes);
 ----
 
 

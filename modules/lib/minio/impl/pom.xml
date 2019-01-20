@@ -20,8 +20,18 @@
         Parent module for the various submodules that make up the minio doc archiver utility.
     </description>
 
+    <properties>
+        <minio.version>4.0.2</minio.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
@@ -31,7 +41,7 @@
 
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
-                <artifactId>incode-module-minio-docclient</artifactId>
+                <artifactId>incode-module-minio-dopclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -47,13 +57,19 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>blobclient</module>
-        <module>docclient</module>
-        <module>docserver</module>
+        <module>common</module>
+        <module>minioclient</module>
+        <module>dopclient</module>
+        <module>dopserver</module>
         <module>minioarchlib</module>
         <module>minioarchtool</module>
     </modules>

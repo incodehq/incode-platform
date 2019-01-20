@@ -31,17 +31,6 @@
         <activemq-web.version>5.14.3</activemq-web.version>
         <camel.version>2.16.3</camel.version>
 
-        <!-- override properties inherited from incode-parent -->
-        <activemq.version>${activemq-web.version}</activemq.version>
-        <ognl.version>3.0.9</ognl.version>
-
-        <xbean-spring.version>4.3</xbean-spring.version>
-        <jackson.version>1.9.12</jackson.version>
-
-        <snakeyaml.version>1.13</snakeyaml.version>
-
-        <jaxb-impl.version>2.2.11</jaxb-impl.version>
-        <jquery-selectors.version>0.2.4</jquery-selectors.version>
     </properties>
 
     <packaging>pom</packaging>

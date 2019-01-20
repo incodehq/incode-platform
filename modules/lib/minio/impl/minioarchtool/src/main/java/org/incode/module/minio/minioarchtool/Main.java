@@ -6,9 +6,9 @@ import com.google.common.io.Resources;
 
 import org.apache.log4j.PropertyConfigurator;
 
-import org.incode.module.minio.docclient.DocBlobClient;
-import org.incode.module.minio.minioarchlib.MinioArchiver;
-import org.incode.module.minio.minioclient.MinioBlobClient;
+import org.incode.module.minio.dopclient.DomainObjectPropertyClient;
+import org.incode.module.minio.minioarchlib.MinioArchiveAll;
+import org.incode.module.minio.minioclient.MinioUploadClient;
 
 import static java.util.Arrays.asList;
 import joptsimple.ArgumentAcceptingOptionSpec;
@@ -27,7 +27,7 @@ public class Main {
         main.archiveAll();
     }
 
-    private final MinioArchiver minioArchiver;
+    private final MinioArchiveAll minioArchiveAll;
 
     public Main(String[] args) {
 
@@ -71,23 +71,23 @@ public class Main {
 
         final OptionSet optionSet = parser.parse(args);
 
-        final DocBlobClient docBlobClient = new DocBlobClient();
-        docBlobClient.setBase(optionSet.valueOf(b));
-        docBlobClient.setUsername(optionSet.valueOf(u));
-        docBlobClient.setPassword(optionSet.valueOf(p));
-        docBlobClient.init();
+        final DomainObjectPropertyClient domainObjectPropertyClient = new DomainObjectPropertyClient();
+        domainObjectPropertyClient.setBase(optionSet.valueOf(b));
+        domainObjectPropertyClient.setUsername(optionSet.valueOf(u));
+        domainObjectPropertyClient.setPassword(optionSet.valueOf(p));
+        domainObjectPropertyClient.init();
 
-        final MinioBlobClient minioBlobClient = new MinioBlobClient();
-        minioBlobClient.setUrl(optionSet.valueOf(m));
-        minioBlobClient.setAccessKey(optionSet.valueOf(a));
-        minioBlobClient.setSecretKey(optionSet.valueOf(s));
-        minioBlobClient.setBucket(optionSet.valueOf(k));
-        minioBlobClient.setPrefix(optionSet.valueOf(r));
-        minioBlobClient.init();
+        final MinioUploadClient minioUploadClient = new MinioUploadClient();
+        minioUploadClient.setUrl(optionSet.valueOf(m));
+        minioUploadClient.setAccessKey(optionSet.valueOf(a));
+        minioUploadClient.setSecretKey(optionSet.valueOf(s));
+        minioUploadClient.setBucket(optionSet.valueOf(k));
+        minioUploadClient.setInstance(optionSet.valueOf(r));
+        minioUploadClient.init();
 
-        minioArchiver = new MinioArchiver();
-        minioArchiver.setDocBlobClient(docBlobClient);
-        minioArchiver.setMinioBlobClient(minioBlobClient);
+        minioArchiveAll = new MinioArchiveAll();
+        minioArchiveAll.setDomainObjectPropertyClient(domainObjectPropertyClient);
+        minioArchiveAll.setMinioUploadClient(minioUploadClient);
     }
 
     private void archiveAll() {
@@ -98,7 +98,7 @@ public class Main {
     }
 
     private int archiveSome() {
-        return minioArchiver.archive("batch");
+        return minioArchiveAll.archive("batch");
     }
 
 }
