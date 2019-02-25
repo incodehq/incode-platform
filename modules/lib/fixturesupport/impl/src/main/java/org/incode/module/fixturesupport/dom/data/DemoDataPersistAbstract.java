@@ -1,11 +1,10 @@
 package org.incode.module.fixturesupport.dom.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.services.registry.ServiceRegistry2;
+import org.apache.isis.applib.services.registry.ServiceRegistry;
 
 import lombok.Getter;
 
@@ -36,7 +35,7 @@ public abstract class DemoDataPersistAbstract<S extends DemoDataPersistAbstract<
      * The objects created by this fixture (output).
      */
     @Getter
-    private final List<T> objects = Lists.newArrayList();
+    private final List<T> objects = new ArrayList<>();
 
 
     @Override
@@ -61,6 +60,6 @@ public abstract class DemoDataPersistAbstract<S extends DemoDataPersistAbstract<
     }
 
     @javax.inject.Inject
-    ServiceRegistry2 serviceRegistry;
+    ServiceRegistry serviceRegistry;
 
 }

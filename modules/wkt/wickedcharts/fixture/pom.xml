@@ -96,6 +96,11 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.incode.module.fixturesupport</groupId>

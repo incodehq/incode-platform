@@ -61,7 +61,7 @@
         <jar-plugin.automaticModuleName></jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir></git-plugin.propertiesDir>
 
-        <isis.version>2.0.0-M2.20181014-1816-6cf1fa90</isis.version>
+        <isis.version>2.0.0-M3.20190212-0748-ea5a7945</isis.version>
 
         <!-- DO NOT CHANGE: versioning is specified externally in CI using -Drevision=... -->
         <revision>1.0.0-SNAPSHOT</revision>
@@ -889,6 +889,11 @@
 
 
             <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+            </dependency>
+            <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj-core.version}</version>
@@ -1239,15 +1244,15 @@
                 <!--<module>lib/docx/impl</module>-->
                 <!--<module>lib/docx/integtests</module>-->
 
+                <module>lib/excel/impl</module>
                 <!--<module>lib/excel/fixture</module>-->
-                <!--<module>lib/excel/impl</module>-->
                 <!--<module>lib/excel/integtests</module>-->
 
                 <module>lib/fakedata/impl</module>
                 <!--<module>lib/fakedata/fixture</module>-->
                 <!--<module>lib/fakedata/integtests</module>-->
 
-                <!--<module>lib/fixturesupport/impl</module>-->
+                <module>lib/fixturesupport/impl</module>
                 <!--<module>lib/freemarker/impl</module>-->
                 <!--<module>lib/integtestsupport/impl</module>-->
                 <!--<module>lib/jaxrsclient/impl</module>-->
@@ -1328,9 +1333,9 @@
 
                 <module>lib/base/impl</module>
                 <!--<module>lib/docx/impl</module>-->
-                <!--<module>lib/excel/impl</module>-->
+                <module>lib/excel/impl</module>
                 <module>lib/fakedata/impl</module>
-                <!--<module>lib/fixturesupport/impl</module>-->
+                <module>lib/fixturesupport/impl</module>
                 <!--<module>lib/freemarker/impl</module>-->
                 <!--<module>lib/integtestsupport/impl</module>-->
                 <!--<module>lib/jaxrsclient/impl</module>-->

@@ -127,8 +127,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-plugins-jdo-datanucleus-5</artifactId>
             <scope>test</scope>
         </dependency>
 

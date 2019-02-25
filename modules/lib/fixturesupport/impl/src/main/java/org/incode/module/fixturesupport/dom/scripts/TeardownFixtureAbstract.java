@@ -1,15 +1,11 @@
 package org.incode.module.fixturesupport.dom.scripts;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.jdo.metadata.TypeMetadata;
 
-import com.google.common.base.Strings;
-
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-/**
- * @deprecated - use {@link org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2}
- */
 @Deprecated
 public abstract class TeardownFixtureAbstract extends IncodeFixtureAbstract {
 
@@ -23,10 +19,10 @@ public abstract class TeardownFixtureAbstract extends IncodeFixtureAbstract {
         } else {
             final String schema = metadata.getSchema();
             String table = metadata.getTable();
-            if(Strings.isNullOrEmpty(table)) {
+            if(isNullOrEmpty(table)) {
                 table = cls.getSimpleName();
             }
-            if(Strings.isNullOrEmpty(schema)) {
+            if(isNullOrEmpty(schema)) {
                 deleteFrom(table);
             } else {
                 deleteFrom(schema, table);
@@ -34,6 +30,11 @@ public abstract class TeardownFixtureAbstract extends IncodeFixtureAbstract {
         }
         postDeleteFrom(cls);
     }
+
+    private static boolean isNullOrEmpty(@Nullable CharSequence x) {
+        return x == null || x.length() == 0;
+    }
+
 
     protected Integer deleteFrom(final String schema, final String table) {
         return isisJdoSupport.executeUpdate(String.format("DELETE FROM \"%s\".\"%s\"", schema, table));

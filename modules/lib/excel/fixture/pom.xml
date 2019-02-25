@@ -117,6 +117,7 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
             <artifactId>togglz-core</artifactId>
         </dependency>
 
+<!--
         <dependency>
             <groupId>org.isisaddons.module.docx</groupId>
             <artifactId>isis-module-docx-dom</artifactId>
@@ -126,6 +127,7 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
             <artifactId>jdom2</artifactId>
             <version>2.0.3</version>
         </dependency>
+-->
 
         <dependency>
             <groupId>org.isisaddons.module.excel</groupId>
@@ -137,16 +139,15 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
             <artifactId>isis-module-fakedata-dom</artifactId>
         </dependency>
 
+<!--
         <dependency>
             <groupId>org.isisaddons.module.poly</groupId>
             <artifactId>isis-module-poly-dom</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.servletapi</groupId>
             <artifactId>isis-module-servletapi-dom</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.stringinterpolator</groupId>
             <artifactId>isis-module-stringinterpolator-dom</artifactId>
@@ -202,6 +203,7 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
             <groupId>org.isisaddons.wicket.wickedcharts</groupId>
             <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
         </dependency>
+-->
 
 
         <!-- test -->

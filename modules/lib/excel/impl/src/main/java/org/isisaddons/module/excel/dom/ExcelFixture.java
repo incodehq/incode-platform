@@ -7,11 +7,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.io.Resources;
 
-import org.datanucleus.enhancement.Persistable;
 
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -20,6 +21,7 @@ import org.apache.isis.applib.fixturescripts.FixtureResultList;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
+import org.apache.isis.applib.services.metamodel.MetaModelService;
 import org.apache.isis.applib.services.registry.ServiceRegistry;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.value.Blob;
@@ -61,7 +63,8 @@ public class ExcelFixture extends FixtureScript {
     private ExcelFixture(final List<Class> classes) {
         for (Class cls : classes) {
             final boolean viewModel = ExcelFixtureRowHandler.class.isAssignableFrom(cls);
-            final boolean persistable = Persistable.class.isAssignableFrom(cls);
+            final MetaModelService.Sort sort = metaModelService.sortOf(cls, MetaModelService.Mode.RELAXED);
+            final boolean persistable =  sort.isJdoEntity();
             if (!viewModel && !persistable) {
                 throw new IllegalArgumentException(String.format(
                         "Class '%s' does not implement '%s', nor is it persistable",
@@ -70,6 +73,9 @@ public class ExcelFixture extends FixtureScript {
         }
         this.classes = classes;
     }
+
+    @Inject
+    MetaModelService metaModelService;
 
     /**
      * Input, optional: defines the name of the resource, used as a suffix to override {@link #getQualifiedName()}

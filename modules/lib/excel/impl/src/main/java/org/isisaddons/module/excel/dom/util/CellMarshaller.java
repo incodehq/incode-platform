@@ -59,7 +59,7 @@ final class CellMarshaller {
         }
         
         final ObjectSpecification propertySpec = otoa.getSpecification();
-        final Object propertyAsObj = propertyAdapter.getObject();
+        final Object propertyAsObj = propertyAdapter.getPojo();
         final String propertyAsTitle = propertyAdapter.titleString(null);
         
         // value types
@@ -95,9 +95,9 @@ final class CellMarshaller {
         }
 
         // only String type expected
-        if(propertyAdapter.getObject() instanceof String) {
+        if(propertyAdapter.getPojo() instanceof String) {
 
-            String stringValue = (String) propertyAdapter.getObject();
+            String stringValue = (String) propertyAdapter.getPojo();
 
             cell.setCellType(HSSFCell.CELL_TYPE_STRING);
             cell.setCellValue(stringValue);
@@ -143,18 +143,6 @@ final class CellMarshaller {
         if(valueAsObj instanceof Date) {
             Date value = (Date) valueAsObj;
             setCellValueForDate(cell, value, dateCellStyle);
-            return true;
-        } 
-        if(valueAsObj instanceof org.apache.isis.applib.value.Date) {
-            org.apache.isis.applib.value.Date value = (org.apache.isis.applib.value.Date) valueAsObj;
-            Date dateValue = value.dateValue();
-            setCellValueForDate(cell, dateValue, dateCellStyle);
-            return true;
-        } 
-        if(valueAsObj instanceof org.apache.isis.applib.value.DateTime) {
-            org.apache.isis.applib.value.DateTime value = (org.apache.isis.applib.value.DateTime) valueAsObj;
-            Date dateValue = value.dateValue();
-            setCellValueForDate(cell, dateValue, dateCellStyle);
             return true;
         } 
         if(valueAsObj instanceof LocalDate) {
@@ -341,16 +329,6 @@ final class CellMarshaller {
             return (T) dateCellValue;
         }
 
-        if(requiredType == org.apache.isis.applib.value.Date.class) {
-            java.util.Date dateCellValue = cell.getDateCellValue();
-            return (T)new org.apache.isis.applib.value.Date(dateCellValue);
-        } 
-
-        if(requiredType == org.apache.isis.applib.value.DateTime.class) {
-            java.util.Date dateCellValue = cell.getDateCellValue();
-            return (T)new org.apache.isis.applib.value.DateTime(dateCellValue);
-        } 
-        
         if(requiredType == LocalDate.class) {
             java.util.Date dateCellValue = cell.getDateCellValue();
             return (T) new LocalDate(dateCellValue.getTime());
@@ -483,7 +461,8 @@ final class CellMarshaller {
         }
         final String bookmarkStr = commentRts.getString();
         final Bookmark bookmark = new Bookmark(bookmarkStr);
-        return bookmarkService.lookup(bookmark, requiredType);
+        return bookmarkService.lookup(bookmark,
+                BookmarkService.FieldResetPolicy.DONT_REFRESH, requiredType);
     }
     
 

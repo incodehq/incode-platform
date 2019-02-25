@@ -3,12 +3,11 @@ package org.isisaddons.module.excel.fixture.demoapp.demomodule.dom.bulkupdate;
 import java.util.List;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
@@ -21,6 +20,9 @@ import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.user.UserService;
 import org.apache.isis.applib.value.Blob;
 
 import org.isisaddons.module.excel.dom.ExcelService;
@@ -116,7 +118,7 @@ public class BulkUpdateManagerForDemoToDoItem {
     }
 
     private String currentUserName() {
-        return container.getUser().getName();
+        return userService.getUser().getName();
     }
 
 
@@ -127,11 +129,9 @@ public class BulkUpdateManagerForDemoToDoItem {
     @Collection
     @CollectionLayout(defaultView = "table")
     public List<ExcelDemoToDoItem> getToDoItems() {
-        return container.allMatches(ExcelDemoToDoItem.class,
-                Predicates.and(
-                    //ExcelDemoToDoItem.Predicates.thoseOwnedBy(currentUserName()),
-                    ExcelDemoToDoItem.Predicates.thoseCompleted(isComplete()),
-                    ExcelDemoToDoItem.Predicates.thoseCategorised(getCategory(), getSubcategory())));
+        return repositoryService.allMatches(ExcelDemoToDoItem.class,
+                ExcelDemoToDoItem.Predicates.thoseCompleted(isComplete()).and(
+                ExcelDemoToDoItem.Predicates.thoseCategorised(getCategory(), getSubcategory())));
     }
 
 
@@ -176,19 +176,25 @@ public class BulkUpdateManagerForDemoToDoItem {
             final Blob spreadsheet) {
         final List<BulkUpdateLineItemForDemoToDoItem> lineItems =
                 excelService.fromExcel(spreadsheet, WORKSHEET_SPEC);
-        container.informUser(lineItems.size() + " items imported");
+        messageService.informUser(lineItems.size() + " items imported");
         return lineItems;
     }
 
 
 
-    @javax.inject.Inject
-    DomainObjectContainer container;
+    @Inject
+    UserService userService;
 
-    @javax.inject.Inject
+    @Inject
+    MessageService messageService;
+
+    @Inject
+    RepositoryService repositoryService;
+
+    @Inject
     ExcelService excelService;
 
-    @javax.inject.Inject
+    @Inject
     BulkUpdateMenuForDemoToDoItem bulkUpdateMenuForDemoToDoItem;
 
 

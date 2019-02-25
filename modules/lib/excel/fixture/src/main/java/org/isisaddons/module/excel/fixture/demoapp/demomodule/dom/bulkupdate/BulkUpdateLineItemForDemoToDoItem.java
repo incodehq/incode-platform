@@ -5,14 +5,12 @@ import java.math.BigDecimal;
 import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.AbstractViewModel;
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.InvokeOn;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.actinvoc.ActionInvocationContext;
+import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.services.title.TitleService;
 
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.Category;
 import org.isisaddons.module.excel.fixture.demoapp.todomodule.dom.ExcelDemoToDoItem;
@@ -34,7 +32,7 @@ public class BulkUpdateLineItemForDemoToDoItem
     public String title() {
         final ExcelDemoToDoItem existingItem = getToDoItem();
         if(existingItem != null) {
-            return "EXISTING: " + getContainer().titleOf(existingItem);
+            return "EXISTING: " + titleService.titleOf(existingItem);
         }
         return "NEW: " + getDescription();
     }
@@ -207,39 +205,41 @@ public class BulkUpdateLineItemForDemoToDoItem
     // apply
     // //////////////////////////////////////
 
-    @Action(
-            semantics = SemanticsOf.IDEMPOTENT,
-            invokeOn = InvokeOn.OBJECT_AND_COLLECTION
-    )
-    public ExcelDemoToDoItem apply() {
-        ExcelDemoToDoItem item = getToDoItem();
-        if(item == null) {
-            // description must be unique, so check
-            item = toDoItems.findToDoItemsByDescription(getDescription());
-            if(item != null) {
-                getContainer().warnUser("Item already exists with description '" + getDescription() + "'");
-            } else {
-                // create new item
-                // (since this is just a demo, haven't bothered to validate new values)
-                item = toDoItems.newToDoItem(getDescription(), getCategory(), getSubcategory(), getDueBy(), getCost());
-                item.setNotes(getNotes());
-                item.setOwnedBy(getOwnedBy());
-                item.setComplete(isComplete());
-            }
-        } else {
-            // copy over new values
-            // (since this is just a demo, haven't bothered to validate new values)
-            item.setDescription(getDescription());
-            item.setCategory(getCategory());
-            item.setSubcategory(getSubcategory());
-            item.setDueBy(getDueBy());
-            item.setCost(getCost());
-            item.setNotes(getNotes());
-            item.setOwnedBy(getOwnedBy());
-            item.setComplete(isComplete());
-        }
-        return actionInvocationContext.getInvokedOn().isCollection()? null: item;
-    }
+    // TODO: need to convert this to use collection parameters on a 'manager' view model.
+
+//    @Action(
+//            semantics = SemanticsOf.IDEMPOTENT,
+//            invokeOn = InvokeOn.OBJECT_AND_COLLECTION
+//    )
+//    public ExcelDemoToDoItem apply() {
+//        ExcelDemoToDoItem item = getToDoItem();
+//        if(item == null) {
+//            // description must be unique, so check
+//            item = toDoItems.findToDoItemsByDescription(getDescription());
+//            if(item != null) {
+//                messageService.warnUser("Item already exists with description '" + getDescription() + "'");
+//            } else {
+//                // create new item
+//                // (since this is just a demo, haven't bothered to validate new values)
+//                item = toDoItems.newToDoItem(getDescription(), getCategory(), getSubcategory(), getDueBy(), getCost());
+//                item.setNotes(getNotes());
+//                item.setOwnedBy(getOwnedBy());
+//                item.setComplete(isComplete());
+//            }
+//        } else {
+//            // copy over new values
+//            // (since this is just a demo, haven't bothered to validate new values)
+//            item.setDescription(getDescription());
+//            item.setCategory(getCategory());
+//            item.setSubcategory(getSubcategory());
+//            item.setDueBy(getDueBy());
+//            item.setCost(getCost());
+//            item.setNotes(getNotes());
+//            item.setOwnedBy(getOwnedBy());
+//            item.setComplete(isComplete());
+//        }
+//        return actionInvocationContext.getInvokedOn().isCollection()? null: item;
+//    }
 
     
     // //////////////////////////////////////
@@ -260,8 +260,12 @@ public class BulkUpdateLineItemForDemoToDoItem
     private BulkUpdateMenuForDemoToDoItem toDoItemExportImportService;
     
     @javax.inject.Inject
-    private ExcelDemoToDoItemMenu toDoItems;
+    ExcelDemoToDoItemMenu toDoItems;
 
     @javax.inject.Inject
-    private ActionInvocationContext actionInvocationContext;
+    TitleService titleService;
+
+    @javax.inject.Inject
+    MessageService messageService;
+
 }

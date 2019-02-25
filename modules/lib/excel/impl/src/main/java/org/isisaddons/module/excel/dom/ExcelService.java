@@ -14,12 +14,10 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.RecoverableException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.services.registry.ServiceRegistry;
 import org.apache.isis.applib.value.Blob;
 
@@ -153,13 +151,6 @@ public class ExcelService {
 
     /**
      * Returns a list of objects for each line in the spreadsheet, of the specified type.
-     *
-     * <p>
-     *     If the class is a view model then the objects will be properly instantiated (that is, using
-     *     {@link DomainObjectContainer#newViewModelInstance(Class, String)}, with the correct
-     *     view model memento); otherwise the objects will be simple transient objects (that is, using
-     *     {@link DomainObjectContainer#newTransientInstance(Class)}).
-     * </p>
      */
     @Programmatic
     public <T> List<T> fromExcel(
@@ -229,10 +220,6 @@ public class ExcelService {
     }
 
     @javax.inject.Inject
-    private DomainObjectContainer container;
-    @javax.inject.Inject
-    private BookmarkService bookmarkService;
-    @javax.inject.Inject
-    private ServiceRegistry serviceRegistry;
+    ServiceRegistry serviceRegistry;
 
 }

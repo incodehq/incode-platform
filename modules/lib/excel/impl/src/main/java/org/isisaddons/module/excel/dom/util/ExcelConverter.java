@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
@@ -30,12 +32,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import org.apache.isis.applib.annotation.Where;
-import org.apache.isis.applib.filter.Filter;
-import org.apache.isis.applib.filter.Filters;
 import org.apache.isis.applib.services.bookmark.BookmarkService;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
-import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
 import org.apache.isis.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.isis.core.metamodel.services.ServicesInjector;
 import org.apache.isis.core.metamodel.services.ServicesInjectorAware;
@@ -44,6 +43,7 @@ import org.apache.isis.core.metamodel.spec.feature.Contributed;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 import org.apache.isis.core.metamodel.specloader.SpecificationLoader;
+import org.apache.isis.core.runtime.system.persistence.PersistenceSession;
 
 import org.isisaddons.module.excel.dom.AggregationType;
 import org.isisaddons.module.excel.dom.ExcelMetaDataEnabled;
@@ -62,9 +62,9 @@ class ExcelConverter {
     private static final String XLSX_SUFFIX = ".xlsx";
 
     @SuppressWarnings({ "unchecked", "deprecation" })
-    private static final Filter<ObjectAssociation> VISIBLE_PROPERTIES = Filters.and(
-            ObjectAssociation.Filters.PROPERTIES,
-            ObjectAssociation.Filters.staticallyVisible(Where.STANDALONE_TABLES));
+    private static final Predicate<ObjectAssociation> VISIBLE_PROPERTIES =
+                    ObjectAssociation.Predicates.PROPERTIES.and(
+                    ObjectAssociation.Predicates.staticallyVisible(Where.STANDALONE_TABLES));
 
     static class RowFactory {
         private final Sheet sheet;
@@ -82,13 +82,13 @@ class ExcelConverter {
     // //////////////////////////////////////
 
     private final SpecificationLoader specificationLoader;
-    private final AdapterManager adapterManager;
+    private final PersistenceSession adapterManager;
     private final BookmarkService bookmarkService;
     private final ServicesInjector servicesInjector;
 
     ExcelConverter(
             final SpecificationLoader specificationLoader,
-            final AdapterManager adapterManager,
+            final PersistenceSession adapterManager,
             final BookmarkService bookmarkService, final ServicesInjector servicesInjector) {
         this.specificationLoader = specificationLoader;
         this.adapterManager = adapterManager;
@@ -133,14 +133,18 @@ class ExcelConverter {
             final XSSFWorkbook workbook,
             final List<?> domainObjects,
             final WorksheetSpec.RowFactory<?> factory,
-            final String sheetName) throws IOException {
+            final String sheetName) {
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(factory.getCls());
 
-        final List<ObjectAdapter> adapters = Lists.transform(domainObjects, ObjectAdapter.Functions.adapterForUsing(adapterManager));
+        final List<ObjectAdapter> adapters = domainObjects.stream()
+                .map(adapterManager::adapterFor)
+                .collect(Collectors.toList());
 
-        @SuppressWarnings("deprecation")
-        final List<? extends ObjectAssociation> propertyList = objectSpec.getAssociations(VISIBLE_PROPERTIES);
+        final List<? extends ObjectAssociation> propertyList =
+                objectSpec.streamAssociations(Contributed.INCLUDED)
+                        .filter(VISIBLE_PROPERTIES).collect(
+                        Collectors.toList());
 
         List<ObjectAssociation> annotatedAsHyperlink = new ArrayList<>();
         for (Field f : fieldsAnnotatedWith(factory.getCls(), HyperLink.class)){
@@ -223,14 +227,14 @@ class ExcelConverter {
             final XSSFWorkbook workbook,
             final List<?> domainObjects,
             final WorksheetSpec.RowFactory<?> factory,
-            final String sheetName) throws IOException {
+            final String sheetName) {
 
         final ObjectSpecification objectSpec = specificationLoader.loadSpecification(factory.getCls());
 
-        final List<ObjectAdapter> adapters = Lists.transform(domainObjects, ObjectAdapter.Functions.adapterForUsing(adapterManager));
-
-        @SuppressWarnings("deprecation")
-        final List<? extends ObjectAssociation> propertyList = objectSpec.getAssociations(VISIBLE_PROPERTIES);
+        final List<? extends ObjectAssociation> propertyList =
+                objectSpec.streamAssociations(Contributed.INCLUDED)
+                        .filter(VISIBLE_PROPERTIES).collect(
+                        Collectors.toList());
 
         // Validate the annotations for pivot
         validateAnnotations(propertyList, factory.getCls());
@@ -465,14 +469,6 @@ class ExcelConverter {
                     }
                 }
 
-                // we need to remove the templateAdapter because earlier on we will have created an adapter (and corresponding OID)
-                // for a view model where the OID is initially computed on the incomplete (in fact, empty) view model.
-                // removing the adapter therefore removes the OID as well, so next time an adapter is needed for the view model
-                // the OID will be recomputed based on the fully populated view model pojo.
-                if(templateAdapter != null) {
-                    this.adapterManager.removeAdapter(templateAdapter);
-                }
-
                 if (imported != null) {
                     importedItems.add(imported);
 
@@ -521,7 +517,9 @@ class ExcelConverter {
     }
 
     private static OneToOneAssociation getAssociation(final ObjectSpecification objectSpec, final String propertyNameOrId) {
-        final List<ObjectAssociation> associations = objectSpec.getAssociations(Contributed.INCLUDED);
+        final List<ObjectAssociation> associations =
+                objectSpec.streamAssociations(Contributed.INCLUDED).collect(
+                Collectors.toList());
         for (final ObjectAssociation association : associations) {
             if (association instanceof OneToOneAssociation) {
                 if (propertyNameOrId.equalsIgnoreCase(association.getName())) {
