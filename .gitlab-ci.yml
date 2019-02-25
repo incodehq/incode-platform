@@ -1,9 +1,22 @@
 #
-# requires the following gitlab secret variables
+# This script:
+#
+# - builds snapshot of isis
+#   - pushes to repo.incode.work
+#   - pushes to repo.incode.cloud
+# - builds Docker image of simpleapp
+#   -  pushes to hub.docker.com
+#
+#
+# It requires the following gitlab secret variables
 #
 # - NEXUS_USERNAME
 # - NEXUS_PASSWORD
 # - NEXUS_REPO_URL
+#
+# - GCPAPPENGINEREPO_USERNAME
+# - GCPAPPENGINEREPO_PASSWORD
+# - GCPAPPENGINEREPO_URL
 #
 
 image: maven:3.5.3-jdk-8
@@ -30,14 +43,40 @@ stages:
 build-package-push:
   stage: build-package-push
   script:
-    - echo "REVISION=$REVISION"
+    - echo ""
+    - echo ""
+    - echo ""
+    - echo "$REVISION"
+    - echo "GCPAPPENGINEREPO_URL=$GCPAPPENGINEREPO_URL"
+    - echo ""
+    - echo ""
+    - echo ""
     - >
       mvn --batch-mode \
           clean install \
           -Drevision=$REVISION \
           $CORE_ADDITIONAL_OPTS
     - cd modules
-    - mvn -s .m2/settings.xml --batch-mode deploy  -Drevision=$REVISION  -Ddeploy-modules -Dskip.default-modules -DskipTests  -Dnexus-deploy  -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL
+    - >
+      mvn -s .m2/settings.xml \
+          --batch-mode \
+          deploy \
+          -Dgcpappenginerepo-deploy \
+          -Dgcpappenginerepo-deploy.repositoryUrl=$GCPAPPENGINEREPO_URL \
+          -Drevision=$REVISION \
+          -Dskip.default-modules \
+          -DskipTests \
+          $CORE_ADDITIONAL_OPTS
+    - >
+      mvn -s .m2/settings.xml \
+          --batch-mode deploy \
+          -Drevision=$REVISION \
+          -Ddeploy-modules \
+          -Dskip.default-modules \
+          -DskipTests \
+          -Dnexus-deploy \
+          -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL \
+          $CORE_ADDITIONAL_OPTS
     - cd ..
 
 
