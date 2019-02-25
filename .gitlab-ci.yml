@@ -61,15 +61,17 @@ build-package-push:
       mvn -s .m2/settings.xml \
           --batch-mode \
           deploy \
-          -Dgcpappenginerepo-deploy \
-          -Dgcpappenginerepo-deploy.repositoryUrl=$GCPAPPENGINEREPO_URL \
           -Drevision=$REVISION \
+          -Ddeploy-modules \
           -Dskip.default-modules \
           -DskipTests \
+          -Dgcpappenginerepo-deploy \
+          -Dgcpappenginerepo-deploy.repositoryUrl=$GCPAPPENGINEREPO_URL \
           $CORE_ADDITIONAL_OPTS
     - >
       mvn -s .m2/settings.xml \
-          --batch-mode deploy \
+          --batch-mode \
+          deploy \
           -Drevision=$REVISION \
           -Ddeploy-modules \
           -Dskip.default-modules \
