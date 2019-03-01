@@ -103,7 +103,6 @@
         <dependency>
             <groupId>org.incode.module.settings</groupId>
             <artifactId>incode-module-settings-dom</artifactId>
-            <version>${revision}</version>
         </dependency>
 
         <dependency>

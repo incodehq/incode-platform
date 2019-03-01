@@ -1,32 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.incode</groupId>
-        <artifactId>incode-parent</artifactId>
+        <groupId>org.incode.module.minio</groupId>
+        <artifactId>incode-module-minio-dom</artifactId>
         <version>${revision}</version>
-        <relativePath>../../../pom.xml</relativePath>
     </parent>
-	
-    <groupId>org.incode.module.base</groupId>
-    <artifactId>incode-module-base-dom</artifactId>
+    <artifactId>incode-module-minio-miniodownloader</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform Lib Base Impl</name>
+    <name>Incode Platform Lib - Minio Downloader</name>
     <description>
-        A module providing Base utilities for domain modules
+        
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.lib.base</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/lib/base</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.lib.minio.miniodownloader</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/lib/minio/miniodownloader</git-plugin.propertiesDir>
 
-        <git-plugin.gitDir>${project.basedir}/../../../../.git</git-plugin.gitDir>
+        <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -41,11 +63,11 @@
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>standard</artifactId>
+                            <artifactId>sourceandjavadoc</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
-                            <artifactId>sourceandjavadoc</artifactId>
+                            <artifactId>standard</artifactId>
                         </mixin>
                         <mixin>
                             <groupId>com.danhaywood.mavenmixin</groupId>
@@ -57,37 +79,23 @@
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-
-
         <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-applib</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>org.incode.module.minio</groupId>
+            <artifactId>incode-module-minio-common</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-core</artifactId>
-            <optional>true</optional>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
         </dependency>
 
         <!-- test -->
-        <dependency>
-            <groupId>org.isisaddons.module.fakedata</groupId>
-            <artifactId>isis-module-fakedata-dom</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>
@@ -95,9 +103,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.isis.core</groupId>
-            <artifactId>isis-core-metamodel</artifactId>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
             <scope>test</scope>
+            <type>test-jar</type>
         </dependency>
 
         <dependency>
@@ -107,51 +116,17 @@
         </dependency>
 
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.danhaywood.java</groupId>
-            <artifactId>danhaywood-java-assertjext</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit-dep</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- needed by gmap3/HttpClient; not correctly declared as transitive dependency, it would seem... -->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.picocontainer</groupId>
-            <artifactId>picocontainer</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <profiles>

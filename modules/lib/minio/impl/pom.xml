@@ -41,6 +41,12 @@
 
             <dependency>
                 <groupId>org.incode.module.minio</groupId>
+                <artifactId>incode-module-minio-miniodownloader</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incode.module.minio</groupId>
                 <artifactId>incode-module-minio-dopclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -68,6 +74,7 @@
     <modules>
         <module>common</module>
         <module>minioclient</module>
+        <module>miniodownloader</module>
         <module>dopclient</module>
         <module>dopserver</module>
         <module>minioarchlib</module>

@@ -24,8 +24,8 @@ import lombok.SneakyThrows;
  * </p>
  *
  * <p>
- * The object name is intended to be the OID of the entity acting as the metadata for the blob, eg "incodeDocuments.Document:123"
- * This is (minimally) parsed, replacing any ":" for "/", eg  "incodeDocuments.Document/123/property".
+ * The object name is intended to be the OID of the entity acting as the metadata for the blob, eg "incodedocuments.Document:123"
+ * This is (minimally) parsed, replacing any ":" for "/", eg  "incodedocuments.Document/123/property".
  * </p>
  *
  *
