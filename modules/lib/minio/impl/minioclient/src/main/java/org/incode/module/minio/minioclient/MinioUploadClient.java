@@ -3,11 +3,15 @@ package org.incode.module.minio.minioclient;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import com.google.common.io.Resources;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.incode.module.minio.common.DomainObjectPropertyValue;
 import org.incode.module.minio.common.util.TryCatch;
@@ -34,6 +38,8 @@ import lombok.SneakyThrows;
  *
  */
 public class MinioUploadClient {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MinioUploadClient.class);
 
     private static final String X_AMZ_META = "X-Amz-Meta-";
 
@@ -82,6 +88,26 @@ public class MinioUploadClient {
      */
     MinioClient minioClient;
 
+    /**
+     * Optionally fine-tune the backoff algorithm
+     */
+    @Setter
+    int backoffNumAttempts = 5;
+
+    /**
+     * Optionally fine-tune the backoff algorithm.
+     *
+     * Set the same as the default impl, will retry after: 1s, 2s, 3s, 4s.
+     */
+    @Setter
+    long backoffSleepMillis = 1000L;
+
+
+    /**
+     * Populated on {@link #init()}.
+     */
+    TryCatch tryCatch;
+
     @SneakyThrows
     public void init() {
 
@@ -90,6 +116,18 @@ public class MinioUploadClient {
         ensureSet(this.secretKey, "secretKey");
         ensureSet(this.bucket, "bucket");
         ensureSet(this.instance, "instance");
+
+        final TryCatch.Backoff backoff = new TryCatch.Backoff.Default() {
+            @Override
+            public void backoff(final int attempt) {
+                sleep(attempt * backoffSleepMillis);
+            }
+        };
+
+        tryCatch = new TryCatch(backoffNumAttempts, backoff) {
+            @Override
+            protected Logger getLog() { return LOG; }
+        };
 
         minioClient = newMinioClient();
 
@@ -179,13 +217,20 @@ public class MinioUploadClient {
         headers.putAll(metadata);
         headers.put("Content-Type", contentType);
 
-        return new TryCatch().tryCatch(
-                () -> {
-                    final ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-                    minioClient.putObject(bucket, path, is, bytes.length, headers);
+        return tryCatch.tryCatch(
+                new Callable<URL>() {
+                    @Override public URL call() throws Exception {
+                        final ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+                        minioClient.putObject(bucket, path, is, bytes.length, headers);
 
-                    final String objectUrl = minioClient.getObjectUrl(bucket, path);
-                    return new URL(objectUrl);
+                        final String objectUrl = minioClient.getObjectUrl(bucket, path);
+                        return new URL(objectUrl);
+                    }
+
+                    @Override
+                    public String toString() {
+                        return String.format("putObject(\"%s\", \"%s\", ...)", bucket, path);
+                    }
                 },
                 () -> {
                     minioClient = newMinioClient();

@@ -5,11 +5,15 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.api.client.util.IOUtils;
 import com.google.common.base.Strings;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
@@ -26,11 +30,10 @@ import lombok.SneakyThrows;
 
 /**
  * Downloads blobs or clobs.
- *
- *
  */
 public class MinioDownloadClient {
 
+    private static final Logger LOG = LoggerFactory.getLogger(MinioDownloadClient.class);
 
     /**
      * eg: "http://minio.mycompany.com:9000/"
@@ -58,10 +61,12 @@ public class MinioDownloadClient {
     int backoffNumAttempts = 5;
 
     /**
-     * Optionally fine-tune the backoff algorithm
+     * Optionally fine-tune the backoff algorithm.
+     *
+     * Will retry faster than the default impl, after these wait times: 0.5s, 1s, 1.5s, 2s
      */
     @Setter
-    long backoffSleepMillis = 200L;
+    long backoffSleepMillis = 500L;
 
     /**
      * Populated on {@link #init()}.
@@ -81,12 +86,16 @@ public class MinioDownloadClient {
         ensureSet(this.secretKey, "secretKey");
 
         final TryCatch.Backoff backoff = new TryCatch.Backoff.Default() {
-            @Override public void backoff(final int attempt) {
+            @Override
+            public void backoff(final int attempt) {
                 sleep(attempt * backoffSleepMillis);
             }
         };
 
-        tryCatch = new TryCatch(backoffNumAttempts, backoff);
+        tryCatch = new TryCatch(backoffNumAttempts, backoff) {
+            @Override
+            protected Logger getLog() { return LOG; }
+        };
         minioClient = newMinioClient();
     }
 
@@ -185,10 +194,11 @@ public class MinioDownloadClient {
             final String host = matcher.group("host");
             final String bucketName = matcher.group("bucketName");
             final String objectName = matcher.group("objectName");
-            return new ParsedUrl(protocol, host, bucketName, objectName);
+            return new ParsedUrl(url, protocol, host, bucketName, objectName);
 
         }
 
+        private final String url;
         private final String protocol;
         private final String host;
         private final String bucketName;
@@ -197,11 +207,18 @@ public class MinioDownloadClient {
 
     private byte[] downloadBytes(final ParsedUrl parsedUrl) throws Exception {
         return tryCatch.tryCatch(
-                () -> {
-                    final InputStream is = minioClient.getObject(parsedUrl.bucketName, parsedUrl.objectName);
-                    final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    IOUtils.copy(is, baos);
-                    return baos.toByteArray();
+                new Callable<byte[]>() {
+                    @Override public byte[] call() throws Exception {
+                        final InputStream is = minioClient.getObject(parsedUrl.bucketName, parsedUrl.objectName);
+                        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        IOUtils.copy(is, baos);
+                        return baos.toByteArray();
+                    }
+
+                    @Override
+                    public String toString() {
+                        return String.format("downloadBytes(\"%s\")", parsedUrl.url);
+                    }
                 },
                 () -> {
                     minioClient = newMinioClient();
@@ -212,7 +229,15 @@ public class MinioDownloadClient {
 
     private ObjectStat statObject(final ParsedUrl parsedUrl) throws Exception {
         return tryCatch.tryCatch(
-                () -> minioClient.statObject(parsedUrl.bucketName, parsedUrl.objectName),
+                new Callable<ObjectStat>() {
+                    @Override public ObjectStat call() throws Exception {
+                        return minioClient.statObject(parsedUrl.bucketName, parsedUrl.objectName);
+                    }
+                    @Override
+                    public String toString() {
+                        return String.format("statObject(\"%s\", \"%s\")", parsedUrl.bucketName, parsedUrl.objectName);
+                    }
+                },
                 () -> {
                     minioClient = newMinioClient();
                     return null;
