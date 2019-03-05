@@ -38,10 +38,11 @@ before_script:
 #  APP_NAME: "incode-extended-app"
 
 stages:
-  - build-package-push
+  - build
+  - publish
 
-build-package-push:
-  stage: build-package-push
+build:
+  stage: build
   script:
     - echo ""
     - echo ""
@@ -56,6 +57,30 @@ build-package-push:
           clean install \
           -Drevision=$REVISION \
           $CORE_ADDITIONAL_OPTS
+
+publish-to-nexus:
+  stage: publish
+  script:
+    - cd modules
+    - >
+      mvn -s .m2/settings.xml \
+             --batch-mode \
+              deploy \
+             -Drevision=$REVISION \
+             -Ddeploy-modules \
+             -Dskip.default-modules \
+             -DskipTests \
+             -Dnexus-deploy \
+          -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL \
+          $CORE_ADDITIONAL_OPTS
+    - cd ..
+
+publish-to-gcp:
+  stage: publish
+  script:
+    - echo ""
+    - echo "GCPAPPENGINEREPO_URL=$GCPAPPENGINEREPO_URL"
+    - echo ""
     - cd modules
     - >
       mvn -s .m2/settings.xml \
@@ -67,17 +92,6 @@ build-package-push:
           -DskipTests \
           -Dgcpappenginerepo-deploy \
           -Dgcpappenginerepo-deploy.repositoryUrl=$GCPAPPENGINEREPO_URL \
-          $CORE_ADDITIONAL_OPTS
-    - >
-      mvn -s .m2/settings.xml \
-             --batch-mode \
-              deploy \
-             -Drevision=$REVISION \
-             -Ddeploy-modules \
-             -Dskip.default-modules \
-             -DskipTests \
-             -Dnexus-deploy \
-          -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL \
           $CORE_ADDITIONAL_OPTS
     - cd ..
 

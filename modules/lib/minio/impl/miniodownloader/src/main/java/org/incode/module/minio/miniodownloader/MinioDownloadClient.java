@@ -57,10 +57,15 @@ public class MinioDownloadClient {
     MinioClient minioClient;
 
     /**
-     * Configured to retry immediately.
+     * Optionally fine-tune the backoff algorithm
      */
-    private final TryCatch tryCatch = new TryCatch(attempt -> {});
+    int backoffNumAttempts = 5;
+    /**
+     * Optionally fine-tune the backoff algorithm
+     */
+    long backoffSleepMillis = 200L;
 
+    private TryCatch tryCatch;
 
     @SneakyThrows
     public void init() {
@@ -69,6 +74,13 @@ public class MinioDownloadClient {
         ensureSet(this.accessKey, "accessKey");
         ensureSet(this.secretKey, "secretKey");
 
+        final TryCatch.Backoff backoff = new TryCatch.Backoff.Default() {
+            @Override public void backoff(final int attempt) {
+                sleep(attempt * backoffSleepMillis);
+            }
+        };
+
+        tryCatch = new TryCatch(backoffNumAttempts, backoff);
         minioClient = newMinioClient();
     }
 

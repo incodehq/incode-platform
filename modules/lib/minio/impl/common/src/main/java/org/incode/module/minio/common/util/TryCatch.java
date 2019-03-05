@@ -68,8 +68,8 @@ public class TryCatch {
                 if(attempt == maxAttempts) {
                     throw e;
                 }
-                catchCallable.call();
                 backoff.backoff(attempt);
+                catchCallable.call();
             }
         }
         // will never get here, either return successfully or throw an exception
