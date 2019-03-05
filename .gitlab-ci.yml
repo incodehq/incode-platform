@@ -38,29 +38,21 @@ before_script:
 #  APP_NAME: "incode-extended-app"
 
 stages:
-  - build
-  - publish
+  - build-and-publish
 
-build:
-  stage: build
+publish-to-nexus:
+  stage: build-and-publish
   script:
     - echo ""
-    - echo ""
-    - echo ""
     - echo "$REVISION"
-    - echo "GCPAPPENGINEREPO_URL=$GCPAPPENGINEREPO_URL"
-    - echo ""
-    - echo ""
+    - echo "NEXUS_REPO_URL=$NEXUS_REPO_URL"
     - echo ""
     - >
       mvn --batch-mode \
           clean install \
           -Drevision=$REVISION \
           $CORE_ADDITIONAL_OPTS
-
-publish-to-nexus:
-  stage: publish
-  script:
+    - echo ""
     - cd modules
     - >
       mvn -s .m2/settings.xml \
@@ -76,10 +68,17 @@ publish-to-nexus:
     - cd ..
 
 publish-to-gcp:
-  stage: publish
+  stage: build-and-publish
   script:
     - echo ""
+    - echo "$REVISION"
     - echo "GCPAPPENGINEREPO_URL=$GCPAPPENGINEREPO_URL"
+    - echo ""
+    - >
+      mvn --batch-mode \
+          clean install \
+          -Drevision=$REVISION \
+          $CORE_ADDITIONAL_OPTS
     - echo ""
     - cd modules
     - >
