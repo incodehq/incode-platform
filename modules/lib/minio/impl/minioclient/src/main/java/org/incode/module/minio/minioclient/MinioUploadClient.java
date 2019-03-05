@@ -10,8 +10,11 @@ import com.google.common.collect.Maps;
 import com.google.common.io.Resources;
 
 import org.incode.module.minio.common.DomainObjectPropertyValue;
+import org.incode.module.minio.common.util.TryCatch;
 
 import io.minio.MinioClient;
+import io.minio.errors.InvalidEndpointException;
+import io.minio.errors.InvalidPortException;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
@@ -88,10 +91,14 @@ public class MinioUploadClient {
         ensureSet(this.bucket, "bucket");
         ensureSet(this.instance, "instance");
 
-        minioClient = new MinioClient(url, accessKey, secretKey);
+        minioClient = newMinioClient();
 
-        createBucketIfRequired();
+        createBucketIfRequired(minioClient);
         setBucketPolicy();
+    }
+
+    MinioClient newMinioClient() throws InvalidEndpointException, InvalidPortException {
+        return new MinioClient(this.url, this.accessKey, this.secretKey);
     }
 
     private static void ensureSet(final String field, final String fieldName) {
@@ -101,8 +108,8 @@ public class MinioUploadClient {
     }
 
     @SneakyThrows
-    private void createBucketIfRequired() {
-        boolean bucketExists = minioClient.bucketExists(bucket);
+    private void createBucketIfRequired(final MinioClient minioClient) {
+        boolean bucketExists = this.minioClient.bucketExists(bucket);
         if (!bucketExists) {
             minioClient.makeBucket(bucket);
         }
@@ -172,11 +179,19 @@ public class MinioUploadClient {
         headers.putAll(metadata);
         headers.put("Content-Type", contentType);
 
-        final ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-        minioClient.putObject(bucket, path, is, bytes.length, headers);
+        return new TryCatch().tryCatch(
+                () -> {
+                    final ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+                    minioClient.putObject(bucket, path, is, bytes.length, headers);
 
-        final String objectUrl = minioClient.getObjectUrl(bucket, path);
-        return new URL(objectUrl);
+                    final String objectUrl = minioClient.getObjectUrl(bucket, path);
+                    return new URL(objectUrl);
+                },
+                () -> {
+                    minioClient = newMinioClient();
+                    return null;
+                }
+        );
     }
 
     private static Map<String, String> prefixed(

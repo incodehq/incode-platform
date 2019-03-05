@@ -19,13 +19,16 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
+import org.incode.module.minio.common.util.TryCatch;
+
 import io.minio.MinioClient;
 import io.minio.ObjectStat;
 import io.minio.errors.ErrorResponseException;
 import io.minio.errors.InsufficientDataException;
 import io.minio.errors.InternalException;
-import io.minio.errors.InvalidArgumentException;
 import io.minio.errors.InvalidBucketNameException;
+import io.minio.errors.InvalidEndpointException;
+import io.minio.errors.InvalidPortException;
 import io.minio.errors.NoResponseException;
 import lombok.Data;
 import lombok.Setter;
@@ -38,8 +41,6 @@ import lombok.SneakyThrows;
  */
 public class MinioDownloadClient {
 
-
-    private static final String X_AMZ_META = "X-Amz-Meta-";
 
     /**
      * eg: "http://minio.mycompany.com:9000/"
@@ -73,7 +74,11 @@ public class MinioDownloadClient {
         ensureSet(this.accessKey, "accessKey");
         ensureSet(this.secretKey, "secretKey");
 
-        minioClient = new MinioClient(url, accessKey, secretKey);
+        minioClient = newMinioClient();
+    }
+
+    MinioClient newMinioClient() throws InvalidEndpointException, InvalidPortException {
+        return new MinioClient(url, accessKey, secretKey);
     }
 
     private static void ensureSet(final String field, final String fieldName) {
@@ -177,12 +182,16 @@ public class MinioDownloadClient {
         private final String objectName;
     }
 
-    private byte[] downloadBytes(final ParsedUrl parsedUrl)
-            throws IOException, InvalidKeyException, NoSuchAlgorithmException, InsufficientDataException,
-            InvalidArgumentException, InternalException, NoResponseException, InvalidBucketNameException,
-            XmlPullParserException, ErrorResponseException {
-
-        final InputStream is = minioClient.getObject(parsedUrl.bucketName, parsedUrl.objectName);
+    private byte[] downloadBytes(final ParsedUrl parsedUrl) throws Exception {
+        final TryCatch tryCatch = new TryCatch(attempt -> {});
+        final InputStream is =
+                tryCatch.tryCatch(
+                    () -> minioClient.getObject(parsedUrl.bucketName, parsedUrl.objectName),
+                    () -> {
+                        minioClient = newMinioClient();
+                        return null;
+                    }
+                );
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         IOUtils.copy(is, baos);

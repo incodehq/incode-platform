@@ -90,11 +90,6 @@
             <artifactId>incode-module-minio-common</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-        </dependency>
-
         <!-- test -->
         <dependency>
             <groupId>org.apache.isis.core</groupId>
