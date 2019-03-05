@@ -13,19 +13,29 @@ public class TryCatch {
     private static final Logger LOG = LoggerFactory.getLogger(TryCatch.class);
 
     public static final int MAX_ATTEMPTS = 5;
+    public static final long SLEEP_MILLIS = 1000L;
 
     public interface Backoff {
         void backoff(int attempt);
 
         class Default implements Backoff {
 
+            private final long sleepMillis;
+
+            public Default() {
+                this(SLEEP_MILLIS);
+            }
+
+            public Default(final long sleepMillis) {
+                this.sleepMillis = sleepMillis;
+            }
             @Override
             public void backoff(final int attempt) {
-                sleep(attempt * 1000L);
+                sleep(attempt * sleepMillis);
             }
 
             /**
-             * protected for convenience of any subclass.
+             * for convenience of any subclass.
              */
             protected static void sleep(final long sleepForMillis) {
                 final long t1 = System.currentTimeMillis() + sleepForMillis;
@@ -42,7 +52,7 @@ public class TryCatch {
 
             @Override
             public String toString() {
-                return "default backoff (1s, 2s, 3s, 4s, 5s)";
+                return "backoff for (attempt x " + sleepMillis + ") ms";
             }
         }
     }

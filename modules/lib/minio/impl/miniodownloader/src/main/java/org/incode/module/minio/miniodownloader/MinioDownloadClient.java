@@ -85,16 +85,10 @@ public class MinioDownloadClient {
         ensureSet(this.accessKey, "accessKey");
         ensureSet(this.secretKey, "secretKey");
 
-        final TryCatch.Backoff backoff = new TryCatch.Backoff.Default() {
-            @Override
-            public void backoff(final int attempt) {
-                sleep(attempt * backoffSleepMillis);
-            }
-        };
+        final TryCatch.Backoff backoff = new TryCatch.Backoff.Default(backoffSleepMillis);
 
         tryCatch = new TryCatch(backoffNumAttempts, backoff) {
-            @Override
-            protected Logger getLog() { return LOG; }
+            @Override protected Logger getLog() { return LOG; }
         };
         minioClient = newMinioClient();
     }
@@ -109,10 +103,9 @@ public class MinioDownloadClient {
         }
     }
 
-
     /**
      * @param url
-     * @throws if url cannot be parsed to extract bucketName and objectName
+     * @throws RuntimeException if url cannot be parsed to extract bucketName and objectName
      */
     public void check(final String url) {
         ParsedUrl.of(url);

@@ -117,16 +117,10 @@ public class MinioUploadClient {
         ensureSet(this.bucket, "bucket");
         ensureSet(this.instance, "instance");
 
-        final TryCatch.Backoff backoff = new TryCatch.Backoff.Default() {
-            @Override
-            public void backoff(final int attempt) {
-                sleep(attempt * backoffSleepMillis);
-            }
-        };
+        final TryCatch.Backoff backoff = new TryCatch.Backoff.Default(backoffSleepMillis);
 
         tryCatch = new TryCatch(backoffNumAttempts, backoff) {
-            @Override
-            protected Logger getLog() { return LOG; }
+            @Override protected Logger getLog() { return LOG; }
         };
 
         minioClient = newMinioClient();
