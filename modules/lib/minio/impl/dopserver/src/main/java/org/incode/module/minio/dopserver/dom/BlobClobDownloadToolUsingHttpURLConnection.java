@@ -13,21 +13,18 @@ import com.google.common.io.CharSource;
 import com.google.common.io.Resources;
 
 import org.apache.isis.applib.ApplicationException;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
 /**
- * Utility service provided for convenience of consuming application.
+ * This was originally provided to download from Minio, however it assumes that the URL requires no authentication,
+ * which is wrong.
+ *
+ * For Minio, instead use the MinioDownloadClient.
  */
-@DomainService(
-        nature = NatureOfService.DOMAIN,
-        objectType = "incodeMinio.BlobClobDownloadService"
-)
-public class BlobClobDownloadService {
+public class BlobClobDownloadToolUsingHttpURLConnection {
 
     @Programmatic
     public Blob downloadBlob(
@@ -77,7 +74,7 @@ public class BlobClobDownloadService {
                                 "Could not download URL: {responseCode}: {url}",
                                 "responseCode", "" + responseCode,
                                 "url", url.toExternalForm()),
-                    BlobClobDownloadService.class, "openConnection");
+                    BlobClobDownloadToolUsingHttpURLConnection.class, "openConnection");
         }
         return httpConn;
     }
@@ -90,7 +87,7 @@ public class BlobClobDownloadService {
             throw new ApplicationException(TranslatableString.tr(
                     "Could not download from URL (mime type not recognized: {mimeType})",
                     "mimeType", mimeType),
-                    BlobClobDownloadService.class, "determineMimeType");
+                    BlobClobDownloadToolUsingHttpURLConnection.class, "determineMimeType");
         }
     }
 
@@ -105,7 +102,7 @@ public class BlobClobDownloadService {
         throw new ApplicationException(TranslatableString.tr(
                 "Could not download from URL (mime type not recognized within content-type header '{contentType}')",
                 "contentType", contentType),
-                BlobClobDownloadService.class, "parseMimeType");
+                BlobClobDownloadToolUsingHttpURLConnection.class, "parseMimeType");
     }
 
 
@@ -118,7 +115,7 @@ public class BlobClobDownloadService {
             throw new ApplicationException(TranslatableString.tr(
                     "Could not download from URL (charset '{charsetName}' not recognized)",
                     "charsetName", charsetName),
-                    BlobClobDownloadService.class, "determineCharset");
+                    BlobClobDownloadToolUsingHttpURLConnection.class, "determineCharset");
         }
     }
 
@@ -137,7 +134,7 @@ public class BlobClobDownloadService {
         throw new ApplicationException(TranslatableString.tr(
                 "Could not download from URL (charset not recognized within content-type header '{contentType}')",
                 "contentType", contentType),
-                BlobClobDownloadService.class, "parseCharset");
+                BlobClobDownloadToolUsingHttpURLConnection.class, "parseCharset");
     }
 
 }

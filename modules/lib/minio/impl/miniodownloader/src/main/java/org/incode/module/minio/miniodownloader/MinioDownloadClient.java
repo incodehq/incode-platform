@@ -1,11 +1,8 @@
 package org.incode.module.minio.miniodownloader;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -14,8 +11,6 @@ import java.util.regex.Pattern;
 import com.google.api.client.util.IOUtils;
 import com.google.common.base.Strings;
 
-import org.xmlpull.v1.XmlPullParserException;
-
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
@@ -23,13 +18,8 @@ import org.incode.module.minio.common.util.TryCatch;
 
 import io.minio.MinioClient;
 import io.minio.ObjectStat;
-import io.minio.errors.ErrorResponseException;
-import io.minio.errors.InsufficientDataException;
-import io.minio.errors.InternalException;
-import io.minio.errors.InvalidBucketNameException;
 import io.minio.errors.InvalidEndpointException;
 import io.minio.errors.InvalidPortException;
-import io.minio.errors.NoResponseException;
 import lombok.Data;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -65,6 +55,11 @@ public class MinioDownloadClient {
      * Populated on {@link #init()}.
      */
     MinioClient minioClient;
+
+    /**
+     * Configured to retry immediately.
+     */
+    private final TryCatch tryCatch = new TryCatch(attempt -> {});
 
 
     @SneakyThrows
@@ -183,48 +178,51 @@ public class MinioDownloadClient {
     }
 
     private byte[] downloadBytes(final ParsedUrl parsedUrl) throws Exception {
-        final TryCatch tryCatch = new TryCatch(attempt -> {});
-        final InputStream is =
-                tryCatch.tryCatch(
-                    () -> minioClient.getObject(parsedUrl.bucketName, parsedUrl.objectName),
-                    () -> {
-                        minioClient = newMinioClient();
-                        return null;
-                    }
-                );
-
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        IOUtils.copy(is, baos);
-        return baos.toByteArray();
+        return tryCatch.tryCatch(
+                () -> {
+                    final InputStream is = minioClient.getObject(parsedUrl.bucketName, parsedUrl.objectName);
+                    final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    IOUtils.copy(is, baos);
+                    return baos.toByteArray();
+                },
+                () -> {
+                    minioClient = newMinioClient();
+                    return null;
+                }
+            );
     }
 
-    private ObjectStat statObject(final ParsedUrl parsedUrl)
-            throws InvalidBucketNameException, NoSuchAlgorithmException, InsufficientDataException, IOException,
-            InvalidKeyException, NoResponseException, XmlPullParserException, ErrorResponseException,
-            InternalException {
-        return minioClient.statObject(parsedUrl.bucketName, parsedUrl.objectName);
+    private ObjectStat statObject(final ParsedUrl parsedUrl) throws Exception {
+        return tryCatch.tryCatch(
+                () -> minioClient.statObject(parsedUrl.bucketName, parsedUrl.objectName),
+                () -> {
+                    minioClient = newMinioClient();
+                    return null;
+                }
+        );
     }
 
     private static String inferDocumentName(final String documentNameIfAny, final ObjectStat objectStat) {
-        final String documentName;
         if (documentNameIfAny != null) {
-            documentName = documentNameIfAny;
+            return documentNameIfAny;
         } else {
             final String filename = filenameFrom(objectStat);
             if(filename != null) {
-                documentName = filename;
+                return filename;
             } else {
-                documentName = "unknown";
+                return "unknown";
             }
         }
-        return documentName;
     }
-
 
     private static final Pattern CONTENT_DISPOSITION_FILENAME_PATTERN = Pattern.compile(".*filename=\"(?<filename>.+)\".*");
 
     private static String filenameFrom(final ObjectStat objectStat) {
         final Map<String, List<String>> httpHeaders = objectStat.httpHeaders();
+        return filenameFrom(httpHeaders);
+    }
+
+    static String filenameFrom(final Map<String, List<String>> httpHeaders) {
         final List<String> contentDispositionHeaders = httpHeaders.get("Content-Disposition");
         if(contentDispositionHeaders != null) {
             for (final String contentDispositionHeader : contentDispositionHeaders) {
@@ -236,6 +234,5 @@ public class MinioDownloadClient {
         }
         return null;
     }
-
 
 }
