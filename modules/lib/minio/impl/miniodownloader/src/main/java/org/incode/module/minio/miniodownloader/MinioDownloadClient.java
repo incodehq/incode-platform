@@ -52,19 +52,25 @@ public class MinioDownloadClient {
 
 
     /**
-     * Populated on {@link #init()}.
+     * Optionally fine-tune the backoff algorithm
      */
-    MinioClient minioClient;
+    @Setter
+    int backoffNumAttempts = 5;
 
     /**
      * Optionally fine-tune the backoff algorithm
      */
-    int backoffNumAttempts = 5;
-    /**
-     * Optionally fine-tune the backoff algorithm
-     */
+    @Setter
     long backoffSleepMillis = 200L;
 
+    /**
+     * Populated on {@link #init()}.
+     */
+    private  MinioClient minioClient;
+
+    /**
+     * Populated on {@link #init()}.
+     */
     private TryCatch tryCatch;
 
     @SneakyThrows
