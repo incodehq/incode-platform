@@ -75,7 +75,7 @@ class ExcelConverter {
         }
 
         public Row newRow() {
-            return sheet.createRow((short) rowNum++);
+            return sheet.createRow(rowNum++);
         }
     }
 
@@ -160,7 +160,7 @@ class ExcelConverter {
         // header row
         int i = 0;
         for (final ObjectAssociation property : propertyList) {
-            final Cell cell = headerRow.createCell((short) i++);
+            final Cell cell = headerRow.createCell(i++);
             cell.setCellValue(property.getName());
         }
 
@@ -171,7 +171,7 @@ class ExcelConverter {
             final Row detailRow = rowFactory.newRow();
             i = 0;
             for (final ObjectAssociation oa : propertyList) {
-                final Cell cell = detailRow.createCell((short) i++);
+                final Cell cell = detailRow.createCell(i++);
                 final OneToOneAssociation otoa = (OneToOneAssociation) oa;
                 if (annotatedAsHyperlink.contains(oa)){
                     cellMarshaller.setCellValueForHyperlink(objectAdapter, otoa, cell);
