@@ -1,18 +1,8 @@
 #
-# This script:
-#
-# - builds snapshot of isis
-#   - pushes to repo.incode.work
-#   - pushes to repo.incode.cloud
-# - builds Docker image of simpleapp
-#   -  pushes to hub.docker.com
+# Builds interim version, pushes to repo.incode.work
 #
 #
 # It requires the following gitlab secret variables
-#
-# - NEXUS_USERNAME
-# - NEXUS_PASSWORD
-# - NEXUS_REPO_URL
 #
 # - GCPAPPENGINEREPO_USERNAME
 # - GCPAPPENGINEREPO_PASSWORD
@@ -40,33 +30,6 @@ before_script:
 stages:
   - build-and-publish
 
-publish-to-nexus:
-  stage: build-and-publish
-  script:
-    - echo ""
-    - echo "$REVISION"
-    - echo "NEXUS_REPO_URL=$NEXUS_REPO_URL"
-    - echo ""
-    - >
-      mvn --batch-mode \
-          clean install \
-          -Drevision=$REVISION \
-          $CORE_ADDITIONAL_OPTS
-    - echo ""
-    - cd modules
-    - >
-      mvn -s .m2/settings.xml \
-             --batch-mode \
-              deploy \
-             -Drevision=$REVISION \
-             -Ddeploy-modules \
-             -Dskip.default-modules \
-             -DskipTests \
-             -Dnexus-deploy \
-          -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL \
-          $CORE_ADDITIONAL_OPTS
-    - cd ..
-
 publish-to-gcp:
   stage: build-and-publish
   script:
@@ -93,6 +56,43 @@ publish-to-gcp:
           -Dgcpappenginerepo-deploy.repositoryUrl=$GCPAPPENGINEREPO_URL \
           $CORE_ADDITIONAL_OPTS
     - cd ..
+
+
+#
+# Previously this script also uploaded to a Sonatype Nexus.
+# Here's the stuff that did it.
+#
+# - NEXUS_USERNAME
+# - NEXUS_PASSWORD
+# - NEXUS_REPO_URL
+#
+#publish-to-nexus:
+#  stage: build-and-publish
+#  script:
+#    - echo ""
+#    - echo "$REVISION"
+#    - echo "NEXUS_REPO_URL=$NEXUS_REPO_URL"
+#    - echo ""
+#    - >
+#      mvn --batch-mode \
+#          clean install \
+#          -Drevision=$REVISION \
+#          $CORE_ADDITIONAL_OPTS
+#    - echo ""
+#    - cd modules
+#    - >
+#      mvn -s .m2/settings.xml \
+#             --batch-mode \
+#              deploy \
+#             -Drevision=$REVISION \
+#             -Ddeploy-modules \
+#             -Dskip.default-modules \
+#             -DskipTests \
+#             -Dnexus-deploy \
+#          -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL \
+#          $CORE_ADDITIONAL_OPTS
+#    - cd ..
+
 
 
 #
