@@ -182,6 +182,7 @@ In `isis.properties`:
 isis.services.PublisherServiceUsingActiveMq.vmTransportUri=vm://broker
 isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue=memberInteractionsQueue
 isis.services.PublisherServiceUsingActiveMq.enabled=true
+isis.services.PublisherServiceUsingActiveMq.propagateExceptions=false
 ----
 
 The properties shown above are the defaults.
@@ -191,16 +192,16 @@ The properties shown above are the defaults.
 
 In the `AppManifest`, update its `getModules()` method, eg:
 
-[source,xml]
+[source,java]
 ----
-    @Override
-    public List<Class<?>> getModules() {
-        return Arrays.asList(
-                ...
-                org.isisaddons.module.publishmq.PublishMqModule.class,
-                ...
-        );
-    }
+@Override
+public List<Class<?>> getModules() {
+    return Arrays.asList(
+            ...
+            org.isisaddons.module.publishmq.PublishMqModule.class,
+            ...
+    );
+}
 ----
 
 You might also need to specify the package for any new services that you have written, eg implementation of `ContentNegotiationService` or similar.
