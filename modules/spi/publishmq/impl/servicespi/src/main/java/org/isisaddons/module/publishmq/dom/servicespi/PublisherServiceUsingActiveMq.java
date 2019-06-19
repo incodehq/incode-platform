@@ -36,7 +36,6 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PublisherServiceUsingActiveMq.class);
 
-    //region > keys
     public static final String ROOT = "isis.services." + PublisherServiceUsingActiveMq.class.getSimpleName() + ".";
 
     public static final String KEY_VM_TRANSPORT_URL = ROOT + "vmTransportUri";
@@ -44,11 +43,13 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
 
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE = ROOT + "memberInteractionsQueue";
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT = "memberInteractionsQueue";
-    //endregion
+
     public static final String KEY_ENABLED = ROOT + "enabled";
     public static final String KEY_ENABLED_DEFAULT = "true";
 
-    //region > fields
+    public static final String KEY_PROPAGATE_EXCEPTION = ROOT + "propagateException";
+    public static final String KEY_PROPAGATE_EXCEPTION_DEFAULT = "false";
+
 
     private ConnectionFactory jmsConnectionFactory;
     private Connection jmsConnection;
@@ -59,15 +60,15 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
     String memberInteractionsQueueName;
 
     private boolean enabled;
+    private boolean propagateException;
 
-    //endregion
 
-    //region > init, shutdown
 
     @PostConstruct
     public void init(Map<String,String> properties) {
 
         enabled = properties.getOrDefault(KEY_ENABLED, KEY_ENABLED_DEFAULT).equalsIgnoreCase("true");
+        propagateException = properties.getOrDefault(KEY_PROPAGATE_EXCEPTION, KEY_PROPAGATE_EXCEPTION_DEFAULT).equalsIgnoreCase("true");
 
         vmTransportUrl = properties.getOrDefault(KEY_VM_TRANSPORT_URL, KEY_VM_TRANSPORT_URL_DEFAULT);
         memberInteractionsQueueName = properties.getOrDefault(KEY_MEMBER_INTERACTIONS_QUEUE,
@@ -139,10 +140,8 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         }
     }
 
-    //endregion
 
 
-    //region > publish (execution)
 
     @Override
     public void publish(final Interaction.Execution<?, ?> execution) {
@@ -171,7 +170,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         try {
 
             session = jmsConnection.createSession(transacted, Session.SESSION_TRANSACTED);
-            TextMessage message = session.createTextMessage(xml);
+            final TextMessage message = session.createTextMessage(xml);
 
             final String transactionId = interactionDto.getTransactionId();
             final int sequence = interactionDto.getExecution().getSequence();
@@ -188,15 +187,23 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
             }
 
             final Queue queue = session.createQueue(memberInteractionsQueueName);
-            MessageProducer producer = session.createProducer(queue);
+            final MessageProducer producer = session.createProducer(queue);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
             producer.send(message);
 
             session.commit();
 
-        } catch (JMSException e) {
+        } catch (final JMSException ex) {
             rollback(session);
-            throw new ApplicationException("Failed to publish message", e);
+            if(propagateException) {
+                throw new ApplicationException(String.format(
+                            "Failed to publish message, and aborting (as per '%s' property)", KEY_PROPAGATE_EXCEPTION),
+                        ex);
+            } else {
+                LOG.error(String.format(
+                            "Failed to publish message, but continuing (as per '%s' property)", KEY_PROPAGATE_EXCEPTION),
+                        ex);
+            }
         } finally {
             if(session != null) {
                 closeSafely(session);
@@ -220,9 +227,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
             // ignore
         }
     }
-    //endregion
 
-    //region > publish (published objects)
 
     @Override
     public void publish(final PublishedObjects publishedObjects) {
@@ -236,9 +241,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         publishedObjectsRepository.persist(publishedObjects);
     }
 
-    //endregion
 
-    //region > republish
     /**
      * Private API.
      * @param interactionDto
@@ -248,15 +251,12 @@ public class PublisherServiceUsingActiveMq implements PublisherService {
         sendUsingJms(interactionDto);
     }
 
-    //endregion
 
-
-    //region > injected services
-    @Inject
-    private PublishedObjectsRepository publishedObjectsRepository;
 
     @Inject
-    private InteractionExecutionRepository interactionExecutionRepository;
-    //endregion
+    PublishedObjectsRepository publishedObjectsRepository;
+
+    @Inject
+    InteractionExecutionRepository interactionExecutionRepository;
 
 }
