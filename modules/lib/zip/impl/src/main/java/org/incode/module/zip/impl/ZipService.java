@@ -26,13 +26,17 @@ public class ZipService {
         private final File file;
     }
 
+    @Deprecated
+    public byte[] zip(final List<FileAndName> fileAndNameList) {
+        return zipNamedFiles(fileAndNameList);
+    }
+
     /**
      * Rather than use the name of the file (which might be temporary files, for example)
      * we explicitly provide the name to use (in the ZipEntry).
-     *
      */
     @Programmatic
-    public byte[] zip(final List<FileAndName> fileAndNameList) {
+    public byte[] zipNamedFiles(final List<FileAndName> fileAndNameList) {
 
         final byte[] bytes;
         try {
@@ -53,16 +57,14 @@ public class ZipService {
     }
 
     /**
-     * As per {@link #zip(List)}, but using each file's name as the zip entry (rather than providing it).
+     * As per {@link #zipNamedFiles(List)}, but using each file's name as the zip entry (rather than providing it).
      */
-    @Programmatic
     public byte[] zipFiles(final List<File> fileList) {
         return zip(fileList.stream()
                            .map(file -> new FileAndName(file.getName(), file))
                            .collect(Collectors.toList())
                 );
     }
-
 
     @Data
     public static class BytesAndName {
@@ -71,13 +73,12 @@ public class ZipService {
     }
 
     /**
-     * Similar to {@link #zip(List)}, but uses simple byte[] as the input, rather than files.
+     * Similar to {@link #zipNamedFiles(List)}, but uses simple byte[] as the input, rather than files.
      *
      * @param bytesAndNameList
      * @return
      */
-    @Programmatic
-    public byte[] zip(final List<BytesAndName> bytesAndNameList) {
+    public byte[] zipNamedBytes(final List<BytesAndName> bytesAndNameList) {
 
         final byte[] bytes;
         try {
@@ -96,7 +97,5 @@ public class ZipService {
         }
         return bytes;
     }
-
-
 
 }
