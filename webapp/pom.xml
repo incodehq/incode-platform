@@ -25,7 +25,7 @@
         <incode-platform.version>${revision}</incode-platform.version>
 		-->
 
-        <isis.version>2.0.0-M3.20190212-0748-ea5a7945</isis.version>
+        <isis.version>2.0.0-M2.20190225-1518-e89e5456</isis.version>
 
         <spring.version>4.1.9.RELEASE</spring.version>
         <jetty.version>9.4.3.v20170317</jetty.version>

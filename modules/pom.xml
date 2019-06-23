@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.incode</groupId>
         <artifactId>incode-build</artifactId>
-        <version>7</version>
+        <version>8</version>
         <relativePath/>
     </parent>
 
@@ -61,7 +61,7 @@
         <jar-plugin.automaticModuleName></jar-plugin.automaticModuleName>
         <git-plugin.propertiesDir></git-plugin.propertiesDir>
 
-        <isis.version>2.0.0-M3.20190212-0748-ea5a7945</isis.version>
+        <isis.version>2.0.0-M2.20190225-1518-e89e5456</isis.version>
 
         <!-- DO NOT CHANGE: versioning is specified externally in CI using -Drevision=... -->
         <revision>1.0.0-SNAPSHOT</revision>
