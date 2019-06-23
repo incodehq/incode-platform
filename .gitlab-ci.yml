@@ -2,17 +2,12 @@
 # This script:
 #
 # - builds snapshot of isis
-#   - pushes to repo.incode.work
-#   - pushes to repo.incode.cloud
+#   - pushes to repo.incode.work (nb: repo.incode.cloud currently an alias for this)
 # - builds Docker image of simpleapp
 #   -  pushes to hub.docker.com
 #
 #
 # It requires the following gitlab secret variables
-#
-# - NEXUS_USERNAME
-# - NEXUS_PASSWORD
-# - NEXUS_REPO_URL
 #
 # - GCPAPPENGINEREPO_USERNAME
 # - GCPAPPENGINEREPO_PASSWORD
@@ -68,18 +63,31 @@ build-package-push:
           -Dgcpappenginerepo-deploy \
           -Dgcpappenginerepo-deploy.repositoryUrl=$GCPAPPENGINEREPO_URL \
           $CORE_ADDITIONAL_OPTS
-    - >
-      mvn -s .m2/settings.xml \
-          --batch-mode \
-          deploy \
-          -Drevision=$REVISION \
-          -Ddeploy-modules \
-          -Dskip.default-modules \
-          -DskipTests \
-          -Dnexus-deploy \
-          -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL \
-          $CORE_ADDITIONAL_OPTS
     - cd ..
+
+
+#
+# nb: previously we were also uploading to a Nexus instance at repo.incode.cloud
+# this is the configuration to do this; have kept here in case we need to reinstate
+# in the future...
+#
+
+# - NEXUS_USERNAME
+# - NEXUS_PASSWORD
+# - NEXUS_REPO_URL
+#
+
+#    - >
+#      mvn -s .m2/settings.xml \
+#          --batch-mode \
+#          deploy \
+#          -Drevision=$REVISION \
+#          -Ddeploy-modules \
+#          -Dskip.default-modules \
+#          -DskipTests \
+#          -Dnexus-deploy \
+#          -Dnexus-deploy.repositoryUrl=$NEXUS_REPO_URL \
+#          $CORE_ADDITIONAL_OPTS
 
 
 #
