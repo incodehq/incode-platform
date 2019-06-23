@@ -3,12 +3,12 @@ package org.incode.module.zip.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import com.google.common.io.Files;
 
 import org.apache.isis.applib.FatalException;
 import org.apache.isis.applib.annotation.DomainService;
@@ -41,7 +41,8 @@ public class ZipService {
 
             for (FileAndName fan : fileAndNameList) {
                 zos.putNextEntry(new ZipEntry(fan.getName()));
-                zos.write(Files.toByteArray(fan.getFile()));
+                Files.readAllBytes(Paths.get(fan.getFile().toURI()));
+                zos.write(Files.readAllBytes(Paths.get(fan.getFile().toURI())));
                 zos.closeEntry();
             }
             zos.close();
