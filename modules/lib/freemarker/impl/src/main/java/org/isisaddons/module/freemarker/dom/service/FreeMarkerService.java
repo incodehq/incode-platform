@@ -5,7 +5,6 @@ import java.io.StringWriter;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -15,7 +14,7 @@ import org.joda.time.base.AbstractInstant;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.config.ConfigurationService;
+import org.apache.isis.core.plugins.environment.IsisSystemEnvironment;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -50,8 +49,8 @@ public class FreeMarkerService {
             cfg.setObjectWrapper(new JodaObjectWrapper());
         }
 
-        final String deploymentType = configurationService.getProperty("isis.deploymentType");
-        final boolean isPrototyping = deploymentType == null || deploymentType.contains("prototyping");
+
+        final boolean isPrototyping = isPrototyping();
         final TemplateExceptionHandler handler = isPrototyping
                         ? TemplateExceptionHandler.HTML_DEBUG_HANDLER
                         : TemplateExceptionHandler.RETHROW_HANDLER;
@@ -74,15 +73,12 @@ public class FreeMarkerService {
             final String templateChars,
             final Object dataModel) throws IOException, TemplateException {
         return templateLoader
-                .withTemplateSource(templateName, templateChars, new TemplateLoaderFromThreadLocal.Block() {
-            @Override
-            public String exec(final TemplateSource templateSource) throws IOException, TemplateException {
-                final StringWriter sw = new StringWriter();
-                final Template template = cfg.getTemplate(templateSource.getTemplateName());
-                template.process(dataModel, sw);
-                return sw.toString();
-            }
-        });
+                .withTemplateSource(templateName, templateChars, templateSource -> {
+                    final StringWriter sw = new StringWriter();
+                    final Template template = cfg.getTemplate(templateSource.getTemplateName());
+                    template.process(dataModel, sw);
+                    return sw.toString();
+                });
     }
 
 
@@ -112,10 +108,9 @@ public class FreeMarkerService {
         }
     }
 
-    //region > injected services
-    @Inject
-    ConfigurationService configurationService;
-    //endregion
+    protected boolean isPrototyping() {
+        return IsisSystemEnvironment.getDefault().getDeploymentType().isPrototyping();
+    }
 
 }
 

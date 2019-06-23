@@ -7,13 +7,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jmock.auto.Mock;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import org.apache.isis.applib.services.config.ConfigurationService;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import org.isisaddons.module.xdocreport.dom.example.models.Developer;
@@ -29,9 +27,6 @@ public class XDocReportServiceTest {
 
     @Rule
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(JUnitRuleMockery2.Mode.INTERFACES_AND_CLASSES);
-
-    @Mock
-    ConfigurationService mockConfigurationService;
 
     XDocReportService service;
 

@@ -13,7 +13,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import org.apache.isis.applib.services.config.ConfigurationService;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -27,9 +26,6 @@ public class PdfBoxServiceTest {
 
     @Rule
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(JUnitRuleMockery2.Mode.INTERFACES_AND_CLASSES);
-
-    @Mock
-    ConfigurationService mockConfigurationService;
 
     PdfBoxService service;
 

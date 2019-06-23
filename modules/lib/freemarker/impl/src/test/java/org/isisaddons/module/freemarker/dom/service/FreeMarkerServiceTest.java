@@ -4,13 +4,11 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
-import org.jmock.auto.Mock;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import org.apache.isis.applib.services.config.ConfigurationService;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,15 +23,12 @@ public class FreeMarkerServiceTest {
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(JUnitRuleMockery2.Mode.INTERFACES_AND_CLASSES);
 
     @JUnitRuleMockery2.Ignoring
-    @Mock
-    ConfigurationService mockConfigurationService;
 
     FreeMarkerService service;
 
     @Before
     public void setUp() throws Exception {
         service = new FreeMarkerService();
-        service.configurationService = mockConfigurationService;
 
         service.init(ImmutableMap.of(FreeMarkerService.JODA_SUPPORT_KEY, "true"));
     }

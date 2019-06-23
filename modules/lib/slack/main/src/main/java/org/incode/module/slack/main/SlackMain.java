@@ -1,8 +1,12 @@
 package org.incode.module.slack.main;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.log4j.BasicConfigurator;
 
-import org.apache.isis.core.commons.config.IsisConfigurationDefault;
+import org.apache.isis.applib.services.confview.ConfigurationProperty;
+import org.apache.isis.applib.services.confview.ConfigurationViewService;
 
 import org.incode.module.slack.impl.SlackService;
 
@@ -27,8 +31,7 @@ public class SlackMain {
 
         BasicConfigurator.configure();
 
-        final IsisConfigurationDefault configuration = new IsisConfigurationDefault();
-        putConfig(configuration, "authToken");
+        final ConfigurationViewService configuration = newConfiguration();
 
         final SlackService slackService = new SlackService(configuration);
 
@@ -42,17 +45,28 @@ public class SlackMain {
         slackService.destroy();
     }
 
+    private static ConfigurationViewService newConfiguration() {
+        return new ConfigurationViewService() {
+
+            private Set<ConfigurationProperty> allProps = new HashSet<>();
+            {
+                String key = SlackService.CONFIG_KEY_PREFIX + "authToken";
+                final String value = System.getProperty(key);
+                if(value == null) {
+                    throw new RuntimeException("Missing system property\n\n-D" + key + "=\n");
+                }
+                allProps.add(new ConfigurationProperty(key, value));
+            }
+
+            @Override public Set<ConfigurationProperty> allProperties() {
+                return allProps;
+            }
+        };
+    }
+
     private static String argsElse(final String[] args, final int i, final String fallback) {
         return args.length > i ? args[i] : fallback;
     }
 
-    private static void putConfig(final IsisConfigurationDefault configuration, final String suffix) {
-        final String key = SlackService.CONFIG_KEY_PREFIX + suffix;
-        final String value = System.getProperty(key);
-        if(value == null) {
-            throw new RuntimeException("Missing system property\n\n-D" + key + "=\n");
-        }
-        configuration.put(key, value);
-    }
 
 }

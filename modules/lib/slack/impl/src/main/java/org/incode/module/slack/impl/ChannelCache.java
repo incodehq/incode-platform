@@ -2,15 +2,15 @@ package org.incode.module.slack.impl;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.collect.Maps;
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackSession;
 
 class ChannelCache {
 
     private final SlackSession slackSession;
-    private final Map<String, Optional<SlackChannel>> channelsByName = Maps.newConcurrentMap();
+    private final Map<String, Optional<SlackChannel>> channelsByName = new ConcurrentHashMap<>();
 
     ChannelCache(final SlackSession slackSession) {
         this.slackSession = slackSession;

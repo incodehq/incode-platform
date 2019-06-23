@@ -1227,7 +1227,7 @@
                 <module>lib/base/impl</module>
 
                 <!--<module>lib/docx/fixture</module>-->
-                <!--<module>lib/docx/impl</module>-->
+                <module>lib/docx/impl</module>
                 <!--<module>lib/docx/integtests</module>-->
 
                 <module>lib/excel/impl</module>
@@ -1239,11 +1239,11 @@
                 <!--<module>lib/fakedata/integtests</module>-->
 
                 <module>lib/fixturesupport/impl</module>
-                <!--<module>lib/freemarker/impl</module>-->
+                <module>lib/freemarker/impl</module>
                 <!--<module>lib/integtestsupport/impl</module>-->
-                <!--<module>lib/jaxrsclient/impl</module>-->
-                <!--<module>lib/minio/impl</module>-->
-                <!--<module>lib/pdfbox/impl</module>-->
+                <module>lib/jaxrsclient/impl</module>
+                <module>lib/minio/impl</module>
+                <module>lib/pdfbox/impl</module>
 
                 <!--<module>lib/poly/fixture</module>-->
                 <!--<module>lib/poly/impl</module>-->
@@ -1252,15 +1252,15 @@
                 <!--<module>lib/servletapi/fixture</module>-->
                 <!--<module>lib/servletapi/impl</module>-->
 
-                <!--<module>lib/slack/impl</module>-->
-                <!--<module>lib/slack/main</module>-->
+                <module>lib/slack/impl</module>
+                <module>lib/slack/main</module>
 
                 <!--<module>lib/stringinterpolator/fixture</module>-->
-                <!--<module>lib/stringinterpolator/impl</module>-->
+                <module>lib/stringinterpolator/impl</module>
                 <!--<module>lib/stringinterpolator/integtests</module>-->
 
                 <module>lib/unittestsupport/impl</module>
-                <!--<module>lib/xdocreport/impl</module>-->
+                <module>lib/xdocreport/impl</module>
                 <module>lib/zip/impl</module>
 
                 <module>mml/paraname8/impl</module>
@@ -1318,22 +1318,22 @@
                 <!--<module>ext/togglz/impl</module>-->
 
                 <module>lib/base/impl</module>
-                <!--<module>lib/docx/impl</module>-->
+                <module>lib/docx/impl</module>
                 <module>lib/excel/impl</module>
                 <module>lib/fakedata/impl</module>
                 <module>lib/fixturesupport/impl</module>
-                <!--<module>lib/freemarker/impl</module>-->
+                <module>lib/freemarker/impl</module>
                 <!--<module>lib/integtestsupport/impl</module>-->
-                <!--<module>lib/jaxrsclient/impl</module>-->
-                <!--<module>lib/minio/impl</module>-->
-                <!--<module>lib/pdfbox/impl</module>-->
+                <module>lib/jaxrsclient/impl</module>
+                <module>lib/minio/impl</module>
+                <module>lib/pdfbox/impl</module>
                 <!--<module>lib/poly/impl</module>-->
                 <!--<module>lib/servletapi/impl</module>-->
-                <!--<module>lib/slack/impl</module>-->
-                <!--<module>lib/slack/main</module>-->
-                <!--<module>lib/stringinterpolator/impl</module>-->
+                <module>lib/slack/impl</module>
+                <module>lib/slack/main</module>
+                <module>lib/stringinterpolator/impl</module>
                 <module>lib/unittestsupport/impl</module>
-                <!--<module>lib/xdocreport/impl</module>-->
+                <module>lib/xdocreport/impl</module>
                 <module>lib/zip/impl</module>
 
                 <module>mml/paraname8/impl</module>

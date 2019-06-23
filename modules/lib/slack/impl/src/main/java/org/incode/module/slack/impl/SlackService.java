@@ -2,11 +2,13 @@ package org.incode.module.slack.impl;
 
 import java.io.IOException;
 import java.net.Proxy;
+import java.util.Objects;
 
+import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 
-import com.google.common.base.Strings;
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackMessageHandle;
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage;
@@ -20,7 +22,8 @@ import org.slf4j.LoggerFactory;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.core.commons.config.IsisConfiguration;
+import org.apache.isis.applib.services.confview.ConfigurationProperty;
+import org.apache.isis.applib.services.confview.ConfigurationViewService;
 
 import lombok.Setter;
 
@@ -55,15 +58,15 @@ public class SlackService {
     /**
      * For testing purposes only.
      */
-    public SlackService(final IsisConfiguration configuration) {
-        this.configuration = configuration;
+    public SlackService(final ConfigurationViewService configurationViewService) {
+        this.configurationViewService = configurationViewService;
     }
 
     @PostConstruct
     @Programmatic
     public void init() {
         this.authToken = asSetElseConfigured(this.authToken, "authToken");
-        final boolean requiredConfiguration = !Strings.isNullOrEmpty(authToken);
+        final boolean requiredConfiguration = !isNullOrEmpty(authToken);
         if(!requiredConfiguration) {
             return;
         }
@@ -189,10 +192,17 @@ public class SlackService {
     }
 
     private String configValue(final String configKeySuffix) {
-        return configuration.getString(CONFIG_KEY_PREFIX + configKeySuffix);
+        return configurationViewService.allProperties().stream()
+                .filter(x -> Objects.equals(x.getKey(), CONFIG_KEY_PREFIX + configKeySuffix))
+                .map(ConfigurationProperty::getValue)
+                .findFirst().orElse(null);
     }
 
-    @javax.inject.Inject
-    IsisConfiguration configuration;
+    private static boolean isNullOrEmpty(@Nullable CharSequence x) {
+        return x == null || x.length() == 0;
+    }
+
+    @Inject
+    ConfigurationViewService configurationViewService;
 
 }

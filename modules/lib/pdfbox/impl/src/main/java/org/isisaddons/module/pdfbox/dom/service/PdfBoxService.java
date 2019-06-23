@@ -6,10 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
@@ -46,7 +45,7 @@ public class PdfBoxService {
     }
 
     private static List<InputStream> asByteArrays(final byte[][] pdfByteArrays) {
-        final List<InputStream> inputStreams = Lists.newArrayList();
+        final List<InputStream> inputStreams = new ArrayList<>();
         for (byte[] pdfByteArray : pdfByteArrays) {
             inputStreams.add(new ByteArrayInputStream(pdfByteArray));
         }

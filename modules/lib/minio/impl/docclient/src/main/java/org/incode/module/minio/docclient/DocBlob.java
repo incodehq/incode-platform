@@ -5,8 +5,6 @@ import java.util.Base64;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
 
 import lombok.Getter;
 
@@ -70,8 +68,7 @@ public class DocBlob {
     }
 
     private String part(final int i) {
-        final Iterable<String> split = Splitter.on(':').split(blob);
-        final String[] parts = Iterables.toArray(split, String.class);
+        final String[] parts = blob.split("[:]");
         return parts.length >= i+1 ? parts[i] : null;
     }
 

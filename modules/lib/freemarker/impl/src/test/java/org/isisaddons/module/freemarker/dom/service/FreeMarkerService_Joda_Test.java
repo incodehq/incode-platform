@@ -4,14 +4,11 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
-import org.jmock.Expectations;
-import org.jmock.auto.Mock;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import org.apache.isis.applib.services.config.ConfigurationService;
 import org.apache.isis.core.unittestsupport.jmocking.JUnitRuleMockery2;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -27,8 +24,6 @@ public class FreeMarkerService_Joda_Test {
     public JUnitRuleMockery2 context = JUnitRuleMockery2.createFor(JUnitRuleMockery2.Mode.INTERFACES_AND_CLASSES);
 
     @JUnitRuleMockery2.Ignoring
-    @Mock
-    ConfigurationService mockConfigurationService;
 
     Map<String, Object> properties;
 
@@ -37,9 +32,7 @@ public class FreeMarkerService_Joda_Test {
     @Before
     public void setUp() throws Exception {
         service = new FreeMarkerService();
-        service.configurationService = mockConfigurationService;
-
-        properties = ImmutableMap.<String,Object>of(
+        properties = ImmutableMap.of(
                 "jodaDateTime", new org.joda.time.DateTime(2017,2,1,14,30),
                 "jodaLocalDateTime", new org.joda.time.LocalDateTime(2017,2,1,14,30),
                 "jodaLocalDate", new org.joda.time.LocalDate(2017,2,1),
@@ -76,13 +69,6 @@ public class FreeMarkerService_Joda_Test {
         // then
         // TODO: this doesn't play well with time zones, so cheating by using 'startsWith'
         assertThat(merged, startsWith("result: 2017-02-01T14:30:00"));
-    }
-
-    private void expectingConfigurationServiceGetPropertyJodaSupportReturns(final String result) {
-        context.checking(new Expectations() {{
-            allowing(mockConfigurationService).getProperty(with(FreeMarkerService.JODA_SUPPORT_KEY), with("true"));
-            will(returnValue(result));
-        }});
     }
 
     @Test

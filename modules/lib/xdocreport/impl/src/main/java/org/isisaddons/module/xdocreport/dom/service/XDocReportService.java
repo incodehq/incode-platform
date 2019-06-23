@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
 import org.apache.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.converter.pdf.PdfOptions;
@@ -14,7 +13,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.services.config.ConfigurationService;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.core.io.internal.ByteArrayOutputStream;
@@ -85,11 +83,6 @@ public class XDocReportService {
 
         return baos.toByteArray();
     }
-
-    //region > injected services
-    @Inject
-    ConfigurationService configurationService;
-    //endregion
 
 }
 
