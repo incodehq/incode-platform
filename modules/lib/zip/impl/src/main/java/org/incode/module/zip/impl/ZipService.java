@@ -41,14 +41,13 @@ public class ZipService {
 
             for (FileAndName fan : fileAndNameList) {
                 zos.putNextEntry(new ZipEntry(fan.getName()));
-                Files.readAllBytes(Paths.get(fan.getFile().toURI()));
                 zos.write(Files.readAllBytes(Paths.get(fan.getFile().toURI())));
                 zos.closeEntry();
             }
             zos.close();
             bytes = baos.toByteArray();
         } catch (final IOException ex) {
-            throw new FatalException("Unable to create zip of layouts", ex);
+            throw new FatalException("Unable to create zip", ex);
         }
         return bytes;
     }
@@ -63,4 +62,41 @@ public class ZipService {
                            .collect(Collectors.toList())
                 );
     }
+
+
+    @Data
+    public static class BytesAndName {
+        private final String name;
+        private final byte[] bytes;
+    }
+
+    /**
+     * Similar to {@link #zip(List)}, but uses simple byte[] as the input, rather than files.
+     *
+     * @param bytesAndNameList
+     * @return
+     */
+    @Programmatic
+    public byte[] zip(final List<BytesAndName> bytesAndNameList) {
+
+        final byte[] bytes;
+        try {
+            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            final ZipOutputStream zos = new ZipOutputStream(baos);
+
+            for (BytesAndName ban : bytesAndNameList) {
+                zos.putNextEntry(new ZipEntry(ban.getName()));
+                zos.write(ban.getBytes());
+                zos.closeEntry();
+            }
+            zos.close();
+            bytes = baos.toByteArray();
+        } catch (final IOException ex) {
+            throw new FatalException("Unable to create zip", ex);
+        }
+        return bytes;
+    }
+
+
+
 }
