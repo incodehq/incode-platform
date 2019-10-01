@@ -2,10 +2,11 @@ package org.isisaddons.module.publishmq.dom.jdo.events;
 
 import javax.inject.Inject;
 
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.schema.ixn.v1.InteractionDto;
-import org.apache.isis.schema.utils.InteractionDtoUtils;
-
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Mixin;
+import org.apache.isis.applib.annotation.SemanticsOf;
 import org.isisaddons.module.publishmq.PublishMqModule;
 import org.isisaddons.module.publishmq.dom.servicespi.PublisherServiceUsingActiveMq;
 
@@ -33,22 +34,7 @@ public class PublishedEvent_republish {
     @MemberOrder(name = "transactionId", sequence = "1")
     public PublishedEvent $$() {
 
-        final String xml = publishedEvent.getSerializedForm();
-
-        final PublishedEventType eventType = publishedEvent.getEventType();
-        switch (eventType) {
-        case ACTION_INVOCATION:
-        case PROPERTY_EDIT:
-            final InteractionDto interactionDto = InteractionDtoUtils.fromXml(xml);
-            publisherService.republish(interactionDto);
-            break;
-        case CHANGED_OBJECTS:
-            break;
-        }
-        return publishedEvent;
+        throw new RuntimeException("Not yet implemented.");
     }
-
-    @Inject
-    PublisherServiceUsingActiveMq publisherService;
 
 }

@@ -6,8 +6,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
-import javax.jms.JMSException;
-import javax.jms.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,14 +52,6 @@ public class PublisherServiceUsingActiveMq implements PublisherService,
     public void shutdown() {
     }
 
-
-    private static void closeSafely(Session session) {
-        try {
-            session.close();
-        } catch (JMSException e) {
-            // ignore
-        }
-    }
 
     //endregion
 
@@ -121,6 +111,7 @@ public class PublisherServiceUsingActiveMq implements PublisherService,
 
     @Inject
     List<InteractionExecutionRepository> interactionExecutionRepositories;
+
     //endregion
 
 }
