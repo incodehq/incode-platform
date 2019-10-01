@@ -12,7 +12,6 @@ import com.google.common.collect.Sets;
 
 import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
-
 import org.isisaddons.module.audit.AuditModule;
 import org.isisaddons.module.audit.fixture.AuditFixturesModule;
 import org.isisaddons.module.command.CommandModule;
@@ -29,6 +28,7 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.poly.fixture.PolyFixturesModule;
 import org.isisaddons.module.publishmq.dom.jdo.PublishMqSpiJdoModule;
+import org.isisaddons.module.publishmq.dom.servicespi.PublishMqSpiServicesModule;
 import org.isisaddons.module.publishmq.fixture.PublishMqFixturesModule;
 import org.isisaddons.module.quartz.dom.QuartzModule;
 import org.isisaddons.module.security.SecurityModule;
@@ -51,7 +51,6 @@ import org.isisaddons.wicket.pdfjs.fixture.PdfjsFixturesModule;
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
 import org.isisaddons.wicket.wickedcharts.fixture.WickedChartsFixturesModule;
-
 import org.incode.module.base.services.BaseServicesModule;
 import org.incode.module.errorrptjira.ErrorReportingJiraModule;
 import org.incode.module.errorrptslack.ErrorReportingSlackModule;
