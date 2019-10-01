@@ -20,7 +20,6 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 /**
  * Provides supporting functionality for querying and persisting
  * {@link PublishedEvent published event} entities.
- * need to explicitly register it as a service (eg in <tt>isis.properties</tt>).
  */
 @DomainService(
         nature = NatureOfService.DOMAIN
