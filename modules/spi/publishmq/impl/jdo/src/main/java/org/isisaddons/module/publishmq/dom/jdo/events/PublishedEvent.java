@@ -3,7 +3,11 @@ package org.isisaddons.module.publishmq.dom.jdo.events;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.isisaddons.module.publishmq.dom.outbox.events.PublishedEventAbstract;
 
+/**
+ * This entity is in the "incorrect" module because it shares a superclass with OutboxEvent.
+ */
 @javax.jdo.annotations.PersistenceCapable(
         schema = "isispublishmq",
         table="PublishedEvent")

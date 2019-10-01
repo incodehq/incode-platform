@@ -10,43 +10,43 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.schema.chg.v1.ChangesDto;
 import org.apache.isis.schema.utils.ChangesDtoUtils;
-import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
+import org.isisaddons.module.publishmq.dom.outbox.events.OutboxEvent;
 import org.isisaddons.module.publishmq.dom.outbox.events.PublishedEventType;
 import org.isisaddons.module.publishmq.dom.servicespi.PublishedObjectsRepository;
 
 @DomainService(
         nature = NatureOfService.DOMAIN
 )
-public class PublishedObjectsRepositoryJdo implements PublishedObjectsRepository {
+public class PublishedObjectsRepositoryOutbox implements PublishedObjectsRepository {
 
     @Override
     @Programmatic
     public void persist(final PublishedObjects publishedObjects) {
 
-        final PublishedEvent publishedEvent = new PublishedEvent();
+        final OutboxEvent outboxEvent = new OutboxEvent();
 
-        publishedEvent.setEventType(PublishedEventType.CHANGED_OBJECTS);
-        publishedEvent.setTransactionId(publishedObjects.getTransactionId());
-        publishedEvent.setTimestamp(publishedObjects.getCompletedAt());
-        publishedEvent.setUser(publishedObjects.getUsername());
+        outboxEvent.setEventType(PublishedEventType.CHANGED_OBJECTS);
+        outboxEvent.setTransactionId(publishedObjects.getTransactionId());
+        outboxEvent.setTimestamp(publishedObjects.getCompletedAt());
+        outboxEvent.setUser(publishedObjects.getUsername());
 
-        publishedEvent.setTarget(null);
-        publishedEvent.setTargetClass(null);
-        publishedEvent.setMemberIdentifier(null);
-        publishedEvent.setTargetAction(null);
+        outboxEvent.setTarget(null);
+        outboxEvent.setTargetClass(null);
+        outboxEvent.setMemberIdentifier(null);
+        outboxEvent.setTargetAction(null);
 
         final ChangesDto changesDto = publishedObjects.getDto();
 
-        publishedEvent.setSequence(changesDto.getSequence());
+        outboxEvent.setSequence(changesDto.getSequence());
 
         final String xml = ChangesDtoUtils.toXml(changesDto);
 
-        publishedEvent.setSerializedForm(xml);
+        outboxEvent.setSerializedForm(xml);
 
         final String title = buildTitle(publishedObjects);
-        publishedEvent.setTitle(title);
+        outboxEvent.setTitle(title);
 
-        repositoryService.persist(publishedEvent);
+        repositoryService.persist(outboxEvent);
     }
 
     private String buildTitle(final PublishedObjects publishedObjects) {

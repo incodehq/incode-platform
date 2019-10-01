@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo.events;
+package org.isisaddons.module.publishmq.dom.outbox.events;
 
 import java.util.List;
 import java.util.Optional;

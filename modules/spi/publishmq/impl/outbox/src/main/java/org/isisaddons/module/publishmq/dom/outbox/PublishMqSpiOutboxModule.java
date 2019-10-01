@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo;
+package org.isisaddons.module.publishmq.dom.outbox;
 
 import java.util.Set;
 
@@ -10,15 +10,14 @@ import org.apache.isis.applib.Module;
 import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract;
-import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
-import org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage;
-import org.isisaddons.module.publishmq.dom.outbox.PublishMqSpiOutboxModule;
+import org.isisaddons.module.publishmq.dom.outbox.events.OutboxEvent;
+import org.isisaddons.module.publishmq.dom.servicespi.PublishMqSpiServicesModule;
 
 @XmlRootElement(name = "module")
-public class PublishMqSpiJdoModule extends ModuleAbstract {
+public class PublishMqSpiOutboxModule extends ModuleAbstract {
 
     @Override public Set<Module> getDependencies() {
-        return Sets.newHashSet(new PublishMqSpiOutboxModule());
+        return Sets.newHashSet(new PublishMqSpiServicesModule());
     }
 
     @Override
@@ -26,8 +25,7 @@ public class PublishMqSpiJdoModule extends ModuleAbstract {
         return new TeardownFixtureAbstract() {
             @Override
             protected void execute(final ExecutionContext executionContext) {
-                deleteFrom(StatusMessage.class);
-                deleteFrom(PublishedEvent.class);
+                deleteFrom(OutboxEvent.class);
             }
         };
     }

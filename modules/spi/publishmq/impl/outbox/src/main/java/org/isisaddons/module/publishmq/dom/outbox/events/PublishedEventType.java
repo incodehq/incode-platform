@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo.events;
+package org.isisaddons.module.publishmq.dom.outbox.events;
 
 public enum PublishedEventType {
     ACTION_INVOCATION,

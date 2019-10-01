@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo.events;
+package org.isisaddons.module.publishmq.dom.outbox.events;
 
 import java.text.SimpleDateFormat;
 import java.util.UUID;
@@ -30,7 +30,7 @@ import lombok.Setter;
         identityType=IdentityType.APPLICATION,
         schema = "isispublishmq",
         table="PublishedEventAbstract",
-        objectIdClass=PublishedEventPK.class)
+        objectIdClass= PublishedEventPK.class)
 @Inheritance(strategy = InheritanceStrategy.COMPLETE_TABLE)
 public abstract class PublishedEventAbstract extends DomainChangeJdoAbstract implements HasTransactionId,
         RepresentsInteractionMemberExecution, HasUsername {

@@ -32,6 +32,7 @@
 
     <modules>
         <module>servicespi</module>
+        <module>outbox</module>
         <module>jdo</module>
         <module>mq</module>
         <module>camel</module>

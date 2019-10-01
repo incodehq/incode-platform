@@ -8,18 +8,18 @@
         <artifactId>isis-module-publishmq-dom</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+    <artifactId>isis-module-publishmq-dom-outbox</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform SPI PublishMQ Impl JDO Persistence</name>
+    <name>Incode Platform SPI PublishMQ Impl Outbox</name>
     <description>
-        A module providing the persistence of published events.
+        A module providing an outbox for events to be picked up by a message relay
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.spi.publishmq.jdo</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/spi/publishmq/jdo</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.spi.publishmq.outbox</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/spi/publishmq/outboxp</git-plugin.propertiesDir>
 
         <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
     </properties>
@@ -74,7 +74,7 @@
     <dependencies>
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
-            <artifactId>isis-module-publishmq-dom-outbox</artifactId>
+            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.isis.core</groupId>
