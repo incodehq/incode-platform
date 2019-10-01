@@ -254,10 +254,17 @@ Execution default of goal org.apache.isis.tool:isis-maven-plugin:1.16.2:swagger 
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-jdo</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-mq</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-fixtures</artifactId>

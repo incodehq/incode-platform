@@ -697,6 +697,18 @@
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-mq</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-mq</artifactId>
+                <version>${incode-platform.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-camel</artifactId>
                 <version>${incode-platform.version}</version>
             </dependency>
@@ -1214,6 +1226,25 @@
     </dependencyManagement>
 
     <profiles>
+
+        <profile>
+            <id>publishmq</id>
+            <activation>
+                <property>
+                    <name>publishmq</name>
+                </property>
+            </activation>
+            <modules>
+
+                <module>lib/base/impl</module>
+                <module>lib/fakedata/impl</module>
+
+                <module>spi/publishmq/fixture</module>
+                <module>spi/publishmq/impl</module>
+                <module>spi/publishmq/integtests</module>
+
+            </modules>
+        </profile>
 
         <profile>
             <id>default-modules</id>

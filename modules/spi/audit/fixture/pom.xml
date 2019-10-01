@@ -172,6 +172,10 @@ TODO: to reinstate, think that FixturesManifest needs some attention.
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-jdo</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-mq</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.isisaddons.module.security</groupId>

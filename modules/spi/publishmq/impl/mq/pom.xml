@@ -7,23 +7,35 @@
         <artifactId>isis-module-publishmq-dom</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+    <artifactId>isis-module-publishmq-dom-mq</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>Incode Platform SPI PublishMQ Impl SPI Service</name>
+    <name>Incode Platform SPI PublishMQ Impl MQ Plugin</name>
     <description>
         A module providing publishmq service SPI implementation
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>org.incode.platform.spi.publishmq.servicespi</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>org/incode/platform/spi/publishmq/servicespi</git-plugin.propertiesDir>
+        <jar-plugin.automaticModuleName>org.incode.platform.spi.publishmq.mq</jar-plugin.automaticModuleName>
+        <git-plugin.propertiesDir>org/incode/platform/spi/publishmq/mq</git-plugin.propertiesDir>
 
         <git-plugin.gitDir>${project.basedir}/../../../../../.git</git-plugin.gitDir>
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>com.github.odavid.maven.plugins</groupId>
@@ -55,6 +67,10 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.isis.core</groupId>
@@ -64,6 +80,10 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-schema</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+        </dependency>
 
         <!-- test -->
         <dependency>
@@ -71,6 +91,20 @@
             <artifactId>isis-core-unittestsupport</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.incode.module.base</groupId>
+            <artifactId>incode-module-base-dom</artifactId>
+            <scope>test</scope>
+            <type>test-jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>

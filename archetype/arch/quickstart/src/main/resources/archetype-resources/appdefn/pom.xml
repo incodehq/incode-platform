@@ -213,6 +213,10 @@
                 </dependency>
                 <dependency>
                     <groupId>org.isisaddons.module.publishmq</groupId>
+                    <artifactId>isis-module-publishmq-dom-mq</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.isisaddons.module.publishmq</groupId>
                     <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
                 </dependency>
             </dependencies>

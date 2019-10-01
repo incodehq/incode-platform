@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.servicespi;
+package org.isisaddons.module.publishmq.dom.mq.spi;
 
 import java.util.Map;
 
@@ -8,17 +8,19 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.isisaddons.module.publishmq.dom.servicespi.PublisherServiceUsingActiveMq;
+
 import static com.google.common.collect.ImmutableMap.of;
 
-public class PublisherServiceUsingActiveMq_init_Test {
+public class InteractionExecutionRepositoryMq_init_Test {
 
-    private PublisherServiceUsingActiveMq target;
+    private InteractionExecutionRepositoryMq target;
 
     Boolean fallThroughToConnect = false;
 
     @Before
     public void setUp() throws Exception {
-        target = new PublisherServiceUsingActiveMq() {
+        target = new InteractionExecutionRepositoryMq() {
             @Override void connect() {
                 fallThroughToConnect = true;
             }

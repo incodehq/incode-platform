@@ -33,6 +33,7 @@
     <modules>
         <module>servicespi</module>
         <module>jdo</module>
+        <module>mq</module>
         <module>camel</module>
         <module>statusclient</module>
     </modules>

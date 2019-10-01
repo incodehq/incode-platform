@@ -29,7 +29,6 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.poly.fixture.PolyFixturesModule;
 import org.isisaddons.module.publishmq.dom.jdo.PublishMqSpiJdoModule;
-import org.isisaddons.module.publishmq.dom.servicespi.PublishMqSpiServicesModule;
 import org.isisaddons.module.publishmq.fixture.PublishMqFixturesModule;
 import org.isisaddons.module.quartz.dom.QuartzModule;
 import org.isisaddons.module.security.SecurityModule;
