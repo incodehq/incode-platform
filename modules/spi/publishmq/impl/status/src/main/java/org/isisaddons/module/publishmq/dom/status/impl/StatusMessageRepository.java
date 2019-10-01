@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo.status;
+package org.isisaddons.module.publishmq.dom.status.impl;
 
 import java.sql.Timestamp;
 import java.util.List;

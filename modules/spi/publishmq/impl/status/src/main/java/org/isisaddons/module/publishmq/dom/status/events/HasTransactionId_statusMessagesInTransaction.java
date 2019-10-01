@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo.events;
+package org.isisaddons.module.publishmq.dom.status.events;
 
 import java.util.List;
 
@@ -12,10 +12,9 @@ import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.HasTransactionId;
 import org.apache.isis.applib.services.RepresentsInteractionMemberExecution;
-
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage;
-import org.isisaddons.module.publishmq.dom.jdo.status.StatusMessageRepository;
+import org.isisaddons.module.publishmq.dom.status.impl.StatusMessage;
+import org.isisaddons.module.publishmq.dom.status.impl.StatusMessageRepository;
 
 @Mixin
 public class HasTransactionId_statusMessagesInTransaction {
@@ -46,6 +45,6 @@ public class HasTransactionId_statusMessagesInTransaction {
 
 
     @Inject
-    private StatusMessageRepository statusMessageRepository;
+    StatusMessageRepository statusMessageRepository;
 
 }

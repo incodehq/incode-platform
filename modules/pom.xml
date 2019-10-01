@@ -721,6 +721,23 @@
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-status</artifactId>
+                <version>${incode-platform.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-status</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
                 <artifactId>isis-module-publishmq-dom-camel</artifactId>
                 <version>${incode-platform.version}</version>
             </dependency>

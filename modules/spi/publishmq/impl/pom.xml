@@ -35,6 +35,7 @@
         <module>outbox</module>
         <module>jdo</module>
         <module>mq</module>
+        <module>status</module>
         <module>camel</module>
         <module>statusclient</module>
     </modules>

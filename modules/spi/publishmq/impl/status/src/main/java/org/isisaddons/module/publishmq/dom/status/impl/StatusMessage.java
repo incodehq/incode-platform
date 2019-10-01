@@ -1,4 +1,4 @@
-package org.isisaddons.module.publishmq.dom.jdo.status;
+package org.isisaddons.module.publishmq.dom.status.impl;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -17,9 +17,7 @@ import org.apache.isis.applib.services.RepresentsInteractionMemberExecution;
 import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.objectstore.jdo.applib.service.JdoColumnLength;
 import org.apache.isis.objectstore.jdo.applib.service.Util;
-
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +26,7 @@ import lombok.Setter;
         identityType=IdentityType.APPLICATION,
         schema = "isispublishmq",
         table="StatusMessage",
-        objectIdClass=StatusMessagePK.class)
+        objectIdClass= StatusMessagePK.class)
 @javax.jdo.annotations.Queries( {
     @javax.jdo.annotations.Query(
             name="findByTransactionId", language="JDOQL",  
@@ -133,7 +131,7 @@ public class StatusMessage implements HasTransactionId, RepresentsInteractionMem
     }
 
     /**
-     * Along with {@link #getSequence()}, uniquely identifies the {@link PublishedEvent} to which this status message relates.
+     * Along with {@link #getSequence()}, uniquely identifies the <code>PublishedEvent</code> to which this status message relates.
      *
      * <p>
      * The combination of ({@link #getTransactionId() transactionId}, {@link #getSequence()} and {@link #getTimestamp()} timestamp}) makes up the {@link StatusMessagePK priamry key}.
@@ -159,7 +157,7 @@ public class StatusMessage implements HasTransactionId, RepresentsInteractionMem
 
     /**
      * Along with {@link #getTransactionId()}, this is a 0-based additional identifier that uniquely identifies the
-     * {@link PublishedEvent} to which this status message relates.
+     * <code>PublishedEvent</code> to which this status message relates.
      *
      * <p>
      * The combination of ({@link #getTransactionId() transactionId}, {@link #getSequence() sequence}) makes up the

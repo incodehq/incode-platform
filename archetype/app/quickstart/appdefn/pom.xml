@@ -192,6 +192,10 @@
         </dependency>
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-status</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
         </dependency>
         <dependency>

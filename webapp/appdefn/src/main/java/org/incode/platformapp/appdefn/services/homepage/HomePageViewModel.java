@@ -14,7 +14,6 @@ import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.value.Blob;
-
 import org.isisaddons.module.audit.dom.AuditEntry;
 import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.audited.SomeAuditedObject;
 import org.isisaddons.module.audit.fixture.demoapp.demomodule.dom.audited.SomeAuditedObjects;
@@ -45,7 +44,7 @@ import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.PolyDemoP
 import org.isisaddons.module.poly.fixture.demoapp.demomodule.dom.party.PolyDemoParty;
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEvent;
 import org.isisaddons.module.publishmq.dom.jdo.events.PublishedEventRepository;
-import org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage;
+import org.isisaddons.module.publishmq.dom.status.impl.StatusMessage;
 import org.isisaddons.module.publishmq.fixture.demoapp.demomodule.dom.PublishMqDemoObject;
 import org.isisaddons.module.publishmq.fixture.demoapp.demomodule.dom.PublishMqDemoObjects;
 import org.isisaddons.module.security.dom.permission.ApplicationPermission;

@@ -28,7 +28,10 @@ import org.isisaddons.module.pdfbox.dom.PdfBoxModule;
 import org.isisaddons.module.poly.PolyModule;
 import org.isisaddons.module.poly.fixture.PolyFixturesModule;
 import org.isisaddons.module.publishmq.dom.jdo.PublishMqSpiJdoModule;
+import org.isisaddons.module.publishmq.dom.mq.PublishMqSpiMqModule;
+import org.isisaddons.module.publishmq.dom.outbox.PublishMqSpiOutboxModule;
 import org.isisaddons.module.publishmq.dom.servicespi.PublishMqSpiServicesModule;
+import org.isisaddons.module.publishmq.dom.status.PublishMqSpiStatusModule;
 import org.isisaddons.module.publishmq.fixture.PublishMqFixturesModule;
 import org.isisaddons.module.quartz.dom.QuartzModule;
 import org.isisaddons.module.security.SecurityModule;
@@ -165,6 +168,9 @@ public class PlatformAppAppDefnModule extends ModuleAbstract {
 
                 new PublishMqSpiServicesModule(),
                 new PublishMqSpiJdoModule(),
+                new PublishMqSpiOutboxModule(),
+                new PublishMqSpiMqModule(),
+                new PublishMqSpiStatusModule(),
                 new PublishMqFixturesModule(),
 
                 new SecurityModule(),            // expected by shiro config

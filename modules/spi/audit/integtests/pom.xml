@@ -105,25 +105,26 @@
             <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-jdo</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-outbox</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.isisaddons.module.publishmq</groupId>
+            <artifactId>isis-module-publishmq-dom-status</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-mq</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.isisaddons.module.publishmq</groupId>
             <artifactId>isis-module-publishmq-dom-camel</artifactId>
