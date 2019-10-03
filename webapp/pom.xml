@@ -18,6 +18,7 @@
     <description>Domain application with example subdomains.</description>
 
     <properties>
+        <revision>1.0.0-SNAPSHOT</revision>
         <isis.version>1.17.0</isis.version>
     </properties>
 
