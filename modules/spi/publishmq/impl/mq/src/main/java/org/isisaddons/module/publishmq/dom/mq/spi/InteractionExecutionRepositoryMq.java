@@ -49,6 +49,10 @@ public class InteractionExecutionRepositoryMq implements InteractionExecutionRep
 
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE = ROOT + "memberInteractionsQueue";
     public static final String KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT = "memberInteractionsQueue";
+
+    public static final String KEY_PROPAGATE_EXCEPTION = ROOT + "propagateException";
+    public static final String KEY_PROPAGATE_EXCEPTION_DEFAULT = "false";
+
     //endregion
 
 
@@ -64,6 +68,8 @@ public class InteractionExecutionRepositoryMq implements InteractionExecutionRep
     String memberInteractionsQueueName;
 
     private boolean enabled;
+
+    private boolean propagateException;
 
     //endregion
 
@@ -84,6 +90,8 @@ public class InteractionExecutionRepositoryMq implements InteractionExecutionRep
 
         memberInteractionsQueueName = properties.getOrDefault(KEY_MEMBER_INTERACTIONS_QUEUE,
                 KEY_MEMBER_INTERACTIONS_QUEUE_DEFAULT);
+
+        propagateException = properties.getOrDefault(KEY_PROPAGATE_EXCEPTION, KEY_PROPAGATE_EXCEPTION_DEFAULT).equalsIgnoreCase("true");
 
         connect();
 
@@ -192,9 +200,17 @@ public class InteractionExecutionRepositoryMq implements InteractionExecutionRep
 
             session.commit();
 
-        } catch (JMSException e) {
+        } catch (JMSException ex) {
             rollback(session);
-            throw new ApplicationException("Failed to publish message", e);
+            if(propagateException) {
+                throw new ApplicationException(String.format(
+                        "Failed to publish message, and aborting (as per '%s' property)", KEY_PROPAGATE_EXCEPTION),
+                        ex);
+            } else {
+                LOG.error(String.format(
+                        "Failed to publish message, but continuing (as per '%s' property)", KEY_PROPAGATE_EXCEPTION),
+                        ex);
+            }
         } finally {
             if(session != null) {
                 closeSafely(session);
