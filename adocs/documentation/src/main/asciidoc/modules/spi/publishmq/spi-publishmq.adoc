@@ -5,79 +5,84 @@
 :generate_pdf:
 :toc:
 
-This module (`isis-module-publishmq`) provides an implementation of Apache Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[`PublisherService`] SPI that submits an XML representation of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s to an link:http://activemq.apache.org[ActiveMQ] queue.
+This module (`isis-module-publishmq`) provides an implementation of Apache Isis' link:http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService[`PublisherService`] SPI, handling XML representations of an link:https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd[`MemberInteractionDto`]s.
+This can be handled in any of three ways:
 
-The xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart] app also demonstrates how this member interaction event (action invocation or property edit) can be routed using link:http://camel.apache.org[Apache Camel], whereby the payload is enriched using Apache Isis' own link:http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer[Restful Objects] viewer (obtaining additional information);
+* persisted as an `OutboxEvent` entity.
++
+This is to support the link:https://microservices.io/patterns/data/transactional-outbox.html[outbox pattern], whereby the event is captured transactionally locally, and then moved on idempotently to a message broker by a message relay.
++
+The `OutboxEventsService` is provided to pick up pending messages in the outbox, and to delete them once relayed (exposed over the Restful Objects REST API).
+The `OutboxClient` acts as a convenient client for this API.
 
-The diagram below shows the moving parts:
+* persisted as a `PublishedEvent` entity, which has the exact same schema as the `OutboxEvent`.
++
+These can be replayed to the outbox.
 
-image::{_imagesdir}overview.png[width="600px",link="{_imagesdir}overview.png"]
+* submitted immediately to a JMS endpoint.
++
+Note that this is _not_ transactionally safe.
 
+Typically either the outbox strategy or the JMS strategy should be used; it doesn't really make sense to use both together.
+The `PublishedEvent` is useful
 
-One of the design objectives for the PublishMq module is to allow the ActiveMQ queue (and therefore any Camel routing) to be either embedded (as in the example app) or to be remote.
-This is one of the reasons why the payload posted to the queue is the XML representation of a JAXB object (the `InvocationDto`).
-
-[NOTE]
-====
-Note that the example app does _not_ include an external system (General Ledger in the diagram), ie step #12.
-====
-
+The xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart] app configures this module for use with the outbox strategy.
 
 
 
 
 == Screenshots
 
-The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `org.incode.domainapp.example.app.modules.ExampleDomSpiPublishMqAppManifest`.
+The module's functionality can be explored by running the xref:../../../quickstart/quickstart-with-example-usage.adoc#[quickstart with example usage] using the `domainapp.appdefn.DomainAppAppManifestWithFixtures`.
 
-A home page is displayed when the app is run:
-
-image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
-
-This returns the first demo object (an instance of `PublishMqDemoObject`):
-
-image::{_imagesdir}020-update-demo-object.png[width="600px",link="{_imagesdir}020-update-demo-object.png"]
-
-
-=== Invoke an action
-
-The `updateName()` action is defined as:
-
-[source,java]
-----
-@Action(
-    semantics = SemanticsOf.IDEMPOTENT,
-    publishing = Publishing.ENABLED     // <1>
-)
-public PublishMqDemoObject updateName(
-        @ParameterLayout(named="Name") final String name) {
-    setName(name);
-    return this;
-}
-----
-<1> invocations of this action will be published to the configured implementation of `PublishingService`.
-
-
-Invoke the action:
-
-image::{_imagesdir}030-update-demo-object.png[width="600px",link="{_imagesdir}030-update-demo-object.png"]
-
-
-the value of the `name` property should, of course, be updated:
-
-image::images/040-demo-object-updated.png[width="600px",link="images/040-demo-object-updated.png"]
-
-From the activity menu the published events (also persisted as entities) can be inspected:
-
-image::images/042-view-published-events.png[width="600px",link="images/042-view-published-events.png"]
-
-\... one of which is to update the name:
-
-image::images/046-publish-name.png[width="600px",link="images/046-publish-name.png"]
-
-The published entity contains XML which captures the details of the member interaction:
-
-image::images/048-published-event.png[width="600px",link="images/048-published-event.png"]
+//A home page is displayed when the app is run:
+//
+//image::{_imagesdir}010-install-fixtures.png[width="600px",link="{_imagesdir}010-install-fixtures.png"]
+//
+//This returns the first demo object (an instance of `PublishMqDemoObject`):
+//
+//image::{_imagesdir}020-update-demo-object.png[width="600px",link="{_imagesdir}020-update-demo-object.png"]
+//
+//
+//=== Invoke an action
+//
+//The `updateName()` action is defined as:
+//
+//[source,java]
+//----
+//@Action(
+//    semantics = SemanticsOf.IDEMPOTENT,
+//    publishing = Publishing.ENABLED     // <1>
+//)
+//public PublishMqDemoObject updateName(
+//        @ParameterLayout(named="Name") final String name) {
+//    setName(name);
+//    return this;
+//}
+//----
+//<1> invocations of this action will be published to the configured implementation of `PublishingService`.
+//
+//
+//Invoke the action:
+//
+//image::{_imagesdir}030-update-demo-object.png[width="600px",link="{_imagesdir}030-update-demo-object.png"]
+//
+//
+//the value of the `name` property should, of course, be updated:
+//
+//image::images/040-demo-object-updated.png[width="600px",link="images/040-demo-object-updated.png"]
+//
+//From the activity menu the published events (also persisted as entities) can be inspected:
+//
+//image::images/042-view-published-events.png[width="600px",link="images/042-view-published-events.png"]
+//
+//\... one of which is to update the name:
+//
+//image::images/046-publish-name.png[width="600px",link="images/046-publish-name.png"]
+//
+//The published entity contains XML which captures the details of the member interaction:
+//
+//image::images/048-published-event.png[width="600px",link="images/048-published-event.png"]
 
 
 
@@ -88,24 +93,52 @@ You can either use this module "out-of-the-box", or you can fork this repo and e
 The module itself consists of several submodules:
 
 * the `publishmq-dom-servicespi` submodule
-
 +
-which contains the `PublishingService` SPI implementation that actually publishes to an ActiveMQ queue
+which contains the `PublishingService` SPI implementation.
+This in turn defines its own SPI, namely `InteractionExecutionRepository` (for handling ``Interaction.Execution``s, in other words action invocations or property edits) and `PublishedObjectsRepository` (for handling ``PublishedObject``s, in other words the identities of objects that have been changed)
 
-* the (optional, but recommended) `publishmq-dom-jdo` submodule
-
+* the (optional) `publishmq-dom-outbox` submodule
 +
-which allows published events to be persisted as `PublishedEvent` entities
+which allows published events to be persisted as `OutboxEvent` entities.
+This also includes the `OutboxEventsService` in other words the REST API.
+
+* the (optional) `publishmq-dom-jdo` submodule
++
+which allows published events to be persisted as `PublishedEvent` entities.
+It also contributes an action to replay events into the outbox.
+
+* the (optional) `publishmq-dom-mq` submodule
++
+which publishes events to JMS.
+
+Although all are marked optional, at least one of the `-outbox` and `-mq` modules should be included (otherwise the published events would simply be discarded).
+
+
+Also, for use within a message relay:
+
+* the `publishmq-dom-outboxclient` submodule
++
+which provides a convenient client - `OutboxClient` - to call the REST API provided by `-outbox`
+
+
+Also, for use within a message broker:
 
 * the (optional) `publishmq-dom-camel` submodule
-
 +
-which provides utility class to help route messages
+which provides utility class to help route messages in a message broker (the `AddExchangeHeaders` processor)
 
-* the (optional) `publishmq-dom-statusclient`
 
+The module also provides a mechanism for capturing arbitrary status messages for a given transaction;
+
+* the `publishmq-dom-status` module (for use within the Apache Isis application)
 +
-that provides utility classes to log status messages with the originating system via the RestfulObjects viewer's REST API.
+provides the `StatusMessage` entity to capture arbitrary status messages against interactions.
+The `StatusMessageService` is exposed through the RestfulObjects viewer's REST API.
+
+* the (optional) `publishmq-dom-statusclient` (for use within a message relay or message broker)
++
+provides a convenient client - `StatusMessageClient` - to call the REST API provided by `-status`
+
 
 
 
@@ -143,11 +176,56 @@ where `incode-platform.version` property is set appropriately for the version
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq-dom-servicespi</artifactId>
     </dependency>
+<!--
+    UNCOMMENT AT LEAST ONE OF THESE, AS REQUIRED...
+
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-outbox</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-mq</artifactId>
+    </dependency>
+-->
+
+<!--
+    UNCOMMENT IF USING STATUS MESSAGES
+
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-status</artifactId>
+    </dependency>
+-->
     ...
 </dependencies>
 ----
 
-* (if you are using Camel for routing and want to use the `AddExchangeHeaders` utility class) by adding (in the appropriate module within your app) the dependency: +
+* in the message relay:
++
+[source,xml]
+----
+<dependencies>
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-outboxclient</artifactId>
+    </dependency>
+<!--
+    UNCOMMENT IF USING STATUS MESSAGES
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
+    </dependency>
+-->
+    ...
+</dependencies>
+----
+
+* in the message broker:
 +
 [source,xml]
 ----
@@ -156,15 +234,18 @@ where `incode-platform.version` property is set appropriately for the version
         <groupId>org.isisaddons.module.publishmq</groupId>
         <artifactId>isis-module-publishmq-dom-camel</artifactId>
     </dependency>
+<!--
+    UNCOMMENT IF USING STATUS MESSAGES
+    <dependency>
+        <groupId>org.isisaddons.module.publishmq</groupId>
+        <artifactId>isis-module-publishmq-dom-statusclient</artifactId>
+    </dependency>
+-->
     ...
 </dependencies>
 ----
 
 
-[TIP]
-====
-Note that the xref:../../../quickstart/quickstart-with-embedded-camel.adoc#[quickstart with embedded camel] configures this already, so use as a guide if need be.
-====
 
 
 Check for later releases by searching http://search.maven.org/#search|ga|1|isis-module-publishmq-dom[Maven Central Repo].
@@ -199,12 +280,15 @@ public List<Class<?>> getModules() {
     return Arrays.asList(
             ...
             org.isisaddons.module.publishmq.PublishMqModule.class,
+            // org.isisaddons.module.publishmq.dom.outbox.PublishMqSpiOutboxModule.class,
+            // org.isisaddons.module.publishmq.dom.jdo.PublishMqSpiJdoModule.class,
+            // org.isisaddons.module.publishmq.dom.mq.PublishMqSpiMqModule.class,
+            // org.isisaddons.module.publishmq.dom.status.PublishMqSpiStatusModule.class,
             ...
     );
 }
 ----
 
-You might also need to specify the package for any new services that you have written, eg implementation of `ContentNegotiationService` or similar.
 
 
 === Configure ActiveMQ
@@ -321,7 +405,7 @@ None known at this time.
 
 == Submodules
 
-The publishmq module actually consists of four distinct submodules, which can be used to some extend independently.
+The publishmq module actually consists of several distinct submodules, which can be used to some extend independently.
 
 === publishmq/servicespi
 
@@ -332,23 +416,44 @@ Maven can report modules dependencies of this submodule using:
 mvn dependency:list -o -pl modules/spi/publishmq/impl/servicespi -D excludeTransitive=true
 ----
 
+which has no compile/runtime dependencies other than Incode Platform and Apache Isis
+
+
+
+=== publishmq/outbox
+
+This submodule should be included if the outbox strategy is in use.
+
+
+Maven can report modules dependencies of this submodule using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/publishmq/impl/outbox -D excludeTransitive=true
+----
+
 which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:
 
 [source,bash]
 ----
-org.apache.activemq:activemq-all:jar:5.11.1
+org.slf4j:slf4j-api:jar:1.7.21
 ----
+
+From the Incode Platform it uses:
+
+* `publishmq/servicespi` submodule, above.
+
 
 For further details on 3rd-party dependencies, see:
 
-* link:http://activemq.apache.org[Apache ActiveMQ]
+* link:https://www.slf4j.org/[Slf4J]
 
 
 
 === publishmq/jdo
 
-This submodule can be considered optional (though its use _is_ recommended).
-If not included then published messages are simply not persisted as JDO entities.
+This submodule is optional.
+If included then published messages are persisted as JDO entities.
 
 
 Maven can report modules dependencies of this submodule using:
@@ -367,14 +472,89 @@ org.slf4j:slf4j-api:jar:1.7.21
 
 From the Incode Platform it uses:
 
+* `publishmq/outbox` submodule, above.
 * `publishmq/servicespi` submodule, above.
 
 
+
+=== publishmq/mq
+
+This module is optional.
+If included then published messages are sent to a JMS queue.
+
+Maven can report modules dependencies of this submodule using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/publishmq/impl/mq -D excludeTransitive=true
+----
+
+which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.apache.activemq:activemq-all:jar:5.11.1
+----
+
+From the Incode Platform it uses:
+
+* `publishmq/servicespi` submodule, above.
+
+
+For further details on 3rd-party dependencies, see:
+
+* link:http://activemq.apache.org[Apache ActiveMQ]
+
+
+=== publishmq/status
+
+This submodule is optional.
+
+
+Maven can report modules dependencies of this submodule using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/publishmq/impl/status -D excludeTransitive=true
+----
+
+which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.slf4j:slf4j-api:jar:1.7.21
+----
 
 For further details on 3rd-party dependencies, see:
 
 * link:https://www.slf4j.org/[Slf4J]
 
+
+
+=== publishmq/outboxclient
+
+This submodule is considered optional; it provides the mechanism for a message relay to retrieve and then delete pending outbox messages using RestfulObjects viewer's REST API.
+
+Maven can report modules dependencies of this submodule using:
+
+[source,bash]
+----
+mvn dependency:list -o -pl modules/spi/publishmq/impl/outboxclient -D excludeTransitive=true
+----
+
+which, excluding Apache Isis modules, returns these compile/runtime dependencies:
+
+[source,bash]
+----
+org.slf4j:slf4j-api:jar:1.7.21
+org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.0_spec:jar:1.0.0.Final
+com.fasterxml.jackson.core:jackson-databind:jar:2.8.0
+----
+
+For further details on 3rd-party dependencies, see:
+
+* link:https://www.slf4j.org/[Slf4J]
+* link:https://github.com/FasterXML/jackson/[Jackson]
 
 
 
