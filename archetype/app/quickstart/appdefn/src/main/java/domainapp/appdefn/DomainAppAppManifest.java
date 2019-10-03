@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.apache.isis.applib.AppManifestAbstract2;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-
 import org.isisaddons.module.audit.AuditModule;
 import org.isisaddons.module.command.CommandModule;
 import org.isisaddons.module.fakedata.FakeDataModule;
+import org.isisaddons.module.publishmq.dom.jdo.PublishMqSpiJdoModule;
+import org.isisaddons.module.publishmq.dom.outbox.PublishMqSpiOutboxModule;
 import org.isisaddons.module.security.SecurityModule;
 import org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt;
 import org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto;
@@ -21,9 +22,8 @@ import org.isisaddons.wicket.gmap3.cpt.ui.Gmap3UiModule;
 import org.isisaddons.wicket.pdfjs.cpt.PdfjsCptModule;
 import org.isisaddons.wicket.summernote.cpt.ui.SummernoteUiModule;
 import org.isisaddons.wicket.wickedcharts.cpt.ui.WickedChartsUiModule;
-
-import org.incode.module.settings.SettingsModule;
 import org.incode.module.base.services.BaseServicesModule;
+import org.incode.module.settings.SettingsModule;
 
 import domainapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
@@ -33,35 +33,65 @@ public class DomainAppAppManifest extends AppManifestAbstract2 {
             Builder.forModule(
                 new DomainAppAppDefnModule()
             )
-            .withAdditionalModules(
+            .withAdditionalDependencies(
+                    new SecurityModule(),   // expected by shiro config
+                    new CommandModule(),    // expected by quartz config
+                    new SettingsModule(),   // expected by togglz
 
-                SecurityModule.class,       // expected by shiro config
-                CommandModule.class,        // expected by quartz config
-                SettingsModule.class,        // expected by togglz
+                    // extensions
+                    new TogglzModule(),
 
+                    // lib
+                    new BaseServicesModule(),
+                    new FakeDataModule(),
 
-                // extensions
-                TogglzModule.class,
+                    // spi
+                    new AuditModule(),
+                    new PublishMqSpiOutboxModule(),
+                    new PublishMqSpiJdoModule(),
+                    new SessionLoggerModule(),
 
-                // lib
-                BaseServicesModule.class,
-                FakeDataModule.class,
-
-                // spi
-                AuditModule.class,
-                //PublishMqModule.class,
-                SessionLoggerModule.class,
-
-                // cpt (wicket ui)
-                ExcelUiModule.class,
-                FullCalendar2UiModule.class,
-                Gmap3ApplibModule.class,
-                Gmap3ServiceModule.class,
-                Gmap3UiModule.class,
-                SummernoteUiModule.class,
-                PdfjsCptModule.class,
-                WickedChartsUiModule.class
+                    // ui
+                    new ExcelUiModule(),
+                    new FullCalendar2UiModule(),
+                    new Gmap3ApplibModule(),
+                    new Gmap3ServiceModule(),
+                    new Gmap3UiModule(),
+                    new SummernoteUiModule(),
+                    new PdfjsCptModule(),
+                    new WickedChartsUiModule()
             )
+//            .withAdditionalModules(
+//
+//                SecurityModule.class,       // expected by shiro config
+//                CommandModule.class,        // expected by quartz config
+//                SettingsModule.class,        // expected by togglz
+//
+//
+//                // extensions
+//                TogglzModule.class,
+//
+//                // lib
+//                BaseServicesModule.class,
+//                FakeDataModule.class,
+//
+//                // spi
+//                AuditModule.class,
+//                // PublishMqSpiServicesModule.class,
+//                // PublishMqSpiOutboxModule.class,
+//                // PublishMqSpiJdoModule.class,
+//                SessionLoggerModule.class,
+//
+//                // cpt (wicket ui)
+//                ExcelUiModule.class,
+//                FullCalendar2UiModule.class,
+//                Gmap3ApplibModule.class,
+//                Gmap3ServiceModule.class,
+//                Gmap3UiModule.class,
+//                SummernoteUiModule.class,
+//                PdfjsCptModule.class,
+//                WickedChartsUiModule.class
+//            )
             .withAdditionalServices(
                     PasswordEncryptionServiceUsingJBcrypt.class,
                     PermissionsEvaluationServiceAllowBeatsVeto.class

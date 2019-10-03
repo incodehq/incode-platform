@@ -32,7 +32,9 @@
 
     <modules>
         <module>servicespi</module>
+        <module>outbox-canonical</module>
         <module>outbox</module>
+        <module>outboxclient</module>
         <module>jdo</module>
         <module>mq</module>
         <module>status</module>

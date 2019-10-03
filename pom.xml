@@ -68,6 +68,8 @@
 
                 <module>modules/spi/publishmq/fixture</module>
                 <module>modules/spi/publishmq/impl/jdo</module>
+                <module>modules/spi/publishmq/impl/status</module>
+                <module>modules/spi/publishmq/impl/outbox</module>
 
                 <module>modules/spi/security/fixture</module>
                 <module>modules/spi/security/impl</module>

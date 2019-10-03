@@ -8,9 +8,10 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Mixin;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.isisaddons.module.publishmq.PublishMqModule;
-import org.isisaddons.module.publishmq.dom.servicespi.PublisherServiceUsingActiveMq;
+import org.isisaddons.module.publishmq.dom.outbox.events.OutboxEventRepository;
+import org.isisaddons.module.publishmq.dom.outbox.events.PublishedEventType;
 
-@Mixin
+@Mixin(method = "act")
 public class PublishedEvent_republish {
 
     private final PublishedEvent publishedEvent;
@@ -32,9 +33,28 @@ public class PublishedEvent_republish {
             cssClass = "btn-warning"
     )
     @MemberOrder(name = "transactionId", sequence = "1")
-    public PublishedEvent $$() {
+    public PublishedEvent act() {
 
-        throw new RuntimeException("Not yet implemented.");
+        outboxEventRepository.upsert(
+                publishedEvent.getTransactionId(),
+                publishedEvent.getSequence(),
+                publishedEvent.getEventType(),
+                publishedEvent.getTimestamp(),
+                publishedEvent.getUser(),
+                publishedEvent.getTarget(), publishedEvent.getTargetClass(),
+                publishedEvent.getMemberIdentifier(), publishedEvent.getTargetAction(),
+                publishedEvent.getSerializedForm()
+        );
+
+        return publishedEvent;
     }
 
+    public String disableAct() {
+        return publishedEvent.getEventType() == PublishedEventType.CHANGED_OBJECTS ?
+                "Cannot republish events of type 'CHANGED_OBJECTS'"
+                : null;
+    }
+
+    @Inject
+    OutboxEventRepository outboxEventRepository;
 }

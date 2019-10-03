@@ -2,12 +2,18 @@ package org.incode.platformapp.appdefn;
 
 import java.util.List;
 
+import org.apache.isis.applib.AppManifestAbstract2;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-
+import org.isisaddons.module.fakedata.FakeDataModule;
 import org.incode.platformapp.appdefn.fixture.RecreateDemoFixtures;
-import org.incode.platformapp.appdefn.seed.security.SeedSuperAdministratorRoleAndSvenSuperUser;
 
-public class PlatformAppAppManifestWithFixtures extends PlatformAppAppManifest {
+public class PlatformAppAppManifestWithFixtures  extends AppManifestAbstract2 {
+
+    public PlatformAppAppManifestWithFixtures() {
+        super(Builder.forModule(new PlatformAppAppDefnModule())
+                    .withAdditionalDependencies(new FakeDataModule()));
+    }
+
 
     @Override
     protected void overrideFixtures(

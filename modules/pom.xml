@@ -721,8 +721,20 @@
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
-                <artifactId>isis-module-publishmq-dom-jdo</artifactId>
+                <artifactId>isis-module-publishmq-outbox-canonical</artifactId>
                 <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-outboxclient</artifactId>
+                <version>${incode-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.isisaddons.module.publishmq</groupId>
+                <artifactId>isis-module-publishmq-dom-outboxclient</artifactId>
+                <version>${incode-platform.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.isisaddons.module.publishmq</groupId>
