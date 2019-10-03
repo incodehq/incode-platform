@@ -31,45 +31,45 @@ import lombok.Setter;
     @javax.jdo.annotations.Query(
             name="findByTransactionId", language="JDOQL",  
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "FROM org.isisaddons.module.publishmq.dom.status.impl.StatusMessage "
                     + "WHERE transactionId == :transactionId "
                     + "ORDER BY timestamp DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
             name="findByTransactionIdAndSequence", language="JDOQL",
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "FROM org.isisaddons.module.publishmq.dom.status.impl.StatusMessage "
                     + "WHERE transactionId == :transactionId "
                     + "&&    sequence      == :sequence "
                     + "ORDER BY timestamp DESC"),
     @javax.jdo.annotations.Query(
             name="findByTransactionIds", language="JDOQL",
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "FROM org.isisaddons.module.publishmq.dom.status.impl.StatusMessage "
                     + "WHERE :transactionIds.contains(transactionId) "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
             name="findByTimestampBetween", language="JDOQL",
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "FROM org.isisaddons.module.publishmq.dom.status.impl.StatusMessage "
                     + "WHERE timestamp >= :from "
                     + "&&    timestamp <= :to "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampAfter", language="JDOQL",  
+            name="findByTimestampAfter", language="JDOQL",
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "FROM org.isisaddons.module.publishmq.dom.status.impl.StatusMessage "
                     + "WHERE timestamp >= :from "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
-            name="findByTimestampBefore", language="JDOQL",  
+            name="findByTimestampBefore", language="JDOQL",
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "FROM org.isisaddons.module.publishmq.dom.status.impl.StatusMessage "
                     + "WHERE timestamp <= :to "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC"),
     @javax.jdo.annotations.Query(
-            name="find", language="JDOQL",  
+            name="find", language="JDOQL",
             value="SELECT "
-                    + "FROM org.isisaddons.module.publishmq.dom.jdo.status.StatusMessage "
+                    + "FROM org.isisaddons.module.publishmq.dom.status.impl.StatusMessage "
                     + "ORDER BY timestamp DESC, transactionId DESC, sequence ASC")
 })
 @javax.jdo.annotations.Indices( {
