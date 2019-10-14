@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.registry.ServiceRegistry;
 import org.isisaddons.module.publishmq.dom.outbox.events.OutboxEvent;
@@ -29,7 +30,7 @@ public class OutboxEventService {
      *
      * @return
      */
-    @Action(semantics = SemanticsOf.SAFE)
+    @Action(semantics = SemanticsOf.SAFE, publishing = Publishing.DISABLED)
     public OutboxEvents pending() {
         final OutboxEvents outboxEvents = serviceRegistry.injectServicesInto(new OutboxEvents());
         final List<OutboxEvent> oldest = outboxEventRepository.findOldest();
@@ -37,7 +38,7 @@ public class OutboxEventService {
         return outboxEvents;
     }
 
-    @Action(semantics = SemanticsOf.IDEMPOTENT)
+    @Action(semantics = SemanticsOf.IDEMPOTENT, publishing = Publishing.DISABLED)
     public void delete(final String transactionId, final int sequence) {
         outboxEventRepository.deleteByTransactionIdAndSequence(UUID.fromString(transactionId), sequence);
     }
