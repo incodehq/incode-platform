@@ -85,7 +85,7 @@
         <httpclient.version>4.5.2</httpclient.version>
         <flyway-core.version>4.0.3</flyway-core.version>
         <gson.version>2.3.1</gson.version>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.11.0</jackson.version>
         <javafaker.version>0.5</javafaker.version>
         <javassist.version>3.19.0-GA</javassist.version>
         <jbcrypt.version>0.3m</jbcrypt.version>
