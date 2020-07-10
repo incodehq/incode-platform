@@ -97,7 +97,7 @@
         <quartz-scheduler.version>2.3.2</quartz-scheduler.version>
         <pdfbox.version>2.0.12</pdfbox.version>
         <poi.version>3.10-FINAL</poi.version>
-        <shiro-core.version>1.2.3</shiro-core.version>
+        <shiro-core.version>1.4.2</shiro-core.version>
         <simpleslackapi.version>1.2.0</simpleslackapi.version>
         <spring.version>4.1.6.RELEASE</spring.version>
         <togglz.version>2.1.0.Final</togglz.version>
